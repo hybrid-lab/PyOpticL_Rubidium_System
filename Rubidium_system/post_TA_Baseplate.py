@@ -1,12 +1,12 @@
 from PyOpticL import layout, optomech
 
 # baseplate constants
-base_dx = 18*layout.inch
-base_dy = 14*layout.inch
+base_dx = 20*layout.inch
+base_dy = 15*layout.inch
 base_dz = layout.inch
 gap = layout.inch/8
 
-mount_holes = [(3, 0), (0, 13), (17, 0), (17, 13)]
+mount_holes = [(3, 0), (0, 14), (17, 0), (17, 14)]
 
 input_y = 7*layout.inch
 
@@ -31,7 +31,7 @@ def post_TA_baseplate(x=0, y=0, angle=0):
                                        beam_index=0b1, distance=4.25*layout.inch, angle=layout.cardinal['up'],
                                        mount_type=optomech.rotation_stage_rsp05)
 
-    baseplate.place_element_along_beam("Mirror", optomech.circular_mirror, beam, beam_index=0b1, distance=2*layout.inch, angle=layout.turn['up-right'],
+    baseplate.place_element_along_beam("Mirror", optomech.circular_mirror, beam, beam_index=0b1, distance=2.25*layout.inch, angle=layout.turn['up-right'],
                                        mount_type=optomech.mirror_mount_M05,
                                        mount_args=dict(thumbscrews=True))
     
@@ -75,7 +75,7 @@ def post_TA_baseplate(x=0, y=0, angle=0):
                                        mount_type=optomech.skate_mount, invert=True)
     
     baseplate.place_element_along_beam("Output Fiberport", optomech.fiberport_mount_km05T, beam,
-                                       beam_index=0b1100, distance=1.5*layout.inch, angle=layout.cardinal['left'],
+                                       beam_index=0b1100, distance=2.5*layout.inch, angle=layout.cardinal['left'],
                                        mount_args=dict(thumbscrews=True))
     
 
@@ -91,7 +91,7 @@ def post_TA_baseplate(x=0, y=0, angle=0):
 
 
     baseplate.place_element_along_beam("Mirror", optomech.circular_mirror, beam,
-                                       beam_index=0b101, distance=3.5*layout.inch, angle=layout.turn['up-right'],
+                                       beam_index=0b101, distance=4.25*layout.inch, angle=layout.turn['up-right'],
                                        mount_type=optomech.mirror_mount_M05)
 
     baseplate.place_element_along_beam("1/2 Waveplate", optomech.waveplate, beam,
@@ -125,7 +125,7 @@ def post_TA_baseplate(x=0, y=0, angle=0):
                                        mount_type=optomech.skate_mount, invert=True)
     
     baseplate.place_element_along_beam("Output Fiberport", optomech.fiberport_mount_km05T, beam,
-                                       beam_index=0b10100, distance=1.25*layout.inch, angle=layout.cardinal['left'],
+                                       beam_index=0b10100, distance=2.5*layout.inch, angle=layout.cardinal['left'],
                                        mount_args=dict(thumbscrews=True))
     
 
@@ -159,7 +159,7 @@ def post_TA_baseplate(x=0, y=0, angle=0):
                                        mount_type=optomech.skate_mount, invert=True)
     
     baseplate.place_element_along_beam("Output Fiberport", optomech.fiberport_mount_km05T, beam,
-                                       beam_index=0b10000, distance=1.25*layout.inch, angle=layout.cardinal['left'],
+                                       beam_index=0b10000, distance=2.5*layout.inch, angle=layout.cardinal['left'],
                                        mount_args=dict(thumbscrews=True))
     
 
