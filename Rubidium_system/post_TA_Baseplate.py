@@ -31,7 +31,7 @@ def post_TA_baseplate(x=0, y=0, angle=0):
                                        beam_index=0b1, distance=4.25*layout.inch, angle=layout.cardinal['up'],
                                        mount_type=optomech.rotation_stage_rsp05)
 
-    baseplate.place_element_along_beam("Mirror", optomech.circular_mirror, beam, beam_index=0b1, distance=2.25*layout.inch, angle=layout.turn['up-right'],
+    baseplate.place_element_along_beam("Mirror", optomech.circular_mirror, beam, beam_index=0b1, distance=2.25  *layout.inch, angle=layout.turn['up-right'],
                                        mount_type=optomech.mirror_mount_M05,
                                        mount_args=dict(thumbscrews=True))
     
@@ -82,7 +82,7 @@ def post_TA_baseplate(x=0, y=0, angle=0):
 
 
     baseplate.place_element_along_beam("1/2 Waveplate", optomech.waveplate, beam, beam_index=0b10, distance=1*layout.inch, angle=layout.cardinal['left'],
-                                       mount_type=optomech.rotation_stage_rsp05_wide)
+                                       mount_type=optomech.rotation_stage_rsp05)
 
     baseplate.place_element_along_beam("Beam Splitter Cube", optomech.cube_splitter, beam,
                                        beam_index=0b10, distance=0.875*layout.inch, angle=layout.cardinal['left'],
@@ -130,7 +130,7 @@ def post_TA_baseplate(x=0, y=0, angle=0):
     
 
     baseplate.place_element_along_beam("1/2 Waveplate", optomech.waveplate, beam, beam_index=0b100, distance=1*layout.inch, angle=layout.cardinal['left'],
-                                       mount_type=optomech.rotation_stage_rsp05_wide)
+                                       mount_type=optomech.rotation_stage_rsp05)
     
     baseplate.place_element_along_beam("Lens f50mm AB coat", optomech.circular_lens, beam,
                                          beam_index=0b100, distance=1.25*layout.inch, angle=layout.cardinal['left'],

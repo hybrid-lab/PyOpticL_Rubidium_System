@@ -46,15 +46,20 @@ Note: The exact PyOpticL module path depends on your OS and FreeCAD configuratio
 
 ## Boards
 
-- Reference_board: Provides reference laser(s)/frequency references used across the system.
-- MOT_board: Beam preparation and delivery for the Magneto-Optical Trap.
-- Repumper_board: Repumping pathway for Rb-87.
-- Spectroscopy_board: Spectroscopy optics for diagnostics/locking.
-- post_TA_board: Post-tapered-amplifier (or analogous high-power stage) beam conditioning.
+- Reference_board:
+
+- MOT_board: 
+
+- Repumper_board: 
+
+- Spectroscopy_board: 
+
+- post_TA_board: 
 
 ## How to Use
 
-(Coming soon)
+Please see the Quickstart Guide in the PyOpticL wiki:
+https://github.com/UMassIonTrappers/PyOpticL/wiki#quickstart-guide
 
 ## Customization
 

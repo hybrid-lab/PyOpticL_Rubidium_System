@@ -61,7 +61,7 @@ def example_baseplate(x=0, y=0, angle=0):
     # add waveplate along the beam, 1/2" before the PBS , mounted in a rotation stage
     baseplate.place_element_along_beam("1/2 Waveplate", optomech.waveplate, ref_beam,
                                        beam_index=0b10, x=11.175*layout.inch, angle=layout.cardinal['right'],
-                                       mount_type=optomech.rotation_stage_rsp05_wide)
+                                       mount_type=optomech.rotation_stage_rsp05)
 
     # add splitter component along beam
     baseplate.place_element_along_beam("Beam Splitter Cube", optomech.cube_splitter, ref_beam,
@@ -71,7 +71,7 @@ def example_baseplate(x=0, y=0, angle=0):
     # add waveplate along the beam, 1/2" before the PBS , mounted in a rotation stage
     baseplate.place_element_along_beam("1/2 Waveplate", optomech.waveplate, ref_beam,
                                        beam_index=0b100, distance=2.125*layout.inch, angle=layout.cardinal['right'],
-                                       mount_type=optomech.rotation_stage_rsp05_wide)
+                                       mount_type=optomech.rotation_stage_rsp05)
 
     # add splitter component along beam
     baseplate.place_element_along_beam("Beam Splitter Cube", optomech.cube_splitter, ref_beam,
@@ -110,7 +110,7 @@ def example_baseplate(x=0, y=0, angle=0):
     # add waveplate along the beam, 1/2" before the PBS , mounted in a rotation stage
     baseplate.place_element_along_beam("1/2 Waveplate", optomech.waveplate, mot_beam,
                                        beam_index=0b1, distance=0.75*layout.inch, angle=layout.cardinal['up'],
-                                       mount_type=optomech.rotation_stage_rsp05_wide)
+                                       mount_type=optomech.rotation_stage_rsp05)
 
     # Place the mirror on ref_beam
     baseplate.place_element_along_beam("Shared Mirror", optomech.circular_mirror, ref_beam,
