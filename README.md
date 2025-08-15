@@ -1,4 +1,4 @@
-# Rb87 Neutral Atom Quantum Computing Optical Platform (PyOpticL + FreeCAD)
+# Rb87 Neutral Atom Optical Platform (PyOpticL + FreeCAD)
 
 This repository contains a PyOpticL-based optical/mechanical layout for building an optical platform targeting Rb-87 neutral atom quantum computing experiments. It assembles a complete, code-driven CAD model in FreeCAD, organizing the setup into modular boards.
 
@@ -42,7 +42,7 @@ Note: The exact PyOpticL module path depends on your OS and FreeCAD configuratio
 
 - `stl/` — Mechanical part models used by the layout (mounts, adapters, etc.).
 - `optomech.py` — Project-specific mechanical and optical component definitions/overrides for PyOpticL.
-- `Adapters/` - 3D\-printable files for the adapters on the boards.
+- `Adapters/` - 3D\-printable files for the adapters on the boards, along with the Rb cell holders.
 - Main script: See the provided Python script (e.g., “PyOpticL_Rubidium_System”) that constructs all boards in FreeCAD using PyOpticL.
 
 ## Boards
