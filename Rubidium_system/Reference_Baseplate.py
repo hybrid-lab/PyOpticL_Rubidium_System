@@ -32,9 +32,9 @@ def example_baseplate(x=0, y=0, angle=0):
     spare_beam = baseplate.add_beam_path(x=7.5*layout.inch, y=input_y-5.5*layout.inch, angle=layout.cardinal['right'])
 
 
-    baseplate.place_element("IPS Laser", optomech.Koheron_IPS_Laser, x=3.125*layout.inch, y=input_y, angle=0)
+    baseplate.place_element("DFB", optomech.Koheron_DFB_Laser, x=3.125*layout.inch, y=input_y, angle=0)
 
-    # add waveplate along the transmitted beam, 1" after the IPS laser, mounted in a rotation stage
+    # add waveplate along the transmitted beam, 1" after the DFB laser, mounted in a rotation stage
     baseplate.place_element_along_beam("1/2 Waveplate", optomech.waveplate, ref_beam,
                                        beam_index=0b1, distance=1.25*layout.inch, angle=layout.cardinal['right'],
                                        mount_type=optomech.rotation_stage_rsp05)
@@ -58,7 +58,7 @@ def example_baseplate(x=0, y=0, angle=0):
     # add splitter component along beam
     baseplate.place_element_along_beam("Beam Splitter Cube", optomech.cube_splitter, ref_beam,
                                        beam_index=0b1, x=10.75*layout.inch, angle=layout.cardinal['right'],
-                                       mount_type=optomech.cube_mount_halfinch)
+                                       mount_type=optomech.skate_mount)
 
 
     # add waveplate along the beam, 1/2" before the PBS , mounted in a rotation stage
@@ -69,7 +69,7 @@ def example_baseplate(x=0, y=0, angle=0):
     # add splitter component along beam
     baseplate.place_element_along_beam("Beam Splitter Cube", optomech.cube_splitter, ref_beam,
                                        beam_index=0b10, x=14.05*layout.inch, angle=layout.cardinal['right'],
-                                       mount_type=optomech.cube_mount_halfinch)
+                                       mount_type=optomech.skate_mount)
 
     # add waveplate along the beam, 1/2" before the PBS , mounted in a rotation stage
     baseplate.place_element_along_beam("1/2 Waveplate", optomech.waveplate, ref_beam,
@@ -79,7 +79,7 @@ def example_baseplate(x=0, y=0, angle=0):
     # add splitter component along beam
     baseplate.place_element_along_beam("Beam Splitter Cube", optomech.cube_splitter, ref_beam,
                                        beam_index=0b100, x=17.3*layout.inch, angle=layout.cardinal['right'],
-                                       mount_type=optomech.cube_mount_halfinch)
+                                       mount_type=optomech.skate_mount)
 
     # add mirror along the MOT beam, mounted in a m05 mount
     baseplate.place_element_along_beam("Mirror", optomech.circular_mirror, ref_beam,
@@ -93,12 +93,8 @@ def example_baseplate(x=0, y=0, angle=0):
                                        beam_index=0b1000, distance=layout.inch, angle=layout.cardinal['up'],
                                        mount_type=optomech.rotation_stage_rsp05)
 
-    # add output fiberport along the transmitted beam (replaced km05T by KA05T)
-    #    baseplate.place_element_along_beam("Ref Output Fiberport", optomech.fiberport_mount_km05T, ref_beam,
-    #                                       beam_index=0b1000, distance=3*layout.inch -5.136, angle=layout.cardinal['down'],
-    #                                       mount_args=dict(thumbscrews=True))
-
-    baseplate.place_element_along_beam("Ref Output Fiberport", optomech.fiberport_mount_KA05T, ref_beam,
+    # add output fiberport along the transmitted beam
+    baseplate.place_element_along_beam("Ref Output Fiberport", optomech.fiberport_mount_km05T, ref_beam,
                                        beam_index=0b1000, distance=3*layout.inch -5.136, angle=layout.cardinal['down'],
                                        mount_args=dict(thumbscrews=True))
 
@@ -108,11 +104,8 @@ def example_baseplate(x=0, y=0, angle=0):
 
 
 
-    # add output fiberport along the MOT beam (replaced km05T by KA05T)
-    #    baseplate.place_element("MOT Input Fiberport", optomech.fiberport_mount_km05T, mount_args=dict(thumbscrews=True), 
-    #        x=5*layout.inch, y = input_y-2.5*layout.inch, angle=layout.cardinal['right'])
-
-    baseplate.place_element("MOT Input Fiberport", optomech.fiberport_mount_KA05T, mount_args=dict(thumbscrews=True), 
+    # add output fiberport along the MOT beam
+    baseplate.place_element("MOT Input Fiberport", optomech.fiberport_mount_km05T, mount_args=dict(thumbscrews=True), 
         x=5*layout.inch, y = input_y-2.5*layout.inch, angle=layout.cardinal['right'])
 
     baseplate.place_element_along_beam("Mirror", optomech.circular_mirror, mot_beam,
@@ -142,22 +135,16 @@ def example_baseplate(x=0, y=0, angle=0):
                                        beam_index=0b11, distance=1.25*layout.inch, angle=layout.cardinal['left'],
                                        mount_type=optomech.rotation_stage_rsp05)
 
-    # add output fiberport along the transmitted beam (replaced km05T by KA05T)
-    #    baseplate.place_element_along_beam("MOT Output Fiberport", optomech.fiberport_mount_km05T, ref_beam,
-    #                                       beam_index=0b11, distance=3.5*layout.inch, angle=layout.cardinal['right'], mount_args=dict(thumbscrews=True))
-
-    baseplate.place_element_along_beam("MOT Output Fiberport", optomech.fiberport_mount_KA05T, ref_beam,
+    # add output fiberport along the transmitted beam
+    baseplate.place_element_along_beam("MOT Output Fiberport", optomech.fiberport_mount_km05T, ref_beam,
                                        beam_index=0b11, distance=3.5*layout.inch, angle=layout.cardinal['right'], mount_args=dict(thumbscrews=True))
 
 
 
 
 
-    # add output fiberport along the repump beam (replaced km05T by KA05T)
-    #    baseplate.place_element("Repumper Input Fiberport", optomech.fiberport_mount_km05T, mount_args=dict(thumbscrews=True), 
-    #        x=6*layout.inch, y = input_y-4.0*layout.inch, angle=layout.cardinal['right'])
-
-    baseplate.place_element("Repumper Input Fiberport", optomech.fiberport_mount_KA05T, mount_args=dict(thumbscrews=True), 
+    # add output fiberport along the repump beam
+    baseplate.place_element("Repumper Input Fiberport", optomech.fiberport_mount_km05T, mount_args=dict(thumbscrews=True), 
         x=6*layout.inch, y = input_y-4.0*layout.inch, angle=layout.cardinal['right'])
 
     # add mirror along the repump beam, mounted in a m05 mount
@@ -177,7 +164,7 @@ def example_baseplate(x=0, y=0, angle=0):
                                        mount_type=optomech.mirror_mount_M05,
                                        mount_args=dict(thumbscrews=True))
 
-    # add waveplate along the beam, 1/2" before the PBS , mounted in a rotation stage (replaced km05T by KA05T)
+    # add waveplate along the beam, 1/2" before the PBS , mounted in a rotation stage
     baseplate.place_element_along_beam("1/2 Waveplate", optomech.waveplate, ref_beam,
                                        beam_index=0b101, distance=1.2*layout.inch, angle=layout.cardinal['left'],
                                        mount_type=optomech.rotation_stage_rsp05)
@@ -186,10 +173,7 @@ def example_baseplate(x=0, y=0, angle=0):
                                        beam_index=0b101, distance=3*layout.inch, angle=layout.cardinal['left'],
                                        mount_type=optomech.rotation_stage_rsp05)
 
-    #baseplate.place_element_along_beam("Repumper Output Fiberport", optomech.fiberport_mount_km05T, ref_beam,
-    #                                   beam_index=0b101, distance=3.5*layout.inch, angle=layout.cardinal['right'], mount_args=dict(thumbscrews=True))
-
-    baseplate.place_element_along_beam("Repumper Output Fiberport", optomech.fiberport_mount_KA05T, ref_beam,
+    baseplate.place_element_along_beam("Repumper Output Fiberport", optomech.fiberport_mount_km05T, ref_beam,
                                        beam_index=0b101, distance=3.5*layout.inch, angle=layout.cardinal['right'], mount_args=dict(thumbscrews=True))
 
 
@@ -199,10 +183,8 @@ def example_baseplate(x=0, y=0, angle=0):
 
 
 
-    # add output fiberport along the spare beam (replaced km05T by KA05T)
-    #    baseplate.place_element("Spare Input Fiberport", optomech.fiberport_mount_km05T, mount_args=dict(thumbscrews=True), 
-    #        x=7*layout.inch, y = input_y-5.5*layout.inch, angle=layout.cardinal['right'])
-    baseplate.place_element("Spare Input Fiberport", optomech.fiberport_mount_KA05T, mount_args=dict(thumbscrews=True), 
+    # add output fiberport along the spare beam
+    baseplate.place_element("Spare Input Fiberport", optomech.fiberport_mount_km05T, mount_args=dict(thumbscrews=True), 
         x=7*layout.inch, y = input_y-5.5*layout.inch, angle=layout.cardinal['right'])
 
     # add mirror along the repump beam, mounted in a m05 mount
@@ -231,11 +213,8 @@ def example_baseplate(x=0, y=0, angle=0):
                                        beam_index=0b1001, distance=4.5*layout.inch, angle=layout.cardinal['left'],
                                        mount_type=optomech.rotation_stage_rsp05)
 
-    # add output fiberport along the transmitted beam (replaced km05T by KA05T)
-    #    baseplate.place_element_along_beam("Spare Output Fiberport", optomech.fiberport_mount_km05T, ref_beam,
-    #                                       beam_index=0b1001, distance=3*layout.inch, angle=layout.cardinal['right'], mount_args=dict(thumbscrews=True))
-
-    baseplate.place_element_along_beam("Spare Output Fiberport", optomech.fiberport_mount_KA05T, ref_beam,
+    # add output fiberport along the transmitted beam
+    baseplate.place_element_along_beam("Spare Output Fiberport", optomech.fiberport_mount_km05T, ref_beam,
                                        beam_index=0b1001, distance=3*layout.inch, angle=layout.cardinal['right'], mount_args=dict(thumbscrews=True))
 
 

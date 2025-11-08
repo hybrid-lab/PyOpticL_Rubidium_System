@@ -13,9 +13,8 @@ def Split_baseplate(x=0, y=0, angle=0):
 
     beam = baseplate.add_beam_path(x=4*layout.inch, y=1.7*layout.inch, angle=layout.cardinal['left'])
 
-    #baseplate.place_element("Input Fiberport", optomech.fiberport_mount_km05T, x=4.75*layout.inch, y=1.7*layout.inch, angle=layout.cardinal['left'], mount_args=dict(thumbscrews=True))
-    baseplate.place_element("Input Fiberport", optomech.fiberport_mount_KA05T, x=4.75*layout.inch, y=1.7*layout.inch, angle=layout.cardinal['left'], mount_args=dict(thumbscrews=True))
- 
+    baseplate.place_element("Input Fiberport", optomech.fiberport_mount_km05T, x=4.75*layout.inch, y=1.7*layout.inch, angle=layout.cardinal['left'], mount_args=dict(thumbscrews=True))
+
     baseplate.place_element_along_beam("Mirror", optomech.circular_mirror, beam,
                                        beam_index=0b1, distance=2.75*layout.inch, angle=layout.turn['down-right'],
                                        mount_type=optomech.mirror_mount_FMP05)
@@ -26,7 +25,7 @@ def Split_baseplate(x=0, y=0, angle=0):
 
     baseplate.place_element_along_beam("Beam Splitter Cube", optomech.cube_splitter, beam,
                                        beam_index=0b1, distance=1*layout.inch, angle=layout.cardinal['down'],
-                                       mount_type=optomech.cube_mount_halfinch, invert=True)
+                                       mount_type=optomech.skate_mount, invert=True)
 
     baseplate.place_element_along_beam("Mirror", optomech.circular_mirror, beam,
                                        beam_index=0b10, distance=1.2*layout.inch, angle=layout.turn['up-right'],
@@ -87,10 +86,7 @@ def Split_baseplate(x=0, y=0, angle=0):
                                        beam_index=0b110, distance=1*layout.inch, angle=layout.cardinal['left'],
                                        mount_type=optomech.rotation_stage_rsp05)
     
-    #baseplate.place_element_along_beam("Output Fiberport", optomech.fiberport_mount_km05T, beam,
-    #                                   beam_index=0b110, distance=2.5*layout.inch, angle=layout.cardinal['left'],
-    #                                   mount_args=dict(thumbscrews=True))    
-    baseplate.place_element_along_beam("Output Fiberport", optomech.fiberport_mount_KA05T, beam,
+    baseplate.place_element_along_beam("Output Fiberport", optomech.fiberport_mount_km05T, beam,
                                        beam_index=0b110, distance=2.5*layout.inch, angle=layout.cardinal['left'],
                                        mount_args=dict(thumbscrews=True))
     

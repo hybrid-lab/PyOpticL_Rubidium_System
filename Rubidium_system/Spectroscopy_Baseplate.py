@@ -16,8 +16,7 @@ def example_baseplate(x=0, y=0, angle=0):
 
     beam = baseplate.add_beam_path(x=5*layout.inch, y=input_y, angle=layout.cardinal['left'])
 
-    #baseplate.place_element("Input Fiberport", optomech.fiberport_mount_km05T, x=5.5*layout.inch, y=input_y, angle=layout.cardinal['left'], mount_args=dict(thumbscrews=True))
-    baseplate.place_element("Input Fiberport", optomech.fiberport_mount_KA05T, x=5.5*layout.inch, y=input_y, angle=layout.cardinal['left'], mount_args=dict(thumbscrews=True))
+    baseplate.place_element("Input Fiberport", optomech.fiberport_mount_km05T, x=5.5*layout.inch, y=input_y, angle=layout.cardinal['left'], mount_args=dict(thumbscrews=True))
 
     baseplate.place_element_along_beam("Mirror", optomech.circular_mirror, beam, beam_index=0b1, x=1.75*layout.inch, angle=layout.turn['up-right'],
                                         mount_type=optomech.mirror_mount_M05, mount_args=dict(thumbscrews=True))
@@ -32,7 +31,7 @@ def example_baseplate(x=0, y=0, angle=0):
     
     baseplate.place_element_along_beam("Beam Splitter Cube", optomech.cube_splitter, beam,
                                        beam_index=0b1, distance=1*layout.inch, angle=layout.cardinal['down'],
-                                       mount_type=optomech.cube_mount_halfinch)
+                                       mount_type=optomech.skate_mount)
     
     baseplate.place_element_along_beam("Mirror", optomech.circular_mirror, beam,
                                        beam_index=0b10, distance=2.15*layout.inch, angle=layout.turn['down-right'],
@@ -54,7 +53,7 @@ def example_baseplate(x=0, y=0, angle=0):
 
     baseplate.place_element("1/2 Waveplate", optomech.waveplate, x=9.5*layout.inch, y=3.75*layout.inch, angle=layout.cardinal['right'], mount_type=optomech.rotation_stage_rsp05)
 
-    baseplate.place_element("Beam Splitter Cube", optomech.cube_splitter, x=11*layout.inch, y=3.75*layout.inch, angle=layout.cardinal['right'], mount_type=optomech.cube_mount_halfinch)
+    baseplate.place_element("Beam Splitter Cube", optomech.cube_splitter, x=11*layout.inch, y=3.75*layout.inch, angle=layout.cardinal['right'], mount_type=optomech.skate_mount)
 
     baseplate.place_element("Mirror", optomech.circular_mirror, x=11*layout.inch, y=5.75*layout.inch, angle=layout.turn['up-right'],
                             mount_type=optomech.mirror_mount_M05, mount_args=dict(thumbscrews=True))

@@ -22,9 +22,9 @@ def example_baseplate(x=0, y=0, angle=0):
     # add beam
     beam = baseplate.add_beam_path(x=3*layout.inch, y=input_y, angle=layout.cardinal['right'])
 
-    baseplate.place_element("IPS", optomech.Koheron_IPS_Laser, x=3.125*layout.inch, y=input_y, angle=0)
+    baseplate.place_element("DFB", optomech.Koheron_DFB_Laser, x=3.125*layout.inch, y=input_y, angle=0)
 
-    # add waveplate along the transmitted beam, 1" after the IPS laser, mounted in a rotation stage
+    # add waveplate along the transmitted beam, 1" after the DFB laser, mounted in a rotation stage
     baseplate.place_element_along_beam("1/2 Waveplate", optomech.waveplate, beam,
                                        beam_index=0b1, distance=1.25*layout.inch, angle=layout.cardinal['right'],
                                        mount_type=optomech.rotation_stage_rsp05)
@@ -45,7 +45,7 @@ def example_baseplate(x=0, y=0, angle=0):
     # add splitter component along beam
     baseplate.place_element_along_beam("Beam Splitter Cube", optomech.cube_splitter, beam,
                                        beam_index=0b1, distance=1*layout.inch, angle=layout.cardinal['right'],
-                                       mount_type=optomech.cube_mount_halfinch)
+                                       mount_type=optomech.skate_mount)
 
 
     # add mirror along the reflected beam, 1 inch from the splitter cube, mounted in a m05 mount
@@ -63,11 +63,8 @@ def example_baseplate(x=0, y=0, angle=0):
                                        beam_index=0b11, distance=1.25*layout.inch, angle=layout.cardinal['left'],
                                        mount_type=optomech.rotation_stage_rsp05)
 
-    # add output fiberport along the second beam (replaced km05T by kA05T)
-    #baseplate.place_element_along_beam("Beat Output Fiberport", optomech.fiberport_mount_km05T, beam,
-    #                                   beam_index=0b11, distance=2.5*layout.inch, angle=layout.cardinal['right'],
-    #                                   mount_args=dict(thumbscrews=True))
-    baseplate.place_element_along_beam("Beat Output Fiberport", optomech.fiberport_mount_KA05T, beam,
+    # add output fiberport along the second beam
+    baseplate.place_element_along_beam("Beat Output Fiberport", optomech.fiberport_mount_km05T, beam,
                                        beam_index=0b11, distance=2.5*layout.inch, angle=layout.cardinal['right'],
                                        mount_args=dict(thumbscrews=True))
 
@@ -94,11 +91,8 @@ def example_baseplate(x=0, y=0, angle=0):
                                        beam_index=0b10, distance=1.25*layout.inch, angle=layout.cardinal['left'],
                                        mount_type=optomech.rotation_stage_rsp05)
     
-    # add output fiberport along the transmitted beam (replaced km05T by kA05T)
-    #baseplate.place_element_along_beam("MOT Output Fiberport", optomech.fiberport_mount_km05T, beam,
-    #                                   beam_index=0b10, distance=2.5*layout.inch, angle=layout.cardinal['right'],
-    #                                   mount_args=dict(thumbscrews=True))
-    baseplate.place_element_along_beam("MOT Output Fiberport", optomech.fiberport_mount_KA05T, beam,
+    # add output fiberport along the transmitted beam
+    baseplate.place_element_along_beam("MOT Output Fiberport", optomech.fiberport_mount_km05T, beam,
                                        beam_index=0b10, distance=2.5*layout.inch, angle=layout.cardinal['right'],
                                        mount_args=dict(thumbscrews=True))
 

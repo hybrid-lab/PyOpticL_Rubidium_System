@@ -3184,10 +3184,10 @@ class lens_holder_l05g:
 
         part = _custom_cylinder(dia=bolt_8_32['tap_dia'], dz=drill_depth,
                                 x=-8, y=0, z=-layout.inch/2)
-        for i in [-1, 1]:
-            part = part.fuse(_custom_box(dx=5, dy=2, dz=2.2,
-                                         x=-8, y=i*5, z=-layout.inch/2,
-                                         fillet=1, dir=(0, 0, -1)))
+        # for i in [-1, 1]:
+        #     part = part.fuse(_custom_box(dx=5, dy=2, dz=2.2,
+        #                                  x=-8, y=i*5, z=-layout.inch/2,
+        #                                  fillet=1, dir=(0, 0, -1)))
         part.Placement = obj.Placement
         obj.DrillPart = part
 
@@ -3261,8 +3261,8 @@ class prism_mount_km100pm:
         part = _bounding_box(obj, 6, 0.125*layout.inch, max_offset=(-18, -38, 0), z_tol=True)
         part = part.fuse(_bounding_box(obj, 3, 0.125*layout.inch, min_offset=(17, 0, 0.63)))    
         # part = part.fuse(_bounding_box(obj, 3, 4, max_offset=(-18, -38, 0), z_tol=True))
-        part = part.fuse(_custom_cylinder(dia=bolt_8_32['tap_dia'], dz=drill_depth,
-                                     x=-14.02, y=12.63, z=17.5))
+        # part = part.fuse(_custom_cylinder(dia=bolt_8_32['tap_dia'], dz=drill_depth,
+        #                              x=-14.02, y=12.63, z=17.5))
         part.Placement = obj.Placement
         obj.DrillPart = part
 
@@ -4285,8 +4285,8 @@ class AOMO_3100_125:
                            pos_offset=(-30.3, -16.4, -24.5), **mount_args)
         _add_linked_object(obj, "AOM Adapter", aom_adapter,
                            pos_offset=(-17, -7.65, -17.1), rot_offset=(0, 0, -90))
-        _add_linked_object(obj, "Surface Adapter", surface_adapter_aom,
-                           pos_offset=(-44.4, -3.65, -30), **surface_adapter_args)
+        # _add_linked_object(obj, "Surface Adapter", surface_adapter_aom,
+        #                    pos_offset=(-44.4, -3.65, -30), **surface_adapter_args)
 
     def execute(self, obj):
         mesh = _import_stl("aomo_3100-125.stl", (0, 0, -90), (0, -7.65, -7.1))
@@ -4297,7 +4297,8 @@ class AOMO_3100_125:
         for i in [1, 2]:
             part = part.fuse(_custom_cylinder(dia=bolt_8_32['tap_dia'], dz=drill_depth,
                                               x=2.5, y=-40-i*10, z=0))
-
+        part = part.fuse(_custom_cylinder(dia=bolt_M4['tap_dia'], dz=drill_depth,
+                                            x=-44.4, y=-3.65, z=0))
         part.Placement = obj.Placement
         obj.DrillPart = part
 
