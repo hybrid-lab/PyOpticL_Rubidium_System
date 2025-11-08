@@ -1,16 +1,19 @@
 from PyOpticL import layout, optomech
 
 # baseplate constants
-base_dx = 17*layout.inch
-base_dy = 10.5*layout.inch
+base_dx = 19*layout.inch
+base_dy = 11.25*layout.inch
 base_dz = layout.inch
 gap = layout.inch/8
 
 # x-y coordinates of mount holes (in inches) (x,y)
-mount_holes = [(0, 0), (0, 9), (14, 0), (14, 9)]
+mount_holes = [(0, 0), (6, 10), (14, 0), (14, 10)]
 
 # y coordinate of beam input
-input_y = 6.25*layout.inch
+# input_y = 6.00*layout.inch
+# input_x = 3.385*layout.inch
+input_y = 7.75*layout.inch
+input_x = 2.75*layout.inch
 
 # function so baseplate can be added to other layouts
 def example_baseplate(x=0, y=0, angle=0):
@@ -20,22 +23,27 @@ def example_baseplate(x=0, y=0, angle=0):
                                  gap=gap, mount_holes=mount_holes)
 
     # add beam
-    beam = baseplate.add_beam_path(x=3.385*layout.inch, y=6*layout.inch, angle=layout.cardinal['right'])
+    beam = baseplate.add_beam_path(x=input_x, y=input_y, angle=layout.cardinal['down'])
 
-    baseplate.place_element("TA", optomech.TA_butterfly, x=3.5*layout.inch, y=6*layout.inch, angle=0)
+    baseplate.place_element("TA", optomech.TA_butterfly, x=input_x, y=input_y, angle=270)
+
+    baseplate.place_element_along_beam("Mirror", optomech.circular_mirror, beam,
+                                   beam_index=0b1, distance=2*layout.inch, angle=layout.turn['down-right'],
+                                   mount_type=optomech.mirror_mount_M05,
+                                   mount_args=dict(thumbscrews=True))
 
     # add waveplate along the transmitted beam, 1" after the DFB laser, mounted in a rotation stage
     baseplate.place_element_along_beam("1/2 Waveplate", optomech.waveplate, beam,
-                                       beam_index=0b1, distance=1.75*layout.inch, angle=layout.cardinal['right'],
+                                       beam_index=0b1, distance=1*layout.inch, angle=layout.cardinal['right'],
                                        mount_type=optomech.rotation_stage_rsp05)
 
     #Adding the isolator to make sure there is no unwanted beam going back as feedback
-    baseplate.place_element_along_beam("Optical_Isolator", optomech.isolator_780, beam,
-                                       beam_index=0b1, distance=1.5*layout.inch, angle=layout.cardinal['left'])
+    baseplate.place_element_along_beam("Optical_Isolator", optomech.isolator_850, beam,
+                                       beam_index=0b1, distance=2.6*layout.inch, angle=layout.cardinal['left'])
 
 
     baseplate.place_element_along_beam("1/4 Waveplate", optomech.waveplate, beam,
-                                       beam_index=0b1, distance=1.25*layout.inch, angle=layout.cardinal['right'],
+                                       beam_index=0b1, distance=2.5*layout.inch, angle=layout.cardinal['right'],
                                        mount_type=optomech.rotation_stage_rsp05)
 
     # add waveplate along the beam, 1/2" before the PBS , mounted in a rotation stage
@@ -49,17 +57,17 @@ def example_baseplate(x=0, y=0, angle=0):
                                        mount_type=optomech.cube_mount_halfinch)
 
     baseplate.place_element_along_beam("Mirror", optomech.circular_mirror, beam,
-                                       beam_index=0b11, distance=3*layout.inch, angle=layout.turn['up-left'],
+                                       beam_index=0b11, distance=3*layout.inch, angle=layout.turn['up-right'],
                                        mount_type=optomech.mirror_mount_M05,
                                        mount_args=dict(thumbscrews=True))
 
     # add waveplate along the reflected beam, mounted in a rotation stage
     baseplate.place_element_along_beam("1/2 Waveplate", optomech.waveplate, beam,
-                                       beam_index=0b11, distance=1.25*layout.inch, angle=layout.cardinal['left'],
+                                       beam_index=0b11, distance=1.25*layout.inch, angle=layout.cardinal['right'],
                                        mount_type=optomech.rotation_stage_rsp05)
     
     baseplate.place_element_along_beam("1/2 Waveplate", optomech.waveplate, beam,
-                                       beam_index=0b11, distance=1.25*layout.inch, angle=layout.cardinal['left'],
+                                       beam_index=0b11, distance=1.25*layout.inch, angle=layout.cardinal['right'],
                                        mount_type=optomech.rotation_stage_rsp05)
 
     # add output fiberport along the second beam (replaced km05T by KA05T)
@@ -67,7 +75,7 @@ def example_baseplate(x=0, y=0, angle=0):
     #                                   beam_index=0b11, distance=2.5*layout.inch, angle=layout.cardinal['right'],
     #                                   mount_args=dict(thumbscrews=True))
     baseplate.place_element_along_beam("Output Fiberport", optomech.fiberport_mount_KA05T, beam,
-                                       beam_index=0b11, distance=2.5*layout.inch, angle=layout.cardinal['right'],
+                                       beam_index=0b11, distance=2.5*layout.inch, angle=layout.cardinal['left'],
                                        mount_args=dict(thumbscrews=True))
 
     # Adding lens pair make collimated beam. Lens 1
