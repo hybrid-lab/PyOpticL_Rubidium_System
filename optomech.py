@@ -1070,26 +1070,40 @@ class BSH01_cube_mount:
 # ==== 1/2" PBS Cube Mount (uses cube_mount_halfinch.stl) ====
 class cube_mount_halfinch:
     """
-    Cube mount for 1/2\" (12.7 mm) PBS.
+    Cube mount for 1/2" (12.7 mm) PBS.
     """
     type = 'Mesh::FeaturePython'
-    def __init__(self, obj, drill=True, bolt_length=15):
+    def __init__(self, obj, drill=True, bolt_length=15, mount_hole_dy=22.6):
         obj.Proxy = self
         ViewProvider(obj.ViewObject)
 
-        obj.addProperty('App::PropertyBool', 'Drill').Drill = drill
+        obj.addProperty('App::PropertyBool',   'Drill').Drill = drill
         obj.addProperty('App::PropertyLength', 'BoltLength').BoltLength = bolt_length
+        obj.addProperty('App::PropertyLength', 'MountHoleDistance').MountHoleDistance = mount_hole_dy
         obj.addProperty('Part::PropertyPartShape', 'DrillPart')
 
-        obj.ViewObject.ShapeColor = adapter_color  
+        obj.ViewObject.ShapeColor = adapter_color
+        obj.setEditorMode('Placement', 2)
+        self.drill_tolerance = 1  # matches the approach used elsewhere
         self.part_numbers = ['CUBE-MOUNT-1/2IN']
 
     def execute(self, obj):
+        # 1) place the mesh
         mesh = _import_stl("Cube_Mount_Halfinch.stl", (0, 0, 0), (0, 0, 0))
         mesh.Placement = obj.Mesh.Placement
         obj.Mesh = mesh
 
-        part = _bounding_box(obj, 2, 0.125*layout.inch)
+        # 2) create drill geometry (tap holes) in a bounding box
+        part = _bounding_box(obj, self.drill_tolerance, 0.125*layout.inch)
+        for i in [-1, 1]:
+            part = part.fuse(_custom_cylinder(
+                dia=bolt_8_32['tap_dia'],  # tap drill (e.g., #29 for 8-32)
+                dz=drill_depth,
+                x=0,
+                y=i * obj.MountHoleDistance.Value/2,
+                z=0
+            ))
+
         part.Placement = obj.Placement
         obj.DrillPart = part
 
@@ -1278,13 +1292,13 @@ class mirror_mount_FMP05:
         part = _custom_cylinder(dia=bolt_8_32['tap_dia'], dz=drill_depth,
                                 x=-0.274*layout.inch, y=0, z=-layout.inch/2)
 
-        # Alignment pin farther from mirror
-        part = part.fuse(_custom_cylinder(dia=1.6, dz=1.6,
-                                          x=-0.454*layout.inch, y=0, z=-layout.inch/2))
+        # # Alignment pin farther from mirror
+        # part = part.fuse(_custom_cylinder(dia=1.6, dz=1.6,
+        #                                   x=-0.454*layout.inch, y=0, z=-layout.inch/2))
 
-        # Alignment pin closer to mirror
-        part = part.fuse(_custom_cylinder(dia=1.6, dz=1.5,
-                                          x=-0.134*layout.inch, y=0, z=-layout.inch/2))
+        # # Alignment pin closer to mirror
+        # part = part.fuse(_custom_cylinder(dia=1.6, dz=1.5,
+        #                                   x=-0.134*layout.inch, y=0, z=-layout.inch/2))
 
         part.Placement = obj.Placement
         obj.DrillPart = part
@@ -2543,6 +2557,100 @@ class fiberport_mount_km05T_rotated_90:
         _add_linked_object(obj, "Lens Adapter", lens_adapter_s05tm09, pos_offset=(1.524+5, 0, 0))
         _add_linked_object(obj, "Lens", mounted_lens_c220tmda, pos_offset=(1.524+3.167+5, 0, 0))
         _add_linked_object(obj, 'surface_adapter', surface_adapter_rotated_90, pos_offset=(-9.7, 0, -14.7),rot_offset=(0, 0, 0), **adapter_args)
+
+
+class mirror_mount_KA05T:
+    '''
+    Mirror mount, model KA05T
+
+    Args:
+        drill (bool) : Whether baseplate mounting for this part should be drilled
+        mirror (bool) : Whether to add a mirror component to the mount
+        thumbscrews (bool): Whether or not to add two HKTS 5-64 adjusters
+        bolt_length (float) : The length of the bolt used for mounting
+
+    Sub-Parts:
+        circular_mirror (mirror_args)
+    '''
+    type = 'Mesh::FeaturePython'
+    def __init__(self, obj, drill=True, thumbscrews=False, bolt_length=15):
+        obj.Proxy = self
+        ViewProvider(obj.ViewObject)
+
+        obj.addProperty('App::PropertyBool', 'Drill').Drill = drill
+        obj.addProperty('App::PropertyBool', 'ThumbScrews').ThumbScrews = thumbscrews
+        obj.addProperty('App::PropertyLength', 'BoltLength').BoltLength = bolt_length
+        obj.addProperty('Part::PropertyPartShape', 'DrillPart')
+
+        obj.ViewObject.ShapeColor = mount_color
+
+        self.part_numbers = ['KA05T']
+
+        # if mirror:
+        #     _add_linked_object(obj, "Mirror", circular_mirror, pos_offset=(...), rot_offset=(...), **mirror_args)
+
+        if thumbscrews:
+            _add_linked_object(obj, "Upper Thumbscrew", thumbscrew_hkts_5_64, pos_offset=(-10.668, 9.906, 9.906))
+            _add_linked_object(obj, "Lower Thumbscrew", thumbscrew_hkts_5_64, pos_offset=(-10.668 , -9.906, -9.906))
+
+    def execute(self, obj):
+        mesh = _import_stl("KA05T.stl", (0, 0, 0), (0, 0, 0))
+        mesh.Placement = obj.Mesh.Placement
+        obj.Mesh = mesh
+
+        part = _bounding_box(obj, 2, 0.125*layout.inch)
+
+        part = part.fuse(_custom_cylinder(
+            dia=bolt_8_32["tap_dia"],   
+            dz=drill_depth,             
+            x=-0.32264471*layout.inch,  
+            y=0,
+            z=-0.5*layout.inch,
+            dir=(0, 0, -1)              
+        ))
+
+        part.Placement = obj.Placement
+        obj.DrillPart = part
+
+
+class fiberport_mount_KA05T:
+    '''
+    Mirror mount, model KA05T, adapted to use as fiberport mount
+
+    Args:
+        drill (bool) : Whether baseplate mounting for this part should be drilled
+
+    Sub-Parts:
+        mirror_mount_KA05T (mount_args)
+        fiber_adapter_sm05fca2
+        lens_tube_sm05l05
+        lens_adapter_s05tm09
+        mounted_lens_c220tmda
+    '''
+    type = 'Part::FeaturePython'
+    def __init__(self, obj, drill=True, mount_args=dict(), adapter_args=dict()):
+        obj.Proxy = self
+        ViewProvider(obj.ViewObject)
+
+        obj.addProperty('App::PropertyBool', 'Drill').Drill = drill
+
+        obj.ViewObject.ShapeColor = misc_color
+
+        _add_linked_object(obj, "Mount", mirror_mount_KA05T, pos_offset=(0, 0, 0), **mount_args)
+
+
+        _add_linked_object(obj, "Fiber Adapter", fiber_adapter_sm05fca2, pos_offset=(1.524, 0, 0))
+        _add_linked_object(obj, "Lens Tube",    lens_tube_sm05l05,       pos_offset=(1.524+3.812, 0, 0))
+        _add_linked_object(obj, "Lens Adapter", lens_adapter_s05tm09,     pos_offset=(1.524+5, 0, 0))
+        _add_linked_object(obj, "Lens",         mounted_lens_c220tmda,    pos_offset=(1.524+3.167+5, 0, 0))
+
+        """
+        # surface adapter (fiberport lip)
+        _add_linked_object(
+            obj, 'surface_adapter', surface_adapter_fiberport_lip,
+            pos_offset=(-9.7, 0, -14.7), rot_offset=(0, 0, 180), **adapter_args
+        ) """
+        
 
 class splitter_mount_b1g:
     '''
