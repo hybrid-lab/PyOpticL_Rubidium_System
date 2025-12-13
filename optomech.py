@@ -5026,9 +5026,7 @@ class isolator_850:
         mesh.Placement = obj.Mesh.Placement
         obj.Mesh = mesh
 
-        part = _custom_box(dx=80, dy=25, dz=5,
-                           x=0, y= 0, z=-layout.inch/2,
-                           fillet=0.125*layout.inch, dir=(0, 0, -1))
+        part = _bounding_box(obj, 2, 0.125*layout.inch)
         part.Placement = obj.Placement
         obj.DrillPart = part
 
