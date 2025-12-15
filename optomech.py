@@ -2006,7 +2006,14 @@ class mirror_mount_KA05T:
         # for i in [-1, 1]:
         #     part = part.fuse(_custom_cylinder(dia=bolt_8_32['tap_dia'], dz=drill_depth,
         #                                       x=30, y=i*9.164, z=14.7))
-
+        part = part.fuse(_custom_cylinder(
+            dia=bolt_8_32["tap_dia"],   
+            dz=drill_depth,             
+            x=-0.32264471*layout.inch,  
+            y=0,
+            z=-0.5*layout.inch,
+            dir=(0, 0, -1)              
+        ))
         part.Placement = obj.Placement
         obj.DrillPart = part
 
@@ -5019,9 +5026,7 @@ class isolator_850:
         mesh.Placement = obj.Mesh.Placement
         obj.Mesh = mesh
 
-        part = _custom_box(dx=80, dy=25, dz=5,
-                           x=0, y= 0, z=-layout.inch/2,
-                           fillet=0.125*layout.inch, dir=(0, 0, -1))
+        part = _bounding_box(obj, 2, 0.125*layout.inch)
         part.Placement = obj.Placement
         obj.DrillPart = part
 
@@ -6064,7 +6069,7 @@ class TA_adapter:
         obj.Mesh = mesh
 
         part = _bounding_box(obj, 2, 0.125*layout.inch)
-
+        #drill_depth
         part = part.fuse(_custom_cylinder(dia=bolt_8_32['tap_dia'], dz=drill_depth, x=9,   y= 37.5,  z=0))
         part = part.fuse(_custom_cylinder(dia=bolt_8_32['tap_dia'], dz=drill_depth, x=9,   y=-37.5, z=0))
         part = part.fuse(_custom_cylinder(dia=bolt_8_32['tap_dia'], dz=drill_depth, x=-66, y=-37.5, z=0))
@@ -6236,17 +6241,17 @@ class TA_butterfly:
         mesh.Placement = obj.Mesh.Placement
         obj.Mesh = mesh
 
-        part = _custom_cylinder(dia=bolt_M2_5['tap_dia'], dz=drill_depth,
+        part = _custom_cylinder(dia=bolt_M2_5['tap_dia'], dz=drill_depth/12,
                         y=15.875, x=-37.2, z=-13)
 
-        part = part.fuse(_custom_cylinder(dia=bolt_M2_5['tap_dia'], dz=drill_depth,
+        part = part.fuse(_custom_cylinder(dia=bolt_M2_5['tap_dia'], dz=drill_depth/12,
                                y=-15.875, x=-37.2, z=-13))
         # Additional holes (fused)
-        part = part.fuse(_custom_cylinder(dia=bolt_M2_5['tap_dia'], dz=drill_depth,
+        part = part.fuse(_custom_cylinder(dia=bolt_M2_5['tap_dia'], dz=drill_depth/12,
                                x=13.6, y=15.875, z=-13))
 
 
-        part = part.fuse(_custom_cylinder(dia=bolt_M2_5['tap_dia'], dz=drill_depth,
+        part = part.fuse(_custom_cylinder(dia=bolt_M2_5['tap_dia'], dz=drill_depth/12,
                         x=13.6, y=-15.875, z=-13))
  
         part.Placement = obj.Placement
@@ -6783,6 +6788,40 @@ class circular_mirror:
     '''
     type = 'Part::FeaturePython'
     def __init__(self, obj, drill=True, thickness=6, diameter=inch/2, part_number='', mount_type=None, mount_args=dict(),mount_height=0, adapter_type=None, adapter_args=dict()):
+        obj.Proxy = self
+        ViewProvider(obj.ViewObject)
+
+        obj.addProperty('App::PropertyBool', 'Drill').Drill = drill
+        obj.addProperty('App::PropertyLength', 'Thickness').Thickness = thickness
+        obj.addProperty('App::PropertyLength', 'Diameter').Diameter = diameter
+
+        if mount_type != None:
+            _add_linked_object(obj, "Mount", mount_type, pos_offset=(-thickness, 0, 0), **mount_args)  
+
+        obj.ViewObject.ShapeColor = glass_color
+        self.part_numbers = [part_number]
+        self.reflection_angle = 0
+        self.max_angle = 90
+        self.max_width = diameter
+
+    def execute(self, obj):
+        part = _custom_cylinder(dia=obj.Diameter.Value, dz=obj.Thickness.Value,
+                           x=0, y=0, z=0, dir=(-1, 0, 0))
+        obj.Shape = part
+
+
+class circular_mirror_union_optic:
+    '''
+    Circular Mirror
+
+    Args:
+        drill (bool) : Whether baseplate mounting for this part should be drilled
+        thickness (float) : The thickness of the mirror
+        diameter (float) : The width of the mirror
+        part_number (string) : The part number of the mirror being used
+    '''
+    type = 'Part::FeaturePython'
+    def __init__(self, obj, drill=True, thickness=3, diameter=inch/2, part_number='', mount_type=None, mount_args=dict(),mount_height=0, adapter_type=None, adapter_args=dict()):
         obj.Proxy = self
         ViewProvider(obj.ViewObject)
 
