@@ -48,7 +48,10 @@ def laser_baseplate(x=0, y=0, angle=0):
     # add splitter component along beam
     baseplate.place_element_along_beam("Beam Splitter Cube", optomech.cube_splitter, beam,
                                        beam_index=0b1, distance=1*layout.inch, angle=layout.cardinal['right'],
-                                       mount_type=optomech.skate_mount)
+                                       mount_type=optomech.skate_mount, cube_size=0.5*layout.inch, mount_args=dict(
+                                        cube_dx=0.5*layout.inch,
+                                        cube_dy=0.5*layout.inch,
+                                        cube_dz=0.5*layout.inch,))
 
 
     # add mirror along the reflected beam, 1 inch from the splitter cube, mounted in a m05 mount
@@ -69,7 +72,10 @@ def laser_baseplate(x=0, y=0, angle=0):
     # add output fiberport along the second beam
     baseplate.place_element_along_beam("Beat Output Fiberport", optomech.fiberport_mount_km05T, beam,
                                        beam_index=0b11, distance=2.5*layout.inch, angle=layout.cardinal['right'],
-                                       mount_args=dict(thumbscrews=True))
+                                       mount_args=dict(thumbscrews=True), adapter_args=dict(
+        rear_pair_43=False,
+        rear_pair_63=True,
+        rear_pair_73=False,))
 
 
 
@@ -97,7 +103,10 @@ def laser_baseplate(x=0, y=0, angle=0):
     # add output fiberport along the transmitted beam
     baseplate.place_element_along_beam("MOT Output Fiberport", optomech.fiberport_mount_km05T, beam,
                                        beam_index=0b10, distance=2.5*layout.inch, angle=layout.cardinal['right'],
-                                       mount_args=dict(thumbscrews=True))
+                                       mount_args=dict(thumbscrews=True), adapter_args=dict(
+        rear_pair_43=False,
+        rear_pair_63=True,
+        rear_pair_73=False,))
 
 # this allows the file to be run as a macro or imported into other files
 if __name__ == "__main__":

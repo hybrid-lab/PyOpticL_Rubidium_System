@@ -4130,7 +4130,8 @@ class surface_adapter_fiberport_lip:
         center_thread_depth (float) : The depth of the threaded portion in the center hole
     '''
     type = 'Mesh::FeaturePython'
-    def __init__(self, obj, drill=True, mount_hole_dy=36, adapter_height=8, outer_thickness=2, center_thread_depth=3):
+    def __init__(self, obj, drill=True, mount_hole_dy=36, adapter_height=8, outer_thickness=2,
+             center_thread_depth=3, rear_pair_43=True, rear_pair_63=True, rear_pair_73=True):
         obj.Proxy = self
         ViewProvider(obj.ViewObject)
 
@@ -4139,6 +4140,9 @@ class surface_adapter_fiberport_lip:
         obj.addProperty('App::PropertyLength', 'AdapterHeight').AdapterHeight = adapter_height
         obj.addProperty('App::PropertyLength', 'OuterThickness').OuterThickness = outer_thickness
         obj.addProperty('App::PropertyLength', 'CenterThreadDepth').CenterThreadDepth = center_thread_depth
+        obj.addProperty('App::PropertyBool', 'RearPair43').RearPair43 = rear_pair_43
+        obj.addProperty('App::PropertyBool', 'RearPair63').RearPair63 = rear_pair_63
+        obj.addProperty('App::PropertyBool', 'RearPair73').RearPair73 = rear_pair_73
         obj.addProperty('Part::PropertyPartShape', 'DrillPart')
 
         obj.ViewObject.ShapeColor = adapter_color
@@ -4155,13 +4159,21 @@ class surface_adapter_fiberport_lip:
             part = part.fuse(_custom_cylinder(dia=bolt_8_32['tap_dia'], dz=drill_depth,
                                               x=0, y=i*obj.MountHoleDistance.Value/2, z=0))
 
-        for i in [1, 2]:
-            part = part.fuse(_custom_cylinder(dia=bolt_8_32['tap_dia'], dz=drill_depth,
-                                              x = 33 + i * 10, y=0, z=14.7))
+        if obj.RearPair43:
+            for i in [-1, 1]:
+                part = part.fuse(_custom_cylinder(dia=bolt_8_32['tap_dia'], dz=drill_depth,
+                                          x=43, y=i*9.164, z=14.7))
 
-        for i in [-1, 1]:
-            part = part.fuse(_custom_cylinder(dia=bolt_8_32['tap_dia'], dz=drill_depth,
-                                              x=30, y=i*9.164, z=14.7))
+        if obj.RearPair63:
+            for i in [-1, 1]:
+                part = part.fuse(_custom_cylinder(dia=bolt_8_32['tap_dia'], dz=drill_depth,
+                                          x=63, y=i*9.164, z=14.7))
+
+        if obj.RearPair73:
+            for i in [-1, 1]:
+                part = part.fuse(_custom_cylinder(dia=bolt_8_32['tap_dia'], dz=drill_depth,
+                                          x=73, y=i*9.164, z=14.7))
+
 
         part.Placement = obj.Placement
         obj.DrillPart = part
