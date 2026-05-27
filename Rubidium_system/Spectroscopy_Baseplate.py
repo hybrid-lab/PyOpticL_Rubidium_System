@@ -14,6 +14,22 @@ def example_baseplate(x=0, y=0, angle=0):
 
     baseplate = layout.baseplate(base_dx, base_dy, base_dz, x=x, y=y, angle=angle, gap=gap, mount_holes=mount_holes)
 
+    #holes for the ND filter in case we need to add it
+    baseplate.place_element(
+    "8-32 tapped hole",
+    optomech.tapped_8_32_hole,
+    x=2.75*layout.inch,
+    y=3.25*layout.inch,
+    angle=0
+)
+    baseplate.place_element(
+    "8-32 tapped hole",
+    optomech.tapped_8_32_hole,
+    x=2.75*layout.inch,
+    y=4.25*layout.inch,
+    angle=0
+)
+
     beam = baseplate.add_beam_path(x=11*layout.inch, y=input_y, angle=layout.cardinal['left'])
 
     baseplate.place_element("DFB", optomech.Koheron_DFB_Laser, x=10.875*layout.inch, y=input_y, angle=180)

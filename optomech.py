@@ -6848,6 +6848,33 @@ class square_mirror:
         obj.Shape = part
 
 
+class tapped_8_32_hole:
+    '''
+    Drill-only 8-32 tapped hole for baseplates.
+    '''
+    type = 'Part::FeaturePython'
+
+    def __init__(self, obj, drill=True):
+        obj.Proxy = self
+        ViewProvider(obj.ViewObject)
+
+        obj.addProperty('App::PropertyBool', 'Drill').Drill = drill
+        obj.addProperty('Part::PropertyPartShape', 'DrillPart')
+
+        obj.ViewObject.Visibility = False
+
+    def execute(self, obj):
+        part = _custom_cylinder(
+            dia=bolt_8_32['tap_dia'],
+            dz=drill_depth,
+            x=0,
+            y=0,
+            z=0
+        )
+        part.Placement = obj.Placement
+        obj.DrillPart = part
+
+
 class ViewProvider:
     def __init__(self, obj):
         obj.Proxy = self
