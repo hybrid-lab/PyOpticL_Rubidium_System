@@ -1976,6 +1976,7 @@ class fiberport_mount_KA05T:
 
     Args:
         drill (bool) : Whether baseplate mounting for this part should be drilled
+        strain_relief_holes (bool) : Whether to add only the rear fiber strain relief holes
 
     Sub-Parts:
         mirror_mount_KA05TB (mount_args)
@@ -1985,29 +1986,62 @@ class fiberport_mount_KA05T:
         mounted_lens_c220tmda
     '''
     type = 'Part::FeaturePython'
-    def __init__(self, obj, drill=True, mount_args=dict(), adapter_args=dict()):
+    def __init__(self, obj, drill=True, strain_relief_holes=False, mount_args=dict(), adapter_args=dict()):
         obj.Proxy = self
         ViewProvider(obj.ViewObject)
 
         obj.addProperty('App::PropertyBool', 'Drill').Drill = drill
+        obj.addProperty('App::PropertyBool', 'StrainReliefHoles').StrainReliefHoles = strain_relief_holes
+        obj.addProperty('App::PropertyBool', 'RearPair43').RearPair43 = adapter_args.get('rear_pair_43', True)
+        obj.addProperty('App::PropertyBool', 'RearPair63').RearPair63 = adapter_args.get('rear_pair_63', True)
+        obj.addProperty('App::PropertyBool', 'RearPair73').RearPair73 = adapter_args.get('rear_pair_73', True)
+        obj.addProperty('Part::PropertyPartShape', 'DrillPart')
 
         obj.ViewObject.ShapeColor = misc_color
 
         _add_linked_object(obj, "Mount", mirror_mount_KA05T, pos_offset=(0, 0, 0), **mount_args)
-
 
         _add_linked_object(obj, "Fiber Adapter", fiber_adapter_sm05fca2, pos_offset=(1.524, 0, 0))
         _add_linked_object(obj, "Lens Tube",    lens_tube_sm05l05,       pos_offset=(1.524+3.812, 0, 0))
         _add_linked_object(obj, "Lens Adapter", lens_adapter_s05tm09,     pos_offset=(1.524+5, 0, 0))
         _add_linked_object(obj, "Lens",         mounted_lens_c220tmda,    pos_offset=(1.524+3.167+5, 0, 0))
 
-        """
-        # surface adapter (fiberport lip)
-        _add_linked_object(
-            obj, 'surface_adapter', surface_adapter_fiberport_lip,
-            pos_offset=(-9.7, 0, -14.7), rot_offset=(0, 0, 180), **adapter_args
-        ) """
+    def execute(self, obj):
+        if not obj.Drill or not obj.StrainReliefHoles:
+            obj.DrillPart = Part.Compound([])
+            return
 
+        hole_locations = []
+        lip_offset_x = -9.7
+        lip_offset_z = 0
+        rear_pair_y = 9.164
+        rear_pair_offsets = [
+            (43, obj.RearPair43),
+            (63, obj.RearPair63),
+            (73, obj.RearPair73),
+        ]
+
+        for x_from_lip, enabled in rear_pair_offsets:
+            if enabled:
+                # Match surface_adapter_fiberport_lip, transformed by its KA05T pos/rot offset.
+                x_pos = lip_offset_x - x_from_lip
+                hole_locations.extend([(x_pos, rear_pair_y, lip_offset_z),
+                                       (x_pos, -rear_pair_y, lip_offset_z)])
+
+        drill_shape = None
+        for x_pos, y_pos, z_pos in hole_locations:
+            hole = _custom_cylinder(dia=bolt_8_32['tap_dia'], dz=drill_depth,
+                                    x=x_pos, y=y_pos, z=z_pos)
+            if drill_shape is None:
+                drill_shape = hole
+            else:
+                drill_shape = drill_shape.fuse(hole)
+
+        if drill_shape:
+            drill_shape.Placement = obj.Placement
+            obj.DrillPart = drill_shape
+        else:
+            obj.DrillPart = Part.Compound([])
 
 
 class mirror_mount_km05T_custom:
@@ -4996,7 +5030,7 @@ class isolator_850:
         mesh.Placement = obj.Mesh.Placement
         obj.Mesh = mesh
 
-        part = _custom_box(dx=80, dy=25, dz=5,
+        part = _custom_box(dx=113.5, dy=25, dz=5,
                            x=0, y= 0, z=-layout.inch/2,
                            fillet=0.125*layout.inch, dir=(0, 0, -1))
         part.Placement = obj.Placement
