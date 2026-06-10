@@ -72,7 +72,7 @@ def laser_baseplate(x=0, y=0, angle=0):
     #                                   mount_args=dict(thumbscrews=True))
 
     baseplate.place_element_along_beam("Beat Output Fiberport", optomech.fiberport_mount_KA05T, beam,
-                                       beam_index=0b11, distance=3.375*layout.inch, angle=layout.cardinal['right'],
+                                       beam_index=0b11, distance=3.375*layout.inch, angle=layout.cardinal['right'], Fiber_Clamp=False, 
                                        mount_args=dict(thumbscrews=True))
 
     # add mirror along the transmitted beam, mounted in a m05 mount
@@ -101,7 +101,7 @@ def laser_baseplate(x=0, y=0, angle=0):
     #                                   mount_args=dict(thumbscrews=True))
 
     baseplate.place_element_along_beam("MOT Output Fiberport", optomech.fiberport_mount_KA05T, beam,
-                                       beam_index=0b10, distance=3.375*layout.inch, angle=layout.cardinal['right'],
+                                       beam_index=0b10, distance=3.375*layout.inch, angle=layout.cardinal['right'], Fiber_Clamp=False,
                                        mount_args=dict(thumbscrews=True))
 
 # this allows the file to be run as a macro or imported into other files

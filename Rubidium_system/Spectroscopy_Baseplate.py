@@ -48,7 +48,7 @@ def example_baseplate(x=0, y=0, angle=0):
                                        mount_type=optomech.mirror_mount_M05,
                                        mount_args=dict(thumbscrews=True))
     
-    baseplate.place_element_along_beam("Beam Splitter Cube", optomech.cube_splitter, beam, beam_index=0b10, distance=2.15*layout.inch, angle=layout.cardinal['right'], mount_type=optomech.skate_mount, invert=True)
+    baseplate.place_element_along_beam("Beam Splitter Cube", optomech.cube_splitter, beam, beam_index=0b10, distance=2.15*layout.inch, angle=layout.cardinal['right'], mount_type=optomech.cube_mount_halfinch, invert=True)
 
     baseplate.place_element_along_beam("Vapor Cell", optomech.Vapor_Ref_Cell, beam, beam_index=0b11, distance=3.25*layout.inch, angle=layout.cardinal['right'])
 
@@ -60,7 +60,7 @@ def example_baseplate(x=0, y=0, angle=0):
                             mount_type=optomech.mirror_mount_M05, mount_args=dict(thumbscrews=True))
     
     # For the photodiode, we can choose different models in optomech.py like optomech.photodetector_pdb250a or optomech.photodetector_pdb210a.
-    baseplate.place_element("PD", optomech.photodetector_pdb210a, x=12*layout.inch, y=4.75*layout.inch, angle=layout.cardinal['left'])
+    baseplate.place_element("PD", optomech.photodetector_pdb250aa, x=12*layout.inch, y=4.75*layout.inch, angle=layout.cardinal['left'])
 
     
 if __name__ == "__main__":

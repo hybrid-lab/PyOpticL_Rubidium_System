@@ -68,13 +68,13 @@ def example_baseplate(x=0, y=0, angle=0):
     #                                   beam_index=0b11, distance=2.5*layout.inch, angle=layout.cardinal['right'],
     #                                   mount_args=dict(thumbscrews=True))
     baseplate.place_element_along_beam("Beat Output Fiberport", optomech.fiberport_mount_KA05T, beam,
-                                       beam_index=0b11, distance=2.5*layout.inch, angle=layout.cardinal['right'],
+                                       beam_index=0b11, distance=2.5*layout.inch, angle=layout.cardinal['right'], Fiber_Clamp="V1", 
                                        mount_args=dict(thumbscrews=True))
 
 
 
 
-    # add mirror along the transmitted beam, mounted in a m05 mount
+    # add mirror along the transmitted beam, mounted in a fmp05 mount
     baseplate.place_element_along_beam("Mirror", optomech.circular_mirror, beam,
                                        beam_index=0b10, distance=0.9*layout.inch, angle=layout.turn['up-left'],
                                        mount_type=optomech.mirror_mount_FMP05)
