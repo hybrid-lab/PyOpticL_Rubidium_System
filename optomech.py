@@ -1,4 +1,5 @@
 from math import *
+import json
 from pathlib import Path
 
 import FreeCAD as App
@@ -7936,3 +7937,925 @@ class ViewProvider:
 #         mesh = _import_stl("periscope_for_redstone.stl", (0, 0, 0), (20, 20, 20))
 #         mesh.Placement = obj.Mesh.Placement
 #         obj.Mesh = mesh
+
+
+# =============================================================================
+# Rb-87 795 nm lattice laser system - components added on this branch
+# (lattice / TA / double-pass AOM baseplates V9.2, Rubidium_system/*_V9.py).
+# Everything above this banner is the yajur-branch library, unchanged.
+# =============================================================================
+
+
+# --- 1. two variants of existing holders -------------------------------------
+class lens_holder_l05g_no_pin_slots:
+    '''
+    Lens Holder, Model L05G - without the two alignment-pin slots.
+
+    Same mesh and same central 8-32 bore as ``lens_holder_l05g``; the two
+    5 x 2 x 2.2 mm pin slots are not cut, so the holder can sit anywhere
+    without extra plate features. Used by every lens on the V9 boards.
+
+    Args:
+        drill (bool) : Whether baseplate mounting for this part should be drilled
+
+    Sub-Parts:
+        circular_lens (lens_args)
+    '''
+    type = 'Mesh::FeaturePython'
+    def __init__(self, obj, drill=True):
+        obj.Proxy = self
+        ViewProvider(obj.ViewObject)
+
+        obj.addProperty('App::PropertyBool', 'Drill').Drill = drill
+        obj.addProperty('Part::PropertyPartShape', 'DrillPart')
+
+        obj.ViewObject.ShapeColor = mount_color
+        self.part_numbers = ['POLARIS-L05G']
+
+    def execute(self, obj):
+        mesh = _import_stl("POLARIS-L05G-Step.stl", (90, -0, 90), (-26.57, -13.29, -18.44))
+        mesh.Placement = obj.Mesh.Placement
+        obj.Mesh = mesh
+
+        part = _custom_cylinder(dia=bolt_8_32['tap_dia'], dz=drill_depth,
+                                x=-8, y=0, z=-layout.inch/2)
+        part.Placement = obj.Placement
+        obj.DrillPart = part
+
+
+class isolator_850_long_pocket:
+    '''
+    Isolator IOT-5-850-VLP with the full-length 113.5 mm plate pocket.
+
+    Identical to ``isolator_850`` except that the pocket spans the whole
+    body (dx 80 -> 113.5 mm), as on the hana-branch boards.
+
+    Args:
+        drill (bool) : Whether baseplate mounting for this part should be drilled
+
+    Sub-Parts:
+        surface_adapter (adapter_args)
+    '''
+    type = 'Mesh::FeaturePython'
+    def __init__(self, obj, drill=True, adapter_args=dict()):
+        adapter_args.setdefault("mount_hole_dy", 45)
+        obj.Proxy = self
+        ViewProvider(obj.ViewObject)
+
+        obj.addProperty('App::PropertyBool', 'Drill').Drill = drill
+        obj.addProperty('Part::PropertyPartShape', 'DrillPart')
+
+        obj.ViewObject.ShapeColor = misc_color
+        self.part_numbers = ['IOT-5-670-VLP']
+        self.transmission = True
+        self.max_angle = 10
+        self.max_width = 5
+
+        _add_linked_object(obj, "Surface Adapter", surface_adapter_isolator_lip,
+                           pos_offset=(0, 0, -22.1), **adapter_args)
+
+    def execute(self, obj):
+        mesh = _import_stl("IOT-5-850-VLP-Step.stl", (90, 0, -90), (-19.05, -0, 0))
+        mesh.Placement = obj.Mesh.Placement
+        obj.Mesh = mesh
+
+        part = _custom_box(dx=113.5, dy=25, dz=5,
+                           x=0, y= 0, z=-layout.inch/2,
+                           fillet=0.125*layout.inch, dir=(0, 0, -1))
+        part.Placement = obj.Placement
+        obj.DrillPart = part
+
+
+
+# --- 2. machining primitives (bare taps, persistent plate cuts) --------------
+
+def descendants(root):
+    """Return the root and every linked hardware child once."""
+    found, pending = [], [root]
+    seen = set()
+    while pending:
+        obj = pending.pop(0)
+        if obj.Name in seen:
+            continue
+        seen.add(obj.Name)
+        found.append(obj)
+        pending.extend(getattr(obj, "ChildObjects", []))
+    return found
+
+def _bbox_values(box):
+    return [float(x) for x in
+            (box.XMin, box.XMax, box.YMin, box.YMax, box.ZMin, box.ZMax)]
+
+class HiddenMachiningViewProvider:
+    """Persist the hidden state of an empty machining-only Part feature."""
+
+    def __init__(self, view):
+        view.Proxy = self
+        view.Visibility = False
+
+    def attach(self, view):
+        view.Visibility = False
+
+    def onChanged(self, view, prop):
+        if prop == 'Visibility' and view.Visibility:
+            view.Visibility = False
+
+    def getDefaultDisplayMode(self):
+        return 'Shaded'
+
+    def dumps(self): return None
+    def loads(self, state): return None
+
+def keep_machining_hidden(obj):
+    view = getattr(obj, 'ViewObject', None)
+    if view is not None:
+        if not isinstance(view.Proxy, HiddenMachiningViewProvider):
+            HiddenMachiningViewProvider(view)
+        view.Visibility = False
+
+class PersistentDrillVolume:
+    """Parametric hidden plate cut, independent of either upstream library."""
+
+    def __init__(self, obj):
+        obj.Proxy = self
+
+    def execute(self, obj):
+        if not obj.Drill or obj.Owner is None:
+            obj.DrillPart = Part.Shape()
+            return
+        if obj.CutKind == "isolator-pocket":
+            length, width, depth = (obj.PocketLength.Value,
+                                    obj.PocketWidth.Value,
+                                    obj.PocketDepth.Value)
+            top = -obj.Baseplate.OpticsDz.Value
+            cut = Part.makeBox(length, width, depth,
+                               App.Vector(-length / 2, -width / 2, top - depth))
+            radius = obj.CornerRadius.Value
+            if radius > 0:
+                vertical = [edge for edge in cut.Edges
+                            if abs(edge.tangentAt(edge.FirstParameter).z) > 0.999]
+                cut = cut.makeFillet(radius, vertical)
+        elif obj.CutKind == "fiber-tail-pair":
+            offset, half_spacing = obj.RearOffset.Value, obj.HoleSpacing.Value / 2
+            # Identical drill standard and direction to yajur's KA05T_holes.
+            cuts = [Part.makeCylinder(obj.TapDiameter.Value / 2,
+                                      obj.DrillDepth.Value,
+                                      App.Vector(-offset, sign * half_spacing, 0),
+                                      App.Vector(0, 0, -1)) for sign in (-1, 1)]
+            cut = Part.makeCompound(cuts)
+        else:
+            raise ValueError("Unknown persistent plate cut: " + obj.CutKind)
+        cut.Placement = obj.Owner.Placement
+        obj.DrillPart = cut
+        # No visible stock: this object only supplies a machining volume.
+        obj.Shape = Part.Shape()
+
+    def dumps(self):
+        return None
+
+    def loads(self, state):
+        return None
+
+def _drill_object(bp, owner, name, kind):
+    doc = owner.Document
+    plate = doc.getObject(bp.active_baseplate)
+    if owner.Baseplate != plate:
+        raise ValueError("Cut owner belongs to a different baseplate")
+    obj = doc.addObject("Part::FeaturePython", name)
+    obj.addProperty("App::PropertyLinkHidden", "Baseplate").Baseplate = plate
+    obj.addProperty("App::PropertyLink", "Owner", "Cut geometry").Owner = owner
+    obj.addProperty("App::PropertyBool", "Drill", "Cut geometry").Drill = True
+    obj.addProperty("App::PropertyString", "CutKind", "Cut geometry").CutKind = kind
+    obj.addProperty("Part::PropertyPartShape", "DrillPart", "Cut geometry")
+    obj.addProperty("App::PropertyString", "Purpose", "Provenance")
+    PersistentDrillVolume(obj)
+    if obj.ViewObject is not None:
+        obj.ViewObject.Visibility = False
+    return obj
+
+def deepen_isolator_pocket(bp, isolator, depth=10.0):
+    """Add Hana's 113.5 x 25 pocket at the requested full depth (default 10 mm).
+
+    Depth is measured from the plate top, not added to the original 5 mm. At
+    standard optical height 12.7 mm this spans z=-12.7 to -22.7. The isolator
+    and surface adapter keep their original location and their own drill cuts.
+    """
+    plate = isolator.Document.getObject(bp.active_baseplate)
+    if depth <= 0 or depth >= plate.dz.Value:
+        raise ValueError("Isolator pocket depth must be positive and below plate thickness")
+    obj = _drill_object(bp, isolator, "Isolator pocket - 10 mm total depth", "isolator-pocket")
+    obj.addProperty("App::PropertyLength", "PocketLength", "Cut geometry").PocketLength = 113.5
+    obj.addProperty("App::PropertyLength", "PocketWidth", "Cut geometry").PocketWidth = 25
+    obj.addProperty("App::PropertyLength", "PocketDepth", "Cut geometry").PocketDepth = depth
+    obj.addProperty("App::PropertyLength", "CornerRadius", "Cut geometry").CornerRadius = 3.174
+    obj.Purpose = "Hana footprint; original 5 mm pocket doubled to 10 mm total; adapter unchanged"
+    obj.Proxy.execute(obj)
+    return obj
+
+def add_fiber_tail_alternative(bp, fiber, offset=82.7, spacing=18.328):
+    """Add the second rear pair while preserving the original 72.7 mm pair.
+
+    Both dimensions are referenced to the same optical-center frame as the
+    original mount: local x=-offset and y=+/-spacing/2. These are 8-32 tapping
+    bores, not clearance holes. Use with rear_hole_x_offset=72.7 on the original
+    ``fiberport_mount_KA05T_holes`` root.
+    """
+    if offset <= 0 or spacing <= 0:
+        raise ValueError("Fiber-tail hole offsets and spacing must be positive")
+    if not hasattr(fiber, "RearHoleXOffset"):
+        raise TypeError("Use the original fiberport_mount_KA05T_holes for the first pair")
+    if abs(fiber.RearHoleXOffset.Value - offset) < 1e-6:
+        raise ValueError("Alternative holes must differ from the first pair")
+    obj = _drill_object(bp, fiber, fiber.Name + " - alternate tail holes", "fiber-tail-pair")
+    obj.addProperty("App::PropertyLength", "RearOffset", "Cut geometry").RearOffset = offset
+    obj.addProperty("App::PropertyLength", "HoleSpacing", "Cut geometry").HoleSpacing = spacing
+    obj.addProperty("App::PropertyLength", "TapDiameter", "Cut geometry").TapDiameter = 0.136 * 25.4
+    obj.addProperty("App::PropertyLength", "DrillDepth", "Cut geometry").DrillDepth = 100
+    obj.Purpose = "Second fiber-tail support position; first pair and KA05T mounting bores preserved"
+    obj.Proxy.execute(obj)
+    return obj
+
+class BareTappedHole:
+    """An 8-32 tap-drill location; no lens, mount, counterbore or adapter."""
+    type = 'Part::FeaturePython'
+
+    def __init__(self, obj, drill=True):
+        obj.Proxy = self
+        keep_machining_hidden(obj)
+        obj.addProperty('App::PropertyBool', 'Drill').Drill = drill
+        obj.addProperty('Part::PropertyPartShape', 'DrillPart')
+        obj.addProperty('App::PropertyString', 'Thread', 'Machining').Thread = '8-32 UNC'
+        obj.addProperty('App::PropertyLength', 'TapDrillDiameter', 'Machining').TapDrillDiameter = 3.4544
+        obj.addProperty('App::PropertyString', 'Purpose', 'Design')
+
+    def execute(self, obj):
+        cut = Part.makeCylinder(obj.TapDrillDiameter.Value/2, 100,
+                                App.Vector(0, 0, 0), App.Vector(0, 0, -1))
+        cut.Placement = obj.Placement
+        obj.DrillPart = cut
+        obj.Shape = Part.Shape()
+        # Keep empty drilling metadata hidden after recomputing a saved file.
+        keep_machining_hidden(obj)
+
+    def onDocumentRestored(self, obj):
+        keep_machining_hidden(obj)
+
+    def dumps(self): return None
+    def loads(self, state): return None
+
+
+# --- 3. Rb vapour cell seat: the plate pocket only (no holder, no glass) -----
+
+OPTICAL_HEIGHT = 12.7
+# V9.2 pocket-only cell seat (local frame: x along the beam, z = 0 on the axis).
+
+# V9.2 pocket-only cell seat (local frame: x along the beam, z = 0 on the axis).
+POCKET_LENGTH = 104.0            # unchanged long side (Hana: -52..52)
+
+POCKET_WIDTH = 56.0              # unchanged short side, now centred on the beam
+
+POCKET_DEPTH = 0.75 * 25.4       # 19.05 mm below the plate top (plate 25.4 thick)
+
+POCKET_CORNER_RADIUS = 3.174
+
+TAP_DIAMETER = 3.4544            # 8-32 UNC tap drill, as every other 8-32 on the plate
+# Corner holes: same x as the Hana pattern. Hana's corner holes (y = -15.7 and
+# +25.7) sit 5.3 mm inside its -21..31 holder edges = 7.3 mm from the pocket
+# wall; for the centred pocket (walls at +/-28) the same inset gives +/-20.7.
+
+# Corner holes: same x as the Hana pattern. Hana's corner holes (y = -15.7 and
+# +25.7) sit 5.3 mm inside its -21..31 holder edges = 7.3 mm from the pocket
+# wall; for the centred pocket (walls at +/-28) the same inset gives +/-20.7.
+TAP_XY = [(-45.0, -20.7), (-45.0, 20.7), (45.0, -20.7), (45.0, 20.7)]
+
+CELL_POCKET_DIMENSIONS = {
+    "model": "GC25075-RB",
+    "holder": "none installed (V9.2): plate pocket + 4 corner 8-32 taps; enclosure to be added later",
+    "cell_bbox_local_mm": [-35.92, 35.92, -12.7, 22.7, -12.7, 12.7],
+    "pocket_bbox_local_mm": [-POCKET_LENGTH / 2, POCKET_LENGTH / 2, -POCKET_WIDTH / 2, POCKET_WIDTH / 2,
+                             -OPTICAL_HEIGHT - POCKET_DEPTH, -OPTICAL_HEIGHT],
+    "pocket_length_mm": POCKET_LENGTH,
+    "pocket_width_mm": POCKET_WIDTH,
+    "pocket_centred_on_beam": True,
+    "pocket_corner_radius_mm": POCKET_CORNER_RADIUS,
+    "pocket_depth_below_standard_plate_top_mm": POCKET_DEPTH,
+    "pocket_floor_stock_mm": 25.4 - POCKET_DEPTH,
+    "tap_hole_diameter_mm": TAP_DIAMETER,
+    "tap_holes_local_xy_mm": [list(p) for p in TAP_XY],
+    "former_hana_pocket_bbox_local_mm": [-52.0, 52.0, -23.0, 33.0, -25.4, -12.7],
+    "former_hana_tap_holes_local_xy_mm": [
+        [-45.0, -15.7], [-45.0, 15.7], [-45.0, 25.7],
+        [45.0, -15.7], [45.0, 15.7], [45.0, 25.7],
+    ],
+    "notes": [
+        "V9.2: no holder/enclosure body is installed; the GC25075-RB glass is shown only for the optical path.",
+        "Pocket 104 x 56 mm, 19.05 mm (3/4 in) deep, short side centred on the beam axis (Hana's was offset +5 mm).",
+        "Only the four corner 8-32 taps remain (x = +/-45); the middle pair (y = +15.7) is dropped and the "
+        "corner rows sit symmetric at y = +/-20.7 (5.3 mm from the pocket wall, like Hana's corner holes).",
+        "The taps are drilled through the 6.35 mm pocket floor (through holes).",
+        "The vapor-cell fill stem points toward local +y, not upward.",
+    ],
+}
+
+class CellPocketMachining:
+    """Hidden plate machining: the 3/4 in cell pocket and its four corner taps."""
+    type = "Part::FeaturePython"
+
+    def __init__(self, obj, drill=True):
+        obj.Proxy = self
+        keep_machining_hidden(obj)
+        obj.addProperty("App::PropertyBool", "Drill").Drill = drill
+        obj.addProperty("Part::PropertyPartShape", "DrillPart")
+        obj.addProperty("App::PropertyLength", "PocketLength", "Machining").PocketLength = POCKET_LENGTH
+        obj.addProperty("App::PropertyLength", "PocketWidth", "Machining").PocketWidth = POCKET_WIDTH
+        obj.addProperty("App::PropertyLength", "PocketDepth", "Machining").PocketDepth = POCKET_DEPTH
+        obj.addProperty("App::PropertyLength", "CornerRadius", "Machining").CornerRadius = POCKET_CORNER_RADIUS
+        obj.addProperty("App::PropertyLength", "TapDrillDiameter", "Machining").TapDrillDiameter = TAP_DIAMETER
+        obj.addProperty("App::PropertyString", "Thread", "Machining").Thread = "8-32 UNC through, 4 corner holes"
+        obj.addProperty("App::PropertyString", "Purpose", "Design")
+        obj.addProperty("App::PropertyString", "DimensionsJSON", "Design")
+
+    def execute(self, obj):
+        top = -obj.Baseplate.OpticsDz.Value          # plate top in the beam frame (-12.7)
+        length, width = obj.PocketLength.Value, obj.PocketWidth.Value
+        depth = obj.PocketDepth.Value
+        # The box reaches 1 mm above the plate top so no coincident faces are cut.
+        pocket = Part.makeBox(length, width, depth + 1.0,
+                              App.Vector(-length / 2, -width / 2, top - depth))
+        radius = obj.CornerRadius.Value
+        if radius > 0:
+            vertical = [e for e in pocket.Edges if abs(e.tangentAt(e.FirstParameter).z) > 0.999]
+            pocket = pocket.makeFillet(radius, vertical)
+        cut = pocket
+        for x, y in TAP_XY:
+            cut = cut.fuse(Part.makeCylinder(obj.TapDrillDiameter.Value / 2, 100.0,
+                                             App.Vector(x, y, top + 1.0), App.Vector(0, 0, -1)))
+        cut = cut.removeSplitter()
+        cut.Placement = obj.Placement
+        obj.DrillPart = cut if obj.Drill else Part.Shape()
+        obj.Shape = Part.Shape()
+        keep_machining_hidden(obj)
+
+    def onDocumentRestored(self, obj):
+        keep_machining_hidden(obj)
+
+    def dumps(self):
+        return None
+
+    def loads(self, state):
+        return None
+
+def place_cell_pocket(bp, x, y, angle=0, name="Rb vapor cell seat - plate pocket 3/4 in + 4 corner taps"):
+    """V9.2: the machined pocket seat only - no glass, no holder, no enclosure.
+
+    The enclosure has not been designed yet, so nothing is modelled above the
+    plate: the board carries only the pocket and its four corner 8-32 taps.
+    Returns ``root`` / ``objects`` / ``cut_object`` / ``dimensions`` so the
+    audits treat the pocket as the cell's plate cut.
+    """
+    pocket = bp.place_element(name, CellPocketMachining, x=x, y=y, angle=angle)
+    pocket.Purpose = ("V9.2 cell seat: 104 x 56 mm pocket centred on the beam, 19.05 mm deep, "
+                      "8-32 taps at (+/-45, +/-20.7); enclosure to be designed/installed later.")
+    pocket.Document.recompute()
+    dimensions = json.loads(json.dumps(CELL_POCKET_DIMENSIONS))
+    dimensions["placement_xy_angle"] = [float(x), float(y), float(angle)]
+    pocket.DimensionsJSON = json.dumps(dimensions)
+    return {"root": pocket, "objects": [pocket], "cut_object": pocket,
+            "dimensions": dimensions}
+
+
+# --- 4. integral AOM seat machined into the baseplate ------------------------
+
+# Aperture centre read from the unchanged AOMO_3100_125 mesh, in its root frame.
+AOM_APERTURE_LOCAL = (0.0, -0.030, -0.115)
+# Bearing band in the seat frame (x along the beam, origin = central 8-32).
+# It carries the fixed KM100PM back plate (x = -4.94..5.22) and the lip only;
+# the moving front plate starts at x = 7.75 and must stay over the pocket.
+# SEAT_X_MIN is the lower-knob pocket wall: KM100PM mesh x-min (-23.179 in the
+# seat frame) - 3 mm tolerance + 17 mm knob-box offset. _geometry() re-derives
+# it from the mesh and refuses to build if the two disagree by > 0.05 mm.
+SEAT_X_MIN = -9.179
+SEAT_X_MAX = 5.2
+SEAT_X_MIN_TOLERANCE = 0.05
+# KM100PM 'pill' through-cut: +x end at seat x = 35.975 + PILL_MAX_OFFSET[0]
+# (5.175 mm, i.e. 0.025 mm inside the band edge, so no through-sliver remains
+# in front of the band). V8 used -18 (through-cut ending at x = 17.975).
+PILL_MAX_OFFSET = (-30.8, -38, 0)
+# KM pocket floor relative to the lowest KM100PM mesh point (lower knob):
+# V8 used +0.63 (floor at seat z = -1.24); V9 uses -0.4 (floor at -2.27).
+KNOB_FLOOR_OFFSET = -0.4
+# Bearing stock is limited to the existing KM100PM pocket length: the original
+# 86 mm lower adapter footprint is deliberately not used by this design.
+LIP_X = -7.15
+LIP_Y = -15.0
+LIP_WIDTH = 2.0
+LIP_LENGTH = 30.0
+LIP_HEIGHT = 2.0
+# Request-4 plate intrusion checks confirmed the original KM100PM mesh extends
+# 1.231 mm below the adapter bearing plane. The penetrating connected component
+# projects to x=-4.937..5.223, y=-15.887548..15.910609 in the lower-adapter frame.
+# V8/V9.1 milled a narrow, round-ended relief slot for it. V9.2 (user request,
+# cheaper machining): the whole band face is cut flat at the slot's floor,
+# seat z = -KM_RELIEF_DEPTH, so the boss bears on the flat face and the
+# KM100PM elevation is unchanged. The constants below still describe the
+# boss footprint (used by the probes); no slot is cut any more.
+KM_RELIEF_DEPTH = 1.231
+KM_RELIEF_X_MIN = -5.037
+KM_RELIEF_WIDTH = 10.36
+KM_RELIEF_Y_CENTRES = (-15.887548, 15.910609)
+# V9.2: seat z of the flat screw-bearing face (former relief-slot floor).
+BEARING_FACE_Z = -KM_RELIEF_DEPTH
+
+
+def _descendants(root):
+    result, pending, seen = [], [root], set()
+    while pending:
+        obj = pending.pop()
+        if obj.Name in seen:
+            continue
+        seen.add(obj.Name)
+        result.append(obj)
+        pending.extend(getattr(obj, "ChildObjects", []))
+    return result
+
+
+def _km_bearing_relief():
+    """V8/V9.1 round-ended relief slot (kept for reference; V9.2 does not cut it).
+
+    V9.2 lowers the whole band face to the slot floor instead, see
+    ``BEARING_FACE_Z``; the boss footprint constants remain valid.
+    """
+    radius = KM_RELIEF_WIDTH / 2
+    x = KM_RELIEF_X_MIN + radius
+    ya, yb = KM_RELIEF_Y_CENTRES
+    height = KM_RELIEF_DEPTH + 0.01
+    part = Part.makeBox(KM_RELIEF_WIDTH, yb - ya, height,
+                        App.Vector(KM_RELIEF_X_MIN, ya, -KM_RELIEF_DEPTH))
+    for y in (ya, yb):
+        part = part.fuse(Part.makeCylinder(radius, height,
+                         App.Vector(x, y, -KM_RELIEF_DEPTH)))
+    return part.removeSplitter()
+
+
+def seat_placement(obj):
+    """Locate plate machining directly from the retained AOM assembly."""
+    if "SeatRelativePlacement" in obj.PropertiesList:
+        return obj.AOMRoot.Placement.multiply(obj.SeatRelativePlacement)
+    # Permit opening earlier V4 documents before their explicit migration.
+    return obj.Owner.Placement
+
+
+def _remove_lower_adapter(seat, lower):
+    """Keep numeric mounting coordinates, then delete the obsolete mesh."""
+    aom, doc = seat.AOMRoot, seat.Document
+    if "SeatRelativePlacement" not in seat.PropertiesList:
+        if lower is None:
+            raise ValueError("Cannot migrate a seat without its original location")
+        seat.addProperty("App::PropertyPlacement", "SeatRelativePlacement", "Integral AOM mechanics")
+        seat.SeatRelativePlacement = aom.Placement.inverse().multiply(lower.Placement)
+    if "Owner" in seat.PropertiesList:
+        seat.Owner = None
+        seat.removeProperty("Owner")
+    seat.Label = aom.Label + " - baseplate machining / integral seat"
+    seat.ViewObject.Visibility = False
+    seat.Proxy = IntegralAOMSeat(seat)
+    if lower is None:
+        return None
+    if not isinstance(getattr(lower, "Proxy", None), surface_adapter_aom):
+        raise ValueError("Refusing to remove a component other than the lower AOM adapter")
+    name = lower.Name
+    for parent in list(lower.InList):
+        if hasattr(parent, "ChildObjects") and lower in parent.ChildObjects:
+            parent.ChildObjects = [child for child in parent.ChildObjects if child != lower]
+    if hasattr(lower, "ParentObject"):
+        lower.ParentObject = None
+    if lower.InList:
+        raise ValueError("Unexpected remaining references to obsolete adapter: " + name
+                         + " from " + repr([(p.Name, p.PropertiesList) for p in lower.InList]))
+    doc.removeObject(name)
+    if doc.getObject(name) is not None:
+        raise RuntimeError("FreeCAD did not remove obsolete adapter: " + name)
+    return name
+
+
+def remove_legacy_adapters(doc):
+    """Remove obsolete adapter objects and apply integral machining to existing seats."""
+    removed = []
+    for seat in list(doc.Objects):
+        if type(getattr(seat, "Proxy", None)).__name__ != "IntegralAOMSeat":
+            continue
+        lower = getattr(seat, "Owner", None)
+        name = _remove_lower_adapter(seat, lower)
+        if name:
+            removed.append(name)
+        _own_aom_machining(seat)
+        _update_notes(seat)
+        seat.Baseplate.Proxy = _make_IntegralAOMBaseplate()(seat.Baseplate.Name)
+    return removed
+
+
+def _km_clearance(km, placement):
+    """Original main/knob clearances, without the separate adapter's holes.
+
+    Keep the original deep clearance under the moving portion of KM100PM.
+    Bearing stock is subsequently excluded from this cutter, not added back
+    to the machined plate. Dimensions are read from the unchanged KM mesh.
+    """
+    main = _bounding_box(
+        km, 6, 0.125 * layout.inch, max_offset=PILL_MAX_OFFSET, z_tol=True)
+    bounds = main.BoundBox
+    main = main.fuse(Part.makeBox(
+        bounds.XLength, bounds.YLength, 100,
+        App.Vector(bounds.XMin, bounds.YMin, -100)))
+    knobs = _bounding_box(
+        km, 3, 0.125 * layout.inch, min_offset=(17, 0, KNOB_FLOOR_OFFSET))
+    cut = main.fuse(knobs)
+    cut.Placement = placement.inverse().multiply(km.Placement)
+    return cut
+
+
+def knob_pocket_wall_x(km, placement):
+    """Seat-frame x of the lower-knob pocket wall, read from the KM mesh."""
+    knobs = _bounding_box(
+        km, 3, 0.125 * layout.inch, min_offset=(17, 0, KNOB_FLOOR_OFFSET))
+    knobs.Placement = placement.inverse().multiply(km.Placement)
+    return knobs.BoundBox.XMin
+
+
+def _geometry(obj):
+    """Return the complete assembly cutter and an empty compatibility shape."""
+    plate, placement = obj.Baseplate, seat_placement(obj)
+    owner_on_plate = plate.Placement.inverse().multiply(placement)
+    # All board components use yaw only; support walls are parallel to board z.
+    axis = owner_on_plate.Rotation.multVec(App.Vector(0, 0, 1))
+    if (axis - App.Vector(0, 0, 1)).Length > 1.e-8:
+        raise ValueError("Integral AOM seat requires its z axis parallel to the board")
+    floor = -plate.OpticsDz.Value - plate.dz.Value - owner_on_plate.Base.z
+    if floor >= 0:
+        raise ValueError("AOM bearing surface is below or at the plate bottom")
+    top = -plate.OpticsDz.Value - owner_on_plate.Base.z
+    if top <= LIP_HEIGHT:
+        raise ValueError("AOM locating lip must remain below the plate top")
+
+    retained = _descendants(obj.AOMRoot)
+    mounts = [o for o in retained
+              if isinstance(getattr(o, "Proxy", None), prism_mount_km100pm_bridged)]
+    if len(mounts) != 1:
+        raise ValueError("Expected exactly one retained original KM100PM")
+    km = mounts[0]
+    cavity = _km_clearance(km, placement)
+    cb = cavity.BoundBox
+    # V9.1: the band starts exactly at the lower-knob pocket wall so that no
+    # stock protrudes behind that wall (the former 1.3 mm sliver).
+    wall = knob_pocket_wall_x(km, placement)
+    if abs(wall - SEAT_X_MIN) > SEAT_X_MIN_TOLERANCE:
+        raise ValueError("Knob pocket wall at seat x = %.3f disagrees with SEAT_X_MIN = %.3f"
+                         % (wall, SEAT_X_MIN))
+    # A rectangular bearing band remains part of the original blank. Its ends
+    # stop at the main KM pocket walls; there are no projecting adapter ears.
+    # V9.2: the band's top (the screw-bearing face) is one flat plane at seat
+    # z = BEARING_FACE_Z (-1.231, the former relief-slot floor). The KM100PM
+    # underside boss rests on it; no relief slot is milled. The locating lip
+    # rises from that face to the unchanged top at z = LIP_HEIGHT.
+    support = Part.makeBox(SEAT_X_MAX - wall, cb.YLength, BEARING_FACE_Z - floor,
+                           App.Vector(wall, cb.YMin, floor))
+    lip = Part.makeBox(LIP_WIDTH, LIP_LENGTH, LIP_HEIGHT - BEARING_FACE_Z,
+                       App.Vector(LIP_X, LIP_Y, BEARING_FACE_Z))
+    cavity = cavity.cut(support.fuse(lip))
+    # Use only the AOM body envelope, never its two unused mounting bores at
+    # local (2.5, -50) and (2.5, -60). Upper adapter geometry stays unchanged.
+    for component in retained:
+        if component == km:
+            continue
+        if isinstance(getattr(component, "Proxy", None),
+                      (AOMO_3100_125, aom_adapter)):
+            body = _bounding_box(component, 2, 0.125 * layout.inch)
+            body.Placement = placement.inverse().multiply(component.Placement)
+            cavity = cavity.fuse(body)
+    central = Part.makeCylinder(TAP_DIAMETER / 2, top - floor + 2,
+                                App.Vector(0, 0, top + 1), App.Vector(0, 0, -1))
+    machining = cavity.fuse(central)
+    machining = machining.removeSplitter()
+    machining.Placement = placement
+    return machining, Part.Shape()
+
+
+class IntegralAOMSeat:
+    """Invisible machining specification for one integral lower AOM seat."""
+
+    def __init__(self, obj):
+        obj.Proxy = self
+        keep_machining_hidden(obj)
+
+    def execute(self, obj):
+        if obj.AOMRoot is None or not obj.Drill:
+            obj.DrillPart = Part.Shape()
+            obj.SupportPart = Part.Shape()
+        else:
+            obj.DrillPart, obj.SupportPart = _geometry(obj)
+        obj.Shape = Part.Shape()
+        # This is machining metadata, not an installed piece of hardware.
+        # FreeCAD may reset an empty Part feature's visibility on recompute.
+        keep_machining_hidden(obj)
+
+    def onDocumentRestored(self, obj):
+        keep_machining_hidden(obj)
+
+    def dumps(self):
+        return None
+
+    def loads(self, state):
+        return None
+
+
+
+# ``IntegralAOMBaseplate`` subclasses ``layout.baseplate``. optomech is imported
+# while layout is still executing (layout imports optomech), so the subclass
+# cannot be created at import time. It is built on first access instead: a
+# module __getattr__ is what FreeCAD itself uses when it restores the proxy of
+# a saved document, so the name resolves exactly as a plain class would.
+def _make_IntegralAOMBaseplate():
+    cls = globals().get('IntegralAOMBaseplate')
+    if cls is not None:
+        return cls
+    class IntegralAOMBaseplate(layout.baseplate):
+        """Machine integral seats directly as cuts in the single baseplate."""
+
+        def __init__(self, name):
+            self.active_baseplate = name
+
+        def execute(self, obj):
+            # Upstream source is untouched, and remains responsible for every
+            # ordinary component pocket, the table holes, perimeter and thickness.
+            # The unchanged upstream implementation reads App.ActiveDocument.
+            # Recomputing a background tab must still machine its own objects.
+            for seat in obj.Document.Objects:
+                if (isinstance(getattr(seat, "Proxy", None), IntegralAOMSeat)
+                        and seat.Baseplate == obj):
+                    _own_aom_machining(seat)
+                    # Refresh before upstream execute: no stale cutter after moving
+                    # an AOM and no dependence on object execution order on reopen.
+                    seat.Proxy.execute(seat)
+            previous = App.ActiveDocument
+            if previous != obj.Document:
+                App.setActiveDocument(obj.Document.Name)
+            try:
+                layout.baseplate.execute(self, obj)
+            finally:
+                if previous is not None and previous != obj.Document:
+                    App.setActiveDocument(previous.Name)
+
+        def dumps(self):
+            return {"active_baseplate": self.active_baseplate}
+
+        def loads(self, state):
+            self.active_baseplate = state["active_baseplate"]
+
+
+    globals()['IntegralAOMBaseplate'] = IntegralAOMBaseplate
+    return IntegralAOMBaseplate
+
+
+def __getattr__(name):
+    if name == 'IntegralAOMBaseplate':
+        cls = _make_IntegralAOMBaseplate()
+        globals()[name] = cls
+        return cls
+    raise AttributeError(name)
+
+
+def _own_aom_machining(seat):
+    """Disable obsolete component cutters; their original models stay intact."""
+    for component in _descendants(seat.AOMRoot):
+        if hasattr(component, "Drill") and component.Drill:
+            component.Drill = False
+
+
+def _update_notes(seat):
+    """Canonical V9 machining metadata for a newly built or migrated seat."""
+    group = "V9 mechanics"
+    if "MachiningNotes" not in seat.PropertiesList:
+        seat.addProperty("App::PropertyString", "MachiningNotes", group)
+    if "DimensionsJSON" not in seat.PropertiesList:
+        seat.addProperty("App::PropertyString", "DimensionsJSON", group)
+    seat.MachiningNotes = (
+        "V9 direct baseplate machining: main/knob KM100PM clearances with "
+        "integral central bearing stock and original 2 x 30 mm lip. "
+        "V9: bearing band x = %g..%g (rear end flush with the lower-knob pocket "
+        "wall, front end behind the fixed back plate, not under the moving front "
+        "plate); pill through-cut ends at the band, so the former front "
+        "through-slot is filled to the pocket floor; KM pocket floor "
+        "lowered to seat z = %.2f for pitch clearance. "
+        % (SEAT_X_MIN, SEAT_X_MAX, -31.87 + 30.0 + KNOB_FLOOR_OFFSET) +
+        "V9.2: the screw-bearing face of the band is one flat plane at seat "
+        "z = %.3f mm (the floor level of the former 10.36 x 42.16 mm round-ended "
+        "relief slot); the slot is not milled any more. The KM100PM underside "
+        "boss (x %.3f..%.3f, y %.2f..%.2f in the seat frame) bears directly on "
+        "the flat face, so the KM100PM/AOM elevation is unchanged; the lip rises "
+        "from the face to z = +%g. "
+        % (BEARING_FACE_Z, KM_RELIEF_X_MIN, KM_RELIEF_X_MIN + KM_RELIEF_WIDTH,
+           KM_RELIEF_Y_CENTRES[0], KM_RELIEF_Y_CENTRES[1], LIP_HEIGHT) +
+        "The side-knob clearance floor remains below the central screw-bearing "
+        "plane to preserve AOM adjustment travel. "
+        "Old 21 x 86 mm projecting seat pocket omitted; both ear holes at "
+        "seat y=+/-32.5 mm and unused AOM holes at (2.5,-50), (2.5,-60) omitted. "
+        "Only the central 8-32 UNC through tapping bore remains. "
+        "CAD shows the 3.4544 mm tap-drill bore; thread is specified, not helical. "
+        "Central screw installs from above through KM100PM into the plate. "
+        "No counterbore, bottom screw-head recess, added support object, "
+        "or post-machining fill solid. SupportPart is empty compatibility data.")
+    seat.DimensionsJSON = json.dumps({
+        "revision": "V9.2",
+        "construction": "direct cuts in original baseplate blank",
+        "bearing_width_mm": SEAT_X_MAX - SEAT_X_MIN,
+        "bearing_x_range_seat_mm": [SEAT_X_MIN, SEAT_X_MAX],
+        "bearing_rear_flush_with_knob_pocket_wall": True,
+        "bearing_face_seat_z_mm": BEARING_FACE_Z,
+        "bearing_face_flat_no_relief_slot": True,
+        "bearing_face_below_km_flat_underside_mm": KM_RELIEF_DEPTH,
+        "pill_max_offset_mm": list(PILL_MAX_OFFSET),
+        "front_through_slot_filled_to_pocket_floor": True,
+        "knob_pocket_floor_offset_from_km_min_mm": KNOB_FLOOR_OFFSET,
+        "bearing_length": "bounded by existing KM100PM pocket",
+        "old_ear_pocket_removed": True,
+        "lip_origin_local_mm": [LIP_X, LIP_Y, BEARING_FACE_Z],
+        "lip_size_mm": [LIP_WIDTH, LIP_LENGTH, LIP_HEIGHT - BEARING_FACE_Z],
+        "lip_top_seat_z_mm": LIP_HEIGHT,
+        "tap_diameter_mm": TAP_DIAMETER, "thread": "8-32 UNC through",
+        "hole_xy_local_mm": [[0, 0]],
+        "deleted_ear_hole_xy_local_mm": [[0, -32.5], [0, 32.5]],
+        "deleted_unused_hole_xy_aom_mm": [[2.5, -50], [2.5, -60]],
+        "aperture_correction_local_mm": [0, 0.030, 0.115],
+        "km_underside_boss_depth_mm": KM_RELIEF_DEPTH,
+        "km_underside_boss_x_range_seat_mm": [KM_RELIEF_X_MIN, KM_RELIEF_X_MIN + KM_RELIEF_WIDTH],
+        "km_underside_boss_y_range_seat_mm": list(KM_RELIEF_Y_CENTRES),
+        "former_relief_slot_removed": True,
+        "side_clearance_floor_at_bearing_plane": False,
+        "central_thread_engagement_at_25_4_plate_mm": 6.984 - KM_RELIEF_DEPTH,
+    })
+
+
+def integrate_aom(bp, aom, align_aperture=True):
+    """Create persistent integral machining and return its specification object.
+
+    ``align_aperture=True`` shifts the entire original linked AOM assembly by
+    local (0, +0.030, +0.115) mm once, so the measured aperture centre coincides
+    with the original nominal root position. No optic/model dimensions change.
+    Use ``optical_center(aom)`` for cat-eye distance checks after this correction.
+    After all placement, call the usual redraw/recompute and plate.Drill=True;
+    no one-off final solid operation is required, including after reopening.
+    """
+    plate = aom.Document.getObject(bp.active_baseplate)
+    if aom.Baseplate != plate:
+        raise ValueError("AOM and integral seat must belong to the same baseplate")
+    existing = [o for o in aom.Document.Objects
+                if type(getattr(o, "Proxy", None)).__name__ == "IntegralAOMSeat"
+                and o.AOMRoot == aom]
+    if existing:
+        _remove_lower_adapter(existing[0], getattr(existing[0], "Owner", None))
+        _own_aom_machining(existing[0])
+        _update_notes(existing[0])
+        plate.Proxy = _make_IntegralAOMBaseplate()(plate.Name)
+        return existing[0]
+    adapters = [o for o in _descendants(aom)
+                if isinstance(getattr(o, "Proxy", None), surface_adapter_aom)]
+    if len(adapters) != 1:
+        raise ValueError("Expected exactly one original lower AOM surface adapter")
+    lower = adapters[0]
+
+    if "ApertureAlignmentApplied" not in aom.PropertiesList:
+        aom.addProperty("App::PropertyBool", "ApertureAlignmentApplied", "V9 mechanics")
+        aom.addProperty("App::PropertyVector", "MeshApertureLocal", "V9 mechanics")
+        aom.MeshApertureLocal = App.Vector(*AOM_APERTURE_LOCAL)
+    if align_aperture and not aom.ApertureAlignmentApplied:
+        placement = aom.BasePlacement
+        placement.Base += placement.Rotation.multVec(App.Vector(0, 0.030, 0.115))
+        aom.BasePlacement = placement
+        aom.ApertureAlignmentApplied = True
+    seat = aom.Document.addObject("Part::FeaturePython", aom.Name + "_integral_seat")
+    seat.addProperty("App::PropertyLinkHidden", "Baseplate").Baseplate = plate
+    seat.addProperty("App::PropertyLink", "AOMRoot", "V9 mechanics").AOMRoot = aom
+    seat.addProperty("App::PropertyBool", "Drill", "V9 mechanics").Drill = True
+    seat.addProperty("Part::PropertyPartShape", "DrillPart", "V9 mechanics")
+    seat.addProperty("Part::PropertyPartShape", "SupportPart", "V9 mechanics")
+    _update_notes(seat)
+    IntegralAOMSeat(seat)
+    _remove_lower_adapter(seat, lower)
+    _own_aom_machining(seat)
+    if not isinstance(plate.Proxy, _make_IntegralAOMBaseplate()):
+        plate.Proxy = _make_IntegralAOMBaseplate()(plate.Name)
+    return seat
+
+
+def optical_center(aom):
+    """Global point at the measured centre of the original AOM mesh aperture."""
+    return aom.Placement.multVec(App.Vector(*AOM_APERTURE_LOCAL))
+
+
+def audit_machining(seat):
+    """Probe the final plate, including removed holes and the filled ear regions.
+
+    Intended for both isolated CAD tests and the final board audit. If unrelated
+    hardware drills through a removed-hole location, this flags it for review.
+    This is a material probe check; full KM mesh clearance is audited separately.
+    """
+    plate, placement = seat.Baseplate, seat_placement(seat)
+    if not plate.Drill:
+        return {"seat": seat.Name, "status": "not_checked_plate_drilling_disabled"}
+    inverse = plate.Placement.inverse()
+    on_plate = inverse.multiply(placement)
+    floor = -plate.OpticsDz.Value - plate.dz.Value - on_plate.Base.z
+    top = -plate.OpticsDz.Value - on_plate.Base.z
+    checks = []
+    plate_box = plate.Shape.BoundBox
+
+    def material(name, world, expected):
+        # Some legacy-adapter hole positions fall beyond the intentionally
+        # open edge of this compact baseplate. There can be no stock to probe
+        # there; only in-plate positions may prove that an obsolete recess was
+        # filled. Do not exempt an in-plate pocket or hole from the test.
+        in_stock_xy = (plate_box.XMin <= world.x <= plate_box.XMax and
+                       plate_box.YMin <= world.y <= plate_box.YMax)
+        if not in_stock_xy:
+            checks.append({"name": name, "point_world_mm": list(world),
+                           "material_expected": expected, "material_present": False,
+                           "status": "not_applicable_outside_plate_xy"})
+            return
+        actual = plate.Shape.isInside(world, 1.e-5, False)
+        checks.append({"name": name, "point_world_mm": list(world),
+                       "material_expected": expected, "material_present": actual,
+                       "status": "pass" if actual == expected else "fail"})
+
+    def not_cut_by_this_seat(name, world):
+        # V9.2: the obsolete ear pockets/holes are a property of THIS seat's
+        # cutter, so probe the seat's own DrillPart rather than the final
+        # plate: a neighbouring component's legitimate pocket (e.g. an RSP05
+        # adapter 36 mm from the AOM axis) must not read as a leftover ear.
+        # Plate material at the point is reported for information only.
+        cut = seat.DrillPart
+        cut_here = (not cut.isNull()) and cut.isInside(world, 1.e-5, False)
+        in_stock_xy = (plate_box.XMin <= world.x <= plate_box.XMax and
+                       plate_box.YMin <= world.y <= plate_box.YMax)
+        checks.append({"name": name, "point_world_mm": list(world),
+                       "cut_by_this_seat": bool(cut_here),
+                       "plate_material_present": bool(plate.Shape.isInside(world, 1.e-5, False))
+                       if in_stock_xy else None,
+                       "status": "fail" if cut_here else "pass"})
+
+    for y in (-39.0, 39.0):
+        not_cut_by_this_seat("former_ear_recess_not_cut_" + str(y),
+                             placement.multVec(App.Vector(0, y, top - 1)))
+    for y in (-32.5, 32.5):
+        not_cut_by_this_seat("former_ear_tap_not_cut_" + str(y),
+                             placement.multVec(App.Vector(0, y, floor + 2)))
+    for y in (-50.0, -60.0):
+        point = seat.AOMRoot.Placement.multVec(App.Vector(2.5, y, 0))
+        point.z = plate.Placement.Base.z - plate.OpticsDz.Value - plate.dz.Value / 2
+        not_cut_by_this_seat("unused_AOM_tap_not_cut_" + str(y), point)
+    material("central_top_installed_thread_bore_open",
+             placement.multVec(App.Vector(0, 0, floor + 2)), False)
+    # V9 probes (seat frame; y = -19.25 is the middle of the pill y-range).
+    # V9.2: the band's top face is at BEARING_FACE_Z, so "band present" probes
+    # sit 0.3 mm below that face and "no stock" probes 0.3 mm above it.
+    ym = -19.25
+    below = BEARING_FACE_Z - 0.3
+    above = BEARING_FACE_Z + 0.3
+    material("v9_front_slot_filled_at_plate_bottom",
+             placement.multVec(App.Vector(14.0, ym, floor + 1)), True)
+    material("v9_front_pocket_floor_lowered",
+             placement.multVec(App.Vector(14.0, ym, -1.8)), False)
+    material("v9_no_band_under_front_plate",
+             placement.multVec(App.Vector(8.0, ym, below)), False)
+    material("v9_band_present_behind_back_plate",
+             placement.multVec(App.Vector(-9.0, ym, below)), True)
+    # V9.1: nothing of the band remains behind the knob pocket wall (-9.18).
+    material("v9_1_no_band_sliver_behind_knob_wall",
+             placement.multVec(App.Vector(SEAT_X_MIN - 0.4, ym, below)), False)
+    material("v9_1_band_starts_at_knob_wall",
+             placement.multVec(App.Vector(SEAT_X_MIN + 0.4, ym, below)), True)
+    material("v9_lower_knob_access_open",
+             placement.multVec(App.Vector(-17.5, ym, floor + 1)), False)
+    # V9.2: flat screw-bearing face at BEARING_FACE_Z, no relief slot, no
+    # stock above the face anywhere on the band except the locating lip.
+    # Probe points lie inside the KM100PM boss footprint (former slot), where
+    # the cavity certainly reaches down to the band.
+    for label, x, y in (("boss_y_plus", 0.0, 12.0), ("boss_y_minus", 0.0, -12.0),
+                        ("boss_x_plus", 4.0, 0.0), ("boss_x_minus", -4.0, -8.0)):
+        material("v9_2_no_stock_above_bearing_face_" + label,
+                 placement.multVec(App.Vector(x, y, above)), False)
+        material("v9_2_stock_below_bearing_face_" + label,
+                 placement.multVec(App.Vector(x, y, below)), True)
+    material("v9_2_lip_present_above_face",
+             placement.multVec(App.Vector(LIP_X + LIP_WIDTH / 2, 0.0, 1.0)), True)
+    material("v9_2_lip_continuous_down_to_face",
+             placement.multVec(App.Vector(LIP_X + LIP_WIDTH / 2, 0.0, above)), True)
+    disabled = all(not getattr(o, "Drill", False) for o in _descendants(seat.AOMRoot))
+    return {"seat": seat.Name, "checks": checks,
+            "obsolete_component_drills_disabled": disabled,
+            "support_part_empty": seat.SupportPart.isNull(),
+            "plate_valid": plate.Shape.isValid(), "plate_solids": len(plate.Shape.Solids),
+            "status": "pass" if disabled and seat.SupportPart.isNull()
+            and plate.Shape.isValid() and len(plate.Shape.Solids) == 1
+            and all(c["status"] in ("pass", "not_applicable_outside_plate_xy")
+                    for c in checks) else "fail"}
+

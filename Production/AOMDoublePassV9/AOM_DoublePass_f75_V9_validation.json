@@ -1,0 +1,4011 @@
+{
+  "document": "AOM_DoublePass_f75_V9",
+  "mode": "dp",
+  "layout_status": "V9 double-pass board; see the saved audit report for results.",
+  "plate_size_mm": [
+    431.8,
+    152.4,
+    25.4
+  ],
+  "plate_valid": true,
+  "plate_solid_count": 1,
+  "plate_volume_mm3": 1453344.8487202714,
+  "objects": [
+    {
+      "name": "Doublepass_plate_17_x_6_in",
+      "label": "Doublepass_plate_17_x_6_in",
+      "type": "Part::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        3.175,
+        3.175,
+        -38.099999999999994,
+        428.62499999999994,
+        149.225,
+        -12.699999999999996
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "valid": true,
+      "class": "IntegralAOMBaseplate"
+    },
+    {
+      "name": "Mount_Hole__0__0_",
+      "label": "Mount Hole (0, 0)",
+      "type": "Part::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        28.119999999999997,
+        7.813701393812217,
+        -38.099999999999994,
+        37.919999999999995,
+        17.586298606187782,
+        -14.699999999999996
+      ],
+      "position": [
+        33.019999999999996,
+        12.7,
+        0.0
+      ],
+      "valid": true,
+      "class": "baseplate_mount"
+    },
+    {
+      "name": "Mount_Hole__11__4_",
+      "label": "Mount Hole (11, 4)",
+      "type": "Part::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        292.28,
+        109.41370139381222,
+        -38.099999999999994,
+        302.0799999999999,
+        119.18629860618778,
+        -14.699999999999996
+      ],
+      "position": [
+        297.17999999999995,
+        114.3,
+        0.0
+      ],
+      "valid": true,
+      "class": "baseplate_mount"
+    },
+    {
+      "name": "Mount_Hole__0__4_",
+      "label": "Mount Hole (0, 4)",
+      "type": "Part::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        12.879999999999997,
+        109.41370139381222,
+        -38.099999999999994,
+        22.68,
+        119.18629860618778,
+        -14.699999999999996
+      ],
+      "position": [
+        17.779999999999998,
+        114.3,
+        0.0
+      ],
+      "valid": true,
+      "class": "baseplate_mount"
+    },
+    {
+      "name": "Input_KA05T",
+      "label": "Input KA05T",
+      "type": "Part::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "position": [
+        97.78999999999999,
+        35.559999999999995,
+        0.0
+      ],
+      "class": "fiberport_mount_KA05T_holes"
+    },
+    {
+      "name": "Mount",
+      "label": "Mount",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        75.09067634582519,
+        22.872440872192378,
+        -12.702301025390625,
+        105.7815018081665,
+        48.27244049072265,
+        12.697698593139648
+      ],
+      "position": [
+        97.78999999999999,
+        35.559999999999995,
+        0.0
+      ],
+      "class": "mirror_mount_KA05T",
+      "part_numbers": [
+        "KA05T"
+      ]
+    },
+    {
+      "name": "Upper_Thumbscrew",
+      "label": "Upper Thumbscrew",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        70.61117579650877,
+        38.22708837127685,
+        2.7096618232727057,
+        87.12117602539061,
+        52.70508853530883,
+        17.156781536102294
+      ],
+      "position": [
+        87.12199999999999,
+        45.465999999999994,
+        9.906
+      ],
+      "class": "thumbscrew_hkts_5_64",
+      "part_numbers": [
+        "HKTS-5/64(P4)"
+      ]
+    },
+    {
+      "name": "Lower_Thumbscrew",
+      "label": "Lower Thumbscrew",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        70.61117579650877,
+        18.415088371276852,
+        -17.102338176727294,
+        87.12117602539061,
+        32.893088535308834,
+        -2.6552184638977057
+      ],
+      "position": [
+        87.12199999999999,
+        25.653999999999996,
+        -9.906
+      ],
+      "class": "thumbscrew_hkts_5_64",
+      "part_numbers": [
+        "HKTS-5/64(P4)"
+      ]
+    },
+    {
+      "name": "Fiber_Adapter",
+      "label": "Fiber Adapter",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        90.15533529663085,
+        28.765461025238032,
+        -6.782576084136963,
+        99.3142565383911,
+        42.35446125030517,
+        6.783433437347412
+      ],
+      "position": [
+        99.314,
+        35.559999999999995,
+        0.0
+      ],
+      "class": "fiber_adapter_sm05fca2",
+      "part_numbers": [
+        "SM05FCA2"
+      ]
+    },
+    {
+      "name": "Lens_Tube",
+      "label": "Lens Tube",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        101.09399993515014,
+        26.66999965667724,
+        -8.852076530456543,
+        116.58799989318847,
+        44.45000034332275,
+        8.852076530456543
+      ],
+      "position": [
+        103.12599999999999,
+        35.559999999999995,
+        0.0
+      ],
+      "class": "lens_tube_sm05l05",
+      "part_numbers": [
+        "SM05L05"
+      ]
+    },
+    {
+      "name": "Lens_Adapter",
+      "label": "Lens Adapter",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        104.314,
+        28.66277891159057,
+        -6.890463352203369,
+        111.2990001335144,
+        42.45722108840942,
+        6.890463352203369
+      ],
+      "position": [
+        104.314,
+        35.559999999999995,
+        0.0
+      ],
+      "class": "lens_adapter_s05tm09",
+      "part_numbers": [
+        "S05TM09"
+      ]
+    },
+    {
+      "name": "Lens",
+      "label": "Lens",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        104.30589991188049,
+        30.941010055541987,
+        -4.618989944458008,
+        111.49410014724731,
+        40.178989944458,
+        4.618989944458008
+      ],
+      "position": [
+        107.481,
+        35.559999999999995,
+        0.0
+      ],
+      "class": "mounted_lens_c220tmda",
+      "part_numbers": [
+        "C220TMD-A"
+      ]
+    },
+    {
+      "name": "Input_HWP",
+      "label": "Input HWP",
+      "type": "Part::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        135.39,
+        29.209999999999994,
+        -6.35,
+        136.39,
+        41.91,
+        6.35
+      ],
+      "position": [
+        135.89,
+        35.559999999999995,
+        0.0
+      ],
+      "valid": true,
+      "class": "waveplate",
+      "part_numbers": [
+        ""
+      ]
+    },
+    {
+      "name": "Mount001",
+      "label": "Mount001",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        131.70699991226195,
+        24.518958625793452,
+        -13.975285530090332,
+        143.13700021743773,
+        46.607013282775874,
+        11.424714088439941
+      ],
+      "position": [
+        135.39,
+        35.559999999999995,
+        0.0
+      ],
+      "class": "rotation_stage_rsp05",
+      "part_numbers": [
+        "RSP05"
+      ]
+    },
+    {
+      "name": "Surface_Adapter",
+      "label": "Surface Adapter",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        126.28699999999998,
+        12.559999999999995,
+        -21.97,
+        147.28699999999998,
+        58.559999999999995,
+        -12.97
+      ],
+      "position": [
+        136.78699999999998,
+        35.559999999999995,
+        -13.97
+      ],
+      "class": "surface_adapter_rotation_stage_lip"
+    },
+    {
+      "name": "Separation_PBS",
+      "label": "Separation PBS",
+      "type": "Part::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        154.94,
+        29.209999999999994,
+        -6.35,
+        167.64,
+        41.91,
+        6.35
+      ],
+      "position": [
+        161.29,
+        35.559999999999995,
+        0.0
+      ],
+      "valid": true,
+      "class": "cube_splitter",
+      "part_numbers": [
+        ""
+      ]
+    },
+    {
+      "name": "Mount002",
+      "label": "Mount002",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        153.29,
+        17.559999999999995,
+        -14.051000213623047,
+        169.29,
+        53.559999999999995,
+        -5.35
+      ],
+      "position": [
+        161.29,
+        35.559999999999995,
+        -6.35
+      ],
+      "class": "cube_mount_halfinch",
+      "part_numbers": [
+        "CUBE-MOUNT-1/2IN"
+      ]
+    },
+    {
+      "name": "AOMO_3100_125",
+      "label": "AOMO 3100-125",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        180.34000019073486,
+        17.779999999999994,
+        -6.984999904632568,
+        205.73999980926513,
+        68.57999923706055,
+        6.476999988555908
+      ],
+      "position": [
+        193.04,
+        35.529999999999994,
+        0.115
+      ],
+      "class": "AOMO_3100_125",
+      "part_numbers": [
+        "G&H AOMO 3100-125"
+      ]
+    },
+    {
+      "name": "Mount_KM100PM",
+      "label": "Mount KM100PM",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        207.46469959259034,
+        13.201884918212883,
+        -31.750716457366945,
+        260.61894973754886,
+        65.64571731567382,
+        20.693117370605467
+      ],
+      "position": [
+        223.34,
+        51.92999999999999,
+        -24.385
+      ],
+      "class": "prism_mount_km100pm_bridged",
+      "part_numbers": [
+        "KM100PM (Bridged)"
+      ]
+    },
+    {
+      "name": "AOM_Adapter",
+      "label": "AOM Adapter",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        179.0700006866455,
+        15.129041366577141,
+        -11.985000000000003,
+        213.04,
+        71.18,
+        -5.985000000000003
+      ],
+      "position": [
+        210.04,
+        43.17999999999999,
+        -16.985000000000003
+      ],
+      "class": "aom_adapter",
+      "part_numbers": [
+        "AOM Adapter"
+      ]
+    },
+    {
+      "name": "AOMO_3100_125_integral_seat",
+      "label": "AOMO 3100-125 - baseplate machining / integral seat",
+      "type": "Part::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "class": "IntegralAOMSeat"
+    },
+    {
+      "name": "Cat_eye_L75_LA1612_B",
+      "label": "Cat-eye L75 LA1612-B",
+      "type": "Part::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        268.9873849044785,
+        29.212250369366068,
+        -6.341000117547439,
+        271.4873849044785,
+        41.907749630633916,
+        6.35
+      ],
+      "position": [
+        270.2373849044785,
+        35.559999999999995,
+        0.0
+      ],
+      "valid": true,
+      "class": "circular_lens",
+      "focal_length_mm": 75.0,
+      "part_numbers": [
+        "LA1612-B"
+      ]
+    },
+    {
+      "name": "Mount003",
+      "label": "Mount003",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        268.487133134459,
+        26.561496315002437,
+        -12.70041275024414,
+        288.487133134459,
+        44.56149631500244,
+        8.99960708618164
+      ],
+      "position": [
+        271.4873849044785,
+        35.559999999999995,
+        0.0
+      ],
+      "class": "lens_holder_l05g_no_pin_slots",
+      "part_numbers": [
+        "POLARIS-L05G"
+      ]
+    },
+    {
+      "name": "Cat_eye_QWP",
+      "label": "Cat-eye QWP",
+      "type": "Part::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        299.7373849044785,
+        29.209999999999994,
+        -6.35,
+        300.7373849044785,
+        41.91,
+        6.35
+      ],
+      "position": [
+        300.2373849044785,
+        35.559999999999995,
+        0.0
+      ],
+      "valid": true,
+      "class": "waveplate",
+      "part_numbers": [
+        ""
+      ]
+    },
+    {
+      "name": "Mount004",
+      "label": "Mount004",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        292.9903846870408,
+        24.512986717224116,
+        -13.975285530090332,
+        304.42038499221655,
+        46.60104137420654,
+        11.424714088439941
+      ],
+      "position": [
+        300.7373849044785,
+        35.559999999999995,
+        0.0
+      ],
+      "class": "rotation_stage_rsp05",
+      "part_numbers": [
+        "RSP05"
+      ]
+    },
+    {
+      "name": "Surface_Adapter001",
+      "label": "Surface Adapter002",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        288.8403849044785,
+        12.559999999999995,
+        -21.97,
+        309.8403849044785,
+        58.559999999999995,
+        -12.97
+      ],
+      "position": [
+        299.3403849044785,
+        35.559999999999995,
+        -13.97
+      ],
+      "class": "surface_adapter_rotation_stage_lip"
+    },
+    {
+      "name": "Order_selection_iris",
+      "label": "Order selection iris",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        330.90370498396874,
+        14.249399719238276,
+        -13.208000183105469,
+        336.7965048382473,
+        51.81600051879882,
+        13.208000183105469
+      ],
+      "position": [
+        335.7801049778652,
+        35.559999999999995,
+        0.0
+      ],
+      "class": "pinhole_ida12",
+      "part_numbers": [
+        "IDA12-P5"
+      ]
+    },
+    {
+      "name": "Slide_Mount",
+      "label": "Slide Mount",
+      "type": "Part::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        328.3241049778652,
+        48.38999999999999,
+        -12.7,
+        339.3241049778652,
+        73.38999999999999,
+        4.400000000000002
+      ],
+      "position": [
+        333.8241049778652,
+        48.38999999999999,
+        0.0
+      ],
+      "valid": true,
+      "class": "slide_mount"
+    },
+    {
+      "name": "Retro_mirror",
+      "label": "Retro mirror",
+      "type": "Part::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        345.7801049778652,
+        29.212589575540992,
+        -6.35,
+        351.7801049778652,
+        41.907410424458995,
+        6.339643809930962
+      ],
+      "position": [
+        345.7801049778652,
+        35.559999999999995,
+        0.0
+      ],
+      "valid": true,
+      "class": "circular_mirror_union_optic",
+      "part_numbers": [
+        ""
+      ]
+    },
+    {
+      "name": "Mount005",
+      "label": "Mount005",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        345.7769111225796,
+        22.865926322937007,
+        -12.700902938842773,
+        367.7734197209072,
+        48.261989173889155,
+        12.695159912109375
+      ],
+      "position": [
+        351.7801049778652,
+        35.559999999999995,
+        0.0
+      ],
+      "class": "mirror_mount_M05",
+      "part_numbers": [
+        "Newport-M05"
+      ]
+    },
+    {
+      "name": "Upper_Thumbscrew001",
+      "label": "Upper Thumbscrew001",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        364.4809289524746,
+        19.176911464691155,
+        1.9476618232727052,
+        380.9909291813564,
+        33.65491162872314,
+        16.394781536102293
+      ],
+      "position": [
+        364.4801049778652,
+        26.415999999999993,
+        9.144
+      ],
+      "class": "thumbscrew_hkts_5_64",
+      "part_numbers": [
+        "HKTS-5/64(P4)"
+      ]
+    },
+    {
+      "name": "Lower_Thumbscrew001",
+      "label": "Lower Thumbscrew001",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        364.9889289524746,
+        37.464911464691156,
+        -16.340338176727293,
+        381.49892918135646,
+        51.94291162872314,
+        -1.8932184638977052
+      ],
+      "position": [
+        364.98810497786525,
+        44.70399999999999,
+        -9.144
+      ],
+      "class": "thumbscrew_hkts_5_64",
+      "part_numbers": [
+        "HKTS-5/64(P4)"
+      ]
+    },
+    {
+      "name": "Output_steering_mirror",
+      "label": "Output steering mirror",
+      "type": "Part::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        152.55953820740046,
+        105.07217889451977,
+        -6.35,
+        165.77782110548023,
+        118.29046179259953,
+        6.336953243964636
+      ],
+      "position": [
+        161.29,
+        109.56,
+        0.0
+      ],
+      "valid": true,
+      "class": "circular_mirror_union_optic",
+      "part_numbers": [
+        ""
+      ]
+    },
+    {
+      "name": "Mount006",
+      "label": "Mount006",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        136.7567153250098,
+        100.57607892385427,
+        -12.700902938842773,
+        170.26832397466347,
+        134.08768757350796,
+        12.695159912109375
+      ],
+      "position": [
+        157.0473593128807,
+        113.8026406871193,
+        0.0
+      ],
+      "class": "mirror_mount_M05",
+      "part_numbers": [
+        "Newport-M05"
+      ]
+    },
+    {
+      "name": "Upper_Thumbscrew002",
+      "label": "Upper Thumbscrew002",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        137.73928834063344,
+        124.13058035231175,
+        1.9476618232727052,
+        159.6511135538742,
+        146.0424055655525,
+        16.394781536102293
+      ],
+      "position": [
+        154.53288759898135,
+        129.24868121535823,
+        9.144
+      ],
+      "class": "thumbscrew_hkts_5_64",
+      "part_numbers": [
+        "HKTS-5/64(P4)"
+      ]
+    },
+    {
+      "name": "Lower_Thumbscrew002",
+      "label": "Lower Thumbscrew002",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        124.44850928145111,
+        111.55822178281494,
+        -16.340338176727293,
+        146.36033449469187,
+        133.47004699605571,
+        -1.8932184638977052
+      ],
+      "position": [
+        141.242108539799,
+        116.67632264586142,
+        -9.144
+      ],
+      "class": "thumbscrew_hkts_5_64",
+      "part_numbers": [
+        "HKTS-5/64(P4)"
+      ]
+    },
+    {
+      "name": "Output_HWP",
+      "label": "Output HWP",
+      "type": "Part::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        215.79,
+        103.21000000000001,
+        -6.35,
+        216.79,
+        115.91,
+        6.35
+      ],
+      "position": [
+        216.29,
+        109.56,
+        0.0
+      ],
+      "valid": true,
+      "class": "waveplate",
+      "part_numbers": [
+        ""
+      ]
+    },
+    {
+      "name": "Mount007",
+      "label": "Mount007",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        212.10699991226195,
+        98.51895862579346,
+        -13.975285530090332,
+        223.53700021743774,
+        120.60701328277588,
+        11.424714088439941
+      ],
+      "position": [
+        215.79,
+        109.56,
+        0.0
+      ],
+      "class": "rotation_stage_rsp05",
+      "part_numbers": [
+        "RSP05"
+      ]
+    },
+    {
+      "name": "Surface_Adapter002",
+      "label": "Surface Adapter003",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        206.68699999999998,
+        86.56,
+        -21.97,
+        227.68699999999998,
+        132.56,
+        -12.97
+      ],
+      "position": [
+        217.18699999999998,
+        109.56,
+        -13.97
+      ],
+      "class": "surface_adapter_rotation_stage_lip"
+    },
+    {
+      "name": "Output_rotating_PBS_RSP05",
+      "label": "Output rotating PBS RSP05",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        234.60699991226195,
+        98.51895862579346,
+        -13.975285530090332,
+        246.03700021743774,
+        120.60701328277588,
+        11.424714088439941
+      ],
+      "position": [
+        238.29,
+        109.56,
+        0.0
+      ],
+      "class": "rotation_stage_rsp05",
+      "part_numbers": [
+        "RSP05"
+      ]
+    },
+    {
+      "name": "Surface_Adapter003",
+      "label": "Surface Adapter004",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        229.18699999999998,
+        86.56,
+        -21.97,
+        250.18699999999998,
+        132.56,
+        -12.97
+      ],
+      "position": [
+        239.68699999999998,
+        109.56,
+        -13.97
+      ],
+      "class": "surface_adapter_rotation_stage_lip"
+    },
+    {
+      "name": "Output_filtering_iris",
+      "label": "Output filtering iris",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        264.4136000061035,
+        88.24939971923828,
+        -13.208000183105469,
+        270.30639986038204,
+        125.81600051879883,
+        13.208000183105469
+      ],
+      "position": [
+        269.28999999999996,
+        109.56,
+        0.0
+      ],
+      "class": "pinhole_ida12",
+      "part_numbers": [
+        "IDA12-P5"
+      ]
+    },
+    {
+      "name": "Slide_Mount001",
+      "label": "Slide Mount001",
+      "type": "Part::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        261.83399999999995,
+        122.39,
+        -12.7,
+        272.83399999999995,
+        147.39,
+        4.400000000000002
+      ],
+      "position": [
+        267.33399999999995,
+        122.39,
+        0.0
+      ],
+      "valid": true,
+      "class": "slide_mount"
+    },
+    {
+      "name": "Output_KA05T",
+      "label": "Output KA05T",
+      "type": "Part::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "position": [
+        330.438,
+        109.56,
+        0.0
+      ],
+      "class": "fiberport_mount_KA05T_holes"
+    },
+    {
+      "name": "Mount008",
+      "label": "Mount008",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        322.4464981918335,
+        96.84755950927735,
+        -12.702301025390625,
+        353.1373236541748,
+        122.24755912780762,
+        12.697698593139648
+      ],
+      "position": [
+        330.438,
+        109.56,
+        0.0
+      ],
+      "class": "mirror_mount_KA05T",
+      "part_numbers": [
+        "KA05T"
+      ]
+    },
+    {
+      "name": "Upper_Thumbscrew003",
+      "label": "Upper Thumbscrew003",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        341.10682397460937,
+        92.41491146469116,
+        2.7096618232727057,
+        357.6168242034912,
+        106.89291162872314,
+        17.156781536102294
+      ],
+      "position": [
+        341.106,
+        99.654,
+        9.906
+      ],
+      "class": "thumbscrew_hkts_5_64",
+      "part_numbers": [
+        "HKTS-5/64(P4)"
+      ]
+    },
+    {
+      "name": "Lower_Thumbscrew003",
+      "label": "Lower Thumbscrew003",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        341.10682397460937,
+        112.22691146469117,
+        -17.102338176727294,
+        357.6168242034912,
+        126.70491162872315,
+        -2.6552184638977057
+      ],
+      "position": [
+        341.106,
+        119.46600000000001,
+        -9.906
+      ],
+      "class": "thumbscrew_hkts_5_64",
+      "part_numbers": [
+        "HKTS-5/64(P4)"
+      ]
+    },
+    {
+      "name": "Fiber_Adapter001",
+      "label": "Fiber Adapter001",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        328.9137434616089,
+        102.76553874969483,
+        -6.782576084136963,
+        338.0726647033691,
+        116.35453897476197,
+        6.783433437347412
+      ],
+      "position": [
+        328.914,
+        109.56,
+        0.0
+      ],
+      "class": "fiber_adapter_sm05fca2",
+      "part_numbers": [
+        "SM05FCA2"
+      ]
+    },
+    {
+      "name": "Lens_Tube001",
+      "label": "Lens Tube001",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        311.6400001068115,
+        100.66999965667725,
+        -8.852076530456543,
+        327.13400006484983,
+        118.45000034332276,
+        8.852076530456543
+      ],
+      "position": [
+        325.102,
+        109.56,
+        0.0
+      ],
+      "class": "lens_tube_sm05l05",
+      "part_numbers": [
+        "SM05L05"
+      ]
+    },
+    {
+      "name": "Lens_Adapter001",
+      "label": "Lens Adapter001",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        316.9289998664856,
+        102.66277891159058,
+        -6.890463352203369,
+        323.914,
+        116.45722108840943,
+        6.890463352203369
+      ],
+      "position": [
+        323.914,
+        109.56,
+        0.0
+      ],
+      "class": "lens_adapter_s05tm09",
+      "part_numbers": [
+        "S05TM09"
+      ]
+    },
+    {
+      "name": "Lens001",
+      "label": "Lens001",
+      "type": "Mesh::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        316.7338998527527,
+        104.941010055542,
+        -4.618989944458008,
+        323.9221000881195,
+        114.17898994445801,
+        4.618989944458008
+      ],
+      "position": [
+        320.747,
+        109.56,
+        0.0
+      ],
+      "class": "mounted_lens_c220tmda",
+      "part_numbers": [
+        "C220TMD-A"
+      ]
+    },
+    {
+      "name": "Input_feed",
+      "label": "Input feed (nominal axis)",
+      "type": "Part::Feature",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        123.19,
+        35.559999999999995,
+        0.0,
+        161.29,
+        35.559999999999995,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "valid": true
+    },
+    {
+      "name": "DP1_double_pass",
+      "label": "DP1 double pass (nominal axis)",
+      "type": "Part::Feature",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        161.29,
+        35.559999999999995,
+        0.0,
+        345.7801049778652,
+        35.559999999999995,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "valid": true
+    },
+    {
+      "name": "Output",
+      "label": "Output (nominal axis)",
+      "type": "Part::Feature",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        161.29,
+        35.559999999999995,
+        0.0,
+        311.64,
+        109.56,
+        0.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "valid": true
+    }
+  ],
+  "roots": {
+    "Input KA05T": [
+      "Input_KA05T",
+      "Mount",
+      "Fiber_Adapter",
+      "Lens_Tube",
+      "Lens_Adapter",
+      "Lens",
+      "Upper_Thumbscrew",
+      "Lower_Thumbscrew"
+    ],
+    "Input HWP": [
+      "Input_HWP",
+      "Mount001",
+      "Surface_Adapter"
+    ],
+    "Separation PBS": [
+      "Separation_PBS",
+      "Mount002"
+    ],
+    "AOMO 3100-125": [
+      "AOMO_3100_125",
+      "Mount_KM100PM",
+      "AOM_Adapter"
+    ],
+    "Cat-eye L75 LA1612-B": [
+      "Cat_eye_L75_LA1612_B",
+      "Mount003"
+    ],
+    "Cat-eye QWP": [
+      "Cat_eye_QWP",
+      "Mount004",
+      "Surface_Adapter001"
+    ],
+    "Order selection iris": [
+      "Order_selection_iris",
+      "Slide_Mount"
+    ],
+    "Retro mirror": [
+      "Retro_mirror",
+      "Mount005",
+      "Upper_Thumbscrew001",
+      "Lower_Thumbscrew001"
+    ],
+    "Output steering mirror": [
+      "Output_steering_mirror",
+      "Mount006",
+      "Upper_Thumbscrew002",
+      "Lower_Thumbscrew002"
+    ],
+    "Output HWP": [
+      "Output_HWP",
+      "Mount007",
+      "Surface_Adapter002"
+    ],
+    "Output rotating PBS RSP05": [
+      "Output_rotating_PBS_RSP05",
+      "Surface_Adapter003"
+    ],
+    "Output filtering iris": [
+      "Output_filtering_iris",
+      "Slide_Mount001"
+    ],
+    "Output KA05T": [
+      "Output_KA05T",
+      "Mount008",
+      "Fiber_Adapter001",
+      "Lens_Tube001",
+      "Lens_Adapter001",
+      "Lens001",
+      "Upper_Thumbscrew003",
+      "Lower_Thumbscrew003"
+    ]
+  },
+  "arms": [
+    {
+      "id": 1,
+      "aom": "AOMO_3100_125",
+      "lens": "Cat_eye_L75_LA1612_B",
+      "retro": "Retro_mirror",
+      "integral_seat": "AOMO_3100_125_integral_seat",
+      "aom_to_cat": 77.19738490447854,
+      "cat_to_mirror": 75.54272007338673,
+      "beam_path": "DP1 double pass"
+    }
+  ],
+  "paths": [
+    {
+      "name": "Input feed",
+      "points": [
+        [
+          123.19,
+          35.559999999999995
+        ],
+        [
+          161.29,
+          35.559999999999995
+        ]
+      ],
+      "object": "Input_feed",
+      "envelope": [
+        0.6,
+        0.6
+      ],
+      "assumption": "Nominal 0.6 mm-radius beam; measured q/M2 and RF angle pending."
+    },
+    {
+      "name": "DP1 double pass",
+      "points": [
+        [
+          161.29,
+          35.559999999999995
+        ],
+        [
+          193.04,
+          35.559999999999995
+        ],
+        [
+          270.2373849044785,
+          35.559999999999995
+        ],
+        [
+          300.2373849044785,
+          35.559999999999995
+        ],
+        [
+          335.7801049778652,
+          35.559999999999995
+        ],
+        [
+          345.7801049778652,
+          35.559999999999995
+        ]
+      ],
+      "object": "DP1_double_pass",
+      "envelope": [
+        0.6,
+        0.6,
+        0.6,
+        0.36,
+        0.177,
+        0.032031614564493965
+      ],
+      "assumption": "Nominal 0.6 mm-radius beam; measured q/M2 and RF angle pending."
+    },
+    {
+      "name": "Output",
+      "points": [
+        [
+          161.29,
+          35.559999999999995
+        ],
+        [
+          161.29,
+          109.56
+        ],
+        [
+          216.29,
+          109.56
+        ],
+        [
+          238.29,
+          109.56
+        ],
+        [
+          269.28999999999996,
+          109.56
+        ],
+        [
+          311.64,
+          109.56
+        ]
+      ],
+      "object": "Output",
+      "envelope": [
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "assumption": "Nominal 0.6 mm-radius beam; measured q/M2 and RF angle pending."
+    }
+  ],
+  "reservations": [],
+  "service_regions": [
+    {
+      "name": "Input KA05T front access",
+      "kind": "fiber_front",
+      "owner": "Input_KA05T",
+      "origin_xy_mm": [
+        116.588,
+        35.559999999999995
+      ],
+      "direction_xy": [
+        1.0,
+        0.0
+      ],
+      "length_mm": 15.0,
+      "width_mm": 20.0,
+      "allowed_paths": [
+        "Input feed"
+      ],
+      "dimensions_verified": false,
+      "assumptions": [
+        "Reference geometry: the input HWP sits 19 mm in front of the fiber lens; 15 mm axial access reserved."
+      ]
+    },
+    {
+      "name": "Output KA05T front access",
+      "kind": "fiber_front",
+      "owner": "Output_KA05T",
+      "origin_xy_mm": [
+        311.64,
+        109.56
+      ],
+      "direction_xy": [
+        -1.0,
+        1.2246467991473532e-16
+      ],
+      "length_mm": 40.0,
+      "width_mm": 20.0,
+      "allowed_paths": [
+        "Output"
+      ],
+      "dimensions_verified": false,
+      "assumptions": [
+        "20 mm full front access width; 40 mm axial access."
+      ]
+    },
+    {
+      "name": "AOMO 3100-125 RF elbow",
+      "kind": "aom_sma",
+      "owner": "AOMO_3100_125",
+      "origin_xy_mm": [
+        193.04,
+        68.58
+      ],
+      "direction_xy": [
+        0.0,
+        1.0
+      ],
+      "length_mm": 40.0,
+      "width_mm": 20.0,
+      "allowed_paths": [],
+      "dimensions_verified": false,
+      "assumptions": [
+        "Connector on the AOM face away from the beam (unverified STL box); 40 mm of free space for the L-shaped SMB elbow; cable taped down afterwards."
+      ]
+    }
+  ],
+  "geometry_assertions": [
+    {
+      "name": "AOM centre -> lens centre = EFL795 + tc/2 (nominal AOM axis)",
+      "measured": 77.19738490447853,
+      "expected": 77.19738490447854,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "Lens centre -> retro mirror = EFL795 - tc/n + tc/2",
+      "measured": 75.5427200733867,
+      "expected": 75.54272007338673,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "Lens -> QWP",
+      "measured": 30.0,
+      "expected": 30.0,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "Iris -> retro mirror face",
+      "measured": 10.0,
+      "expected": 10.0,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "Input port -> PBS",
+      "measured": 63.5,
+      "expected": 63.5,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "PBS -> AOM (nominal AOM axis)",
+      "measured": 31.75,
+      "expected": 31.75,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "Output HWP -> rotating PBS",
+      "measured": 22.0,
+      "expected": 22.0,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "Rotating PBS -> output iris (>= 20 required)",
+      "measured": 30.99999999999997,
+      "expected": 31.0,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "Output iris -> fiber face (>= 40 required)",
+      "measured": 42.35000000000002,
+      "expected": 42.35,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "Retro M05 + thumbscrews inside plate (margin mm)",
+      "measured": 50.299895022134706,
+      "expected": 50.3,
+      "tolerance": 1.0
+    },
+    {
+      "name": "Input rear tail-clamp holes inside plate (x mm)",
+      "measured": 15.08999999999999,
+      "expected": 15.09,
+      "tolerance": 0.1
+    },
+    {
+      "name": "Output rear tail-clamp holes inside plate (margin mm)",
+      "measured": 18.661999999999978,
+      "expected": 18.66,
+      "tolerance": 0.2
+    },
+    {
+      "name": "Output steering mirror thumbscrews inside plate (margin mm)",
+      "measured": 6.809999999999974,
+      "expected": 6.8,
+      "tolerance": 1.0
+    },
+    {
+      "name": "Table hole pattern distance 0-1 (reference 0.6,0 / 11,4 / 0,4 in)",
+      "measured": 102.73664195407596,
+      "expected": 102.73664195407595,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "Table hole pattern distance 0-2 (reference 0.6,0 / 11,4 / 0,4 in)",
+      "measured": 279.4,
+      "expected": 279.4,
+      "tolerance": 1e-06
+    },
+    {
+      "name": "Table hole pattern distance 1-2 (reference 0.6,0 / 11,4 / 0,4 in)",
+      "measured": 283.0248497923813,
+      "expected": 283.02484979238125,
+      "tolerance": 1e-06
+    }
+  ],
+  "mount_holes_mm": [
+    [
+      33.019999999999996,
+      12.7
+    ],
+    [
+      297.17999999999995,
+      114.3
+    ],
+    [
+      17.779999999999998,
+      114.3
+    ]
+  ],
+  "restore_info": {
+    "plate": "Doublepass_plate_17_x_6_in",
+    "roots": {
+      "Input KA05T": "Input_KA05T",
+      "Input HWP": "Input_HWP",
+      "Separation PBS": "Separation_PBS",
+      "AOMO 3100-125": "AOMO_3100_125",
+      "Cat-eye L75 LA1612-B": "Cat_eye_L75_LA1612_B",
+      "Cat-eye QWP": "Cat_eye_QWP",
+      "Order selection iris": "Order_selection_iris",
+      "Retro mirror": "Retro_mirror",
+      "Output steering mirror": "Output_steering_mirror",
+      "Output HWP": "Output_HWP",
+      "Output rotating PBS RSP05": "Output_rotating_PBS_RSP05",
+      "Output filtering iris": "Output_filtering_iris",
+      "Output KA05T": "Output_KA05T"
+    },
+    "extra_cuts": [
+      "AOMO_3100_125_integral_seat"
+    ],
+    "requirements": {
+      "mirror_roles": [],
+      "spherical_groups": []
+    },
+    "service_regions": [
+      {
+        "name": "Input KA05T front access",
+        "kind": "fiber_front",
+        "owner": "Input_KA05T",
+        "origin_xy_mm": [
+          116.588,
+          35.559999999999995
+        ],
+        "direction_xy": [
+          1.0,
+          0.0
+        ],
+        "length_mm": 15.0,
+        "width_mm": 20.0,
+        "allowed_paths": [
+          "Input feed"
+        ],
+        "dimensions_verified": false,
+        "assumptions": [
+          "Reference geometry: the input HWP sits 19 mm in front of the fiber lens; 15 mm axial access reserved."
+        ]
+      },
+      {
+        "name": "Output KA05T front access",
+        "kind": "fiber_front",
+        "owner": "Output_KA05T",
+        "origin_xy_mm": [
+          311.64,
+          109.56
+        ],
+        "direction_xy": [
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        "length_mm": 40.0,
+        "width_mm": 20.0,
+        "allowed_paths": [
+          "Output"
+        ],
+        "dimensions_verified": false,
+        "assumptions": [
+          "20 mm full front access width; 40 mm axial access."
+        ]
+      },
+      {
+        "name": "AOMO 3100-125 RF elbow",
+        "kind": "aom_sma",
+        "owner": "AOMO_3100_125",
+        "origin_xy_mm": [
+          193.04,
+          68.58
+        ],
+        "direction_xy": [
+          0.0,
+          1.0
+        ],
+        "length_mm": 40.0,
+        "width_mm": 20.0,
+        "allowed_paths": [],
+        "dimensions_verified": false,
+        "assumptions": [
+          "Connector on the AOM face away from the beam (unverified STL box); 40 mm of free space for the L-shaped SMB elbow; cable taped down afterwards."
+        ]
+      }
+    ],
+    "geometry_assertions": [
+      {
+        "name": "AOM centre -> lens centre = EFL795 + tc/2 (nominal AOM axis)",
+        "measured": 77.19738490447853,
+        "expected": 77.19738490447854,
+        "tolerance": 1e-06
+      },
+      {
+        "name": "Lens centre -> retro mirror = EFL795 - tc/n + tc/2",
+        "measured": 75.5427200733867,
+        "expected": 75.54272007338673,
+        "tolerance": 1e-06
+      },
+      {
+        "name": "Lens -> QWP",
+        "measured": 30.0,
+        "expected": 30.0,
+        "tolerance": 1e-06
+      },
+      {
+        "name": "Iris -> retro mirror face",
+        "measured": 10.0,
+        "expected": 10.0,
+        "tolerance": 1e-06
+      },
+      {
+        "name": "Input port -> PBS",
+        "measured": 63.5,
+        "expected": 63.5,
+        "tolerance": 1e-06
+      },
+      {
+        "name": "PBS -> AOM (nominal AOM axis)",
+        "measured": 31.75,
+        "expected": 31.75,
+        "tolerance": 1e-06
+      },
+      {
+        "name": "Output HWP -> rotating PBS",
+        "measured": 22.0,
+        "expected": 22.0,
+        "tolerance": 1e-06
+      },
+      {
+        "name": "Rotating PBS -> output iris (>= 20 required)",
+        "measured": 30.99999999999997,
+        "expected": 31.0,
+        "tolerance": 1e-06
+      },
+      {
+        "name": "Output iris -> fiber face (>= 40 required)",
+        "measured": 42.35000000000002,
+        "expected": 42.35,
+        "tolerance": 1e-06
+      },
+      {
+        "name": "Retro M05 + thumbscrews inside plate (margin mm)",
+        "measured": 50.299895022134706,
+        "expected": 50.3,
+        "tolerance": 1.0
+      },
+      {
+        "name": "Input rear tail-clamp holes inside plate (x mm)",
+        "measured": 15.08999999999999,
+        "expected": 15.09,
+        "tolerance": 0.1
+      },
+      {
+        "name": "Output rear tail-clamp holes inside plate (margin mm)",
+        "measured": 18.661999999999978,
+        "expected": 18.66,
+        "tolerance": 0.2
+      },
+      {
+        "name": "Output steering mirror thumbscrews inside plate (margin mm)",
+        "measured": 6.809999999999974,
+        "expected": 6.8,
+        "tolerance": 1.0
+      },
+      {
+        "name": "Table hole pattern distance 0-1 (reference 0.6,0 / 11,4 / 0,4 in)",
+        "measured": 102.73664195407596,
+        "expected": 102.73664195407595,
+        "tolerance": 1e-06
+      },
+      {
+        "name": "Table hole pattern distance 0-2 (reference 0.6,0 / 11,4 / 0,4 in)",
+        "measured": 279.4,
+        "expected": 279.4,
+        "tolerance": 1e-06
+      },
+      {
+        "name": "Table hole pattern distance 1-2 (reference 0.6,0 / 11,4 / 0,4 in)",
+        "measured": 283.0248497923813,
+        "expected": 283.02484979238125,
+        "tolerance": 1e-06
+      }
+    ]
+  },
+  "engineering": {
+    "scope": "Nominal CAD engineering checks, not a physical no-obstruction certification",
+    "document": "AOM_DoublePass_f75_V9",
+    "mode": "dp",
+    "assembly_contacts_checked": true,
+    "units": "mm",
+    "bbox_overlap_candidates": [],
+    "confirmed_part_intersections": [],
+    "mesh_pair_checks": [],
+    "confirmed_mesh_contacts": [],
+    "outside_plate_xy": [],
+    "centerline_intersections": [],
+    "finite_beam_sample_intersections": [],
+    "expected_optical_contacts": [
+      {
+        "path": "Input feed",
+        "segment": 0,
+        "object": "Input_HWP",
+        "reason": "Centered passage through an allowed optical axis; refraction not simulated"
+      },
+      {
+        "path": "Input feed",
+        "segment": 0,
+        "object": "Separation_PBS",
+        "reason": "Centered passage through an allowed optical axis; refraction not simulated"
+      },
+      {
+        "path": "DP1 double pass",
+        "segment": 0,
+        "object": "Separation_PBS",
+        "reason": "Centered passage through an allowed optical axis; refraction not simulated"
+      },
+      {
+        "path": "DP1 double pass",
+        "segment": 1,
+        "object": "Cat_eye_L75_LA1612_B",
+        "reason": "Centered passage through an allowed optical axis; refraction not simulated"
+      },
+      {
+        "path": "DP1 double pass",
+        "segment": 2,
+        "object": "Cat_eye_L75_LA1612_B",
+        "reason": "Centered passage through an allowed optical axis; refraction not simulated"
+      },
+      {
+        "path": "DP1 double pass",
+        "segment": 2,
+        "object": "Cat_eye_QWP",
+        "reason": "Centered passage through an allowed optical axis; refraction not simulated"
+      },
+      {
+        "path": "DP1 double pass",
+        "segment": 3,
+        "object": "Cat_eye_QWP",
+        "reason": "Centered passage through an allowed optical axis; refraction not simulated"
+      },
+      {
+        "path": "DP1 double pass",
+        "segment": 4,
+        "object": "Retro_mirror",
+        "reason": "Intended reflecting surface at a path vertex; mount remains checked"
+      },
+      {
+        "path": "Output",
+        "segment": 0,
+        "object": "Separation_PBS",
+        "reason": "Centered passage through an allowed optical axis; refraction not simulated"
+      },
+      {
+        "path": "Output",
+        "segment": 0,
+        "object": "Output_steering_mirror",
+        "reason": "Intended reflecting surface at a path vertex; mount remains checked"
+      },
+      {
+        "path": "Output",
+        "segment": 1,
+        "object": "Output_steering_mirror",
+        "reason": "Intended reflecting surface at a path vertex; mount remains checked"
+      },
+      {
+        "path": "Output",
+        "segment": 1,
+        "object": "Output_HWP",
+        "reason": "Centered passage through an allowed optical axis; refraction not simulated"
+      },
+      {
+        "path": "Output",
+        "segment": 2,
+        "object": "Output_HWP",
+        "reason": "Centered passage through an allowed optical axis; refraction not simulated"
+      }
+    ],
+    "intentional_blocker_intersections": [],
+    "platform_fasteners": [
+      {
+        "object": "Mount_Hole__0__0_",
+        "position": [
+          33.02,
+          12.7,
+          0.0
+        ],
+        "status": "Original CAD fastener volume included in assembly collision checks"
+      },
+      {
+        "object": "Mount_Hole__11__4_",
+        "position": [
+          297.18,
+          114.3,
+          0.0
+        ],
+        "status": "Original CAD fastener volume included in assembly collision checks"
+      },
+      {
+        "object": "Mount_Hole__0__4_",
+        "position": [
+          17.78,
+          114.3,
+          0.0
+        ],
+        "status": "Original CAD fastener volume included in assembly collision checks"
+      }
+    ],
+    "drill_cut_checks": [
+      {
+        "object": "Mount_Hole__0__0_",
+        "cut_inside_plate_envelope_mm3": 2130.756887,
+        "residual_plate_in_cut_mm3": 0.0,
+        "status": "cut_removed_from_plate"
+      },
+      {
+        "object": "Mount_Hole__11__4_",
+        "cut_inside_plate_envelope_mm3": 2130.756887,
+        "residual_plate_in_cut_mm3": 0.0,
+        "status": "cut_removed_from_plate"
+      },
+      {
+        "object": "Mount_Hole__0__4_",
+        "cut_inside_plate_envelope_mm3": 2130.756887,
+        "residual_plate_in_cut_mm3": 0.0,
+        "status": "cut_removed_from_plate"
+      },
+      {
+        "object": "AOMO_3100_125_integral_seat",
+        "cut_inside_plate_envelope_mm3": 60948.740515,
+        "residual_plate_in_cut_mm3": 0.0,
+        "status": "cut_removed_from_plate"
+      }
+    ],
+    "surface_coordinate_checks": [
+      {
+        "object": "Mount001",
+        "method": "identity copy topology plus original placement exactly once",
+        "vertex_bbox": [
+          131.707,
+          24.518959,
+          -13.975286,
+          143.137,
+          46.607013,
+          11.424714
+        ],
+        "conservative_bbox_slack_mm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "object": "AOMO_3100_125",
+        "method": "identity copy topology plus original placement exactly once",
+        "vertex_bbox": [
+          180.34,
+          17.78,
+          -6.985,
+          205.74,
+          68.579999,
+          6.477
+        ],
+        "conservative_bbox_slack_mm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "object": "Mount_KM100PM",
+        "method": "identity copy topology plus original placement exactly once",
+        "vertex_bbox": [
+          207.4647,
+          13.201885,
+          -31.750716,
+          260.61895,
+          65.645717,
+          20.693117
+        ],
+        "conservative_bbox_slack_mm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "object": "AOM_Adapter",
+        "method": "identity copy topology plus original placement exactly once",
+        "vertex_bbox": [
+          179.070001,
+          15.129041,
+          -11.985,
+          213.04,
+          71.18,
+          -5.985
+        ],
+        "conservative_bbox_slack_mm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "object": "Mount003",
+        "method": "identity copy topology plus original placement exactly once",
+        "vertex_bbox": [
+          268.487133,
+          26.561496,
+          -12.700413,
+          288.487133,
+          44.561496,
+          8.999607
+        ],
+        "conservative_bbox_slack_mm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "object": "Mount004",
+        "method": "identity copy topology plus original placement exactly once",
+        "vertex_bbox": [
+          292.990385,
+          24.512987,
+          -13.975286,
+          304.420385,
+          46.601041,
+          11.424714
+        ],
+        "conservative_bbox_slack_mm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "object": "Order_selection_iris",
+        "method": "identity copy topology plus original placement exactly once",
+        "vertex_bbox": [
+          330.903705,
+          14.2494,
+          -13.208,
+          336.796505,
+          51.816001,
+          13.208
+        ],
+        "conservative_bbox_slack_mm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "object": "Mount005",
+        "method": "identity copy topology plus original placement exactly once",
+        "vertex_bbox": [
+          345.776911,
+          22.865926,
+          -12.700903,
+          367.77342,
+          48.261989,
+          12.69516
+        ],
+        "conservative_bbox_slack_mm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "object": "Mount006",
+        "method": "identity copy topology plus original placement exactly once",
+        "vertex_bbox": [
+          138.06508,
+          101.164811,
+          -12.700903,
+          169.676808,
+          132.415884,
+          12.69516
+        ],
+        "conservative_bbox_slack_mm": [
+          1.308364,
+          0.588732,
+          0.0,
+          0.591516,
+          1.671804,
+          0.0
+        ]
+      },
+      {
+        "object": "Mount007",
+        "method": "identity copy topology plus original placement exactly once",
+        "vertex_bbox": [
+          212.107,
+          98.518959,
+          -13.975286,
+          223.537,
+          120.607013,
+          11.424714
+        ],
+        "conservative_bbox_slack_mm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "object": "Output_rotating_PBS_RSP05",
+        "method": "identity copy topology plus original placement exactly once",
+        "vertex_bbox": [
+          234.607,
+          98.518959,
+          -13.975286,
+          246.037,
+          120.607013,
+          11.424714
+        ],
+        "conservative_bbox_slack_mm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "object": "Output_filtering_iris",
+        "method": "identity copy topology plus original placement exactly once",
+        "vertex_bbox": [
+          264.4136,
+          88.2494,
+          -13.208,
+          270.3064,
+          125.816001,
+          13.208
+        ],
+        "conservative_bbox_slack_mm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "object": "Lens_Tube001",
+        "method": "identity copy topology plus original placement exactly once",
+        "vertex_bbox": [
+          311.64,
+          100.67,
+          -8.852077,
+          327.134,
+          118.45,
+          8.852077
+        ],
+        "conservative_bbox_slack_mm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "skipped_hidden_objects": [],
+    "excluded_by_installation_mode": [],
+    "hidden_active_objects_checked": [],
+    "geometry_errors": [],
+    "beam_assumptions": [
+      {
+        "path": "Input feed",
+        "assumption": "Nominal 0.6 mm-radius beam; measured q/M2 and RF angle pending.",
+        "signed_semiaxes_rx_ry_mm": [
+          [
+            0.6,
+            0.6
+          ],
+          [
+            0.6,
+            0.6
+          ]
+        ],
+        "coordinate_basis": "rx: transverse in plate plane; ry: perpendicular to plate",
+        "interpolation": "straight marginal samples between explicit path vertices"
+      },
+      {
+        "path": "DP1 double pass",
+        "assumption": "Nominal 0.6 mm-radius beam; measured q/M2 and RF angle pending.",
+        "signed_semiaxes_rx_ry_mm": [
+          [
+            0.6,
+            0.6
+          ],
+          [
+            0.6,
+            0.6
+          ],
+          [
+            0.6,
+            0.6
+          ],
+          [
+            0.36,
+            0.36
+          ],
+          [
+            0.177,
+            0.177
+          ],
+          [
+            0.032032,
+            0.032032
+          ]
+        ],
+        "coordinate_basis": "rx: transverse in plate plane; ry: perpendicular to plate",
+        "interpolation": "straight marginal samples between explicit path vertices"
+      },
+      {
+        "path": "Output",
+        "assumption": "Nominal 0.6 mm-radius beam; measured q/M2 and RF angle pending.",
+        "signed_semiaxes_rx_ry_mm": [
+          [
+            0.6,
+            0.6
+          ],
+          [
+            0.6,
+            0.6
+          ],
+          [
+            0.6,
+            0.6
+          ],
+          [
+            0.6,
+            0.6
+          ],
+          [
+            0.6,
+            0.6
+          ],
+          [
+            0.6,
+            0.6
+          ]
+        ],
+        "coordinate_basis": "rx: transverse in plate plane; ry: perpendicular to plate",
+        "interpolation": "straight marginal samples between explicit path vertices"
+      }
+    ],
+    "beam_definition_errors": [],
+    "geometry_assertions": [
+      {
+        "name": "AOM centre -> lens centre = EFL795 + tc/2 (nominal AOM axis)",
+        "measured": 77.19738490447853,
+        "expected": 77.19738490447854,
+        "tolerance": 1e-06,
+        "status": "pass"
+      },
+      {
+        "name": "Lens centre -> retro mirror = EFL795 - tc/n + tc/2",
+        "measured": 75.5427200733867,
+        "expected": 75.54272007338673,
+        "tolerance": 1e-06,
+        "status": "pass"
+      },
+      {
+        "name": "Lens -> QWP",
+        "measured": 30.0,
+        "expected": 30.0,
+        "tolerance": 1e-06,
+        "status": "pass"
+      },
+      {
+        "name": "Iris -> retro mirror face",
+        "measured": 10.0,
+        "expected": 10.0,
+        "tolerance": 1e-06,
+        "status": "pass"
+      },
+      {
+        "name": "Input port -> PBS",
+        "measured": 63.5,
+        "expected": 63.5,
+        "tolerance": 1e-06,
+        "status": "pass"
+      },
+      {
+        "name": "PBS -> AOM (nominal AOM axis)",
+        "measured": 31.75,
+        "expected": 31.75,
+        "tolerance": 1e-06,
+        "status": "pass"
+      },
+      {
+        "name": "Output HWP -> rotating PBS",
+        "measured": 22.0,
+        "expected": 22.0,
+        "tolerance": 1e-06,
+        "status": "pass"
+      },
+      {
+        "name": "Rotating PBS -> output iris (>= 20 required)",
+        "measured": 30.99999999999997,
+        "expected": 31.0,
+        "tolerance": 1e-06,
+        "status": "pass"
+      },
+      {
+        "name": "Output iris -> fiber face (>= 40 required)",
+        "measured": 42.35000000000002,
+        "expected": 42.35,
+        "tolerance": 1e-06,
+        "status": "pass"
+      },
+      {
+        "name": "Retro M05 + thumbscrews inside plate (margin mm)",
+        "measured": 50.299895022134706,
+        "expected": 50.3,
+        "tolerance": 1.0,
+        "status": "pass"
+      },
+      {
+        "name": "Input rear tail-clamp holes inside plate (x mm)",
+        "measured": 15.08999999999999,
+        "expected": 15.09,
+        "tolerance": 0.1,
+        "status": "pass"
+      },
+      {
+        "name": "Output rear tail-clamp holes inside plate (margin mm)",
+        "measured": 18.661999999999978,
+        "expected": 18.66,
+        "tolerance": 0.2,
+        "status": "pass"
+      },
+      {
+        "name": "Output steering mirror thumbscrews inside plate (margin mm)",
+        "measured": 6.809999999999974,
+        "expected": 6.8,
+        "tolerance": 1.0,
+        "status": "pass"
+      },
+      {
+        "name": "Table hole pattern distance 0-1 (reference 0.6,0 / 11,4 / 0,4 in)",
+        "measured": 102.73664195407596,
+        "expected": 102.73664195407595,
+        "tolerance": 1e-06,
+        "status": "pass"
+      },
+      {
+        "name": "Table hole pattern distance 0-2 (reference 0.6,0 / 11,4 / 0,4 in)",
+        "measured": 279.4,
+        "expected": 279.4,
+        "tolerance": 1e-06,
+        "status": "pass"
+      },
+      {
+        "name": "Table hole pattern distance 1-2 (reference 0.6,0 / 11,4 / 0,4 in)",
+        "measured": 283.0248497923813,
+        "expected": 283.02484979238125,
+        "tolerance": 1e-06,
+        "status": "pass"
+      }
+    ],
+    "aom_aperture_checks": [
+      {
+        "object": "AOMO_3100_125",
+        "bore_center_world_mm": [
+          193.04,
+          35.56,
+          0.0
+        ],
+        "bore_center_height_above_plate_mm": 12.7,
+        "local_bore_center_y_z_mm": [
+          -0.03,
+          -0.115
+        ],
+        "housing_bore_diameter_mm": 3.0,
+        "manufacturer_active_aperture_width_height_mm": [
+          2.5,
+          1.5
+        ],
+        "source": "https://gandh.com/products/acousto-optics/modulators/aomo-3100-125",
+        "planes": [
+          {
+            "path": "DP1 double pass",
+            "segment": 0,
+            "plane": "active_plane",
+            "chief_world_mm": [
+              193.04,
+              35.56,
+              0.0
+            ],
+            "chief_offset_local_y_z_mm": [
+              -0.0,
+              0.0
+            ],
+            "beam_half_width_height_mm": [
+              0.6,
+              0.6
+            ],
+            "active_margin_width_height_mm": [
+              0.65,
+              0.15
+            ],
+            "conservative_bore_margin_mm": 0.9,
+            "limiting_margin_mm": 0.15,
+            "status": "pass"
+          },
+          {
+            "path": "DP1 double pass",
+            "segment": 0,
+            "plane": "opening_positive_x",
+            "chief_world_mm": [
+              180.34,
+              35.56,
+              0.0
+            ],
+            "chief_offset_local_y_z_mm": [
+              -0.0,
+              0.0
+            ],
+            "beam_half_width_height_mm": [
+              0.6,
+              0.6
+            ],
+            "active_margin_width_height_mm": [
+              0.65,
+              0.15
+            ],
+            "conservative_bore_margin_mm": 0.9,
+            "limiting_margin_mm": 0.9,
+            "status": "pass"
+          },
+          {
+            "path": "DP1 double pass",
+            "segment": 1,
+            "plane": "opening_negative_x",
+            "chief_world_mm": [
+              205.74,
+              35.56,
+              0.0
+            ],
+            "chief_offset_local_y_z_mm": [
+              -0.0,
+              0.0
+            ],
+            "beam_half_width_height_mm": [
+              0.6,
+              0.6
+            ],
+            "active_margin_width_height_mm": [
+              0.65,
+              0.15
+            ],
+            "conservative_bore_margin_mm": 0.9,
+            "limiting_margin_mm": 0.9,
+            "status": "pass"
+          },
+          {
+            "path": "DP1 double pass",
+            "segment": 1,
+            "plane": "active_plane",
+            "chief_world_mm": [
+              193.04,
+              35.56,
+              0.0
+            ],
+            "chief_offset_local_y_z_mm": [
+              -0.0,
+              0.0
+            ],
+            "beam_half_width_height_mm": [
+              0.6,
+              0.6
+            ],
+            "active_margin_width_height_mm": [
+              0.65,
+              0.15
+            ],
+            "conservative_bore_margin_mm": 0.9,
+            "limiting_margin_mm": 0.15,
+            "status": "pass"
+          }
+        ],
+        "scope": "Nominal mechanical bore and centered active-aperture envelope; RF-dependent deflection and actual crystal alignment are not certified.",
+        "status": "pass"
+      }
+    ],
+    "aom_bore_optical_contacts": [],
+    "unrelated_beam_proximity": [],
+    "adjustment_mirror_checks": [],
+    "lens_reservation_checks": [],
+    "mirror_knob_access": [
+      {
+        "knob": "Upper_Thumbscrew001",
+        "mirror": "Retro_mirror",
+        "nearest_unrelated_beam": {
+          "path": "DP1 double pass",
+          "segment": 3,
+          "conservative_envelope_clearance_xy_mm": 28.403982
+        },
+        "status": "at_least_10_mm_projected_clearance",
+        "scope": "Conservative XY knob-bounding-rectangle distance; 10 mm is a review trigger, not a guaranteed hand or tool clearance."
+      },
+      {
+        "knob": "Lower_Thumbscrew001",
+        "mirror": "Retro_mirror",
+        "nearest_unrelated_beam": {
+          "path": "DP1 double pass",
+          "segment": 3,
+          "conservative_envelope_clearance_xy_mm": 28.910874
+        },
+        "status": "at_least_10_mm_projected_clearance",
+        "scope": "Conservative XY knob-bounding-rectangle distance; 10 mm is a review trigger, not a guaranteed hand or tool clearance."
+      },
+      {
+        "knob": "Upper_Thumbscrew002",
+        "mirror": "Output_steering_mirror",
+        "nearest_unrelated_beam": {
+          "path": "Output",
+          "segment": 2,
+          "conservative_envelope_clearance_xy_mm": 57.883034
+        },
+        "status": "at_least_10_mm_projected_clearance",
+        "scope": "Conservative XY knob-bounding-rectangle distance; 10 mm is a review trigger, not a guaranteed hand or tool clearance."
+      },
+      {
+        "knob": "Lower_Thumbscrew002",
+        "mirror": "Output_steering_mirror",
+        "nearest_unrelated_beam": {
+          "path": "Output",
+          "segment": 2,
+          "conservative_envelope_clearance_xy_mm": 69.358209
+        },
+        "status": "at_least_10_mm_projected_clearance",
+        "scope": "Conservative XY knob-bounding-rectangle distance; 10 mm is a review trigger, not a guaranteed hand or tool clearance."
+      }
+    ],
+    "aom_plate_penetration_checks": [
+      {
+        "arm": 1,
+        "object": "Mount_KM100PM",
+        "integral_seat": "AOMO_3100_125_integral_seat",
+        "boundary_tolerance_mm": 0.0001,
+        "inside_samples_mm": [],
+        "scope": "Actual final plate.Shape versus all mesh vertices and triangle centroids near the plate; no exemption for buried KM100PM details.",
+        "candidate_samples": 97195,
+        "bulk_screen": {
+          "method": "All-point vertical parity on closed regional tessellation; native BREP fallback for apparent interior and every curved-face neighborhood",
+          "tessellation_deflection_mm": 0.04,
+          "regional_face_count": 16,
+          "regional_triangle_count": 550,
+          "curved_face_boxes": 1,
+          "bulk_certified_outside": 97192,
+          "planar_boundary_samples": 85,
+          "native_fallback_candidates": 3
+        },
+        "status": "no_penetration_in_vertex_centroid_samples",
+        "tested_samples": 3,
+        "screened_samples": 97195,
+        "elapsed_seconds": 0.406
+      },
+      {
+        "arm": 1,
+        "object": "AOM_Adapter",
+        "integral_seat": "AOMO_3100_125_integral_seat",
+        "boundary_tolerance_mm": 0.0001,
+        "inside_samples_mm": [],
+        "scope": "Actual final plate.Shape versus all mesh vertices and triangle centroids near the plate; no exemption for buried KM100PM details.",
+        "candidate_samples": 0,
+        "bulk_screen": {
+          "method": "All geometry samples lie outside the plate bounding box",
+          "bulk_certified_outside": 0,
+          "native_fallback_candidates": 0
+        },
+        "status": "no_penetration_in_vertex_centroid_samples",
+        "tested_samples": 0,
+        "screened_samples": 0,
+        "elapsed_seconds": 0.016
+      }
+    ],
+    "limitations": [
+      "Bounding-box overlap alone is not evidence of physical collision.",
+      "Mesh candidates receive triangle BVH/SAT contact and closed-shell containment checks. Contacts include touching and crossing; no exact common mesh solid-volume assertion is made. Open shells or runtime limits remain explicit unresolved cases.",
+      "Part surfaces are tessellated with 0.04 mm deflection for ray intersection.",
+      "Finite-beam screening samples the center plus 8 azimuths at 50% and 100% radius; gaps between samples are not certified.",
+      "V5 uses explicitly supplied elliptical radii and piecewise straight marginal rays. Focus vertices, beam diameter, M-squared and cylindrical-axis orientation are layout assumptions, not measurements.",
+      "TA input is assumed 5 mm by 5/3 mm in 1/e^2 diameter; nominal 1:3 cylindrical and 1:2 spherical reduction gives 5/6 mm round diameter. External TA input is assumed already round with 5/3 mm diameter.",
+      "AOM entrance is approximately collimated; the 75 mm cat-eye lens focuses toward the return mirror. There is no f150 AOM entrance lens in V5.",
+      "Nominal CAD ray checks do not include RF-dependent diffraction or arbitrary alignment travel. Cable/front access projection and nominal output order separation are reported separately.",
+      "AOM root contacts are omitted only inside the measured 3 mm bore channel; each opening and the 1.5 x 2.5 mm active aperture are checked separately. Other expected root housing passages are listed; mounts and knobs remain in the ray checks.",
+      "The AOM active aperture is assumed centered on the CAD housing bore; the manufacturer specification is not a measured crystal-to-housing alignment tolerance.",
+      "Original platform fastener solids are included as separate assemblies; wrench/tool access is not certified.",
+      "Transparent optics are exempt only on their intended centered optical axis; side and rim contacts remain checked. No refraction, polarization, power, thermal or Gaussian mode-matching certification.",
+      "UI visibility never removes installed hardware from checks; only explicit installation-mode exclusions do."
+    ],
+    "plate_bbox": [
+      3.175,
+      3.175,
+      -38.1,
+      428.625,
+      149.225,
+      -12.7
+    ],
+    "checked_geometry_objects": 47,
+    "mirror_inventory": [
+      {
+        "object": "Retro_mirror",
+        "label": "Retro mirror",
+        "position_mm": [
+          345.780105,
+          35.56,
+          0.0
+        ]
+      },
+      {
+        "object": "Output_steering_mirror",
+        "label": "Output steering mirror",
+        "position_mm": [
+          161.29,
+          109.56,
+          0.0
+        ]
+      }
+    ],
+    "nominal_plate_top_z_mm": -12.7,
+    "isolator_input_check": {
+      "required_mirror_count": 2,
+      "mirrors": [],
+      "scope": "Nominal TA input route and CAD axis, not measured isolator forward transmission.",
+      "status": "not_applicable_no_isolator"
+    },
+    "pbs_paths": {
+      "scope": "Nominal PBS T/R paths and actual CAD cue orientation; no polarization or physical transmission certification",
+      "document": "AOM_DoublePass_f75_V9",
+      "mode": "dp",
+      "formula": "a_norm = yaw + 180 + Proxy.reflection_angle; R = 2*a_norm - incoming - 180; T = incoming (degrees)",
+      "cad_cue_formula": "Diagonal slot tangent = yaw - Proxy.reflection_angle, from original cube_splitter.execute",
+      "angle_tolerance_deg": 0.05,
+      "position_tolerance_mm": 0.05,
+      "explicit_subassembly_scope": true,
+      "checks": [
+        {
+          "cube": "Separation PBS",
+          "role": "double_pass",
+          "errors": [],
+          "object": "Separation_PBS",
+          "center_mm": [
+            161.29,
+            35.559999999999995,
+            0.0
+          ],
+          "placement_yaw_deg": 0.0,
+          "proxy_reflection_angle_deg": -135.0,
+          "cad_diagonal_tangent_deg": 135.0,
+          "cad_diagonal_unit_xy": [
+            -0.7071067811865475,
+            0.7071067811865476
+          ],
+          "incoming": {
+            "path": "Input feed",
+            "endpoints": [
+              [
+                123.19,
+                35.559999999999995,
+                0.0
+              ],
+              [
+                161.29,
+                35.559999999999995,
+                0.0
+              ]
+            ],
+            "angle_deg": 0.0
+          },
+          "expected_first_branches_deg": {
+            "T": 0.0,
+            "R": 270.0
+          },
+          "cad_cue_reflected_angle_deg": 270.0,
+          "to_aom": {
+            "path": "DP1 double pass",
+            "endpoints": [
+              [
+                161.29,
+                35.559999999999995,
+                0.0
+              ],
+              [
+                193.04,
+                35.559999999999995,
+                0.0
+              ]
+            ],
+            "angle_deg": 0.0
+          },
+          "first_matching_branches": [
+            "T"
+          ],
+          "return_incoming_angle_deg": 180.0,
+          "expected_return_branches_deg": {
+            "T": 180.0,
+            "R": 90.0
+          },
+          "output": {
+            "path": "Output",
+            "endpoints": [
+              [
+                161.29,
+                35.559999999999995,
+                0.0
+              ],
+              [
+                161.29,
+                109.56,
+                0.0
+              ]
+            ],
+            "angle_deg": 90.0
+          },
+          "required_return_branch": "R",
+          "required_output_angle_deg": 90.0,
+          "status": "pass"
+        }
+      ],
+      "errors": [],
+      "passed": true,
+      "failure_count": 0
+    },
+    "orthogonal_paths": {
+      "status": "pass",
+      "checked_segments": 11,
+      "tolerance_mm": 1e-06,
+      "nonorthogonal_segments": [],
+      "scope": "All nominal axes must run along board X or Y; free-space crossings are allowed."
+    },
+    "dual_leakage_interception_check": {
+      "status": "not_applicable",
+      "scope": "Single TA or partial assembly without the main splitter."
+    },
+    "integral_adapter_check": {
+      "obsolete_lower_adapters": [],
+      "arms": [
+        {
+          "arm": 1,
+          "retained_children": [
+            "Mount_KM100PM",
+            "AOM_Adapter"
+          ],
+          "status": "pass"
+        }
+      ],
+      "expected_arm_count": 1,
+      "status": "pass"
+    },
+    "output_optics": {
+      "assumptions": {
+        "wavelength_nm": 795.0,
+        "rf_frequency_MHz": 100.0,
+        "acoustic_velocity_mm_per_us": 4.2,
+        "return_order_angular_separation_mrad": 18.92970193307131,
+        "collimated_gaussian_waist_radius_at_aom_mm": 0.4166666666666667,
+        "M_squared": 1.0,
+        "alignment_allowance_radius_mm": 0.1,
+        "manufacturer_source": "https://gandh.com/products/acousto-optics/modulators/aomo-3100-125"
+      },
+      "scope": "Unfolded thin-lens paraxial feasibility screening at nominal RF; not a certified stray-light, measured Gaussian mode-match, or full diffracted-ray simulation.",
+      "limitations": [
+        "The initial waist size and plane are assumptions; real TA M2 and output fiber mode must be measured.",
+        "The relative unwanted order is assumed to leave the return AOM aperture at the nominal single-order separation.",
+        "PBS refraction, lens aberrations, clipping before the iris, finite RF scan, and 3D diffraction-plane transformations are not included.",
+        "Available iris adjustment range and heater/cable dimensions remain independent mechanical checks."
+      ],
+      "arms": [
+        {
+          "arm": 1,
+          "events": [
+            {
+              "name": "AOM return",
+              "type": "aom",
+              "path_distance_mm": 0.0,
+              "unwanted_order_offset_mm": 0.0,
+              "desired_beam_1e2_radius_mm": 0.4166666666666667
+            },
+            {
+              "name": "Separation PBS",
+              "type": "pbs",
+              "path_distance_mm": 31.75,
+              "unwanted_order_offset_mm": 0.6010180363750142,
+              "desired_beam_1e2_radius_mm": 0.4171126240418503
+            },
+            {
+              "name": "Output steering mirror",
+              "type": "mirror",
+              "path_distance_mm": 105.75,
+              "unwanted_order_offset_mm": 2.0018159794222914,
+              "desired_beam_1e2_radius_mm": 0.4215875379695318
+            },
+            {
+              "name": "Output HWP",
+              "type": "hwp",
+              "path_distance_mm": 160.75,
+              "unwanted_order_offset_mm": 3.0429495857412134,
+              "desired_beam_1e2_radius_mm": 0.4279515869487013
+            },
+            {
+              "name": "Output rotating PBS RSP05",
+              "type": "pbs",
+              "path_distance_mm": 182.75,
+              "unwanted_order_offset_mm": 3.4594030282687824,
+              "desired_beam_1e2_radius_mm": 0.43119601862956886
+            },
+            {
+              "name": "Output filtering iris",
+              "type": "iris",
+              "path_distance_mm": 213.74999999999997,
+              "unwanted_order_offset_mm": 4.046223788193992,
+              "desired_beam_1e2_radius_mm": 0.43642158688503585
+            },
+            {
+              "name": "Output KA05T",
+              "type": "fiber",
+              "path_distance_mm": 256.1,
+              "unwanted_order_offset_mm": 4.8478966650595625,
+              "desired_beam_1e2_radius_mm": 0.4447508909613172
+            }
+          ],
+          "iris_checks": [
+            {
+              "name": "Output filtering iris",
+              "type": "iris",
+              "path_distance_mm": 213.74999999999997,
+              "unwanted_order_offset_mm": 4.046223788193992,
+              "desired_beam_1e2_radius_mm": 0.43642158688503585,
+              "minimum_clear_diameter_for_99pct_desired_mm": 1.5244759115773403,
+              "maximum_clear_diameter_excluding_99pct_unwanted_mm": 6.567971664810644,
+              "feasible_under_assumptions": true
+            }
+          ]
+        }
+      ],
+      "errors": [],
+      "nominal_feasible": true
+    },
+    "counts": {
+      "bbox_overlap_candidates": 0,
+      "confirmed_part_intersections": 0,
+      "outside_plate_xy": 0,
+      "confirmed_mesh_contacts": 0,
+      "centerline_intersections": 0,
+      "finite_beam_sample_intersections": 0,
+      "geometry_errors": 0,
+      "beam_definition_errors": 0,
+      "aom_aperture_failures": 0,
+      "aom_plate_penetration_issues": 0,
+      "unresolved_mesh_pair_checks": 0,
+      "unresolved_bbox_candidates": 0,
+      "unrelated_beam_proximity": 0,
+      "adjustment_mirror_failures": 0,
+      "isolator_input_failures": 0,
+      "pbs_path_failures": 0,
+      "nonorthogonal_beam_segments": 0,
+      "dual_leakage_interception_failures": 0,
+      "unresolved_design_requirements": 0,
+      "lens_reservation_failures": 0,
+      "cylindrical_hole_failures": 0,
+      "integral_adapter_failures": 0,
+      "geometry_assertion_failures": 0,
+      "drill_cut_issues": 0,
+      "output_order_feasibility_issues": 0
+    },
+    "free_space_crossings_allowed": true,
+    "result": "No issue found by these limited nominal CAD checks; physical clearance not certified"
+  },
+  "fiber_clearance": {
+    "document": "AOM_DoublePass_f75_V9",
+    "mode": "dp",
+    "assumptions": {
+      "clamp_length_mm": 10.0,
+      "clamp_width_mm": 50.0,
+      "clamp_margin_mm": 5.0,
+      "corridor_width_mm": 20.0,
+      "connector_margin_mm": 0.5,
+      "tessellation_deflection_mm": 0.04,
+      "contact_tolerance_mm": 1e-05,
+      "rear_offsets_mm": [
+        82.7
+      ]
+    },
+    "fibers": [
+      {
+        "object": "Input_KA05T",
+        "label": "Input KA05T",
+        "origin_xy_mm": [
+          97.79,
+          35.56
+        ],
+        "tail_direction_xy": [
+          -1.0,
+          0.0
+        ],
+        "rear_offsets_mm": [
+          82.7
+        ],
+        "hole_pairs_xy_mm": [
+          [
+            [
+              15.09,
+              44.724
+            ],
+            [
+              15.09,
+              26.396
+            ]
+          ]
+        ],
+        "reserved_band_axial_transverse_mm": [
+          20.0,
+          60.0
+        ],
+        "clamp_bands_xy_mm": [
+          [
+            [
+              25.09,
+              65.56
+            ],
+            [
+              5.09,
+              65.56
+            ],
+            [
+              5.09,
+              5.56
+            ],
+            [
+              25.09,
+              5.56
+            ]
+          ]
+        ],
+        "clamp_reserved_span_xy_mm": [
+          [
+            25.09,
+            65.56
+          ],
+          [
+            5.09,
+            65.56
+          ],
+          [
+            5.09,
+            5.56
+          ],
+          [
+            25.09,
+            5.56
+          ]
+        ],
+        "connector_tail_extent_mm": 27.178824,
+        "corridor_start_offset_mm": 27.678824,
+        "corridor_end_offset_mm": 94.615,
+        "corridor_xy_mm": [
+          [
+            70.111176,
+            45.56
+          ],
+          [
+            3.175,
+            45.56
+          ],
+          [
+            3.175,
+            25.56
+          ],
+          [
+            70.111176,
+            25.56
+          ]
+        ],
+        "edge_exit_xy_mm": [
+          3.175,
+          35.56
+        ]
+      },
+      {
+        "object": "Output_KA05T",
+        "label": "Output KA05T",
+        "origin_xy_mm": [
+          330.438,
+          109.56
+        ],
+        "tail_direction_xy": [
+          1.0,
+          -0.0
+        ],
+        "rear_offsets_mm": [
+          82.7
+        ],
+        "hole_pairs_xy_mm": [
+          [
+            [
+              413.138,
+              100.396
+            ],
+            [
+              413.138,
+              118.724
+            ]
+          ]
+        ],
+        "reserved_band_axial_transverse_mm": [
+          20.0,
+          60.0
+        ],
+        "clamp_bands_xy_mm": [
+          [
+            [
+              403.138,
+              79.56
+            ],
+            [
+              423.138,
+              79.56
+            ],
+            [
+              423.138,
+              139.56
+            ],
+            [
+              403.138,
+              139.56
+            ]
+          ]
+        ],
+        "clamp_reserved_span_xy_mm": [
+          [
+            403.138,
+            79.56
+          ],
+          [
+            423.138,
+            79.56
+          ],
+          [
+            423.138,
+            139.56
+          ],
+          [
+            403.138,
+            139.56
+          ]
+        ],
+        "connector_tail_extent_mm": 27.178824,
+        "corridor_start_offset_mm": 27.678824,
+        "corridor_end_offset_mm": 98.187,
+        "corridor_xy_mm": [
+          [
+            358.116824,
+            99.56
+          ],
+          [
+            428.625,
+            99.56
+          ],
+          [
+            428.625,
+            119.56
+          ],
+          [
+            358.116824,
+            119.56
+          ]
+        ],
+        "edge_exit_xy_mm": [
+          428.625,
+          109.56
+        ]
+      }
+    ],
+    "hardware_conflicts": [],
+    "beam_conflicts": [],
+    "reservation_conflicts": [],
+    "outside_board": [],
+    "errors": [],
+    "excluded_by_installation_mode": [],
+    "scope": [
+      "Infinite vertical clearance above nominal plate top; no over/under routing accepted.",
+      "Actual placed mesh triangles and tessellated BREP faces are clipped at plate top before XY overlap.",
+      "All beam envelopes are conservative convex projections, not only centerlines; no optical paths are exempt.",
+      "The user clamp is interpreted as up to 50 mm transverse to the tail, spanning the 18.328 mm hole pair, by 10 mm along the tail. A 5 mm margin on all sides reserves 60 x 20 mm. Dimensions are configurable.",
+      "Only the single configured rear hole pair (rear_offsets_mm, default 82.7 mm) is accepted; the reserved clamp footprint is 60 mm transverse by 20 mm axial. Exact manufactured clamp dimensions remain to be measured.",
+      "The cable corridor starts 0.5 mm (configurable) beyond the furthest owning-hardware tail extent and stops at the board edge.",
+      "UI-hidden hardware is checked unless explicitly absent in this installation mode.",
+      "On-board footprint checks use the rectangular stock perimeter of this unsplit V5 board; machining holes do not remove the reserved footprint."
+    ],
+    "plate_bounds_xy_mm": [
+      3.175,
+      3.175,
+      428.625,
+      149.225
+    ],
+    "plate_top_z_mm": -12.7,
+    "plate_shape_bbox_top_z_mm": -12.7,
+    "plate_top_reference": "Placement.Base.z - OpticsDz",
+    "physical_objects_checked": 47,
+    "beam_segments_checked": 11,
+    "failure_counts": {
+      "hardware_conflicts": 0,
+      "beam_conflicts": 0,
+      "reservation_conflicts": 0,
+      "outside_board": 0,
+      "errors": 0
+    },
+    "passed": true
+  },
+  "service_clearance": {
+    "document": "AOM_DoublePass_f75_V9",
+    "mode": "dp",
+    "settings": {
+      "tessellation_deflection_mm": 0.04,
+      "contact_tolerance_mm": 1e-05,
+      "check_region_overlaps": true,
+      "min_length_mm": {
+        "fiber_front": 15.0,
+        "aom_sma": 40.0
+      }
+    },
+    "regions": [
+      {
+        "name": "Input KA05T front access",
+        "kind": "fiber_front",
+        "owner": "Input_KA05T",
+        "owner_label": "Input KA05T",
+        "origin_xy_mm": [
+          116.588,
+          35.56
+        ],
+        "direction_xy": [
+          1.0,
+          0.0
+        ],
+        "length_mm": 15.0,
+        "width_mm": 20.0,
+        "corners_xy_mm": [
+          [
+            116.588,
+            25.56
+          ],
+          [
+            131.588,
+            25.56
+          ],
+          [
+            131.588,
+            45.56
+          ],
+          [
+            116.588,
+            45.56
+          ]
+        ],
+        "excluded_owner_objects": [
+          "Fiber_Adapter",
+          "Input_KA05T",
+          "Lens",
+          "Lens_Adapter",
+          "Lens_Tube",
+          "Lower_Thumbscrew",
+          "Mount",
+          "Upper_Thumbscrew"
+        ],
+        "allowed_paths": [
+          "Input feed"
+        ],
+        "dimensions_verified": false,
+        "assumptions": [
+          "Reference geometry: the input HWP sits 19 mm in front of the fiber lens; 15 mm axial access reserved."
+        ],
+        "reference": "",
+        "origin_source": "",
+        "require_on_board": false
+      },
+      {
+        "name": "Output KA05T front access",
+        "kind": "fiber_front",
+        "owner": "Output_KA05T",
+        "owner_label": "Output KA05T",
+        "origin_xy_mm": [
+          311.64,
+          109.56
+        ],
+        "direction_xy": [
+          -1.0,
+          0.0
+        ],
+        "length_mm": 40.0,
+        "width_mm": 20.0,
+        "corners_xy_mm": [
+          [
+            311.64,
+            119.56
+          ],
+          [
+            271.64,
+            119.56
+          ],
+          [
+            271.64,
+            99.56
+          ],
+          [
+            311.64,
+            99.56
+          ]
+        ],
+        "excluded_owner_objects": [
+          "Fiber_Adapter001",
+          "Lens001",
+          "Lens_Adapter001",
+          "Lens_Tube001",
+          "Lower_Thumbscrew003",
+          "Mount008",
+          "Output_KA05T",
+          "Upper_Thumbscrew003"
+        ],
+        "allowed_paths": [
+          "Output"
+        ],
+        "dimensions_verified": false,
+        "assumptions": [
+          "20 mm full front access width; 40 mm axial access."
+        ],
+        "reference": "",
+        "origin_source": "",
+        "require_on_board": false
+      },
+      {
+        "name": "AOMO 3100-125 RF elbow",
+        "kind": "aom_sma",
+        "owner": "AOMO_3100_125",
+        "owner_label": "AOMO 3100-125",
+        "origin_xy_mm": [
+          193.04,
+          68.58
+        ],
+        "direction_xy": [
+          0.0,
+          1.0
+        ],
+        "length_mm": 40.0,
+        "width_mm": 20.0,
+        "corners_xy_mm": [
+          [
+            203.04,
+            68.58
+          ],
+          [
+            203.04,
+            108.58
+          ],
+          [
+            183.04,
+            108.58
+          ],
+          [
+            183.04,
+            68.58
+          ]
+        ],
+        "excluded_owner_objects": [
+          "AOMO_3100_125",
+          "AOM_Adapter",
+          "Mount_KM100PM"
+        ],
+        "allowed_paths": [],
+        "dimensions_verified": false,
+        "assumptions": [
+          "Connector on the AOM face away from the beam (unverified STL box); 40 mm of free space for the L-shaped SMB elbow; cable taped down afterwards."
+        ],
+        "reference": "",
+        "origin_source": "",
+        "require_on_board": false
+      }
+    ],
+    "hardware_conflicts": [],
+    "beam_conflicts": [],
+    "reservation_conflicts": [],
+    "outside_board": [],
+    "errors": [],
+    "excluded_by_installation_mode": [],
+    "physical_objects_checked": 47,
+    "beam_segments_checked": 11,
+    "minimum_axial_length_mm": {
+      "fiber_front": 15.0,
+      "ta_cable": 101.6,
+      "aom_sma": 40.0,
+      "aom_connector": 0.001
+    },
+    "scope": [
+      "Physical surfaces are clipped at nominal plate top and projected into XY; routing above or below an obstruction is not accepted.",
+      "Only each region owner and its linked child hardware are excluded; unrelated hardware remains checked even when hidden in the UI.",
+      "Only explicitly named intended fiber beams are exempt. Every beam is checked for TA cable and AOM SMA regions.",
+      "Connector-face origins and outward directions are provided by the board definition, not inferred from bounding boxes by this audit.",
+      "Configured cable widths are provisional until measured; a geometric pass does not verify connector dimensions or bend radii.",
+      "Front/cable regions may extend outside the plate unless require_on_board is set. This audit does not model off-board equipment."
+    ],
+    "plate_bounds_xy_mm": [
+      3.175,
+      3.175,
+      428.625,
+      149.225
+    ],
+    "plate_top_z_mm": -12.7,
+    "failure_counts": {
+      "hardware_conflicts": 0,
+      "beam_conflicts": 0,
+      "reservation_conflicts": 0,
+      "outside_board": 0,
+      "errors": 0
+    },
+    "all_dimensions_verified": false,
+    "passed": true
+  },
+  "hole_clearance": {
+    "document": "AOM_DoublePass_f75_V9",
+    "mode": "dp",
+    "plate_drilled": true,
+    "plate_top_z_mm": -12.7,
+    "hole_count": 8,
+    "installed_geometry_count": 47,
+    "holes": [
+      {
+        "kind": "platform",
+        "label": "Mount Hole (0, 0)",
+        "center_xy_mm": [
+          33.02,
+          12.7
+        ],
+        "reserved_radius_mm": 9.14375,
+        "owner": "Mount_Hole__0__0_",
+        "source": "Mount_Hole__0__0_",
+        "metadata": {
+          "nominal_washer_diameter_mm": 14.2875
+        },
+        "within_plate_xy": true
+      },
+      {
+        "kind": "platform",
+        "label": "Mount Hole (11, 4)",
+        "center_xy_mm": [
+          297.18,
+          114.3
+        ],
+        "reserved_radius_mm": 9.14375,
+        "owner": "Mount_Hole__11__4_",
+        "source": "Mount_Hole__11__4_",
+        "metadata": {
+          "nominal_washer_diameter_mm": 14.2875
+        },
+        "within_plate_xy": true
+      },
+      {
+        "kind": "platform",
+        "label": "Mount Hole (0, 4)",
+        "center_xy_mm": [
+          17.78,
+          114.3
+        ],
+        "reserved_radius_mm": 9.14375,
+        "owner": "Mount_Hole__0__4_",
+        "source": "Mount_Hole__0__4_",
+        "metadata": {
+          "nominal_washer_diameter_mm": 14.2875
+        },
+        "within_plate_xy": true
+      },
+      {
+        "kind": "fiber_tail_8_32",
+        "label": "Input KA05T rear -1",
+        "center_xy_mm": [
+          15.09,
+          44.724
+        ],
+        "reserved_radius_mm": 3.7272,
+        "owner": "Input_KA05T",
+        "source": "Input_KA05T",
+        "metadata": {
+          "rear_offset_mm": 82.7,
+          "side": -1
+        },
+        "within_plate_xy": true
+      },
+      {
+        "kind": "fiber_tail_8_32",
+        "label": "Input KA05T rear +1",
+        "center_xy_mm": [
+          15.09,
+          26.396
+        ],
+        "reserved_radius_mm": 3.7272,
+        "owner": "Input_KA05T",
+        "source": "Input_KA05T",
+        "metadata": {
+          "rear_offset_mm": 82.7,
+          "side": 1
+        },
+        "within_plate_xy": true
+      },
+      {
+        "kind": "fiber_tail_8_32",
+        "label": "Output KA05T rear -1",
+        "center_xy_mm": [
+          413.138,
+          100.396
+        ],
+        "reserved_radius_mm": 3.7272,
+        "owner": "Output_KA05T",
+        "source": "Output_KA05T",
+        "metadata": {
+          "rear_offset_mm": 82.7,
+          "side": -1
+        },
+        "within_plate_xy": true
+      },
+      {
+        "kind": "fiber_tail_8_32",
+        "label": "Output KA05T rear +1",
+        "center_xy_mm": [
+          413.138,
+          118.724
+        ],
+        "reserved_radius_mm": 3.7272,
+        "owner": "Output_KA05T",
+        "source": "Output_KA05T",
+        "metadata": {
+          "rear_offset_mm": 82.7,
+          "side": 1
+        },
+        "within_plate_xy": true
+      },
+      {
+        "kind": "aom_central_8_32",
+        "label": "DP1 central top-in screw",
+        "center_xy_mm": [
+          237.44,
+          39.18
+        ],
+        "reserved_radius_mm": 3.7272,
+        "owner": "AOMO_3100_125",
+        "source": "AOMO_3100_125_integral_seat",
+        "metadata": {
+          "arm": 1,
+          "beam_path": "DP1 double pass"
+        },
+        "within_plate_xy": true
+      }
+    ],
+    "hardware_conflicts": [],
+    "beam_conflicts": [],
+    "hole_pair_conflicts": [],
+    "cutter_conflicts": [],
+    "aom_machining": [
+      {
+        "seat": "AOMO_3100_125_integral_seat",
+        "checks": [
+          {
+            "name": "former_ear_recess_not_cut_-39.0",
+            "point_world_mm": [
+              237.44,
+              78.17999999999999,
+              -13.7
+            ],
+            "cut_by_this_seat": false,
+            "plate_material_present": true,
+            "status": "pass"
+          },
+          {
+            "name": "former_ear_recess_not_cut_39.0",
+            "point_world_mm": [
+              237.44,
+              0.1799999999999926,
+              -13.7
+            ],
+            "cut_by_this_seat": false,
+            "plate_material_present": null,
+            "status": "pass"
+          },
+          {
+            "name": "former_ear_tap_not_cut_-32.5",
+            "point_world_mm": [
+              237.44,
+              71.67999999999999,
+              -36.099999999999994
+            ],
+            "cut_by_this_seat": false,
+            "plate_material_present": true,
+            "status": "pass"
+          },
+          {
+            "name": "former_ear_tap_not_cut_32.5",
+            "point_world_mm": [
+              237.44,
+              6.679999999999993,
+              -36.099999999999994
+            ],
+            "cut_by_this_seat": false,
+            "plate_material_present": true,
+            "status": "pass"
+          },
+          {
+            "name": "unused_AOM_tap_not_cut_-50.0",
+            "point_world_mm": [
+              190.54,
+              85.53,
+              -25.4
+            ],
+            "cut_by_this_seat": false,
+            "plate_material_present": true,
+            "status": "pass"
+          },
+          {
+            "name": "unused_AOM_tap_not_cut_-60.0",
+            "point_world_mm": [
+              190.54,
+              95.53,
+              -25.4
+            ],
+            "cut_by_this_seat": false,
+            "plate_material_present": true,
+            "status": "pass"
+          },
+          {
+            "name": "central_top_installed_thread_bore_open",
+            "point_world_mm": [
+              237.44,
+              39.17999999999999,
+              -36.099999999999994
+            ],
+            "material_expected": false,
+            "material_present": false,
+            "status": "pass"
+          },
+          {
+            "name": "v9_front_slot_filled_at_plate_bottom",
+            "point_world_mm": [
+              223.44,
+              58.42999999999999,
+              -37.099999999999994
+            ],
+            "material_expected": true,
+            "material_present": true,
+            "status": "pass"
+          },
+          {
+            "name": "v9_front_pocket_floor_lowered",
+            "point_world_mm": [
+              223.44,
+              58.42999999999999,
+              -31.685000000000002
+            ],
+            "material_expected": false,
+            "material_present": false,
+            "status": "pass"
+          },
+          {
+            "name": "v9_no_band_under_front_plate",
+            "point_world_mm": [
+              229.44,
+              58.42999999999999,
+              -31.416
+            ],
+            "material_expected": false,
+            "material_present": false,
+            "status": "pass"
+          },
+          {
+            "name": "v9_band_present_behind_back_plate",
+            "point_world_mm": [
+              246.44,
+              58.42999999999999,
+              -31.416
+            ],
+            "material_expected": true,
+            "material_present": true,
+            "status": "pass"
+          },
+          {
+            "name": "v9_1_no_band_sliver_behind_knob_wall",
+            "point_world_mm": [
+              247.019,
+              58.42999999999999,
+              -31.416
+            ],
+            "material_expected": false,
+            "material_present": false,
+            "status": "pass"
+          },
+          {
+            "name": "v9_1_band_starts_at_knob_wall",
+            "point_world_mm": [
+              246.219,
+              58.42999999999999,
+              -31.416
+            ],
+            "material_expected": true,
+            "material_present": true,
+            "status": "pass"
+          },
+          {
+            "name": "v9_lower_knob_access_open",
+            "point_world_mm": [
+              254.94,
+              58.42999999999999,
+              -37.099999999999994
+            ],
+            "material_expected": false,
+            "material_present": false,
+            "status": "pass"
+          },
+          {
+            "name": "v9_2_no_stock_above_bearing_face_boss_y_plus",
+            "point_world_mm": [
+              237.44,
+              27.179999999999993,
+              -30.816000000000003
+            ],
+            "material_expected": false,
+            "material_present": false,
+            "status": "pass"
+          },
+          {
+            "name": "v9_2_stock_below_bearing_face_boss_y_plus",
+            "point_world_mm": [
+              237.44,
+              27.179999999999993,
+              -31.416
+            ],
+            "material_expected": true,
+            "material_present": true,
+            "status": "pass"
+          },
+          {
+            "name": "v9_2_no_stock_above_bearing_face_boss_y_minus",
+            "point_world_mm": [
+              237.44,
+              51.17999999999999,
+              -30.816000000000003
+            ],
+            "material_expected": false,
+            "material_present": false,
+            "status": "pass"
+          },
+          {
+            "name": "v9_2_stock_below_bearing_face_boss_y_minus",
+            "point_world_mm": [
+              237.44,
+              51.17999999999999,
+              -31.416
+            ],
+            "material_expected": true,
+            "material_present": true,
+            "status": "pass"
+          },
+          {
+            "name": "v9_2_no_stock_above_bearing_face_boss_x_plus",
+            "point_world_mm": [
+              233.44,
+              39.17999999999999,
+              -30.816000000000003
+            ],
+            "material_expected": false,
+            "material_present": false,
+            "status": "pass"
+          },
+          {
+            "name": "v9_2_stock_below_bearing_face_boss_x_plus",
+            "point_world_mm": [
+              233.44,
+              39.17999999999999,
+              -31.416
+            ],
+            "material_expected": true,
+            "material_present": true,
+            "status": "pass"
+          },
+          {
+            "name": "v9_2_no_stock_above_bearing_face_boss_x_minus",
+            "point_world_mm": [
+              241.44,
+              47.17999999999999,
+              -30.816000000000003
+            ],
+            "material_expected": false,
+            "material_present": false,
+            "status": "pass"
+          },
+          {
+            "name": "v9_2_stock_below_bearing_face_boss_x_minus",
+            "point_world_mm": [
+              241.44,
+              47.17999999999999,
+              -31.416
+            ],
+            "material_expected": true,
+            "material_present": true,
+            "status": "pass"
+          },
+          {
+            "name": "v9_2_lip_present_above_face",
+            "point_world_mm": [
+              243.59,
+              39.17999999999999,
+              -28.885
+            ],
+            "material_expected": true,
+            "material_present": true,
+            "status": "pass"
+          },
+          {
+            "name": "v9_2_lip_continuous_down_to_face",
+            "point_world_mm": [
+              243.59,
+              39.17999999999999,
+              -30.816000000000003
+            ],
+            "material_expected": true,
+            "material_present": true,
+            "status": "pass"
+          }
+        ],
+        "obsolete_component_drills_disabled": true,
+        "support_part_empty": true,
+        "plate_valid": true,
+        "plate_solids": 1,
+        "status": "pass"
+      }
+    ],
+    "errors": [],
+    "assumptions": [
+      "Each hole reserves a vertical disk from the nominal plate top upward; the extra margin is configurable.",
+      "Projected placed STL/BREP facets are clipped at the plate surface and tested against each disk.",
+      "Only the owning assembly and its specifically intended beam are exempt; display visibility is ignored.",
+      "Beam screening uses the largest supplied in-plane half-width at segment endpoints; RF-dependent diffraction is unmodeled.",
+      "AOM old-ear/side-hole material checks need the final drilled plate; no physical screw/tool/undetermined future mount is modeled."
+    ],
+    "six_common_stations": {
+      "count": 0,
+      "mounting_holes_north_to_south": [],
+      "mount_holes_at_one_x": false,
+      "note": "Six post-isolator/pre-cell stations run around two orthogonal folds. V9.1: all six are bare 8-32 holes (holders and optics unselected); a provisional 16 mm diameter footprint is audited below."
+    },
+    "platform_beam_crossings": [
+      {
+        "hole": "Mount Hole (11, 4)",
+        "path": "Output",
+        "segment": 4,
+        "axis_distance_mm": 4.74,
+        "beam_half_width_upper_bound_mm": 0.6,
+        "status": "note_beam_over_recessed_platform_bolt"
+      }
+    ],
+    "future_mount_envelopes": [],
+    "future_mount_conflicts": [],
+    "failure_counts": {
+      "hardware_conflicts": 0,
+      "beam_conflicts": 0,
+      "hole_pair_conflicts": 0,
+      "cutter_conflicts": 0,
+      "future_mount_conflicts": 0,
+      "errors": 0,
+      "aom_machining": 0
+    },
+    "passed": true,
+    "status": "pass"
+  },
+  "pbs_path_check": {
+    "scope": "Nominal PBS T/R paths and actual CAD cue orientation; no polarization or physical transmission certification",
+    "document": "AOM_DoublePass_f75_V9",
+    "mode": "dp",
+    "formula": "a_norm = yaw + 180 + Proxy.reflection_angle; R = 2*a_norm - incoming - 180; T = incoming (degrees)",
+    "cad_cue_formula": "Diagonal slot tangent = yaw - Proxy.reflection_angle, from original cube_splitter.execute",
+    "angle_tolerance_deg": 0.05,
+    "position_tolerance_mm": 0.05,
+    "explicit_subassembly_scope": true,
+    "checks": [
+      {
+        "cube": "Separation PBS",
+        "role": "double_pass",
+        "errors": [],
+        "object": "Separation_PBS",
+        "center_mm": [
+          161.29,
+          35.559999999999995,
+          0.0
+        ],
+        "placement_yaw_deg": 0.0,
+        "proxy_reflection_angle_deg": -135.0,
+        "cad_diagonal_tangent_deg": 135.0,
+        "cad_diagonal_unit_xy": [
+          -0.7071067811865475,
+          0.7071067811865476
+        ],
+        "incoming": {
+          "path": "Input feed",
+          "endpoints": [
+            [
+              123.19,
+              35.559999999999995,
+              0.0
+            ],
+            [
+              161.29,
+              35.559999999999995,
+              0.0
+            ]
+          ],
+          "angle_deg": 0.0
+        },
+        "expected_first_branches_deg": {
+          "T": 0.0,
+          "R": 270.0
+        },
+        "cad_cue_reflected_angle_deg": 270.0,
+        "to_aom": {
+          "path": "DP1 double pass",
+          "endpoints": [
+            [
+              161.29,
+              35.559999999999995,
+              0.0
+            ],
+            [
+              193.04,
+              35.559999999999995,
+              0.0
+            ]
+          ],
+          "angle_deg": 0.0
+        },
+        "first_matching_branches": [
+          "T"
+        ],
+        "return_incoming_angle_deg": 180.0,
+        "expected_return_branches_deg": {
+          "T": 180.0,
+          "R": 90.0
+        },
+        "output": {
+          "path": "Output",
+          "endpoints": [
+            [
+              161.29,
+              35.559999999999995,
+              0.0
+            ],
+            [
+              161.29,
+              109.56,
+              0.0
+            ]
+          ],
+          "angle_deg": 90.0
+        },
+        "required_return_branch": "R",
+        "required_output_angle_deg": 90.0,
+        "status": "pass"
+      }
+    ],
+    "errors": [],
+    "passed": true,
+    "failure_count": 0
+  },
+  "summary_counts": {
+    "bbox_overlap_candidates": 0,
+    "confirmed_part_intersections": 0,
+    "outside_plate_xy": 0,
+    "confirmed_mesh_contacts": 0,
+    "centerline_intersections": 0,
+    "finite_beam_sample_intersections": 0,
+    "geometry_errors": 0,
+    "beam_definition_errors": 0,
+    "aom_aperture_failures": 0,
+    "aom_plate_penetration_issues": 0,
+    "unresolved_mesh_pair_checks": 0,
+    "unresolved_bbox_candidates": 0,
+    "unrelated_beam_proximity": 0,
+    "adjustment_mirror_failures": 0,
+    "isolator_input_failures": 0,
+    "pbs_path_failures": 0,
+    "nonorthogonal_beam_segments": 0,
+    "dual_leakage_interception_failures": 0,
+    "unresolved_design_requirements": 0,
+    "lens_reservation_failures": 0,
+    "cylindrical_hole_failures": 0,
+    "integral_adapter_failures": 0,
+    "geometry_assertion_failures": 0,
+    "drill_cut_issues": 0,
+    "output_order_feasibility_issues": 0,
+    "fiber_clearance_issues": 0,
+    "service_clearance_issues": 0,
+    "hole_clearance_issues": 0
+  }
+}
