@@ -7946,7 +7946,7 @@ class ViewProvider:
 # =============================================================================
 
 
-# --- 1. two variants of existing holders -------------------------------------
+# --- 1. three variants of existing parts -------------------------------------
 class lens_holder_l05g_no_pin_slots:
     '''
     Lens Holder, Model L05G - without the two alignment-pin slots.
@@ -8024,6 +8024,44 @@ class isolator_850_long_pocket:
                            fillet=0.125*layout.inch, dir=(0, 0, -1))
         part.Placement = obj.Placement
         obj.DrillPart = part
+
+
+class TA_butterfly_on_adapter:
+    '''
+    Tapered Amplifier evaluation board, model EYP-TPA-0785-0100-3006-CMT03,
+    screwed to the TA adapter rather than straight to the baseplate.
+
+    Same mesh and the same linked ``TA_adapter`` as ``TA_butterfly``. The
+    board's four M2.5 screws go into the adapter's own tapped holes, and the
+    adapter is held down by four 8-32 into the plate, so this part drills
+    nothing itself: the plate holes under the TA are the adapter's four 8-32
+    only. (``TA_butterfly`` above, which also taps four M2.5 into the plate,
+    is kept unchanged and unused.)
+
+    Args:
+        drill (bool) : Whether baseplate mounting for this part should be drilled
+    '''
+    type = 'Mesh::FeaturePython'
+    def __init__(self, obj, drill=True):
+        obj.Proxy = self
+        ViewProvider(obj.ViewObject)
+
+        obj.addProperty('App::PropertyBool', 'Drill').Drill = drill
+        obj.addProperty('Part::PropertyPartShape', 'DrillPart')
+
+        obj.ViewObject.ShapeColor = mount_color
+        self.part_numbers = ['TAboard']
+
+        _add_linked_object(obj, "TA adapter", TA_adapter, pos_offset=(0, 0, 0))
+
+    def execute(self, obj):
+        mesh = _import_stl("TAboard.stl", (90, 0, 0), (0, 0, 0))
+        mesh.Placement = obj.Mesh.Placement
+        obj.Mesh = mesh
+
+        # No plate holes of its own: the board is mounted on the TA adapter,
+        # which carries the four 8-32 plate holes (see class doc).
+        obj.DrillPart = Part.Shape()
 
 
 

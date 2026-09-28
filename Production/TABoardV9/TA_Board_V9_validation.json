@@ -9,7 +9,7 @@
   ],
   "plate_valid": true,
   "plate_solid_count": 1,
-  "plate_volume_mm3": 5097229.041216331,
+  "plate_volume_mm3": 5097411.23629637,
   "objects": [
     {
       "name": "TA_plate_25_x_14_in",
@@ -146,7 +146,7 @@
         140.0,
         0.0
       ],
-      "class": "TA_butterfly",
+      "class": "TA_butterfly_on_adapter",
       "part_numbers": [
         "TAboard"
       ]
@@ -5386,7 +5386,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 3,
         "screened_samples": 97195,
-        "elapsed_seconds": 0.469
+        "elapsed_seconds": 0.484
       },
       {
         "arm": 1,

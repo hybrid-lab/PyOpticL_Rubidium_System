@@ -125,7 +125,8 @@ If you use this work in academic settings, please also cite:
 # Rb-87 795 nm lattice laser system — branch `gpt+claude+Haotian`
 
 Three baseplates for the 795 nm lattice light, designed in September 2026 by
-Haotian Xu with GPT (Codex) and Claude:
+Haotian Xu with GPT (Codex) and Claude. Current revision **V9.3** (2026-09-28);
+the change log is at the end of this section.
 
 | Board | Script | Size | Production folder |
 |---|---|---|---|
@@ -156,6 +157,11 @@ yajur-branch file, unchanged):
   features. Same mesh and same central 8-32 bore as `lens_holder_l05g`.
 - `isolator_850_long_pocket` — IOT-5-850-VLP with the pocket spanning the whole
   body (dx 80 → 113.5 mm), as on the hana-branch boards.
+- `TA_butterfly_on_adapter` — the TA evaluation board screwed to the TA adapter
+  instead of straight to the plate. Same mesh and the same linked `TA_adapter`
+  as `TA_butterfly`, but it drills nothing itself: the board's four M2.5 screws
+  go into the adapter's own tapped holes and the adapter is held by four 8-32
+  into the plate, so the plate under the TA has no M2.5 holes (V9.3).
 - `BareTappedHole` — an 8-32 tap-drill location with no mount, optic or
   counterbore, used for every position whose holder is not yet chosen.
 - `CellPocketMachining` / `place_cell_pocket` — the Rb cell seat: a 104 × 56 mm
@@ -167,16 +173,18 @@ yajur-branch file, unchanged):
 - `PersistentDrillVolume`, `keep_machining_hidden`, `deepen_isolator_pocket`,
   `add_fiber_tail_alternative`, `descendants` — supporting machining helpers.
 
-The two variants are new classes rather than edits to the existing ones, so the
-other boards on this branch keep the exact geometry they had.
+The three variants are new classes rather than edits to the existing ones, so
+the other boards on this branch keep the exact geometry they had.
 
 **Added — three board scripts** in `Rubidium_system/`, listed in the table above.
 
 **Added — three `Production/` folders**, each holding the top and 3D renders,
 the audit report (`*_validation.json`), a BOM spreadsheet in the same
-Adaptors/Elements layout as the other branches, and `StepFile/` with the
-machined baseplate STEP. The three baseplate STEPs are also collected in
-`Production/Baseplate/`.
+Adaptors/Elements layout as the other branches, `StepFile/` with the machined
+baseplate STEP, and a `*_TAP_or_NOT` sheet (PDF + PNG) that marks which holes
+of that plate are tapped. The three baseplate STEPs are also collected in
+`Production/Baseplate/`, and the same sheets for the two adapters are in
+`Production/Adapters/`.
 
 **Unchanged:** `stl/` (all 22 meshes these boards need, plus the cell glass, are
 already present and identical), every other script in `Rubidium_system/`, and
@@ -238,7 +246,25 @@ no cell part is modelled or listed in the BOM.
 each, with all pockets, 8-32 tap-drill bores, the integral AOM seats, the cell
 pocket and the 1/4-20 table-bolt counterbores included. The solid is inset
 3.175 mm from the nominal outline on every side, as in every PyOpticL plate.
-Threads are specified, not modelled.
+Threads are specified, not modelled — a STEP file shows every bore's diameter,
+position and depth but cannot say whether it is threaded, so each plate and
+each adapter has a **`*_TAP_or_NOT` sheet** next to its STEP that marks exactly
+that and nothing else (red ring = tap, blue crossed circle = do not tap; drill
+sizes, tolerances, material and finish are left to the shop):
+
+| Part | Sheet | Tapped | Not tapped |
+|---|---|---|---|
+| Lattice baseplate | `Production/LatticeBoardV9/Lattice_V9_baseplate_TAP_or_NOT.pdf` | 86 × #8-32 | 4 × 1/4-20 table-bolt clearance |
+| TA baseplate | `Production/TABoardV9/TA_Board_V9_baseplate_TAP_or_NOT.pdf` | 57 × #8-32 | 4 × 1/4-20 clearance |
+| Double-pass AOM baseplate | `Production/AOMDoublePassV9/AOM_DoublePass_V9_baseplate_TAP_or_NOT.pdf` | 22 × #8-32 | 3 × 1/4-20 clearance |
+| TA adapter (`stl/TA_adapter.stl`) | `Production/Adapters/TA_adapter_TAP_or_NOT.pdf` | 4 × M2.5 × 0.45 (board screws) | 4 × 8-32 clearance (to the plate taps) |
+| AOM adapter (`stl/aom_adapter.stl`) | `Production/Adapters/AOM_adapter_TAP_or_NOT.pdf` | 2 × M4 × 0.7 | 4 × clearance, in a row |
+
+Every hole in the part is marked on its sheet; the rounded corners inside the
+milled pockets are R3.175 end-mill fillets, not holes. `Production/Adapters/`
+also holds `V9_3_tapping_sheets_all.pdf`, the five sheets in one file, and the
+hole coordinates of every sheet are listed on it (plates: STEP-file
+coordinates; adapters: from the part's lower-left corner).
 
 ## Audits
 
@@ -251,3 +277,18 @@ steering mirrors sit at the top of the plate, so their M05 bodies extend about
 3.6 mm past the outline and their thumbscrews about 21 mm — above the plate, not
 through it. The audit scripts themselves are development tooling and are not
 part of this branch.
+
+## Change log
+
+**V9.3 (2026-09-28)** — the four M2.5 tapped holes the plate used to carry under
+the TA butterfly board are removed from the lattice and TA baseplates; the TA
+adapter is unchanged and keeps its own four M2.5 threads, and the plate keeps
+the adapter's four 8-32 taps. The boards now place `TA_butterfly_on_adapter`
+(new class, see above). Plate volume of the lattice and TA boards rises by
+exactly the four 2.05 mm × 13.8 mm bores (182.195 mm³); nothing else in any
+board moved, and the audits report the same six accepted items as before. Both
+STEPs (`Production/Baseplate/`, `Production/*/StepFile/`) were re-exported, the
+renders, audit reports and BOMs regenerated, and the `*_TAP_or_NOT` sheets for
+the three plates and the two adapters added.
+
+**V9.2 (2026-09-25)** — first publication of the three boards on this branch.

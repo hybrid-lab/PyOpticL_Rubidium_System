@@ -201,7 +201,7 @@ def example_baseplate(x=0, y=0, angle=0, drill=True):
     # =========================================================================
     # The TA emits +y with its thick cable on the -x side, off the plate, as on
     # the lattice board; the U is therefore traversed up, right, then down.
-    ta = put('TA', optomech.TA_butterfly, TA_XY[0], TA_XY[1], 90)
+    ta = put('TA', optomech.TA_butterfly_on_adapter, TA_XY[0], TA_XY[1], 90)
     supply = [TA_XY, (TA_XY[0], TOP_RUN_Y), (LANE_X, TOP_RUN_Y), (LANE_X, STATION_LANE_Y[0])]
     bend('TA steering fold 1', supply[0], supply[1], supply[2])
     bend('TA steering fold 2', supply[1], supply[2], supply[3])

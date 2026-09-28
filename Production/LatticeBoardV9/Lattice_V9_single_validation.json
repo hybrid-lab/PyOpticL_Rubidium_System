@@ -138,7 +138,7 @@
         140.0,
         0.0
       ],
-      "class": "TA_butterfly",
+      "class": "TA_butterfly_on_adapter",
       "part_numbers": [
         "TAboard"
       ]
@@ -8270,7 +8270,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 3,
         "screened_samples": 97195,
-        "elapsed_seconds": 0.438
+        "elapsed_seconds": 0.437
       },
       {
         "arm": 1,
@@ -8288,7 +8288,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 0,
         "screened_samples": 0,
-        "elapsed_seconds": 0.0
+        "elapsed_seconds": 0.016
       },
       {
         "arm": 2,
@@ -8311,7 +8311,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 3,
         "screened_samples": 97195,
-        "elapsed_seconds": 0.468
+        "elapsed_seconds": 0.422
       },
       {
         "arm": 2,

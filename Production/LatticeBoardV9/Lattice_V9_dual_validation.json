@@ -138,7 +138,7 @@
         140.0,
         0.0
       ],
-      "class": "TA_butterfly",
+      "class": "TA_butterfly_on_adapter",
       "part_numbers": [
         "TAboard"
       ]
@@ -6018,7 +6018,7 @@
           1988
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.015
+        "elapsed_seconds": 0.016
       },
       {
         "a": "Mount022",
@@ -6056,7 +6056,7 @@
           }
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 3.515
+        "elapsed_seconds": 3.516
       }
     ],
     "confirmed_mesh_contacts": [],
@@ -9452,7 +9452,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 3,
         "screened_samples": 97195,
-        "elapsed_seconds": 0.438
+        "elapsed_seconds": 0.453
       },
       {
         "arm": 2,

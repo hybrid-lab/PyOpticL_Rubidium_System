@@ -212,7 +212,7 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True):
     # The TA points +y; two and only two steering mirrors deliver the beam down
     # the isolator's optical axis. Their M05 bodies stick 3.6 mm past the plate
     # outline and the thumbscrews ~21 mm (accepted: they sit above the plate).
-    ta = put('TA', optomech.TA_butterfly, TA_XY[0], TA_XY[1], 90)
+    ta = put('TA', optomech.TA_butterfly_on_adapter, TA_XY[0], TA_XY[1], 90)
     supply = [TA_XY, (TA_XY[0], TOP_RUN_Y), (LANE_X, TOP_RUN_Y), (LANE_X, STATION_LANE_Y[0])]
     bend('TA steering fold 1', supply[0], supply[1], supply[2])      # (60, 338)
     bend('TA steering fold 2', supply[1], supply[2], supply[3])      # (138, 338)
