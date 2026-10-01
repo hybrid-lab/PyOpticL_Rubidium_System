@@ -125,18 +125,21 @@ If you use this work in academic settings, please also cite:
 # Rb-87 795 nm lattice laser system — branch `gpt+claude+Haotian`
 
 Three baseplates for the 795 nm lattice light, designed in September 2026 by
-Haotian Xu with GPT (Codex) and Claude. Current revision **V9.3** (2026-09-28);
-the change log is at the end of this section.
+Haotian Xu with GPT (Codex) and Claude. Current revision **V9.4** (2026-10-01,
+lattice board; the TA and double-pass boards are unchanged since V9.3); the
+change log is at the end of this section.
 
 | Board | Script | Size | Production folder |
 |---|---|---|---|
-| Lattice board | `Rubidium_system/Lattice_Baseplate_V9.py` | 24 × 14 in | `Production/LatticeBoardV9/` |
+| Lattice board | `Rubidium_system/Lattice_Baseplate_V9.py` | 24 × 15 in | `Production/LatticeBoardV9/` |
 | TA board | `Rubidium_system/TA_Baseplate_V9.py` | 25 × 14 in | `Production/TABoardV9/` |
 | Double-pass AOM board | `Rubidium_system/AOM_DoublePass_Baseplate_V9.py` | 17 × 6 in | `Production/AOMDoublePassV9/` |
 
 Each script is self-contained: constants at the top, then every optic placed in
 beam order inside `example_baseplate()`. Run one in FreeCAD (Macro > Macros…, or
-paste into the Python console) and the board is built.
+paste into the Python console) and the board is built. The lattice script also
+takes `cat_eye='75-50'` / `'75-75'` to build the two f = 75 test configurations
+on the same plate (see the lattice board below).
 
 ## What this branch changes
 
@@ -192,15 +195,36 @@ every other `Production/` folder.
 
 ## Boards
 
-**Lattice board (24 × 14 in).** TA → two steering folds → HWP → isolator → QWP →
-six bare 8-32 conditioning stations (45/45 mm down the lane, then 60 mm and
-100 mm along the beam) → Rb cell seat → SR475 shutter → power HWP/PBS. The
-transmitted and reflected beams feed two double-pass AOM arms: G&H AOMO 3100-125
-on an integral seat, LA1612-B cat-eye lens 75 mm from the AOM and 75 mm from the
-retro mirror, order-selection iris 10 mm before the mirror. Each return is
-separated by its PBS and passes an LA1289-B/LA1540-B telescope, HWP, rotating
-PBS and iris into a KA05T. `example_baseplate(mode='dual')` adds a second KA05T
-input for an external TA, its injection fold and a blocking iris.
+**Lattice board (24 × 15 in, V9.4).** TA → two steering folds → HWP → isolator →
+QWP → six bare 8-32 conditioning stations (45/45 mm down the lane, then 60 mm
+and 100 mm along the beam) → Rb cell seat → SR475 shutter → power HWP/PBS. The
+transmitted and reflected beams feed two double-pass AOM arms: G&H AOMO
+3100-125 on an integral seat at the Bragg angle, then an **f = 300 mm cat-eye
+(LA1618-B) folded into a U by two 45° M05 fold mirrors** — the +1 order is the
+design axis downstream of the AOM (2θ_B = 1.08° at 100 MHz, so the folds see
+the diffracted beam at exactly 45° and the return legs run along the top and
+bottom plate edges 1.08° off the board axes), an IDA12 on the vertical leg
+blocks the 0 order (190–207 mm from the AOM, where the two orders are 3.6–3.9 mm
+apart), and the QWP sits on the return leg before the retro mirror. Each return
+is separated by its PBS and passes an LA1289-B/LA1540-B telescope, HWP, rotating
+PBS and iris into a KA05T; the DP2 output row lies above its AOM row, so no
+beams cross. Every mirror on the board is a Newport M05 with HKTS adjusters.
+`example_baseplate(mode='dual')` adds a second KA05T input for an external TA
+(both telescope lenses on the input lane), its injection fold and a blocking
+iris.
+
+The V9.3 **f = 75 mm cat-eye (LA1612-B) is kept as an option**: straight after
+each AOM, on the +1-order axis, the plate carries the bare holes for a
+POLARIS-L05G lens holder (DP1 73 mm / DP2 68 mm from the AOM), an RSP05 QWP
+mount (91 mm), an IDA12 slide mount (113 / 107 mm, post toward −y) and two M05
+retro-mirror positions, lens → mirror 50 mm and 75 mm. Nothing is installed
+there. With the 50 mm mirror every f = 300 part can stay on the plate; the
+75 mm mirror body stands where fold F1 (DP1) / F3 (DP2) is, so that fold comes
+off for a 75/75 test. Those two mirror positions have no thumbscrew pocket: the
+lower M05 adjuster is driven with a plain 5/64 hex key there. Both test
+configurations were built on the same plate and audited
+(`example_baseplate(mode='dual', cat_eye='75-50')` / `'75-75'`; reports in
+`Production/LatticeBoardV9/`).
 
 **TA board (25 × 14 in).** The same TA section, isolator lane, six stations and
 cell seat; after the cell the beam is folded up a column to the power HWP/PBS.
@@ -215,27 +239,20 @@ steering mirror, HWP, rotating PBS and iris into a KA05T.
 
 ## Positions with nothing installed yet
 
-Nine positions are drilled as bare 8-32 holes because the optic has not been
-chosen: the six conditioning stations on the lattice and TA boards, and the
-three external-TA telescope positions on the lattice board. Each hole is placed
-where a POLARIS-L05G holder's own tap would land, so fitting the holder later
-puts the lens on the design plane.
+On both boards the six conditioning stations and, on the lattice board, the
+three external-TA telescope positions are drilled as bare 8-32 holes because
+the optic has not been chosen. Each hole is placed where a POLARIS-L05G holder's
+own tap would land, so fitting the holder later puts the lens on the design
+plane. They are sized for an L05G with a 10 mm cylindrical lens bonded to its
+front face, and the audit checks that holder footprint against every installed
+part (no conflict on either board; on the TA board the V9.3 clearances still
+apply: station 1 2.40 mm, station 2 8.00 mm, station 3 6.61 mm, station 4
+7.00 mm, station 5 2.31 mm, station 6 25.74 mm).
 
-They are sized for an L05G with a 10 mm cylindrical lens bonded to its front
-face. Measured against the real part outlines in the plate plane, the clearance
-to the nearest neighbouring part is:
-
-| Position | Clearance |
-|---|---|
-| Station 1 | 2.40 mm |
-| Station 2 | 8.00 mm |
-| Station 3 | 6.61 mm |
-| Station 4 | 7.00 mm |
-| Station 5 | 2.31 mm |
-| Station 6 | 25.74 mm |
-| External lens 1 | 20.58 mm |
-| External lens 2 | 10.35 mm |
-| External spare | 19.38 mm |
+The lattice board additionally carries the twelve bare holes of the optional
+f = 75 cat-eye described above (six per AOM arm). The lens and mirror taps of
+that set lie on the f = 300 beam axis by design — empty holes 12.7 mm below the
+beam, usable only with that beam absent.
 
 The Rb cell seat is likewise a pocket only: the enclosure is a later design, so
 no cell part is modelled or listed in the BOM.
@@ -244,7 +261,9 @@ no cell part is modelled or listed in the BOM.
 
 `Production/Baseplate/` holds the three machined baseplate STEPs — one solid
 each, with all pockets, 8-32 tap-drill bores, the integral AOM seats, the cell
-pocket and the 1/4-20 table-bolt counterbores included. The solid is inset
+pocket and the 1/4-20 table-bolt counterbores included (the lattice plate is
+`Lattice_V9_4_baseplate_24x15in.step`; the superseded 24 × 14 in V9.2/V9.3
+plate is removed). The solid is inset
 3.175 mm from the nominal outline on every side, as in every PyOpticL plate.
 Threads are specified, not modelled — a STEP file shows every bore's diameter,
 position and depth but cannot say whether it is threaded, so each plate and
@@ -254,7 +273,7 @@ sizes, tolerances, material and finish are left to the shop):
 
 | Part | Sheet | Tapped | Not tapped |
 |---|---|---|---|
-| Lattice baseplate | `Production/LatticeBoardV9/Lattice_V9_baseplate_TAP_or_NOT.pdf` | 86 × #8-32 | 4 × 1/4-20 table-bolt clearance |
+| Lattice baseplate (V9.4) | `Production/LatticeBoardV9/Lattice_V9_4_baseplate_TAP_or_NOT.pdf` | 102 × #8-32 | 4 × 1/4-20 table-bolt clearance |
 | TA baseplate | `Production/TABoardV9/TA_Board_V9_baseplate_TAP_or_NOT.pdf` | 57 × #8-32 | 4 × 1/4-20 clearance |
 | Double-pass AOM baseplate | `Production/AOMDoublePassV9/AOM_DoublePass_V9_baseplate_TAP_or_NOT.pdf` | 22 × #8-32 | 3 × 1/4-20 clearance |
 | TA adapter (`stl/TA_adapter.stl`) | `Production/Adapters/TA_adapter_TAP_or_NOT.pdf` | 4 × M2.5 × 0.45 (board screws) | 4 × 8-32 clearance (to the plate taps) |
@@ -262,9 +281,10 @@ sizes, tolerances, material and finish are left to the shop):
 
 Every hole in the part is marked on its sheet; the rounded corners inside the
 milled pockets are R3.175 end-mill fillets, not holes. `Production/Adapters/`
-also holds `V9_3_tapping_sheets_all.pdf`, the five sheets in one file, and the
-hole coordinates of every sheet are listed on it (plates: STEP-file
-coordinates; adapters: from the part's lower-left corner).
+also holds `V9_4_tapping_sheets_all.pdf`, the five sheets in one file (the
+V9.4 lattice sheet and the four unchanged V9.3 sheets), and the hole
+coordinates of every sheet are listed on it (plates: STEP-file coordinates;
+adapters: from the part's lower-left corner).
 
 ## Audits
 
@@ -272,13 +292,43 @@ The boards were checked with a set of read-only audits (mesh contacts, beam and
 hardware crossings, fiber tail clamps, service clearances for the TA cable and
 the AOM RF elbows, hole access, AOM seat machining probes). The saved reports
 are the `*_validation.json` files in `Production/`. All three boards report no
-issue apart from six accepted items on the lattice and TA boards: the two TA
-steering mirrors sit at the top of the plate, so their M05 bodies extend about
-3.6 mm past the outline and their thumbscrews about 21 mm — above the plate, not
-through it. The audit scripts themselves are development tooling and are not
-part of this branch.
+issue apart from accepted overhangs: on the TA board the two TA steering
+mirrors sit at the top of the plate, so their M05 bodies extend about 3.6 mm
+past the outline and their thumbscrews about 21 mm — above the plate, not
+through it; on the V9.4 lattice board the same two mirrors plus the three
+fold mirrors at the plate corners (F1, F2, F4) and the DP1 0-order iris ring
+overhang the edge the same way (ten items), every screw of theirs landing at
+least 6.1 mm inside the edge. Two table bolts, (19,0) and (14,13), lie under
+bare return-leg beams 12.7 mm above the recessed bolt head: install the bolts
+before aligning. The audit scripts themselves are development tooling and are
+not part of this branch.
 
 ## Change log
+
+**V9.4 (2026-10-01, lattice board only)** — the double-pass cat-eyes change
+from f = 75 mm (LA1612-B) to f = 300 mm (LA1618-B): the focused spot on the
+retro mirror is 4× larger. Each AOM → lens → mirror path (605.5 mm) is folded
+into a U by two 45° M05 fold mirrors on the +1-order axis; one IDA12 on the
+vertical leg blocks the 0 order; the QWP moves to the return leg. The plate
+grows to 24 × 15 in (0.5 in added at the top and bottom; every V9.3 coordinate
+is kept, the four table bolts are the V9.2/V9.3 pattern unchanged); the
+isolator lane moves 8 mm toward the TA and the PBS column 10 mm; the DP2 output
+row moves above its AOM row so the fold leg crosses nothing; the external-TA
+telescope has both lenses on the input lane; every mirror is a Newport M05; all
+three fiber heads keep the 76 mm rear tail-clamp pair. The LA1612-B set is kept
+as an option on bare holes after each AOM (lens → mirror 50 or 75 mm), and both
+f = 75 test configurations were built on the same plate and audited. The
+LA1618-B catalogue values (R 155.0, tc 2.2 mm) were read after the layout was
+drilled with R 154.5 / tc 2.0: the resulting 1.2 / 1.0 mm cat-eye defocus is
+documented in the script and accepted (the return stays antiparallel; the
+lateral walk over 80–120 MHz is 9 µm). New STEP, renders, audit reports, BOM
+and tapping sheet in `Production/LatticeBoardV9/` and `Production/Baseplate/`;
+the 24 × 14 in STEP, its sheet and `V9_3_tapping_sheets_all.pdf` are removed
+(replaced by `V9_4_tapping_sheets_all.pdf`). Audit tooling gained the
+`diffraction_kink_deg` exemption from the orthogonality rule and a note class
+for empty optional taps under a beam; `optomech.py` is unchanged except for a
+pin-free `mirror_mount_k05s1_no_pins` variant that the final board does not
+use.
 
 **V9.3 (2026-09-28)** — the four M2.5 tapped holes the plate used to carry under
 the TA butterfly board are removed from the lattice and TA baseplates; the TA
