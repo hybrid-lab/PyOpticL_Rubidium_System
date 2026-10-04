@@ -27,45 +27,22 @@
       "class": "IntegralAOMBaseplate"
     },
     {
-      "name": "Mount_Hole__3__12_",
-      "label": "Mount Hole (3, 12)",
+      "name": "Mount_Hole__20__0_",
+      "label": "Mount Hole (20, 0)",
       "type": "Part::FeaturePython",
       "state": [
         "Up-to-date"
       ],
       "bbox": [
-        83.99999999999999,
-        312.6137013938122,
-        -38.099999999999994,
-        93.8,
-        322.3862986061878,
-        -14.699999999999996
-      ],
-      "position": [
-        88.89999999999999,
-        317.5,
-        0.0
-      ],
-      "valid": true,
-      "class": "baseplate_mount"
-    },
-    {
-      "name": "Mount_Hole__19__0_",
-      "label": "Mount Hole (19, 0)",
-      "type": "Part::FeaturePython",
-      "state": [
-        "Up-to-date"
-      ],
-      "bbox": [
-        490.4,
+        518.975,
         7.813701393812217,
         -38.099999999999994,
-        500.19999999999993,
+        528.775,
         17.586298606187782,
         -14.699999999999996
       ],
       "position": [
-        495.29999999999995,
+        523.875,
         12.7,
         0.0
       ],
@@ -73,22 +50,22 @@
       "class": "baseplate_mount"
     },
     {
-      "name": "Mount_Hole__14__13_",
-      "label": "Mount Hole (14, 13)",
+      "name": "Mount_Hole__20__13_",
+      "label": "Mount Hole (20, 13)",
       "type": "Part::FeaturePython",
       "state": [
         "Up-to-date"
       ],
       "bbox": [
-        363.4,
+        518.975,
         338.0137013938122,
         -38.099999999999994,
-        373.19999999999993,
+        528.775,
         347.78629860618776,
         -14.699999999999996
       ],
       "position": [
-        368.29999999999995,
+        523.875,
         342.9,
         0.0
       ],
@@ -96,23 +73,46 @@
       "class": "baseplate_mount"
     },
     {
-      "name": "Mount_Hole__3__0_",
-      "label": "Mount Hole (3, 0)",
+      "name": "Mount_Hole__1__1_",
+      "label": "Mount Hole (1, 1)",
       "type": "Part::FeaturePython",
       "state": [
         "Up-to-date"
       ],
       "bbox": [
-        83.99999999999999,
-        7.813701393812217,
+        36.375,
+        33.213701393812215,
         -38.099999999999994,
-        93.8,
-        17.586298606187782,
+        46.175,
+        42.98629860618777,
         -14.699999999999996
       ],
       "position": [
-        88.89999999999999,
-        12.7,
+        41.275,
+        38.099999999999994,
+        0.0
+      ],
+      "valid": true,
+      "class": "baseplate_mount"
+    },
+    {
+      "name": "Mount_Hole__1__12_",
+      "label": "Mount Hole (1, 12)",
+      "type": "Part::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        36.375,
+        312.6137013938122,
+        -38.099999999999994,
+        46.175,
+        322.3862986061878,
+        -14.699999999999996
+      ],
+      "position": [
+        41.275,
+        317.5,
         0.0
       ],
       "valid": true,
@@ -2827,16 +2827,16 @@
         "Up-to-date"
       ],
       "bbox": [
-        502.3635985734721,
-        298.3640709613346,
+        502.5,
+        296.65,
         -6.35,
-        503.6037979357206,
-        311.08072332370705,
+        503.5,
+        309.35,
         6.35
       ],
       "position": [
-        502.98369825459633,
-        304.72239714252083,
+        503.0,
+        303.0,
         0.0
       ],
       "valid": true,
@@ -2853,16 +2853,16 @@
         "Up-to-date"
       ],
       "bbox": [
-        498.5923558162078,
-        293.6041601732285,
+        498.81699991226196,
+        291.95895862579346,
         -13.975285530090332,
-        510.43837890457144,
-        315.9045986326413,
+        510.24700021743774,
+        314.0470132827759,
         11.424714088439941
       ],
       "position": [
-        502.483787824626,
-        304.71293342195753,
+        502.5,
+        303.0,
         0.0
       ],
       "class": "rotation_stage_rsp05",
@@ -2878,16 +2878,16 @@
         "Up-to-date"
       ],
       "bbox": [
-        492.9470873906747,
-        281.5447571467479,
+        493.397,
+        280.0,
         -21.97,
-        514.8139877412514,
-        327.93399296767495,
+        514.3969999999999,
+        326.0,
         -12.97
       ],
       "position": [
-        503.88053756596304,
-        304.7393750572114,
+        503.897,
+        303.0,
         -13.97
       ],
       "class": "surface_adapter_rotation_stage_lip"
@@ -2900,16 +2900,16 @@
         "Up-to-date"
       ],
       "bbox": [
-        483.6171337174765,
-        298.01849259395664,
-        -6.35,
-        486.35671183385386,
-        310.7449138105273,
+        483.75,
+        296.6522503693661,
+        -6.341000117547439,
+        486.25,
+        309.3477496306339,
         6.35
       ],
       "position": [
-        484.9869227756652,
-        304.38170320224197,
+        485.0,
+        303.0,
         0.0
       ],
       "valid": true,
@@ -2927,16 +2927,16 @@
         "Up-to-date"
       ],
       "bbox": [
-        466.57012515794105,
-        295.03639838062566,
+        466.75025177001953,
+        293.99850368499756,
         -12.70041275024414,
-        486.9072362970323,
-        313.41172268208885,
+        486.75025177001953,
+        311.99850368499756,
         8.99960708618164
       ],
       "position": [
-        483.73714670073946,
-        304.3580439008337,
+        483.75,
+        303.0,
         0.0
       ],
       "class": "lens_holder_l05g_no_pin_slots",
@@ -2952,16 +2952,16 @@
         "Up-to-date"
       ],
       "bbox": [
-        523.5601842586525,
-        288.86647458088703,
+        523.9836001396179,
+        286.7439994812012,
         -13.208000183105469,
-        530.1629681013756,
-        326.5378813196623,
+        529.8763999938965,
+        324.3106002807617,
         13.208000183105469
       ],
       "position": [
-        524.97975717329,
-        305.1388008473061,
+        525.0,
+        303.0,
         0.0
       ],
       "class": "pinhole_ida12",
@@ -2977,16 +2977,16 @@
         "Up-to-date"
       ],
       "bbox": [
-        521.6792311153148,
-        267.32418970146506,
+        521.456,
+        265.17,
         -12.7,
-        533.0747557657612,
-        292.4522222153079,
+        532.456,
+        290.17,
         4.400000000000002
       ],
       "position": [
-        527.1782458449882,
-        292.3481212891116,
+        526.956,
+        290.17,
         0.0
       ],
       "valid": true,
@@ -3000,16 +3000,16 @@
         "Up-to-date"
       ],
       "bbox": [
-        559.8533470340963,
-        299.4549879377585,
+        560.0,
+        296.652589575541,
         -6.35,
-        566.0925526679707,
-        312.26109928247547,
+        566.0,
+        309.347410424459,
         6.339643809930962
       ],
       "position": [
-        559.9734872712116,
-        305.80126128673714,
+        560.0,
+        303.0,
         0.0
       ],
       "valid": true,
@@ -3026,16 +3026,16 @@
         "Up-to-date"
       ],
       "bbox": [
-        559.7298778357939,
-        293.10940117527855,
+        559.9968061447144,
+        290.305926322937,
         -12.700902938842773,
-        582.203128462724,
-        318.91725219550915,
+        581.993314743042,
+        315.70198917388916,
         12.695159912109375
       ],
       "position": [
-        565.9724124308553,
-        305.91482593349673,
+        566.0,
+        303.0,
         0.0
       ],
       "class": "mirror_mount_M05",
@@ -3051,8 +3051,8 @@
         "Up-to-date"
       ],
       "position": [
-        547.9356441175266,
-        305.57337489557284,
+        547.96,
+        303.0,
         0.0
       ],
       "class": "BareTappedHole"
@@ -3065,16 +3065,16 @@
         "Up-to-date"
       ],
       "bbox": [
-        480.3635985734721,
-        77.36407096133456,
+        480.5,
+        75.65,
         -6.35,
-        481.6037979357206,
-        90.08072332370703,
+        481.5,
+        88.35,
         6.35
       ],
       "position": [
-        480.98369825459633,
-        83.7223971425208,
+        481.0,
+        82.0,
         0.0
       ],
       "valid": true,
@@ -3091,16 +3091,16 @@
         "Up-to-date"
       ],
       "bbox": [
-        476.5923558162078,
-        72.60416017322842,
+        476.81699991226196,
+        70.95895862579346,
         -13.975285530090332,
-        488.43837890457144,
-        94.90459863264125,
+        488.24700021743774,
+        93.04701328277588,
         11.424714088439941
       ],
       "position": [
-        480.483787824626,
-        83.7129334219575,
+        480.5,
+        82.0,
         0.0
       ],
       "class": "rotation_stage_rsp05",
@@ -3116,16 +3116,16 @@
         "Up-to-date"
       ],
       "bbox": [
-        470.9470873906747,
-        60.5447571467478,
+        471.397,
+        59.0,
         -21.97,
-        492.81398774125137,
-        106.93399296767493,
+        492.397,
+        105.0,
         -12.97
       ],
       "position": [
-        481.88053756596304,
-        83.73937505721136,
+        481.897,
+        82.0,
         -13.97
       ],
       "class": "surface_adapter_rotation_stage_lip"
@@ -3138,16 +3138,16 @@
         "Up-to-date"
       ],
       "bbox": [
-        456.61802941777336,
-        76.92385538832363,
-        -6.35,
-        459.35760753415076,
-        89.65027660489429,
+        456.75,
+        75.65225036936607,
+        -6.341000117547439,
+        459.25,
+        88.34774963063393,
         6.35
       ],
       "position": [
-        457.9878184759621,
-        83.28706599660896,
+        458.0,
+        82.0,
         0.0
       ],
       "valid": true,
@@ -3165,16 +3165,16 @@
         "Up-to-date"
       ],
       "bbox": [
-        439.57102085823794,
-        73.94176117499262,
+        439.75025177001953,
+        72.99850368499756,
         -12.70041275024414,
-        459.9081319973292,
-        92.31708547645582,
+        459.75025177001953,
+        90.99850368499756,
         8.99960708618164
       ],
       "position": [
-        456.73804240103635,
-        83.2634066952007,
+        456.75,
+        82.0,
         0.0
       ],
       "class": "lens_holder_l05g_no_pin_slots",
@@ -3190,16 +3190,16 @@
         "Up-to-date"
       ],
       "bbox": [
-        495.56125909900885,
-        67.75290993412739,
+        495.9836001396179,
+        65.74399948120117,
         -13.208000183105469,
-        502.16404294173185,
-        105.42431667290266,
+        501.8763999938965,
+        103.31060028076172,
         13.208000183105469
       ],
       "position": [
-        496.98083201364625,
-        84.02523620054644,
+        497.0,
+        82.0,
         0.0
       ],
       "class": "pinhole_ida12",
@@ -3215,16 +3215,16 @@
         "Up-to-date"
       ],
       "bbox": [
-        493.680305955671,
-        46.21062505470542,
+        493.456,
+        44.17,
         -12.7,
-        505.0758306061175,
-        71.33865756854824,
+        504.456,
+        69.17,
         4.400000000000002
       ],
       "position": [
-        499.1793206853444,
-        71.23455664235193,
+        498.956,
+        69.17,
         0.0
       ],
       "valid": true,
@@ -3238,16 +3238,16 @@
         "Up-to-date"
       ],
       "bbox": [
-        532.854242734393,
-        78.36035073212547,
+        533.0,
+        75.652589575541,
         -6.35,
-        539.0934483682677,
-        91.16646207684238,
+        539.0,
+        88.347410424459,
         6.339643809930962
       ],
       "position": [
-        532.9743829715085,
-        84.70662408110412,
+        533.0,
+        82.0,
         0.0
       ],
       "valid": true,
@@ -3264,16 +3264,16 @@
         "Up-to-date"
       ],
       "bbox": [
-        532.7307735360907,
-        72.01476396964554,
+        532.9968061447144,
+        69.30592632293701,
         -12.700902938842773,
-        555.2040241630208,
-        97.82261498987617,
+        554.993314743042,
+        94.70198917388916,
         12.695159912109375
       ],
       "position": [
-        538.9733081311522,
-        84.82018872786374,
+        539.0,
+        82.0,
         0.0
       ],
       "class": "mirror_mount_M05",
@@ -3289,8 +3289,8 @@
         "Up-to-date"
       ],
       "position": [
-        520.9365398178235,
-        84.47873768993983,
+        520.96,
+        82.0,
         0.0
       ],
       "class": "BareTappedHole"
@@ -4898,8 +4898,8 @@
         333.0,
         303.0,
         0.0,
-        559.9734872712116,
-        305.80126128673714,
+        560.0,
+        303.0,
         0.0
       ],
       "position": [
@@ -4920,8 +4920,8 @@
         311.0,
         82.0,
         0.0,
-        532.9743829715085,
-        84.70662408110412,
+        533.0,
+        82.0,
         0.0
       ],
       "position": [
@@ -5365,7 +5365,8 @@
       "aom_to_cat": 73.0,
       "cat_to_mirror": 75.0,
       "folded": false,
-      "diffraction_kink_deg": 1.0845272550690583,
+      "axis": "0-order (input) axis; +1 order 1.44 mm above it after the lens",
+      "diffraction_kink_deg": 0.0,
       "configuration": "75-75",
       "idle_f300_chain": [
         "DP1_L300_LA1618_B",
@@ -5381,7 +5382,8 @@
       "aom_to_cat": 68.0,
       "cat_to_mirror": 75.0,
       "folded": false,
-      "diffraction_kink_deg": 1.0845272550690583,
+      "axis": "0-order (input) axis; +1 order 1.44 mm above it after the lens",
+      "diffraction_kink_deg": 0.0,
       "configuration": "75-75",
       "idle_f300_chain": [
         "DP2_L300_LA1618_B",
@@ -5543,33 +5545,32 @@
           303.0
         ],
         [
-          484.9869227756652,
-          304.38170320224197
+          485.0,
+          303.0
         ],
         [
-          502.98369825459633,
-          304.72239714252083
+          503.0,
+          303.0
         ],
         [
-          524.97975717329,
-          305.1388008473061
+          525.0,
+          303.0
         ],
         [
-          559.9734872712116,
-          305.80126128673714
+          560.0,
+          303.0
         ]
       ],
       "object": "DP1_double_pass",
       "envelope": [
         0.6,
         0.6,
-        0.6,
-        0.45765020236605397,
-        0.2836671163690089,
-        0.038
+        1.981950764984068,
+        1.8939219307868198,
+        1.7199388447897745,
+        1.4742717284207658
       ],
-      "assumption": "Nominal +1-order axis: 2*theta_B = 1.0845 deg from the input axis at 100 MHz; the 0 order stays on the input axis and is stopped by the vertical-leg iris. Nominal 0.833 mm beam; conservative 1.2 mm diameter clearance envelope after telescope. Measured q/M2 and RF angle pending. f = 75 test configuration (75-75).",
-      "diffraction_kink_deg": 1.0845272550690583
+      "assumption": "f = 75 test configuration (75-75) on the 0-order axis; the envelope includes the +1 order, 2*theta_B = 1.0845 deg off the input axis at 100 MHz (1.4 mm above the axis after the lens). Nominal 0.833 mm beam; conservative 1.2 mm diameter clearance envelope after telescope. Measured q/M2 and RF angle pending."
     },
     {
       "name": "DP2 double pass",
@@ -5583,33 +5584,32 @@
           82.0
         ],
         [
-          457.9878184759621,
-          83.28706599660896
+          458.0,
+          82.0
         ],
         [
-          480.98369825459633,
-          83.7223971425208
+          481.0,
+          82.0
         ],
         [
-          496.98083201364625,
-          84.02523620054644
+          497.0,
+          82.0
         ],
         [
-          532.9743829715085,
-          84.70662408110412
+          533.0,
+          82.0
         ]
       ],
       "object": "DP2_double_pass",
       "envelope": [
         0.6,
         0.6,
-        0.6,
-        0.4181085919121801,
-        0.2915754384597836,
-        0.038
+        1.8872966029988576,
+        1.8543803203329459,
+        1.7278471668805495,
+        1.4742717284207658
       ],
-      "assumption": "Nominal +1-order axis: 2*theta_B = 1.0845 deg from the input axis at 100 MHz; the 0 order stays on the input axis and is stopped by the vertical-leg iris. Nominal 0.833 mm beam; conservative 1.2 mm diameter clearance envelope after telescope. Measured q/M2 and RF angle pending. f = 75 test configuration (75-75).",
-      "diffraction_kink_deg": 1.0845272550690583
+      "assumption": "f = 75 test configuration (75-75) on the 0-order axis; the envelope includes the +1 order, 2*theta_B = 1.0845 deg off the input axis at 100 MHz (1.4 mm above the axis after the lens). Nominal 0.833 mm beam; conservative 1.2 mm diameter clearance envelope after telescope. Measured q/M2 and RF angle pending."
     },
     {
       "name": "DP1 output",
@@ -5780,11 +5780,11 @@
     },
     {
       "object": "DP1_f75_retro_mirror_8_32__lens__mirror_50_",
-      "reason": "Bare 8-32 hole of the OPTIONAL f = 75 cat-eye (V9.3 LA1612-B set) on the +1-order axis; nothing is installed in V9.4. M05 tap for a retro mirror facing the AOM, mirror face 123 mm after the AOM (lens -> mirror 50 mm)."
+      "reason": "Bare 8-32 hole of the OPTIONAL f = 75 cat-eye (V9.3 LA1612-B set) on the 0-order (input) axis straight after the AOM; nothing is installed in V9.4. M05 tap for a retro mirror facing the AOM, mirror face 123 mm after the AOM (lens -> mirror 50 mm)."
     },
     {
       "object": "DP2_f75_retro_mirror_8_32__lens__mirror_50_",
-      "reason": "Bare 8-32 hole of the OPTIONAL f = 75 cat-eye (V9.3 LA1612-B set) on the +1-order axis; nothing is installed in V9.4. M05 tap for a retro mirror facing the AOM, mirror face 118 mm after the AOM (lens -> mirror 50 mm)."
+      "reason": "Bare 8-32 hole of the OPTIONAL f = 75 cat-eye (V9.3 LA1612-B set) on the 0-order (input) axis straight after the AOM; nothing is installed in V9.4. M05 tap for a retro mirror facing the AOM, mirror face 118 mm after the AOM (lens -> mirror 50 mm)."
     },
     {
       "object": "External_spherical_first_lens_8_32",
@@ -6128,10 +6128,10 @@
     }
   ],
   "output_optical_scope": {},
-  "layout_status": "V9.4 (2026-10-01): f = 300 folded cat-eyes on the +1-order axis, optional f = 75 hole set, all mirrors M05, DP2 output row above its AOM row, 24 x 15 in plate. TEST CONFIGURATION cat_eye=75-75 on the same plate.",
+  "layout_status": "V9.4.1 (2026-10-04): f = 300 folded cat-eyes on the +1-order axis, optional f = 75 hole set on the 0-order axis, table bolts on the 1 in grid (fiber-side pair 3.25 in from the right edge, 13 in apart, centred), all mirrors M05, DP2 output row above its AOM row, 24 x 15 in plate. TEST CONFIGURATION cat_eye=75-75 on the same plate.",
   "plate_size_mm": [
-    609.6,
-    355.6,
+    609.5999999999999,
+    381.0,
     25.4
   ],
   "plate_solid_count": 1,
@@ -6228,22 +6228,181 @@
   },
   "platform_holes_mm": [
     [
-      88.89999999999999,
-      317.5
-    ],
-    [
-      495.29999999999995,
+      523.875,
       12.7
     ],
     [
-      368.29999999999995,
+      523.875,
       342.9
     ],
     [
-      88.89999999999999,
-      12.7
+      41.275,
+      38.099999999999994
+    ],
+    [
+      41.275,
+      317.5
     ]
   ],
+  "table_bolt_pattern": {
+    "table_grid_in": 1.0,
+    "table_first_row_from_table_edge_in": 1.5,
+    "plate_fiber_edge_inside_table_edge_in": 0.25,
+    "fiber_side_pair": {
+      "from_plate_right_edge_in": 3.25,
+      "n": 2,
+      "spacing_in": 13,
+      "centred_on_short_edge": true,
+      "xy_mm": [
+        [
+          523.875,
+          12.7
+        ],
+        [
+          523.875,
+          342.9
+        ]
+      ]
+    },
+    "ta_side_pair": {
+      "from_plate_left_edge_in": 1.5,
+      "spacing_in": 11,
+      "centred_on_short_edge": true,
+      "xy_mm": [
+        [
+          41.275,
+          38.1
+        ],
+        [
+          41.275,
+          317.5
+        ]
+      ]
+    },
+    "plate_edges_mm": {
+      "x": [
+        3.175,
+        606.425
+      ],
+      "y": [
+        -9.525,
+        365.125
+      ]
+    }
+  },
+  "fold_geometry": {
+    "diffraction_kink_deg": 1.0845272550690583,
+    "cat_eye_lens_catalogue": {
+      "f_587nm_mm": 300.0,
+      "R_mm": 155.0,
+      "tc_mm": 2.2,
+      "te_mm": 2.1,
+      "bfl_587nm_mm": 298.6,
+      "efl_795nm_mm": 303.4763545255245
+    },
+    "cat_eye_defocus_mm": {
+      "aom_side": -1.1569996868148564,
+      "mirror_side": -1.0246265003274857,
+      "accepted": true
+    },
+    "f75_option": {
+      "distances_from_aom_mm": {
+        "DP1": {
+          "lens": 73.0,
+          "qwp": 91.0,
+          "iris": 113.0,
+          "face": {
+            "50": 123.0,
+            "75": 148.0
+          }
+        },
+        "DP2": {
+          "lens": 68.0,
+          "qwp": 91.0,
+          "iris": 107.0,
+          "face": {
+            "50": 118.0,
+            "75": 143.0
+          }
+        }
+      },
+      "axis": "0-order (input) axis y = DP_Y (V9.4.1; V9.4 used the +1-order axis)",
+      "plus1_offset_after_lens_mm": 1.4362717284207658,
+      "installed": true,
+      "configuration": "75-75",
+      "bare_holes": [
+        "DP1_f75_retro_mirror_8_32__lens__mirror_50_",
+        "DP2_f75_retro_mirror_8_32__lens__mirror_50_"
+      ],
+      "note": "With the lens->mirror 50 position every f = 300 part may stay installed; the lens->mirror 75 mirror body overlaps fold F1 (DP1) / F3 (DP2), which must be removed for that test."
+    },
+    "DP1": {
+      "AOM": [
+        412.0,
+        303.0
+      ],
+      "F1": [
+        591.0,
+        306.3886189990705
+      ],
+      "iris": [
+        590.4700316484551,
+        334.3836030774078
+      ],
+      "F2": [
+        590.214511193246,
+        347.8811846866062
+      ],
+      "lens": [
+        507.34207660331515,
+        346.3123405170494
+      ],
+      "QWP": [
+        235.0,
+        341.15667831020966
+      ],
+      "retro": [
+        205.30057105731714,
+        340.59444339860784
+      ],
+      "leg1": 179.0320718159762,
+      "leg2": 41.5,
+      "fold2_to_lens": 82.8872830227335
+    },
+    "DP2": {
+      "AOM": [
+        390.0,
+        82.0
+      ],
+      "F3": [
+        555.0,
+        85.12358734551194
+      ],
+      "iris": [
+        555.5861911153021,
+        54.158698797150585
+      ],
+      "F4": [
+        556.232843717132,
+        20.0
+      ],
+      "lens": [
+        482.9914307851774,
+        18.613479087262622
+      ],
+      "QWP": [
+        300.0,
+        15.149298980973512
+      ],
+      "retro": [
+        180.94992523917938,
+        12.895581968821094
+      ],
+      "leg1": 165.0295634057881,
+      "leg2": 65.13525567908208,
+      "fold2_to_lens": 73.2545357538395
+    }
+  },
   "restore_info": {
     "plate": "Lattice_plate_24_x_15_in",
     "roots": {
@@ -6547,25 +6706,25 @@
       },
       {
         "name": "DP1 f75 AOM -> LA1612-B plane",
-        "measured": 73.00000000000003,
+        "measured": 73.0,
         "expected": 73.0,
         "tolerance": 1e-07
       },
       {
         "name": "DP1 f75 LA1612-B -> retro face",
-        "measured": 74.99999999999999,
+        "measured": 75.0,
         "expected": 75.0,
         "tolerance": 1e-07
       },
       {
         "name": "DP2 f75 AOM -> LA1612-B plane",
-        "measured": 68.00000000000001,
+        "measured": 68.0,
         "expected": 68.0,
         "tolerance": 1e-07
       },
       {
         "name": "DP2 f75 LA1612-B -> retro face",
-        "measured": 74.99999999999993,
+        "measured": 75.0,
         "expected": 75.0,
         "tolerance": 1e-07
       },
@@ -6991,7 +7150,7 @@
       }
     ],
     "output_optical_scope": {},
-    "layout_status": "V9.4 (2026-10-01): f = 300 folded cat-eyes on the +1-order axis, optional f = 75 hole set, all mirrors M05, DP2 output row above its AOM row, 24 x 15 in plate. TEST CONFIGURATION cat_eye=75-75 on the same plate.",
+    "layout_status": "V9.4.1 (2026-10-04): f = 300 folded cat-eyes on the +1-order axis, optional f = 75 hole set on the 0-order axis, table bolts on the 1 in grid (fiber-side pair 3.25 in from the right edge, 13 in apart, centred), all mirrors M05, DP2 output row above its AOM row, 24 x 15 in plate. TEST CONFIGURATION cat_eye=75-75 on the same plate.",
     "fiber_clearance": {
       "inactive_roots": [
         "DP1 cat-eye fold 1",
@@ -7098,7 +7257,7 @@
           }
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 3.282
+        "elapsed_seconds": 3.469
       }
     ],
     "confirmed_mesh_contacts": [],
@@ -8407,37 +8566,37 @@
     ],
     "platform_fasteners": [
       {
-        "object": "Mount_Hole__3__12_",
+        "object": "Mount_Hole__20__0_",
         "position": [
-          88.9,
-          317.5,
-          0.0
-        ],
-        "status": "Original CAD fastener volume included in assembly collision checks"
-      },
-      {
-        "object": "Mount_Hole__19__0_",
-        "position": [
-          495.3,
+          523.875,
           12.7,
           0.0
         ],
         "status": "Original CAD fastener volume included in assembly collision checks"
       },
       {
-        "object": "Mount_Hole__14__13_",
+        "object": "Mount_Hole__20__13_",
         "position": [
-          368.3,
+          523.875,
           342.9,
           0.0
         ],
         "status": "Original CAD fastener volume included in assembly collision checks"
       },
       {
-        "object": "Mount_Hole__3__0_",
+        "object": "Mount_Hole__1__1_",
         "position": [
-          88.9,
-          12.7,
+          41.275,
+          38.1,
+          0.0
+        ],
+        "status": "Original CAD fastener volume included in assembly collision checks"
+      },
+      {
+        "object": "Mount_Hole__1__12_",
+        "position": [
+          41.275,
+          317.5,
           0.0
         ],
         "status": "Original CAD fastener volume included in assembly collision checks"
@@ -8445,25 +8604,25 @@
     ],
     "drill_cut_checks": [
       {
-        "object": "Mount_Hole__3__12_",
+        "object": "Mount_Hole__20__0_",
         "cut_inside_plate_envelope_mm3": 2130.756887,
         "residual_plate_in_cut_mm3": 0.0,
         "status": "cut_removed_from_plate"
       },
       {
-        "object": "Mount_Hole__19__0_",
+        "object": "Mount_Hole__20__13_",
         "cut_inside_plate_envelope_mm3": 2130.756887,
         "residual_plate_in_cut_mm3": 0.0,
         "status": "cut_removed_from_plate"
       },
       {
-        "object": "Mount_Hole__14__13_",
+        "object": "Mount_Hole__1__1_",
         "cut_inside_plate_envelope_mm3": 2130.756887,
         "residual_plate_in_cut_mm3": 0.0,
         "status": "cut_removed_from_plate"
       },
       {
-        "object": "Mount_Hole__3__0_",
+        "object": "Mount_Hole__1__12_",
         "cut_inside_plate_envelope_mm3": 2130.756887,
         "residual_plate_in_cut_mm3": 0.0,
         "status": "cut_removed_from_plate"
@@ -8944,19 +9103,19 @@
         "object": "Mount026",
         "method": "identity copy topology plus original placement exactly once",
         "vertex_bbox": [
-          498.597824,
-          293.686366,
+          498.817,
+          291.958959,
           -13.975286,
-          510.433722,
-          315.817138,
+          510.247,
+          314.047013,
           11.424714
         ],
         "conservative_bbox_slack_mm": [
-          0.005468,
-          0.082206,
           0.0,
-          0.004657,
-          0.087461,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
           0.0
         ]
       },
@@ -8964,19 +9123,19 @@
         "object": "Mount027",
         "method": "identity copy topology plus original placement exactly once",
         "vertex_bbox": [
-          466.73886,
-          295.206745,
+          466.750252,
+          293.998504,
           -12.700413,
-          486.897621,
-          313.402108,
+          486.750252,
+          311.998504,
           8.999607
         ],
         "conservative_bbox_slack_mm": [
-          0.168735,
-          0.170347,
           0.0,
-          0.009615,
-          0.009615,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
           0.0
         ]
       },
@@ -8984,19 +9143,19 @@
         "object": "DP1_f75_order_iris",
         "method": "identity copy topology plus original placement exactly once",
         "vertex_bbox": [
-          523.776044,
-          288.888263,
+          523.9836,
+          286.743999,
           -13.208,
-          530.098066,
-          326.477787,
+          529.8764,
+          324.3106,
           13.208
         ],
         "conservative_bbox_slack_mm": [
-          0.21586,
-          0.021788,
           0.0,
-          0.064902,
-          0.060095,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
           0.0
         ]
       },
@@ -9004,19 +9163,19 @@
         "object": "Mount028",
         "method": "identity copy topology plus original placement exactly once",
         "vertex_bbox": [
-          559.746764,
-          293.275305,
+          559.996806,
+          290.305926,
           -12.700903,
-          581.821825,
-          318.854313,
+          581.993315,
+          315.701989,
           12.69516
         ],
         "conservative_bbox_slack_mm": [
-          0.016886,
-          0.165903,
           0.0,
-          0.381304,
-          0.062939,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
           0.0
         ]
       },
@@ -9024,19 +9183,19 @@
         "object": "Mount029",
         "method": "identity copy topology plus original placement exactly once",
         "vertex_bbox": [
-          476.597824,
-          72.686366,
+          476.817,
+          70.958959,
           -13.975286,
-          488.433722,
-          94.817138,
+          488.247,
+          93.047013,
           11.424714
         ],
         "conservative_bbox_slack_mm": [
-          0.005468,
-          0.082206,
           0.0,
-          0.004657,
-          0.087461,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
           0.0
         ]
       },
@@ -9044,19 +9203,19 @@
         "object": "Mount030",
         "method": "identity copy topology plus original placement exactly once",
         "vertex_bbox": [
-          439.739756,
-          74.112108,
+          439.750252,
+          72.998504,
           -12.700413,
-          459.898517,
-          92.30747,
+          459.750252,
+          90.998504,
           8.999607
         ],
         "conservative_bbox_slack_mm": [
-          0.168735,
-          0.170347,
           0.0,
-          0.009615,
-          0.009615,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
           0.0
         ]
       },
@@ -9064,19 +9223,19 @@
         "object": "DP2_f75_order_iris",
         "method": "identity copy topology plus original placement exactly once",
         "vertex_bbox": [
-          495.777119,
-          67.774698,
+          495.9836,
+          65.743999,
           -13.208,
-          502.099141,
-          105.364222,
+          501.8764,
+          103.3106,
           13.208
         ],
         "conservative_bbox_slack_mm": [
-          0.21586,
-          0.021788,
           0.0,
-          0.064902,
-          0.060095,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
           0.0
         ]
       },
@@ -9084,19 +9243,19 @@
         "object": "Mount031",
         "method": "identity copy topology plus original placement exactly once",
         "vertex_bbox": [
-          532.74766,
-          72.180667,
+          532.996806,
+          69.305926,
           -12.700903,
-          554.822721,
-          97.759676,
+          554.993315,
+          94.701989,
           12.69516
         ],
         "conservative_bbox_slack_mm": [
-          0.016886,
-          0.165903,
           0.0,
-          0.381304,
-          0.062939,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
           0.0
         ]
       },
@@ -9593,7 +9752,7 @@
       },
       {
         "path": "DP1 double pass",
-        "assumption": "Nominal +1-order axis: 2*theta_B = 1.0845 deg from the input axis at 100 MHz; the 0 order stays on the input axis and is stopped by the vertical-leg iris. Nominal 0.833 mm beam; conservative 1.2 mm diameter clearance envelope after telescope. Measured q/M2 and RF angle pending. f = 75 test configuration (75-75).",
+        "assumption": "f = 75 test configuration (75-75) on the 0-order axis; the envelope includes the +1 order, 2*theta_B = 1.0845 deg off the input axis at 100 MHz (1.4 mm above the axis after the lens). Nominal 0.833 mm beam; conservative 1.2 mm diameter clearance envelope after telescope. Measured q/M2 and RF angle pending.",
         "signed_semiaxes_rx_ry_mm": [
           [
             0.6,
@@ -9604,20 +9763,20 @@
             0.6
           ],
           [
-            0.6,
-            0.6
+            1.981951,
+            1.981951
           ],
           [
-            0.45765,
-            0.45765
+            1.893922,
+            1.893922
           ],
           [
-            0.283667,
-            0.283667
+            1.719939,
+            1.719939
           ],
           [
-            0.038,
-            0.038
+            1.474272,
+            1.474272
           ]
         ],
         "coordinate_basis": "rx: transverse in plate plane; ry: perpendicular to plate",
@@ -9625,7 +9784,7 @@
       },
       {
         "path": "DP2 double pass",
-        "assumption": "Nominal +1-order axis: 2*theta_B = 1.0845 deg from the input axis at 100 MHz; the 0 order stays on the input axis and is stopped by the vertical-leg iris. Nominal 0.833 mm beam; conservative 1.2 mm diameter clearance envelope after telescope. Measured q/M2 and RF angle pending. f = 75 test configuration (75-75).",
+        "assumption": "f = 75 test configuration (75-75) on the 0-order axis; the envelope includes the +1 order, 2*theta_B = 1.0845 deg off the input axis at 100 MHz (1.4 mm above the axis after the lens). Nominal 0.833 mm beam; conservative 1.2 mm diameter clearance envelope after telescope. Measured q/M2 and RF angle pending.",
         "signed_semiaxes_rx_ry_mm": [
           [
             0.6,
@@ -9636,20 +9795,20 @@
             0.6
           ],
           [
-            0.6,
-            0.6
+            1.887297,
+            1.887297
           ],
           [
-            0.418109,
-            0.418109
+            1.85438,
+            1.85438
           ],
           [
-            0.291575,
-            0.291575
+            1.727847,
+            1.727847
           ],
           [
-            0.038,
-            0.038
+            1.474272,
+            1.474272
           ]
         ],
         "coordinate_basis": "rx: transverse in plate plane; ry: perpendicular to plate",
@@ -9804,28 +9963,28 @@
       },
       {
         "name": "DP1 f75 AOM -> LA1612-B plane",
-        "measured": 73.00000000000003,
+        "measured": 73.0,
         "expected": 73.0,
         "tolerance": 1e-07,
         "status": "pass"
       },
       {
         "name": "DP1 f75 LA1612-B -> retro face",
-        "measured": 74.99999999999999,
+        "measured": 75.0,
         "expected": 75.0,
         "tolerance": 1e-07,
         "status": "pass"
       },
       {
         "name": "DP2 f75 AOM -> LA1612-B plane",
-        "measured": 68.00000000000001,
+        "measured": 68.0,
         "expected": 68.0,
         "tolerance": 1e-07,
         "status": "pass"
       },
       {
         "name": "DP2 f75 LA1612-B -> retro face",
-        "measured": 74.99999999999993,
+        "measured": 75.0,
         "expected": 75.0,
         "tolerance": 1e-07,
         "status": "pass"
@@ -10013,11 +10172,11 @@
               0.0
             ],
             "beam_half_width_height_mm": [
-              0.599893,
+              0.6,
               0.6
             ],
             "active_margin_width_height_mm": [
-              0.650107,
+              0.65,
               0.15
             ],
             "conservative_bore_margin_mm": 0.9,
@@ -10030,20 +10189,20 @@
             "plane": "opening_positive_x",
             "chief_world_mm": [
               424.7,
-              303.240422,
+              303.0,
               0.0
             ],
             "chief_offset_local_y_z_mm": [
-              0.240422,
+              0.0,
               0.0
             ],
             "beam_half_width_height_mm": [
-              0.599893,
-              0.6
+              0.840422,
+              0.840422
             ],
             "active_margin_width_height_mm": [
-              0.409686,
-              0.15
+              0.409578,
+              -0.090422
             ],
             "conservative_bore_margin_mm": 0.659578,
             "limiting_margin_mm": 0.659578,
@@ -10136,11 +10295,11 @@
               0.0
             ],
             "beam_half_width_height_mm": [
-              0.599893,
+              0.6,
               0.6
             ],
             "active_margin_width_height_mm": [
-              0.650107,
+              0.65,
               0.15
             ],
             "conservative_bore_margin_mm": 0.9,
@@ -10153,20 +10312,20 @@
             "plane": "opening_positive_x",
             "chief_world_mm": [
               402.7,
-              82.240422,
+              82.0,
               0.0
             ],
             "chief_offset_local_y_z_mm": [
-              0.240422,
+              -0.0,
               0.0
             ],
             "beam_half_width_height_mm": [
-              0.599893,
-              0.6
+              0.840422,
+              0.840422
             ],
             "active_margin_width_height_mm": [
-              0.409686,
-              0.15
+              0.409578,
+              -0.090422
             ],
             "conservative_bore_margin_mm": 0.659578,
             "limiting_margin_mm": 0.659578,
@@ -10424,7 +10583,7 @@
         "nearest_unrelated_beam": {
           "path": "DP1 double pass",
           "segment": 4,
-          "conservative_envelope_clearance_xy_mm": 62.488435
+          "conservative_envelope_clearance_xy_mm": 63.036413
         },
         "status": "at_least_10_mm_projected_clearance",
         "scope": "Conservative XY knob-bounding-rectangle distance; 10 mm is a review trigger, not a guaranteed hand or tool clearance."
@@ -10435,7 +10594,7 @@
         "nearest_unrelated_beam": {
           "path": "DP1 double pass",
           "segment": 4,
-          "conservative_envelope_clearance_xy_mm": 65.177048
+          "conservative_envelope_clearance_xy_mm": 66.191392
         },
         "status": "at_least_10_mm_projected_clearance",
         "scope": "Conservative XY knob-bounding-rectangle distance; 10 mm is a review trigger, not a guaranteed hand or tool clearance."
@@ -10490,7 +10649,7 @@
         "nearest_unrelated_beam": {
           "path": "DP2 double pass",
           "segment": 4,
-          "conservative_envelope_clearance_xy_mm": 82.728521
+          "conservative_envelope_clearance_xy_mm": 78.711242
         },
         "status": "at_least_10_mm_projected_clearance",
         "scope": "Conservative XY knob-bounding-rectangle distance; 10 mm is a review trigger, not a guaranteed hand or tool clearance."
@@ -10501,7 +10660,7 @@
         "nearest_unrelated_beam": {
           "path": "DP2 double pass",
           "segment": 4,
-          "conservative_envelope_clearance_xy_mm": 76.272355
+          "conservative_envelope_clearance_xy_mm": 72.494011
         },
         "status": "at_least_10_mm_projected_clearance",
         "scope": "Conservative XY knob-bounding-rectangle distance; 10 mm is a review trigger, not a guaranteed hand or tool clearance."
@@ -10617,7 +10776,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 3,
         "screened_samples": 97195,
-        "elapsed_seconds": 0.453
+        "elapsed_seconds": 0.5
       },
       {
         "arm": 1,
@@ -10635,7 +10794,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 0,
         "screened_samples": 0,
-        "elapsed_seconds": 0.016
+        "elapsed_seconds": 0.0
       },
       {
         "arm": 2,
@@ -10658,7 +10817,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 3,
         "screened_samples": 97195,
-        "elapsed_seconds": 0.453
+        "elapsed_seconds": 0.469
       },
       {
         "arm": 2,
@@ -10676,7 +10835,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 0,
         "screened_samples": 0,
-        "elapsed_seconds": 0.0
+        "elapsed_seconds": 0.015
       }
     ],
     "limitations": [
@@ -10816,8 +10975,8 @@
         "object": "DP1_f75_retro_mirror__lens__mirror_75_",
         "label": "DP1 f75 retro mirror (lens->mirror 75)",
         "position_mm": [
-          559.973487,
-          305.801261,
+          560.0,
+          303.0,
           0.0
         ]
       },
@@ -10825,8 +10984,8 @@
         "object": "DP2_f75_retro_mirror__lens__mirror_75_",
         "label": "DP2 f75 retro mirror (lens->mirror 75)",
         "position_mm": [
-          532.974383,
-          84.706624,
+          533.0,
+          82.0,
           0.0
         ]
       },
@@ -11143,136 +11302,7 @@
       "checked_segments": 44,
       "tolerance_mm": 1e-06,
       "nonorthogonal_segments": [],
-      "diffracted_axis_segments": [
-        {
-          "path": "DP1 double pass",
-          "segment": 1,
-          "from_mm": [
-            412.0,
-            303.0
-          ],
-          "to_mm": [
-            484.9869227756652,
-            304.38170320224197
-          ],
-          "dx_mm": 72.98692277566522,
-          "dy_mm": 1.3817032022419653,
-          "kink_deg": 1.0845272550690583,
-          "off_axis_deg": 1.084527
-        },
-        {
-          "path": "DP1 double pass",
-          "segment": 2,
-          "from_mm": [
-            484.9869227756652,
-            304.38170320224197
-          ],
-          "to_mm": [
-            502.98369825459633,
-            304.72239714252083
-          ],
-          "dx_mm": 17.996775478931113,
-          "dy_mm": 0.340693940278868,
-          "kink_deg": 1.0845272550690583,
-          "off_axis_deg": 1.084527
-        },
-        {
-          "path": "DP1 double pass",
-          "segment": 3,
-          "from_mm": [
-            502.98369825459633,
-            304.72239714252083
-          ],
-          "to_mm": [
-            524.97975717329,
-            305.1388008473061
-          ],
-          "dx_mm": 21.99605891869362,
-          "dy_mm": 0.4164037047852389,
-          "kink_deg": 1.0845272550690583,
-          "off_axis_deg": 1.084527
-        },
-        {
-          "path": "DP1 double pass",
-          "segment": 4,
-          "from_mm": [
-            524.97975717329,
-            305.1388008473061
-          ],
-          "to_mm": [
-            559.9734872712116,
-            305.80126128673714
-          ],
-          "dx_mm": 34.993730097921684,
-          "dy_mm": 0.6624604394310722,
-          "kink_deg": 1.0845272550690583,
-          "off_axis_deg": 1.084527
-        },
-        {
-          "path": "DP2 double pass",
-          "segment": 1,
-          "from_mm": [
-            390.0,
-            82.0
-          ],
-          "to_mm": [
-            457.9878184759621,
-            83.28706599660896
-          ],
-          "dx_mm": 67.98781847596211,
-          "dy_mm": 1.287065996608959,
-          "kink_deg": 1.0845272550690583,
-          "off_axis_deg": 1.084527
-        },
-        {
-          "path": "DP2 double pass",
-          "segment": 2,
-          "from_mm": [
-            457.9878184759621,
-            83.28706599660896
-          ],
-          "to_mm": [
-            480.98369825459633,
-            83.7223971425208
-          ],
-          "dx_mm": 22.99587977863422,
-          "dy_mm": 0.43533114591184585,
-          "kink_deg": 1.0845272550690583,
-          "off_axis_deg": 1.084527
-        },
-        {
-          "path": "DP2 double pass",
-          "segment": 3,
-          "from_mm": [
-            480.98369825459633,
-            83.7223971425208
-          ],
-          "to_mm": [
-            496.98083201364625,
-            84.02523620054644
-          ],
-          "dx_mm": 15.997133759049916,
-          "dy_mm": 0.30283905802563993,
-          "kink_deg": 1.0845272550690583,
-          "off_axis_deg": 1.084527
-        },
-        {
-          "path": "DP2 double pass",
-          "segment": 4,
-          "from_mm": [
-            496.98083201364625,
-            84.02523620054644
-          ],
-          "to_mm": [
-            532.9743829715085,
-            84.70662408110412
-          ],
-          "dx_mm": 35.993550957862226,
-          "dy_mm": 0.6813878805576792,
-          "kink_deg": 1.0845272550690583,
-          "off_axis_deg": 1.084527
-        }
-      ],
+      "diffracted_axis_segments": [],
       "scope": "All nominal axes must run along board X or Y; free-space crossings are allowed. Segments of a path that declares diffraction_kink_deg (the +1-order axis after an AOM) are exempt when they lie exactly at that angle from the board axes."
     },
     "dual_leakage_interception_check": {
@@ -12330,29 +12360,14 @@
     "holes": [
       {
         "kind": "platform",
-        "label": "Mount Hole (3, 12)",
+        "label": "Mount Hole (20, 0)",
         "center_xy_mm": [
-          88.9,
-          317.5
-        ],
-        "reserved_radius_mm": 9.14375,
-        "owner": "Mount_Hole__3__12_",
-        "source": "Mount_Hole__3__12_",
-        "metadata": {
-          "nominal_washer_diameter_mm": 14.2875
-        },
-        "within_plate_xy": true
-      },
-      {
-        "kind": "platform",
-        "label": "Mount Hole (19, 0)",
-        "center_xy_mm": [
-          495.3,
+          523.875,
           12.7
         ],
         "reserved_radius_mm": 9.14375,
-        "owner": "Mount_Hole__19__0_",
-        "source": "Mount_Hole__19__0_",
+        "owner": "Mount_Hole__20__0_",
+        "source": "Mount_Hole__20__0_",
         "metadata": {
           "nominal_washer_diameter_mm": 14.2875
         },
@@ -12360,14 +12375,14 @@
       },
       {
         "kind": "platform",
-        "label": "Mount Hole (14, 13)",
+        "label": "Mount Hole (20, 13)",
         "center_xy_mm": [
-          368.3,
+          523.875,
           342.9
         ],
         "reserved_radius_mm": 9.14375,
-        "owner": "Mount_Hole__14__13_",
-        "source": "Mount_Hole__14__13_",
+        "owner": "Mount_Hole__20__13_",
+        "source": "Mount_Hole__20__13_",
         "metadata": {
           "nominal_washer_diameter_mm": 14.2875
         },
@@ -12375,14 +12390,29 @@
       },
       {
         "kind": "platform",
-        "label": "Mount Hole (3, 0)",
+        "label": "Mount Hole (1, 1)",
         "center_xy_mm": [
-          88.9,
-          12.7
+          41.275,
+          38.1
         ],
         "reserved_radius_mm": 9.14375,
-        "owner": "Mount_Hole__3__0_",
-        "source": "Mount_Hole__3__0_",
+        "owner": "Mount_Hole__1__1_",
+        "source": "Mount_Hole__1__1_",
+        "metadata": {
+          "nominal_washer_diameter_mm": 14.2875
+        },
+        "within_plate_xy": true
+      },
+      {
+        "kind": "platform",
+        "label": "Mount Hole (1, 12)",
+        "center_xy_mm": [
+          41.275,
+          317.5
+        ],
+        "reserved_radius_mm": 9.14375,
+        "owner": "Mount_Hole__1__12_",
+        "source": "Mount_Hole__1__12_",
         "metadata": {
           "nominal_washer_diameter_mm": 14.2875
         },
@@ -12482,8 +12512,8 @@
         "kind": "bare_8_32",
         "label": "DP1 f75 retro mirror 8-32 (lens->mirror 50)",
         "center_xy_mm": [
-          547.935644,
-          305.573375
+          547.96,
+          303.0
         ],
         "reserved_radius_mm": 3.7272,
         "owner": "DP1_f75_retro_mirror_8_32__lens__mirror_50_",
@@ -12497,8 +12527,8 @@
         "kind": "bare_8_32",
         "label": "DP2 f75 retro mirror 8-32 (lens->mirror 50)",
         "center_xy_mm": [
-          520.93654,
-          84.478738
+          520.96,
+          82.0
         ],
         "reserved_radius_mm": 3.7272,
         "owner": "DP2_f75_retro_mirror_8_32__lens__mirror_50_",
@@ -12781,7 +12811,7 @@
               -13.7
             ],
             "cut_by_this_seat": false,
-            "plate_material_present": false,
+            "plate_material_present": true,
             "status": "pass"
           },
           {
@@ -13372,7 +13402,7 @@
         "path": "DP1 double pass",
         "segment": 4,
         "axis_distance_mm": 0.0,
-        "beam_half_width_upper_bound_mm": 0.283667,
+        "beam_half_width_upper_bound_mm": 1.719939,
         "status": "note_beam_over_empty_optional_tap"
       },
       {
@@ -13380,7 +13410,7 @@
         "path": "DP2 double pass",
         "segment": 4,
         "axis_distance_mm": 0.0,
-        "beam_half_width_upper_bound_mm": 0.291575,
+        "beam_half_width_upper_bound_mm": 1.727847,
         "status": "note_beam_over_empty_optional_tap"
       }
     ],

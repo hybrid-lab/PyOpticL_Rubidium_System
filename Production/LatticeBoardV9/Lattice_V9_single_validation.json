@@ -27,45 +27,22 @@
       "class": "IntegralAOMBaseplate"
     },
     {
-      "name": "Mount_Hole__3__12_",
-      "label": "Mount Hole (3, 12)",
+      "name": "Mount_Hole__20__0_",
+      "label": "Mount Hole (20, 0)",
       "type": "Part::FeaturePython",
       "state": [
         "Up-to-date"
       ],
       "bbox": [
-        83.99999999999999,
-        312.6137013938122,
-        -38.099999999999994,
-        93.8,
-        322.3862986061878,
-        -14.699999999999996
-      ],
-      "position": [
-        88.89999999999999,
-        317.5,
-        0.0
-      ],
-      "valid": true,
-      "class": "baseplate_mount"
-    },
-    {
-      "name": "Mount_Hole__19__0_",
-      "label": "Mount Hole (19, 0)",
-      "type": "Part::FeaturePython",
-      "state": [
-        "Up-to-date"
-      ],
-      "bbox": [
-        490.4,
+        518.975,
         7.813701393812217,
         -38.099999999999994,
-        500.19999999999993,
+        528.775,
         17.586298606187782,
         -14.699999999999996
       ],
       "position": [
-        495.29999999999995,
+        523.875,
         12.7,
         0.0
       ],
@@ -73,22 +50,22 @@
       "class": "baseplate_mount"
     },
     {
-      "name": "Mount_Hole__14__13_",
-      "label": "Mount Hole (14, 13)",
+      "name": "Mount_Hole__20__13_",
+      "label": "Mount Hole (20, 13)",
       "type": "Part::FeaturePython",
       "state": [
         "Up-to-date"
       ],
       "bbox": [
-        363.4,
+        518.975,
         338.0137013938122,
         -38.099999999999994,
-        373.19999999999993,
+        528.775,
         347.78629860618776,
         -14.699999999999996
       ],
       "position": [
-        368.29999999999995,
+        523.875,
         342.9,
         0.0
       ],
@@ -96,23 +73,46 @@
       "class": "baseplate_mount"
     },
     {
-      "name": "Mount_Hole__3__0_",
-      "label": "Mount Hole (3, 0)",
+      "name": "Mount_Hole__1__1_",
+      "label": "Mount Hole (1, 1)",
       "type": "Part::FeaturePython",
       "state": [
         "Up-to-date"
       ],
       "bbox": [
-        83.99999999999999,
-        7.813701393812217,
+        36.375,
+        33.213701393812215,
         -38.099999999999994,
-        93.8,
-        17.586298606187782,
+        46.175,
+        42.98629860618777,
         -14.699999999999996
       ],
       "position": [
-        88.89999999999999,
-        12.7,
+        41.275,
+        38.099999999999994,
+        0.0
+      ],
+      "valid": true,
+      "class": "baseplate_mount"
+    },
+    {
+      "name": "Mount_Hole__1__12_",
+      "label": "Mount Hole (1, 12)",
+      "type": "Part::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        36.375,
+        312.6137013938122,
+        -38.099999999999994,
+        46.175,
+        322.3862986061878,
+        -14.699999999999996
+      ],
+      "position": [
+        41.275,
+        317.5,
         0.0
       ],
       "valid": true,
@@ -2827,16 +2827,16 @@
         "Up-to-date"
       ],
       "bbox": [
-        502.3635985734721,
-        298.3640709613346,
+        502.5,
+        296.65,
         -6.35,
-        503.60379793572054,
-        311.08072332370705,
+        503.5,
+        309.35,
         6.35
       ],
       "position": [
-        502.98369825459633,
-        304.72239714252083,
+        503.0,
+        303.0,
         0.0
       ],
       "valid": true,
@@ -2853,16 +2853,16 @@
         "Up-to-date"
       ],
       "bbox": [
-        498.5923558162078,
-        293.6041601732285,
+        498.81699991226196,
+        291.95895862579346,
         -13.975285530090332,
-        510.43837890457144,
-        315.9045986326413,
+        510.24700021743774,
+        314.0470132827759,
         11.424714088439941
       ],
       "position": [
-        502.483787824626,
-        304.71293342195753,
+        502.5,
+        303.0,
         0.0
       ],
       "class": "rotation_stage_rsp05",
@@ -2878,16 +2878,16 @@
         "Up-to-date"
       ],
       "bbox": [
-        492.9470873906747,
-        281.5447571467479,
+        493.397,
+        280.0,
         -21.97,
-        514.8139877412514,
-        327.93399296767495,
+        514.3969999999999,
+        326.0,
         -12.97
       ],
       "position": [
-        503.88053756596304,
-        304.7393750572114,
+        503.897,
+        303.0,
         -13.97
       ],
       "class": "surface_adapter_rotation_stage_lip"
@@ -2900,8 +2900,8 @@
         "Up-to-date"
       ],
       "position": [
-        475.73857982121444,
-        304.2066243718209,
+        475.75,
+        303.0,
         0.0
       ],
       "class": "BareTappedHole"
@@ -2914,8 +2914,8 @@
         "Up-to-date"
       ],
       "position": [
-        527.4526937413239,
-        277.85071881997254,
+        526.956,
+        275.67,
         0.0
       ],
       "class": "BareTappedHole"
@@ -2928,8 +2928,8 @@
         "Up-to-date"
       ],
       "position": [
-        547.9356441175266,
-        305.57337489557284,
+        547.96,
+        303.0,
         0.0
       ],
       "class": "BareTappedHole"
@@ -2942,8 +2942,8 @@
         "Up-to-date"
       ],
       "position": [
-        572.9311656160421,
-        306.0465609237379,
+        572.96,
+        303.0,
         0.0
       ],
       "class": "BareTappedHole"
@@ -2956,16 +2956,16 @@
         "Up-to-date"
       ],
       "bbox": [
-        480.3635985734721,
-        77.36407096133458,
+        480.5,
+        75.65,
         -6.35,
-        481.60379793572054,
-        90.08072332370703,
+        481.5,
+        88.35,
         6.35
       ],
       "position": [
-        480.98369825459633,
-        83.7223971425208,
+        481.0,
+        82.0,
         0.0
       ],
       "valid": true,
@@ -2982,16 +2982,16 @@
         "Up-to-date"
       ],
       "bbox": [
-        476.5923558162078,
-        72.60416017322842,
+        476.81699991226196,
+        70.95895862579346,
         -13.975285530090332,
-        488.43837890457144,
-        94.90459863264125,
+        488.24700021743774,
+        93.04701328277588,
         11.424714088439941
       ],
       "position": [
-        480.483787824626,
-        83.7129334219575,
+        480.5,
+        82.0,
         0.0
       ],
       "class": "rotation_stage_rsp05",
@@ -3007,16 +3007,16 @@
         "Up-to-date"
       ],
       "bbox": [
-        470.9470873906747,
-        60.5447571467478,
+        471.397,
+        59.0,
         -21.97,
-        492.81398774125137,
-        106.93399296767493,
+        492.397,
+        105.0,
         -12.97
       ],
       "position": [
-        481.88053756596304,
-        83.73937505721136,
+        481.897,
+        82.0,
         -13.97
       ],
       "class": "surface_adapter_rotation_stage_lip"
@@ -3029,8 +3029,8 @@
         "Up-to-date"
       ],
       "position": [
-        448.7394755215114,
-        83.11198716618789,
+        448.75,
+        82.0,
         0.0
       ],
       "class": "BareTappedHole"
@@ -3043,8 +3043,8 @@
         "Up-to-date"
       ],
       "position": [
-        499.45376858168015,
-        56.73715417321296,
+        498.956,
+        54.67,
         0.0
       ],
       "class": "BareTappedHole"
@@ -3057,8 +3057,8 @@
         "Up-to-date"
       ],
       "position": [
-        520.9365398178235,
-        84.47873768993983,
+        520.96,
+        82.0,
         0.0
       ],
       "class": "BareTappedHole"
@@ -3071,8 +3071,8 @@
         "Up-to-date"
       ],
       "position": [
-        545.932061316339,
-        84.9519237181049,
+        545.96,
+        82.0,
         0.0
       ],
       "class": "BareTappedHole"
@@ -5505,35 +5505,35 @@
     },
     {
       "object": "DP1_f75_lens_8_32",
-      "reason": "Bare 8-32 hole of the OPTIONAL f = 75 cat-eye (V9.3 LA1612-B set) on the +1-order axis; nothing is installed in V9.4. L05G tap for the LA1612-B 73 mm after the AOM (holder body upstream)."
+      "reason": "Bare 8-32 hole of the OPTIONAL f = 75 cat-eye (V9.3 LA1612-B set) on the 0-order (input) axis straight after the AOM; nothing is installed in V9.4. L05G tap for the LA1612-B 73 mm after the AOM (holder body upstream)."
     },
     {
       "object": "DP1_f75_order_iris_8_32",
-      "reason": "Bare 8-32 hole of the OPTIONAL f = 75 cat-eye (V9.3 LA1612-B set) on the +1-order axis; nothing is installed in V9.4. Slide-mount tap for the IDA12 order iris 113 mm after the AOM, post toward -y."
+      "reason": "Bare 8-32 hole of the OPTIONAL f = 75 cat-eye (V9.3 LA1612-B set) on the 0-order (input) axis straight after the AOM; nothing is installed in V9.4. Slide-mount tap for the IDA12 order iris 113 mm after the AOM, post toward -y."
     },
     {
       "object": "DP1_f75_retro_mirror_8_32__lens__mirror_50_",
-      "reason": "Bare 8-32 hole of the OPTIONAL f = 75 cat-eye (V9.3 LA1612-B set) on the +1-order axis; nothing is installed in V9.4. M05 tap for a retro mirror facing the AOM, mirror face 123 mm after the AOM (lens -> mirror 50 mm)."
+      "reason": "Bare 8-32 hole of the OPTIONAL f = 75 cat-eye (V9.3 LA1612-B set) on the 0-order (input) axis straight after the AOM; nothing is installed in V9.4. M05 tap for a retro mirror facing the AOM, mirror face 123 mm after the AOM (lens -> mirror 50 mm)."
     },
     {
       "object": "DP1_f75_retro_mirror_8_32__lens__mirror_75_",
-      "reason": "Bare 8-32 hole of the OPTIONAL f = 75 cat-eye (V9.3 LA1612-B set) on the +1-order axis; nothing is installed in V9.4. M05 tap for a retro mirror facing the AOM, mirror face 148 mm after the AOM (lens -> mirror 75 mm)."
+      "reason": "Bare 8-32 hole of the OPTIONAL f = 75 cat-eye (V9.3 LA1612-B set) on the 0-order (input) axis straight after the AOM; nothing is installed in V9.4. M05 tap for a retro mirror facing the AOM, mirror face 148 mm after the AOM (lens -> mirror 75 mm)."
     },
     {
       "object": "DP2_f75_lens_8_32",
-      "reason": "Bare 8-32 hole of the OPTIONAL f = 75 cat-eye (V9.3 LA1612-B set) on the +1-order axis; nothing is installed in V9.4. L05G tap for the LA1612-B 68 mm after the AOM (holder body upstream)."
+      "reason": "Bare 8-32 hole of the OPTIONAL f = 75 cat-eye (V9.3 LA1612-B set) on the 0-order (input) axis straight after the AOM; nothing is installed in V9.4. L05G tap for the LA1612-B 68 mm after the AOM (holder body upstream)."
     },
     {
       "object": "DP2_f75_order_iris_8_32",
-      "reason": "Bare 8-32 hole of the OPTIONAL f = 75 cat-eye (V9.3 LA1612-B set) on the +1-order axis; nothing is installed in V9.4. Slide-mount tap for the IDA12 order iris 107 mm after the AOM, post toward -y."
+      "reason": "Bare 8-32 hole of the OPTIONAL f = 75 cat-eye (V9.3 LA1612-B set) on the 0-order (input) axis straight after the AOM; nothing is installed in V9.4. Slide-mount tap for the IDA12 order iris 107 mm after the AOM, post toward -y."
     },
     {
       "object": "DP2_f75_retro_mirror_8_32__lens__mirror_50_",
-      "reason": "Bare 8-32 hole of the OPTIONAL f = 75 cat-eye (V9.3 LA1612-B set) on the +1-order axis; nothing is installed in V9.4. M05 tap for a retro mirror facing the AOM, mirror face 118 mm after the AOM (lens -> mirror 50 mm)."
+      "reason": "Bare 8-32 hole of the OPTIONAL f = 75 cat-eye (V9.3 LA1612-B set) on the 0-order (input) axis straight after the AOM; nothing is installed in V9.4. M05 tap for a retro mirror facing the AOM, mirror face 118 mm after the AOM (lens -> mirror 50 mm)."
     },
     {
       "object": "DP2_f75_retro_mirror_8_32__lens__mirror_75_",
-      "reason": "Bare 8-32 hole of the OPTIONAL f = 75 cat-eye (V9.3 LA1612-B set) on the +1-order axis; nothing is installed in V9.4. M05 tap for a retro mirror facing the AOM, mirror face 143 mm after the AOM (lens -> mirror 75 mm)."
+      "reason": "Bare 8-32 hole of the OPTIONAL f = 75 cat-eye (V9.3 LA1612-B set) on the 0-order (input) axis straight after the AOM; nothing is installed in V9.4. M05 tap for a retro mirror facing the AOM, mirror face 143 mm after the AOM (lens -> mirror 75 mm)."
     },
     {
       "object": "External_spherical_first_lens_8_32",
@@ -5875,10 +5875,10 @@
     }
   ],
   "output_optical_scope": {},
-  "layout_status": "V9.4 (2026-10-01): f = 300 folded cat-eyes on the +1-order axis, optional f = 75 hole set, all mirrors M05, DP2 output row above its AOM row, 24 x 15 in plate.",
+  "layout_status": "V9.4.1 (2026-10-04): f = 300 folded cat-eyes on the +1-order axis, optional f = 75 hole set on the 0-order axis, table bolts on the 1 in grid (fiber-side pair 3.25 in from the right edge, 13 in apart, centred), all mirrors M05, DP2 output row above its AOM row, 24 x 15 in plate.",
   "plate_size_mm": [
-    609.6,
-    355.6,
+    609.5999999999999,
+    381.0,
     25.4
   ],
   "plate_solid_count": 1,
@@ -5975,22 +5975,187 @@
   },
   "platform_holes_mm": [
     [
-      88.89999999999999,
-      317.5
-    ],
-    [
-      495.29999999999995,
+      523.875,
       12.7
     ],
     [
-      368.29999999999995,
+      523.875,
       342.9
     ],
     [
-      88.89999999999999,
-      12.7
+      41.275,
+      38.099999999999994
+    ],
+    [
+      41.275,
+      317.5
     ]
   ],
+  "table_bolt_pattern": {
+    "table_grid_in": 1.0,
+    "table_first_row_from_table_edge_in": 1.5,
+    "plate_fiber_edge_inside_table_edge_in": 0.25,
+    "fiber_side_pair": {
+      "from_plate_right_edge_in": 3.25,
+      "n": 2,
+      "spacing_in": 13,
+      "centred_on_short_edge": true,
+      "xy_mm": [
+        [
+          523.875,
+          12.7
+        ],
+        [
+          523.875,
+          342.9
+        ]
+      ]
+    },
+    "ta_side_pair": {
+      "from_plate_left_edge_in": 1.5,
+      "spacing_in": 11,
+      "centred_on_short_edge": true,
+      "xy_mm": [
+        [
+          41.275,
+          38.1
+        ],
+        [
+          41.275,
+          317.5
+        ]
+      ]
+    },
+    "plate_edges_mm": {
+      "x": [
+        3.175,
+        606.425
+      ],
+      "y": [
+        -9.525,
+        365.125
+      ]
+    }
+  },
+  "fold_geometry": {
+    "diffraction_kink_deg": 1.0845272550690583,
+    "cat_eye_lens_catalogue": {
+      "f_587nm_mm": 300.0,
+      "R_mm": 155.0,
+      "tc_mm": 2.2,
+      "te_mm": 2.1,
+      "bfl_587nm_mm": 298.6,
+      "efl_795nm_mm": 303.4763545255245
+    },
+    "cat_eye_defocus_mm": {
+      "aom_side": -1.1569996868148564,
+      "mirror_side": -1.0246265003274857,
+      "accepted": true
+    },
+    "f75_option": {
+      "distances_from_aom_mm": {
+        "DP1": {
+          "lens": 73.0,
+          "qwp": 91.0,
+          "iris": 113.0,
+          "face": {
+            "50": 123.0,
+            "75": 148.0
+          }
+        },
+        "DP2": {
+          "lens": 68.0,
+          "qwp": 91.0,
+          "iris": 107.0,
+          "face": {
+            "50": 118.0,
+            "75": 143.0
+          }
+        }
+      },
+      "axis": "0-order (input) axis y = DP_Y (V9.4.1; V9.4 used the +1-order axis)",
+      "plus1_offset_after_lens_mm": 1.4362717284207658,
+      "installed": false,
+      "configuration": "300",
+      "bare_holes": [
+        "DP1_f75_lens_8_32",
+        "DP1_f75_order_iris_8_32",
+        "DP1_f75_retro_mirror_8_32__lens__mirror_50_",
+        "DP1_f75_retro_mirror_8_32__lens__mirror_75_",
+        "DP2_f75_lens_8_32",
+        "DP2_f75_order_iris_8_32",
+        "DP2_f75_retro_mirror_8_32__lens__mirror_50_",
+        "DP2_f75_retro_mirror_8_32__lens__mirror_75_"
+      ],
+      "note": "With the lens->mirror 50 position every f = 300 part may stay installed; the lens->mirror 75 mirror body overlaps fold F1 (DP1) / F3 (DP2), which must be removed for that test."
+    },
+    "DP1": {
+      "AOM": [
+        412.0,
+        303.0
+      ],
+      "F1": [
+        591.0,
+        306.3886189990705
+      ],
+      "iris": [
+        590.4700316484551,
+        334.3836030774078
+      ],
+      "F2": [
+        590.214511193246,
+        347.8811846866062
+      ],
+      "lens": [
+        507.34207660331515,
+        346.3123405170494
+      ],
+      "QWP": [
+        235.0,
+        341.15667831020966
+      ],
+      "retro": [
+        205.30057105731714,
+        340.59444339860784
+      ],
+      "leg1": 179.0320718159762,
+      "leg2": 41.5,
+      "fold2_to_lens": 82.8872830227335
+    },
+    "DP2": {
+      "AOM": [
+        390.0,
+        82.0
+      ],
+      "F3": [
+        555.0,
+        85.12358734551194
+      ],
+      "iris": [
+        555.5861911153021,
+        54.158698797150585
+      ],
+      "F4": [
+        556.232843717132,
+        20.0
+      ],
+      "lens": [
+        482.9914307851774,
+        18.613479087262622
+      ],
+      "QWP": [
+        300.0,
+        15.149298980973512
+      ],
+      "retro": [
+        180.94992523917938,
+        12.895581968821094
+      ],
+      "leg1": 165.0295634057881,
+      "leg2": 65.13525567908208,
+      "fold2_to_lens": 73.2545357538395
+    }
+  },
   "restore_info": {
     "plate": "Lattice_plate_24_x_15_in",
     "roots": {
@@ -6280,40 +6445,40 @@
         {
           "object": "DP1_f75_lens_8_32",
           "center_xy_mm": [
-            475.73857982121444,
-            304.2066243718209
+            475.75,
+            303.0
           ],
           "diameter_mm": 10.0,
           "beam_direction_xy": [
-            0.9998208599406191,
-            0.018927441126602287
+            1.0,
+            0.0
           ]
         },
         {
           "object": "DP2_f75_lens_8_32",
           "center_xy_mm": [
-            448.7394755215114,
-            83.11198716618789
+            448.75,
+            82.0
           ],
           "diameter_mm": 10.0,
           "beam_direction_xy": [
-            0.9998208599406191,
-            0.018927441126602287
+            1.0,
+            0.0
           ]
         },
         {
           "object": "DP1_f75_order_iris_8_32",
           "center_xy_mm": [
-            527.4526937413239,
-            277.85071881997254
+            526.956,
+            275.67
           ],
           "diameter_mm": 10.0
         },
         {
           "object": "DP2_f75_order_iris_8_32",
           "center_xy_mm": [
-            499.45376858168015,
-            56.73715417321296
+            498.956,
+            54.67
           ],
           "diameter_mm": 10.0
         }
@@ -6758,7 +6923,7 @@
       }
     ],
     "output_optical_scope": {},
-    "layout_status": "V9.4 (2026-10-01): f = 300 folded cat-eyes on the +1-order axis, optional f = 75 hole set, all mirrors M05, DP2 output row above its AOM row, 24 x 15 in plate.",
+    "layout_status": "V9.4.1 (2026-10-04): f = 300 folded cat-eyes on the +1-order axis, optional f = 75 hole set on the 0-order axis, table bolts on the 1 in grid (fiber-side pair 3.25 in from the right edge, 13 in apart, centred), all mirrors M05, DP2 output row above its AOM row, 24 x 15 in plate.",
     "fiber_clearance": {
       "inactive_roots": [
         "DP1 f75 cat eye QWP",
@@ -7399,37 +7564,37 @@
     "intentional_blocker_intersections": [],
     "platform_fasteners": [
       {
-        "object": "Mount_Hole__3__12_",
+        "object": "Mount_Hole__20__0_",
         "position": [
-          88.9,
-          317.5,
-          0.0
-        ],
-        "status": "Original CAD fastener volume included in assembly collision checks"
-      },
-      {
-        "object": "Mount_Hole__19__0_",
-        "position": [
-          495.3,
+          523.875,
           12.7,
           0.0
         ],
         "status": "Original CAD fastener volume included in assembly collision checks"
       },
       {
-        "object": "Mount_Hole__14__13_",
+        "object": "Mount_Hole__20__13_",
         "position": [
-          368.3,
+          523.875,
           342.9,
           0.0
         ],
         "status": "Original CAD fastener volume included in assembly collision checks"
       },
       {
-        "object": "Mount_Hole__3__0_",
+        "object": "Mount_Hole__1__1_",
         "position": [
-          88.9,
-          12.7,
+          41.275,
+          38.1,
+          0.0
+        ],
+        "status": "Original CAD fastener volume included in assembly collision checks"
+      },
+      {
+        "object": "Mount_Hole__1__12_",
+        "position": [
+          41.275,
+          317.5,
           0.0
         ],
         "status": "Original CAD fastener volume included in assembly collision checks"
@@ -7437,25 +7602,25 @@
     ],
     "drill_cut_checks": [
       {
-        "object": "Mount_Hole__3__12_",
+        "object": "Mount_Hole__20__0_",
         "cut_inside_plate_envelope_mm3": 2130.756887,
         "residual_plate_in_cut_mm3": 0.0,
         "status": "cut_removed_from_plate"
       },
       {
-        "object": "Mount_Hole__19__0_",
+        "object": "Mount_Hole__20__13_",
         "cut_inside_plate_envelope_mm3": 2130.756887,
         "residual_plate_in_cut_mm3": 0.0,
         "status": "cut_removed_from_plate"
       },
       {
-        "object": "Mount_Hole__14__13_",
+        "object": "Mount_Hole__1__1_",
         "cut_inside_plate_envelope_mm3": 2130.756887,
         "residual_plate_in_cut_mm3": 0.0,
         "status": "cut_removed_from_plate"
       },
       {
-        "object": "Mount_Hole__3__0_",
+        "object": "Mount_Hole__1__12_",
         "cut_inside_plate_envelope_mm3": 2130.756887,
         "residual_plate_in_cut_mm3": 0.0,
         "status": "cut_removed_from_plate"
@@ -9626,7 +9791,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 3,
         "screened_samples": 97195,
-        "elapsed_seconds": 0.437
+        "elapsed_seconds": 0.469
       },
       {
         "arm": 1,
@@ -9667,7 +9832,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 3,
         "screened_samples": 97195,
-        "elapsed_seconds": 0.438
+        "elapsed_seconds": 0.469
       },
       {
         "arm": 2,
@@ -11399,29 +11564,14 @@
     "holes": [
       {
         "kind": "platform",
-        "label": "Mount Hole (3, 12)",
+        "label": "Mount Hole (20, 0)",
         "center_xy_mm": [
-          88.9,
-          317.5
-        ],
-        "reserved_radius_mm": 9.14375,
-        "owner": "Mount_Hole__3__12_",
-        "source": "Mount_Hole__3__12_",
-        "metadata": {
-          "nominal_washer_diameter_mm": 14.2875
-        },
-        "within_plate_xy": true
-      },
-      {
-        "kind": "platform",
-        "label": "Mount Hole (19, 0)",
-        "center_xy_mm": [
-          495.3,
+          523.875,
           12.7
         ],
         "reserved_radius_mm": 9.14375,
-        "owner": "Mount_Hole__19__0_",
-        "source": "Mount_Hole__19__0_",
+        "owner": "Mount_Hole__20__0_",
+        "source": "Mount_Hole__20__0_",
         "metadata": {
           "nominal_washer_diameter_mm": 14.2875
         },
@@ -11429,14 +11579,14 @@
       },
       {
         "kind": "platform",
-        "label": "Mount Hole (14, 13)",
+        "label": "Mount Hole (20, 13)",
         "center_xy_mm": [
-          368.3,
+          523.875,
           342.9
         ],
         "reserved_radius_mm": 9.14375,
-        "owner": "Mount_Hole__14__13_",
-        "source": "Mount_Hole__14__13_",
+        "owner": "Mount_Hole__20__13_",
+        "source": "Mount_Hole__20__13_",
         "metadata": {
           "nominal_washer_diameter_mm": 14.2875
         },
@@ -11444,14 +11594,29 @@
       },
       {
         "kind": "platform",
-        "label": "Mount Hole (3, 0)",
+        "label": "Mount Hole (1, 1)",
         "center_xy_mm": [
-          88.9,
-          12.7
+          41.275,
+          38.1
         ],
         "reserved_radius_mm": 9.14375,
-        "owner": "Mount_Hole__3__0_",
-        "source": "Mount_Hole__3__0_",
+        "owner": "Mount_Hole__1__1_",
+        "source": "Mount_Hole__1__1_",
+        "metadata": {
+          "nominal_washer_diameter_mm": 14.2875
+        },
+        "within_plate_xy": true
+      },
+      {
+        "kind": "platform",
+        "label": "Mount Hole (1, 12)",
+        "center_xy_mm": [
+          41.275,
+          317.5
+        ],
+        "reserved_radius_mm": 9.14375,
+        "owner": "Mount_Hole__1__12_",
+        "source": "Mount_Hole__1__12_",
         "metadata": {
           "nominal_washer_diameter_mm": 14.2875
         },
@@ -11551,8 +11716,8 @@
         "kind": "bare_8_32",
         "label": "DP1 f75 lens 8-32",
         "center_xy_mm": [
-          475.73858,
-          304.206624
+          475.75,
+          303.0
         ],
         "reserved_radius_mm": 3.7272,
         "owner": "DP1_f75_lens_8_32",
@@ -11566,8 +11731,8 @@
         "kind": "bare_8_32",
         "label": "DP1 f75 order iris 8-32",
         "center_xy_mm": [
-          527.452694,
-          277.850719
+          526.956,
+          275.67
         ],
         "reserved_radius_mm": 3.7272,
         "owner": "DP1_f75_order_iris_8_32",
@@ -11581,8 +11746,8 @@
         "kind": "bare_8_32",
         "label": "DP1 f75 retro mirror 8-32 (lens->mirror 50)",
         "center_xy_mm": [
-          547.935644,
-          305.573375
+          547.96,
+          303.0
         ],
         "reserved_radius_mm": 3.7272,
         "owner": "DP1_f75_retro_mirror_8_32__lens__mirror_50_",
@@ -11596,8 +11761,8 @@
         "kind": "bare_8_32",
         "label": "DP1 f75 retro mirror 8-32 (lens->mirror 75)",
         "center_xy_mm": [
-          572.931166,
-          306.046561
+          572.96,
+          303.0
         ],
         "reserved_radius_mm": 3.7272,
         "owner": "DP1_f75_retro_mirror_8_32__lens__mirror_75_",
@@ -11611,8 +11776,8 @@
         "kind": "bare_8_32",
         "label": "DP2 f75 lens 8-32",
         "center_xy_mm": [
-          448.739476,
-          83.111987
+          448.75,
+          82.0
         ],
         "reserved_radius_mm": 3.7272,
         "owner": "DP2_f75_lens_8_32",
@@ -11626,8 +11791,8 @@
         "kind": "bare_8_32",
         "label": "DP2 f75 order iris 8-32",
         "center_xy_mm": [
-          499.453769,
-          56.737154
+          498.956,
+          54.67
         ],
         "reserved_radius_mm": 3.7272,
         "owner": "DP2_f75_order_iris_8_32",
@@ -11641,8 +11806,8 @@
         "kind": "bare_8_32",
         "label": "DP2 f75 retro mirror 8-32 (lens->mirror 50)",
         "center_xy_mm": [
-          520.93654,
-          84.478738
+          520.96,
+          82.0
         ],
         "reserved_radius_mm": 3.7272,
         "owner": "DP2_f75_retro_mirror_8_32__lens__mirror_50_",
@@ -11656,8 +11821,8 @@
         "kind": "bare_8_32",
         "label": "DP2 f75 retro mirror 8-32 (lens->mirror 75)",
         "center_xy_mm": [
-          545.932061,
-          84.951924
+          545.96,
+          82.0
         ],
         "reserved_radius_mm": 3.7272,
         "owner": "DP2_f75_retro_mirror_8_32__lens__mirror_75_",
@@ -11940,7 +12105,7 @@
               -13.7
             ],
             "cut_by_this_seat": false,
-            "plate_material_present": false,
+            "plate_material_present": true,
             "status": "pass"
           },
           {
@@ -12526,18 +12691,18 @@
     },
     "platform_beam_crossings": [
       {
-        "hole": "Mount Hole (19, 0)",
+        "hole": "Mount Hole (20, 0)",
         "path": "DP2 double pass",
         "segment": 4,
-        "axis_distance_mm": 6.145389,
+        "axis_distance_mm": 6.686241,
         "beam_half_width_upper_bound_mm": 0.6,
         "status": "note_beam_over_recessed_platform_bolt"
       },
       {
-        "hole": "Mount Hole (14, 13)",
+        "hole": "Mount Hole (20, 13)",
         "path": "DP1 double pass",
-        "segment": 5,
-        "axis_distance_mm": 0.780019,
+        "segment": 4,
+        "axis_distance_mm": 3.724655,
         "beam_half_width_upper_bound_mm": 0.6,
         "status": "note_beam_over_recessed_platform_bolt"
       }
@@ -12547,7 +12712,7 @@
         "hole": "DP1 f75 lens 8-32",
         "path": "DP1 double pass",
         "segment": 1,
-        "axis_distance_mm": 0.0,
+        "axis_distance_mm": 1.206624,
         "beam_half_width_upper_bound_mm": 0.6,
         "status": "note_beam_over_empty_optional_tap"
       },
@@ -12555,7 +12720,7 @@
         "hole": "DP1 f75 retro mirror 8-32 (lens->mirror 50)",
         "path": "DP1 double pass",
         "segment": 1,
-        "axis_distance_mm": 0.0,
+        "axis_distance_mm": 2.573375,
         "beam_half_width_upper_bound_mm": 0.6,
         "status": "note_beam_over_empty_optional_tap"
       },
@@ -12563,7 +12728,7 @@
         "hole": "DP1 f75 retro mirror 8-32 (lens->mirror 75)",
         "path": "DP1 double pass",
         "segment": 1,
-        "axis_distance_mm": 0.0,
+        "axis_distance_mm": 3.046561,
         "beam_half_width_upper_bound_mm": 0.6,
         "status": "note_beam_over_empty_optional_tap"
       },
@@ -12571,7 +12736,7 @@
         "hole": "DP2 f75 lens 8-32",
         "path": "DP2 double pass",
         "segment": 1,
-        "axis_distance_mm": 0.0,
+        "axis_distance_mm": 1.111987,
         "beam_half_width_upper_bound_mm": 0.6,
         "status": "note_beam_over_empty_optional_tap"
       },
@@ -12579,7 +12744,7 @@
         "hole": "DP2 f75 retro mirror 8-32 (lens->mirror 50)",
         "path": "DP2 double pass",
         "segment": 1,
-        "axis_distance_mm": 0.0,
+        "axis_distance_mm": 2.478738,
         "beam_half_width_upper_bound_mm": 0.6,
         "status": "note_beam_over_empty_optional_tap"
       },
@@ -12587,7 +12752,7 @@
         "hole": "DP2 f75 retro mirror 8-32 (lens->mirror 75)",
         "path": "DP2 double pass",
         "segment": 1,
-        "axis_distance_mm": 0.0,
+        "axis_distance_mm": 2.951924,
         "beam_half_width_upper_bound_mm": 0.6,
         "status": "note_beam_over_empty_optional_tap"
       }
@@ -22532,561 +22697,561 @@
       {
         "object": "DP1_f75_lens_8_32",
         "center_xy_mm": [
-          475.73858,
-          304.206624
+          475.75,
+          303.0
         ],
         "diameter_mm": 10.0,
         "holder_footprint_xy_mm": {
           "l05g_body": [
             [
-              466.741385,
-              303.973289
+              466.75,
+              302.937
             ],
             [
-              466.74405,
-              303.885323
+              466.751,
+              302.849
             ],
             [
-              466.747734,
-              303.796377
+              466.753,
+              302.76
             ],
             [
-              466.752399,
-              303.70845
+              466.756,
+              302.672
             ],
             [
-              466.756799,
-              303.63452
+              466.759,
+              302.598
             ],
             [
-              466.761029,
-              303.569588
+              466.762,
+              302.533
             ],
             [
-              466.762426,
-              303.548611
+              466.763,
+              302.512
             ],
             [
-              466.765126,
-              303.511655
+              466.765,
+              302.475
             ],
             [
-              466.769053,
-              303.462721
+              466.768,
+              302.426
             ],
             [
-              466.772885,
-              303.418786
+              466.771,
+              302.382
             ],
             [
-              466.78659,
-              303.276019
+              466.782,
+              302.239
             ],
             [
-              466.798595,
-              303.170228
+              466.792,
+              302.133
             ],
             [
-              466.81158,
-              303.065455
+              466.803,
+              302.028
             ],
             [
-              466.825584,
-              302.959701
+              466.815,
+              301.922
             ],
             [
-              466.857611,
-              302.747269
+              466.843,
+              301.709
             ],
             [
-              466.878954,
-              302.623651
+              466.862,
+              301.585
             ],
             [
-              466.890164,
-              302.559851
+              466.872,
+              301.521
             ],
             [
-              466.907883,
-              302.469171
+              466.888,
+              301.43
             ],
             [
-              466.939812,
-              302.314747
+              466.917,
+              301.275
             ],
             [
-              466.946417,
-              302.282867
+              466.923,
+              301.243
             ],
             [
-              466.955172,
-              302.243025
+              466.931,
+              301.203
             ],
             [
-              466.963909,
-              302.204184
+              466.939,
+              301.164
             ],
             [
-              466.970457,
-              302.175302
+              466.945,
+              301.135
             ],
             [
-              466.980269,
-              302.13248
+              466.954,
+              301.092
             ],
             [
-              466.988949,
-              302.096638
+              466.962,
+              301.056
             ],
             [
-              466.99761,
-              302.061796
+              466.97,
+              301.021
             ],
             [
-              467.009517,
-              302.014013
+              466.981,
+              300.973
             ],
             [
-              467.024669,
-              301.953289
+              466.995,
+              300.912
             ],
             [
-              467.045142,
-              301.875662
+              467.014,
+              300.834
             ],
             [
-              467.055897,
-              301.835859
+              467.024,
+              300.794
             ],
             [
-              467.064501,
-              301.804016
+              467.032,
+              300.762
             ],
             [
-              467.079502,
-              301.75129
+              467.046,
+              300.709
             ],
             [
-              467.082709,
-              301.740349
+              467.049,
+              300.698
             ],
             [
-              467.130806,
-              301.57723
+              467.094,
+              300.534
             ],
             [
-              467.139334,
-              301.549387
+              467.102,
+              300.506
             ],
             [
-              467.168089,
-              301.456914
+              467.129,
+              300.413
             ],
             [
-              467.185071,
-              301.405226
+              467.145,
+              300.361
             ],
             [
-              467.194618,
-              301.376402
+              467.154,
+              300.332
             ],
             [
-              467.205222,
-              301.344597
+              467.164,
+              300.3
             ],
             [
-              467.210524,
-              301.328695
+              467.169,
+              300.284
             ],
             [
-              467.246524,
-              301.223357
+              467.203,
+              300.178
             ],
             [
-              467.249694,
-              301.214415
+              467.206,
+              300.169
             ],
             [
-              467.27609,
-              301.140902
+              467.231,
+              300.095
             ],
             [
-              467.284524,
-              301.118057
+              467.239,
+              300.072
             ],
             [
-              467.345618,
-              300.955185
+              467.297,
+              299.908
             ],
             [
-              467.363485,
-              300.909515
+              467.314,
+              299.862
             ],
             [
-              467.391843,
-              300.838039
+              467.341,
+              299.79
             ],
             [
-              467.406522,
-              300.80231
+              467.355,
+              299.754
             ],
             [
-              467.427484,
-              300.751698
+              467.375,
+              299.703
             ],
             [
-              467.462049,
-              300.669337
+              467.408,
+              299.62
             ],
             [
-              467.485067,
-              300.615763
+              467.43,
+              299.566
             ],
             [
-              467.516425,
-              300.544344
+              467.46,
+              299.494
             ],
             [
-              467.560253,
-              300.448156
+              467.502,
+              299.397
             ],
             [
-              467.595704,
-              300.371814
+              467.536,
+              299.32
             ],
             [
-              467.599855,
-              300.363891
+              467.54,
+              299.312
             ],
             [
-              468.031168,
-              299.55891
+              467.956,
+              298.499
             ],
             [
-              468.351595,
-              299.063886
+              468.267,
+              297.998
             ],
             [
-              469.165797,
-              298.057117
+              469.062,
+              296.976
             ],
             [
-              469.496193,
-              297.72231
+              469.386,
+              296.635
             ],
             [
-              470.587376,
-              296.824803
+              470.46,
+              295.717
             ],
             [
-              470.881147,
-              296.628328
+              470.75,
+              295.515
             ],
             [
-              472.234876,
-              295.915823
+              472.09,
+              294.777
             ],
             [
-              472.452597,
-              295.826928
+              472.306,
+              294.684
             ],
             [
-              474.034571,
-              295.367788
+              473.879,
+              294.195
             ],
             [
-              474.150005,
-              295.345969
+              473.994,
+              294.171
             ],
             [
-              475.908946,
-              295.207237
+              475.75,
+              293.999
             ],
             [
-              486.399066,
-              295.405824
+              486.242,
+              293.999
             ],
             [
-              486.89736,
-              295.923348
+              486.75,
+              294.507
             ],
             [
-              486.575896,
-              312.904305
+              486.75,
+              311.491
             ],
             [
-              486.058372,
-              313.402599
+              486.242,
+              311.999
             ],
             [
-              475.568252,
-              313.204012
+              475.75,
+              311.999
             ],
             [
-              473.815841,
-              312.997807
+              473.994,
+              311.826
             ],
             [
-              473.701316,
-              312.971634
+              473.879,
+              311.802
             ],
             [
-              472.137853,
-              312.452949
+              472.306,
+              311.313
             ],
             [
-              471.923652,
-              312.355877
+              472.09,
+              311.22
             ],
             [
-              470.59786,
-              311.592647
+              470.75,
+              310.482
             ],
             [
-              470.311736,
-              311.385194
+              470.46,
+              310.28
             ],
             [
-              469.255303,
-              310.44703
+              469.386,
+              309.362
             ],
             [
-              468.937816,
-              310.099959
+              469.062,
+              309.021
             ],
             [
-              468.162302,
-              309.063095
+              468.267,
+              307.999
             ],
             [
-              467.860821,
-              308.557298
+              467.956,
+              307.499
             ],
             [
-              467.472733,
-              307.765811
+              467.553,
+              306.715
             ],
             [
-              467.445911,
-              307.703292
+              467.525,
+              306.653
             ],
             [
-              467.421995,
-              307.645829
+              467.5,
+              306.596
             ],
             [
-              467.409565,
-              307.615588
+              467.487,
+              306.566
             ],
             [
-              467.373256,
-              307.525885
+              467.449,
+              306.477
             ],
             [
-              467.359902,
-              307.491626
+              467.435,
+              306.443
             ],
             [
-              467.334156,
-              307.425127
+              467.408,
+              306.377
             ],
             [
-              467.328441,
-              307.410016
+              467.402,
+              306.362
             ],
             [
-              467.305581,
-              307.349572
+              467.378,
+              306.302
             ],
             [
-              467.260899,
-              307.226705
+              467.331,
+              306.18
             ],
             [
-              467.24,
-              307.168299
+              467.309,
+              306.122
             ],
             [
-              467.210634,
-              307.081727
+              467.278,
+              306.036
             ],
             [
-              467.196431,
-              307.039451
+              467.263,
+              305.994
             ],
             [
-              467.188868,
-              307.016304
+              467.255,
+              305.971
             ],
             [
-              467.162406,
-              306.934788
+              467.227,
+              305.89
             ],
             [
-              467.149204,
-              306.892531
+              467.213,
+              305.848
             ],
             [
-              467.1294,
-              306.829144
+              467.192,
+              305.785
             ],
             [
-              467.111539,
-              306.768796
+              467.173,
+              305.725
             ],
             [
-              467.088039,
-              306.689337
+              467.148,
+              305.646
             ],
             [
-              467.064633,
-              306.604878
+              467.123,
+              305.562
             ],
             [
-              467.053411,
-              306.563659
+              467.111,
+              305.521
             ],
             [
-              467.009562,
-              306.396799
+              467.064,
+              305.355
             ],
             [
-              466.986326,
-              306.303342
+              467.039,
+              305.262
             ],
             [
-              466.972465,
-              306.243069
+              467.024,
+              305.202
             ],
             [
-              466.958641,
-              306.180796
+              467.009,
+              305.14
             ],
             [
-              466.938367,
-              306.089396
+              466.987,
+              305.049
             ],
             [
-              466.906269,
-              305.935761
+              466.952,
+              304.896
             ],
             [
-              466.898085,
-              305.892598
+              466.943,
+              304.853
             ],
             [
-              466.885356,
-              305.825345
+              466.929,
+              304.786
             ],
             [
-              466.867347,
-              305.719986
+              466.909,
+              304.681
             ],
             [
-              466.852053,
-              305.62968
+              466.892,
+              304.591
             ],
             [
-              466.841342,
-              305.561465
+              466.88,
+              304.523
             ],
             [
-              466.837778,
-              305.538394
+              466.876,
+              304.5
             ],
             [
-              466.810494,
-              305.341842
+              466.845,
+              304.304
             ],
             [
-              466.798427,
-              305.239595
+              466.831,
+              304.202
             ],
             [
-              466.785606,
-              305.124332
+              466.816,
+              304.087
             ],
             [
-              466.778914,
-              305.055193
+              466.808,
+              304.018
             ],
             [
-              466.776406,
-              305.029141
+              466.805,
+              303.992
             ],
             [
-              466.77224,
-              304.985054
+              466.8,
+              303.948
             ],
             [
-              466.766566,
-              304.914934
+              466.793,
+              303.878
             ],
             [
-              466.762551,
-              304.862849
+              466.788,
+              303.826
             ],
             [
-              466.759366,
-              304.819781
+              466.784,
+              303.783
             ],
             [
-              466.754768,
-              304.74568
+              466.778,
+              303.709
             ],
             [
-              466.753241,
-              304.720647
+              466.776,
+              303.684
             ],
             [
-              466.751018,
-              304.679598
+              466.773,
+              303.643
             ],
             [
-              466.748832,
-              304.636548
+              466.77,
+              303.6
             ],
             [
-              466.744688,
-              304.538452
+              466.764,
+              303.502
             ],
             [
-              466.743427,
-              304.499422
+              466.762,
+              303.463
             ],
             [
-              466.739926,
-              304.367332
+              466.756,
+              303.331
             ],
             [
-              466.739532,
-              304.335318
+              466.755,
+              303.299
             ],
             [
-              466.73858,
-              304.174272
+              466.751,
+              303.138
             ],
             [
-              466.740211,
-              304.035278
+              466.75,
+              302.999
             ]
           ],
           "bonded_lens": [
             [
-              478.927317,
-              294.265198
+              478.75,
+              293.0
             ],
             [
-              488.925525,
-              294.454473
+              488.75,
+              293.0
             ],
             [
-              488.546977,
-              314.45089
+              488.75,
+              313.0
             ],
             [
-              478.548768,
-              314.261615
+              478.75,
+              313.0
             ]
           ]
         },
@@ -23636,561 +23801,561 @@
       {
         "object": "DP2_f75_lens_8_32",
         "center_xy_mm": [
-          448.739476,
-          83.111987
+          448.75,
+          82.0
         ],
         "diameter_mm": 10.0,
         "holder_footprint_xy_mm": {
           "l05g_body": [
             [
-              439.74228,
-              82.878651
+              439.75,
+              81.937
             ],
             [
-              439.744946,
-              82.790686
+              439.751,
+              81.849
             ],
             [
-              439.74863,
-              82.70174
+              439.753,
+              81.76
             ],
             [
-              439.753295,
-              82.613813
+              439.756,
+              81.672
             ],
             [
-              439.757695,
-              82.539883
+              439.759,
+              81.598
             ],
             [
-              439.761925,
-              82.474951
+              439.762,
+              81.533
             ],
             [
-              439.763322,
-              82.453974
+              439.763,
+              81.512
             ],
             [
-              439.766022,
-              82.417018
+              439.765,
+              81.475
             ],
             [
-              439.769949,
-              82.368084
+              439.768,
+              81.426
             ],
             [
-              439.773781,
-              82.324148
+              439.771,
+              81.382
             ],
             [
-              439.787486,
-              82.181382
+              439.782,
+              81.239
             ],
             [
-              439.79949,
-              82.07559
+              439.792,
+              81.133
             ],
             [
-              439.812476,
-              81.970817
+              439.803,
+              81.028
             ],
             [
-              439.82648,
-              81.865064
+              439.815,
+              80.922
             ],
             [
-              439.858506,
-              81.652632
+              439.843,
+              80.709
             ],
             [
-              439.87985,
-              81.529014
+              439.862,
+              80.585
             ],
             [
-              439.89106,
-              81.465214
+              439.872,
+              80.521
             ],
             [
-              439.908779,
-              81.374533
+              439.888,
+              80.43
             ],
             [
-              439.940708,
-              81.22011
+              439.917,
+              80.275
             ],
             [
-              439.947312,
-              81.188229
+              439.923,
+              80.243
             ],
             [
-              439.956068,
-              81.148388
+              439.931,
+              80.203
             ],
             [
-              439.964805,
-              81.109546
+              439.939,
+              80.164
             ],
             [
-              439.971353,
-              81.080665
+              439.945,
+              80.135
             ],
             [
-              439.981165,
-              81.037843
+              439.954,
+              80.092
             ],
             [
-              439.989845,
-              81.002001
+              439.962,
+              80.056
             ],
             [
-              439.998506,
-              80.967159
+              439.97,
+              80.021
             ],
             [
-              440.010412,
-              80.919376
+              439.981,
+              79.973
             ],
             [
-              440.025564,
-              80.858651
+              439.995,
+              79.912
             ],
             [
-              440.046037,
-              80.781025
+              440.014,
+              79.834
             ],
             [
-              440.056793,
-              80.741221
+              440.024,
+              79.794
             ],
             [
-              440.065397,
-              80.709379
+              440.032,
+              79.762
             ],
             [
-              440.080398,
-              80.656653
+              440.046,
+              79.709
             ],
             [
-              440.083605,
-              80.645712
+              440.049,
+              79.698
             ],
             [
-              440.131701,
-              80.482593
+              440.094,
+              79.534
             ],
             [
-              440.14023,
-              80.454749
+              440.102,
+              79.506
             ],
             [
-              440.168985,
-              80.362277
+              440.129,
+              79.413
             ],
             [
-              440.185967,
-              80.310589
+              440.145,
+              79.361
             ],
             [
-              440.195514,
-              80.281765
+              440.154,
+              79.332
             ],
             [
-              440.206118,
-              80.24996
+              440.164,
+              79.3
             ],
             [
-              440.21142,
-              80.234057
+              440.169,
+              79.284
             ],
             [
-              440.24742,
-              80.12872
+              440.203,
+              79.178
             ],
             [
-              440.25059,
-              80.119778
+              440.206,
+              79.169
             ],
             [
-              440.276986,
-              80.046265
+              440.231,
+              79.095
             ],
             [
-              440.28542,
-              80.02342
+              440.239,
+              79.072
             ],
             [
-              440.346513,
-              79.860547
+              440.297,
+              78.908
             ],
             [
-              440.364381,
-              79.814877
+              440.314,
+              78.862
             ],
             [
-              440.392739,
-              79.743401
+              440.341,
+              78.79
             ],
             [
-              440.407418,
-              79.707673
+              440.355,
+              78.754
             ],
             [
-              440.42838,
-              79.65706
+              440.375,
+              78.703
             ],
             [
-              440.462945,
-              79.5747
+              440.408,
+              78.62
             ],
             [
-              440.485963,
-              79.521126
+              440.43,
+              78.566
             ],
             [
-              440.51732,
-              79.449707
+              440.46,
+              78.494
             ],
             [
-              440.561149,
-              79.353519
+              440.502,
+              78.397
             ],
             [
-              440.5966,
-              79.277176
+              440.536,
+              78.32
             ],
             [
-              440.600751,
-              79.269254
+              440.54,
+              78.312
             ],
             [
-              441.032064,
-              78.464273
+              440.956,
+              77.499
             ],
             [
-              441.352491,
-              77.969249
+              441.267,
+              76.998
             ],
             [
-              442.166693,
-              76.96248
+              442.062,
+              75.976
             ],
             [
-              442.497089,
-              76.627673
+              442.386,
+              75.635
             ],
             [
-              443.588272,
-              75.730166
+              443.46,
+              74.717
             ],
             [
-              443.882043,
-              75.533691
+              443.75,
+              74.515
             ],
             [
-              445.235772,
-              74.821186
+              445.09,
+              73.777
             ],
             [
-              445.453493,
-              74.732291
+              445.306,
+              73.684
             ],
             [
-              447.035467,
-              74.273151
+              446.879,
+              73.195
             ],
             [
-              447.1509,
-              74.251332
+              446.994,
+              73.171
             ],
             [
-              448.909841,
-              74.1126
+              448.75,
+              72.999
             ],
             [
-              459.399962,
-              74.311186
+              459.242,
+              72.999
             ],
             [
-              459.898256,
-              74.82871
+              459.75,
+              73.507
             ],
             [
-              459.576792,
-              91.809668
+              459.75,
+              90.491
             ],
             [
-              459.059268,
-              92.307962
+              459.242,
+              90.999
             ],
             [
-              448.569147,
-              92.109375
+              448.75,
+              90.999
             ],
             [
-              446.816736,
-              91.903169
+              446.994,
+              90.826
             ],
             [
-              446.702211,
-              91.876997
+              446.879,
+              90.802
             ],
             [
-              445.138749,
-              91.358312
+              445.306,
+              90.313
             ],
             [
-              444.924548,
-              91.26124
+              445.09,
+              90.22
             ],
             [
-              443.598756,
-              90.49801
+              443.75,
+              89.482
             ],
             [
-              443.312631,
-              90.290557
+              443.46,
+              89.28
             ],
             [
-              442.256199,
-              89.352393
+              442.386,
+              88.362
             ],
             [
-              441.938711,
-              89.005322
+              442.062,
+              88.021
             ],
             [
-              441.163198,
-              87.968458
+              441.267,
+              86.999
             ],
             [
-              440.861717,
-              87.462661
+              440.956,
+              86.499
             ],
             [
-              440.473628,
-              86.671173
+              440.553,
+              85.715
             ],
             [
-              440.446807,
-              86.608655
+              440.525,
+              85.653
             ],
             [
-              440.42289,
-              86.551192
+              440.5,
+              85.596
             ],
             [
-              440.410461,
-              86.520951
+              440.487,
+              85.566
             ],
             [
-              440.374152,
-              86.431248
+              440.449,
+              85.477
             ],
             [
-              440.360798,
-              86.396989
+              440.435,
+              85.443
             ],
             [
-              440.335052,
-              86.330489
+              440.408,
+              85.377
             ],
             [
-              440.329337,
-              86.315379
+              440.402,
+              85.362
             ],
             [
-              440.306477,
-              86.254935
+              440.378,
+              85.302
             ],
             [
-              440.261794,
-              86.132067
+              440.331,
+              85.18
             ],
             [
-              440.240896,
-              86.073661
+              440.309,
+              85.122
             ],
             [
-              440.211529,
-              85.98709
+              440.278,
+              85.036
             ],
             [
-              440.197327,
-              85.944814
+              440.263,
+              84.994
             ],
             [
-              440.189764,
-              85.921666
+              440.255,
+              84.971
             ],
             [
-              440.163302,
-              85.840151
+              440.227,
+              84.89
             ],
             [
-              440.150099,
-              85.797893
+              440.213,
+              84.848
             ],
             [
-              440.130296,
-              85.734507
+              440.192,
+              84.785
             ],
             [
-              440.112435,
-              85.674158
+              440.173,
+              84.725
             ],
             [
-              440.088934,
-              85.594699
+              440.148,
+              84.646
             ],
             [
-              440.065529,
-              85.510241
+              440.123,
+              84.562
             ],
             [
-              440.054307,
-              85.469021
+              440.111,
+              84.521
             ],
             [
-              440.010457,
-              85.302162
+              440.064,
+              84.355
             ],
             [
-              439.987222,
-              85.208705
+              440.039,
+              84.262
             ],
             [
-              439.97336,
-              85.148432
+              440.024,
+              84.202
             ],
             [
-              439.959537,
-              85.086159
+              440.009,
+              84.14
             ],
             [
-              439.939263,
-              84.994759
+              439.987,
+              84.049
             ],
             [
-              439.907165,
-              84.841124
+              439.952,
+              83.896
             ],
             [
-              439.898981,
-              84.797961
+              439.943,
+              83.853
             ],
             [
-              439.886251,
-              84.730708
+              439.929,
+              83.786
             ],
             [
-              439.868242,
-              84.625349
+              439.909,
+              83.681
             ],
             [
-              439.852949,
-              84.535043
+              439.892,
+              83.591
             ],
             [
-              439.842238,
-              84.466828
+              439.88,
+              83.523
             ],
             [
-              439.838674,
-              84.443756
+              439.876,
+              83.5
             ],
             [
-              439.811389,
-              84.247205
+              439.845,
+              83.304
             ],
             [
-              439.799322,
-              84.144958
+              439.831,
+              83.202
             ],
             [
-              439.786502,
-              84.029695
+              439.816,
+              83.087
             ],
             [
-              439.779809,
-              83.960556
+              439.808,
+              83.018
             ],
             [
-              439.777302,
-              83.934503
+              439.805,
+              82.992
             ],
             [
-              439.773136,
-              83.890417
+              439.8,
+              82.948
             ],
             [
-              439.767462,
-              83.820297
+              439.793,
+              82.878
             ],
             [
-              439.763447,
-              83.768211
+              439.788,
+              82.826
             ],
             [
-              439.760262,
-              83.725143
+              439.784,
+              82.783
             ],
             [
-              439.755663,
-              83.651043
+              439.778,
+              82.709
             ],
             [
-              439.754137,
-              83.62601
+              439.776,
+              82.684
             ],
             [
-              439.751913,
-              83.58496
+              439.773,
+              82.643
             ],
             [
-              439.749728,
-              83.541911
+              439.77,
+              82.6
             ],
             [
-              439.745584,
-              83.443815
+              439.764,
+              82.502
             ],
             [
-              439.744322,
-              83.404784
+              439.762,
+              82.463
             ],
             [
-              439.740822,
-              83.272694
+              439.756,
+              82.331
             ],
             [
-              439.740428,
-              83.240681
+              439.755,
+              82.299
             ],
             [
-              439.739476,
-              83.079634
+              439.751,
+              82.138
             ],
             [
-              439.741107,
-              82.94064
+              439.75,
+              81.999
             ]
           ],
           "bonded_lens": [
             [
-              451.928213,
-              73.170561
+              451.75,
+              72.0
             ],
             [
-              461.926421,
-              73.359835
+              461.75,
+              72.0
             ],
             [
-              461.547872,
-              93.356253
+              461.75,
+              92.0
             ],
             [
-              451.549664,
-              93.166978
+              451.75,
+              92.0
             ]
           ]
         },
@@ -24740,16 +24905,16 @@
       {
         "object": "DP1_f75_order_iris_8_32",
         "center_xy_mm": [
-          527.452694,
-          277.850719
+          526.956,
+          275.67
         ],
         "diameter_mm": 10.0
       },
       {
         "object": "DP2_f75_order_iris_8_32",
         "center_xy_mm": [
-          499.453769,
-          56.737154
+          498.956,
+          54.67
         ],
         "diameter_mm": 10.0
       }

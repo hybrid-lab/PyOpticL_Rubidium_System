@@ -1,6 +1,27 @@
-"""Lattice baseplate V9.4 (2026-10-01) - 24 x 15 in, f = 300 mm folded cat-eyes.
+"""Lattice baseplate V9.4.1 (2026-10-04) - 24 x 15 in, f = 300 mm folded cat-eyes.
 
-What changes against V9.3 (the previous content of this file):
+V9.4.1 against V9.4 (two changes, nothing else moves):
+
+* Table bolts on the lab table's 1 in grid, whose first row is 1.5 in from
+  the table edge. The plate's fiber-side (right, +x) edge sits 0.25 in inside
+  the table edge, so a bolt (1.25 + n) in from that plate edge lands on row n.
+  The two fiber-side bolts are 3.25 in (n = 2) from the right edge, 13 in
+  apart and centred on the short edge (y = 12.7 and 342.9, i.e. 0.875 in from
+  the top and bottom edges); the two TA-side bolts are 19 in further left
+  (1.5 in from the left edge), 11 in apart and also centred (y = 38.1 and
+  317.5), so all four sit on 1 in grid points. In the script's nominal units:
+  (20.125, 0), (20.125, 13), (1.125, 1), (1.125, 12).
+* The optional f = 75 set (holes, QWP seat and the hardware of the two test
+  configurations) sits on the 0-order / input axis y = DP_Y straight after each
+  AOM - the V9.3 arrangement - instead of on the +1-order axis. The s-distances
+  from the AOM are unchanged (DP1 lens 73 / QWP 91 / iris 113 / faces 123 and
+  148; DP2 68 / 91 / 107 / 118 and 143); every element simply moves down by
+  s*sin(1.0846 deg) (1.3 .. 3.1 mm) and turns to the board axes. In the
+  test configurations the +1 order then passes the optics 1.4 mm off centre
+  (f*2*theta_B after the lens; 1.4 mm at the lens itself) - nothing for 1/2 in
+  optics - and the iris is centred on it with its slide.
+
+What changed in V9.4 against V9.3:
 
 * Cat-eye lens LA1618-B (1/2 in, f = 300 mm) instead of LA1612-B (f = 75): the
   focused spot on the retro mirror is 4x larger, 16x lower intensity. The plate
@@ -48,13 +69,14 @@ What changes against V9.3 (the previous content of this file):
 * The external telescope has both lenses on the input lane (LA1560-B hole at
   x = 349, LA1213-B 75.6 mm upstream); the injection leg carries no lens, so
   no holder sits between the two output steering mirrors' thumbscrews.
-* The four table bolts are the V9.2/V9.3 pattern, unchanged; (19,0) and (14,13)
-  now lie under a bare return-leg beam (install the bolts before aligning).
+* (V9.4) The four table bolts were the V9.2/V9.3 pattern; V9.4.1 replaces
+  them (see above). Both fiber-side bolts lie under a bare return-leg beam
+  (install the bolts before aligning).
 * The V9.3 geometry (f = 75 cat-eyes on a 24 x 14 in plate) is in the git
   history of this file; its lens/QWP/iris/mirror positions live on as the
   optional hole set below.
 * Optional f = 75 cat-eye (the V9.3 LA1612-B set) machined but not installed,
-  on the +1-order axis straight after each AOM: L05G tap for the lens, the RSP05
+  straight after each AOM (V9.4.1: on the 0-order axis): L05G tap for the lens, the RSP05
   lip-adapter seat (pocket + two taps) for a QWP, slide-mount tap for an order
   iris (post toward -y) and two M05 taps for the retro mirror at lens->mirror
   50 and lens->mirror 75 (no thumbscrew pockets there: plain hex key). Distances
@@ -111,10 +133,19 @@ PLATE_Y_OFFSET = -BOTTOM_EXTRA_IN*layout.inch   # keeps every old coordinate val
 base_dz = layout.inch
 gap = layout.inch/8
 
-# x-y coordinates of the table mount holes (in inches)
-# V9.4: same four bolts as V9.3. Two of them ((19,0) and (14,13)) now lie under a bare
-# return-leg beam 12.7 mm above the recessed bolt head - install the bolts before aligning.
-mount_holes = [(3, 12), (19, 0), (14, 13), (3, 0)]     # the V9.2/V9.3 pattern, unchanged
+# x-y coordinates of the table mount holes (in inches, nominal frame: centre at
+# ((mx+0.5), (my+0.5)) in; the solid plate is inset 0.125 in from the nominal outline).
+# V9.4.1: the lab table has a 1 in grid whose first row is 1.5 in from the table
+# edge. With the plate's fiber-side (right) edge 0.25 in inside the table edge, a
+# bolt (1.25 + n) in from that plate edge lands on grid row n:
+#   fiber-side pair  x = 606.425 - 3.25 in = 523.875 (n = 2), y = 12.7 / 342.9
+#                    (13 in apart, centred on the 14.75 in short edge, 0.875 in from it)
+#   TA-side pair     19 in further left: x = 41.275 (1.5 in from the left edge),
+#                    y = 38.1 / 317.5 (11 in apart, centred; 1 in inside the other pair)
+# All four are 1 in multiples apart, so they fall on the table grid together.
+# Both fiber-side bolts lie under a bare return-leg beam 12.7 mm above the
+# recessed bolt head - install the bolts before aligning.
+mount_holes = [(20.125, 0), (20.125, 13), (1.125, 1), (1.125, 12)]
 
 # --- common path ------------------------------------------------------------
 TOP_RUN_Y = 338.        # the run the TA folds sit on, above the isolator lane
@@ -221,15 +252,20 @@ DP1_OUT_ROT_X = 443.4    # DP1 rotating PBS, right of the DP1 RF neck zone
 EXT_LENS2_HOLE_X = 349.  # external LA1560-B holder tap (its footprint clears the DP1 output steering M05 thumbscrew)
 EXT_SPARE_DX = 125.      # spare external lens hole, PBS_X + 125
 # --- optional f = 75 cat-eye hole set (V9.3 LA1612-B layout), bare holes only ---
-# Distances along the +1-order axis from the AOM centre, per arm. The lens sits
-# short of the nominal 75 mm (DP1 73, DP2 68) so that the lens->mirror
-# distances stay exactly 50 / 75 while the "50" mirror thumbscrews (35.7 mm
-# behind its face) and the "75" mirror tap (12.96 mm behind) clear the fold
-# mount F1 / F3. AOM-side defocus only walks the return beam sideways by
-# 2*da*theta: 15 um (DP1) / 70 um (DP2) at the 80/120 MHz extremes.
+# Distances along the 0-order (input) axis y = DP_Y from the AOM centre, per
+# arm (V9.4.1; V9.4 had them on the +1-order axis). The lens sits short of the
+# nominal 75 mm (DP1 73, DP2 68) so that the lens->mirror distances stay
+# exactly 50 / 75 while the "50" mirror thumbscrews (35.7 mm behind its face)
+# and the "75" mirror tap (12.96 mm behind) clear the fold mount F1 / F3.
+# AOM-side defocus only walks the return beam sideways by 2*da*theta: 15 um
+# (DP1) / 70 um (DP2) at the 80/120 MHz extremes. In the test configurations
+# the +1 order runs 2*theta_B off this axis: 1.4 mm high at the lens, then
+# parallel to the axis f*2*theta_B = 1.4 mm above it (AOM in the front focal
+# plane) through the QWP, the iris and onto the retro mirror.
 F75 = {1: {'lens': 73., 'qwp': 91., 'iris': 113., 'face': {'50': 123., '75': 148.}},
        2: {'lens': 68., 'qwp': 91., 'iris': 107., 'face': {'50': 118., '75': 143.}}}
 F75_TAP_BEHIND_M05 = 12.96         # M05 tap behind a 6 mm mirror face
+F75_PLUS1_OFFSET_AFTER_LENS = LENSES['LA1612-B'][3]*math.tan(DIFF_ANGLE_RAD)   # 1.44 mm: f*2*theta_B
 RSP05_TAP_ALONG, RSP05_TAP_ACROSS = 0.9, 12.5     # (for reference: the seat is machined by the RSP05 adapter object itself)
 IRIS_TAP_ALONG, IRIS_TAP_ACROSS = 1.956, -27.33   # slide-mount tap, post side
 
@@ -295,12 +331,22 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
             'alternate': False, 'service_regions': [], 'output_optical_routes': [],
             'layout_variant': 'Hand sketch V9',
             'plate_size_mm': [base_dx, base_dy, base_dz],
-            'layout_status': 'V9.4 (2026-10-01): f = 300 folded cat-eyes on the +1-order axis, optional f = 75 hole set, '
-                             'all mirrors M05, DP2 output row above its AOM row, 24 x 15 in plate.'
+            'layout_status': 'V9.4.1 (2026-10-04): f = 300 folded cat-eyes on the +1-order axis, optional f = 75 '
+                             'hole set on the 0-order axis, table bolts on the 1 in grid (fiber-side pair 3.25 in '
+                             'from the right edge, 13 in apart, centred), all mirrors M05, DP2 output row above '
+                             'its AOM row, 24 x 15 in plate.'
                              + ('' if cat_eye == '300' else ' TEST CONFIGURATION cat_eye=%s on the same plate.' % cat_eye)}
     hidden = []
-    # the hole audit checks the table bolts against this list (unchanged since V9.2)
+    # the hole audit checks the table bolts against this list (V9.4.1 pattern)
     info['mount_holes_mm'] = [((mx+.5)*layout.inch, (my+.5)*layout.inch) for mx, my in mount_holes]
+    info['table_bolt_pattern'] = {
+        'table_grid_in': 1.0, 'table_first_row_from_table_edge_in': 1.5,
+        'plate_fiber_edge_inside_table_edge_in': 0.25,
+        'fiber_side_pair': {'from_plate_right_edge_in': 3.25, 'n': 2, 'spacing_in': 13,
+                            'centred_on_short_edge': True, 'xy_mm': [(523.875, 12.7), (523.875, 342.9)]},
+        'ta_side_pair': {'from_plate_left_edge_in': 1.5, 'spacing_in': 11, 'centred_on_short_edge': True,
+                         'xy_mm': [(41.275, 38.1), (41.275, 317.5)]},
+        'plate_edges_mm': {'x': [3.175, 606.425], 'y': [-9.525, 365.125]}}
 
     # ---- placement helpers, so every optic below is a single readable line ----
     def put(name, cls, px, py, pangle=0, **kw):
@@ -459,8 +505,12 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
     pbs('DP1 separation PBS', dp1_sep_x, DP1_Y, 0, invert=False)
     # angle 0: RF connector toward -y, KM100PM upstream of the AOM, so the
     # RF elbow sits between the DP1 and OUT1 rows and the top edge stays free
+    # DiffractionAngle is the AOM object's record of the modelled downstream axis:
+    # the +1 order (kinked) for the f = 300 chain, the input axis for the f = 75
+    # test configurations (V9.3 convention); the body placement is the same.
+    aom_axis_deg = 0. if f75_installed else DIFF_ANGLE_DEG
     dp1_aom = put('DP1 AOMO 3100-125', optomech.AOMO_3100_125, dp1_aom_x, DP1_Y, 0,
-                  forward_direction=-1, backward_direction=1, diffraction_angle=DIFF_ANGLE_DEG,
+                  forward_direction=-1, backward_direction=1, diffraction_angle=aom_axis_deg,
                   surface_adapter_args={'adapter_height': 5})
     dp1_seat = optomech.integrate_aom(baseplate, dp1_aom)
     info['extra_cuts'].append(dp1_seat)
@@ -498,7 +548,7 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
     # returning beam toward +y (invert=True)
     pbs('DP2 separation PBS', dp2_sep_x, DP2_Y, 0, invert=True)
     dp2_aom = put('DP2 AOMO 3100-125', optomech.AOMO_3100_125, dp2_aom_x, DP2_Y, 0,
-                  forward_direction=-1, backward_direction=1, diffraction_angle=DIFF_ANGLE_DEG,
+                  forward_direction=-1, backward_direction=1, diffraction_angle=aom_axis_deg,
                   surface_adapter_args={'adapter_height': 5})
     dp2_seat = optomech.integrate_aom(baseplate, dp2_aom)
     info['extra_cuts'].append(dp2_seat)
@@ -528,20 +578,21 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
     # =========================================================================
     # 5b. Optional f = 75 cat-eye hole sets (bare 8-32 taps, nothing installed)
     # =========================================================================
-    up = _rot90(d1, ccw=True)          # +y-ish, across the +1 axis, both arms
+    # V9.4.1: the set lies on the 0-order (input) axis y = DP_Y, elements at
+    # angle 0 (lens, QWP, iris) and 180 (retro mirror), as in V9.3.
     f75_holes, f75_lens_holes, f75_parts, f75_seats = [], [], {}, []
-    f75_note = ('Bare 8-32 hole of the OPTIONAL f = 75 cat-eye (V9.3 LA1612-B set) on the +1-order '
-                'axis; nothing is installed in V9.4. ')
+    f75_note = ('Bare 8-32 hole of the OPTIONAL f = 75 cat-eye (V9.3 LA1612-B set) on the 0-order '
+                '(input) axis straight after the AOM; nothing is installed in V9.4. ')
 
     def f75_set(index, A):
         tag, geo = 'DP%d ' % index, F75[index]
         def at(s, t=0.):
-            return (A[0] + s*d1[0] + t*up[0], A[1] + s*d1[1] + t*up[1])
+            return (A[0] + s, A[1] + t)
         # The RSP05 lip adapter needs its 23 x 48 x 9.3 mm pocket, not just two
         # taps, so the QWP seat is always machined: the RSP05 object is placed in
         # every configuration and marked not-installed (hidden, excluded from the
         # audits) when the f = 75 set is absent - like the single-TA blocker seat.
-        f_qwp = wp(tag+'f75 cat eye QWP', *at(geo['qwp']), DIFF_ANGLE_DEG)
+        f_qwp = wp(tag+'f75 cat eye QWP', *at(geo['qwp']), 0.)
         f_qwp.addProperty('App::PropertyBool', 'InstalledInThisMode', 'Installation')
         f_qwp.InstalledInThisMode = f75_installed
         if not f75_installed:
@@ -551,11 +602,11 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
         if f75_installed:
             # test configuration: the set is mounted on exactly the holes drilled
             # for it (each part's own DrillPart lands on the bare-hole position)
-            f_lens = lens(tag+'f75 LA1612-B', 'LA1612-B', *at(geo['lens']), DIFF_ANGLE_DEG)
-            f_iris = put(tag+'f75 order iris', optomech.pinhole_ida12, *at(geo['iris']), DIFF_ANGLE_DEG)
+            f_lens = lens(tag+'f75 LA1612-B', 'LA1612-B', *at(geo['lens']), 0.)
+            f_iris = put(tag+'f75 order iris', optomech.pinhole_ida12, *at(geo['iris']), 0.)
             face_s = geo['face'][f75_mirror_key]
             f_retro = put(tag+'f75 retro mirror (lens->mirror %s)' % f75_mirror_key,
-                          optomech.circular_mirror_union_optic, *at(face_s), 180.+DIFF_ANGLE_DEG,
+                          optomech.circular_mirror_union_optic, *at(face_s), 180.,
                           thickness=6, mount_type=optomech.mirror_mount_M05, mount_args={'thumbscrews': False})
             f75_parts[index] = {'lens': f_lens, 'qwp': f_qwp, 'iris': f_iris, 'retro': f_retro,
                                 'A': A, 'lens_xy': at(geo['lens']), 'qwp_xy': at(geo['qwp']),
@@ -683,18 +734,26 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
              [.6, .6, .6, .6, .6, .6, .6*(1. - (LZ2[0]-Q2[0])/CAT_EFL_795), w_focus],
              KINKED, kink_deg=DIFF_ANGLE_DEG)
     else:
-        # f = 75 test: AOM -> LA1612-B -> QWP -> iris -> retro on the +1 axis; the
-        # beam converges after the lens (geometric envelope toward the focus
-        # EFL 75.87 behind the lens; focal spot 0.038 mm)
+        # f = 75 test (V9.4.1): AOM -> LA1612-B -> QWP -> iris -> retro on the
+        # 0-order (input) axis, as in V9.3. The +1 order leaves the AOM 2*theta_B
+        # above that axis and, the AOM being in the lens's front focal plane,
+        # runs parallel to it f*2*theta_B = 1.4 mm above after the lens, where
+        # it converges toward its focus (EFL 75.87 behind the lens, spot
+        # 0.038 mm). The envelope radius below covers BOTH orders: the nominal
+        # 0.6 mm about the +1 order plus its offset from the modelled axis.
         f75_efl = LENSES['LA1612-B'][3]
+        f75_offset_after_lens = F75_PLUS1_OFFSET_AFTER_LENS             # 1.44 mm
         for index, sep_x, row_y, color in ((1, dp1_sep_x, DP1_Y, BLUE), (2, dp2_sep_x, DP2_Y, GREEN)):
             pr = f75_parts[index]
             def env(s):
-                return max(.6*(1. - (s - pr['lens_s'])/f75_efl), .038)
+                return max(.6*(1. - (s - pr['lens_s'])/f75_efl), .038) + f75_offset_after_lens
             path('DP%d double pass' % index,
                  [(sep_x, row_y), pr['A'], pr['lens_xy'], pr['qwp_xy'], pr['iris_xy'], pr['retro_xy']], color,
-                 [.6, .6, .6, env(F75[index]['qwp']), env(F75[index]['iris']), env(pr['mirror_s'])],
-                 KINKED + ' f = 75 test configuration (%s).' % cat_eye, kink_deg=DIFF_ANGLE_DEG)
+                 [.6, .6, .6 + pr['lens_s']*math.tan(DIFF_ANGLE_RAD),
+                  env(F75[index]['qwp']), env(F75[index]['iris']), env(pr['mirror_s'])],
+                 'f = 75 test configuration (%s) on the 0-order axis; the envelope includes the +1 order, '
+                 '2*theta_B = %.4f deg off the input axis at %g MHz (1.4 mm above the axis after the lens). '
+                 % (cat_eye, DIFF_ANGLE_DEG, AOM_RF_DESIGN_HZ/1e6) + DOWNSTREAM)
     for out in outputs:
         path('DP%d output' % out['index'],
              [(out['sep_x'], out['source_y']), (out['sep_x'], out['row_y']),
@@ -755,7 +814,9 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
             info['arms'].append({'id': index, 'aom': aom.Name, 'lens': pr['lens'].Name, 'retro': pr['retro'].Name,
                                  'integral_seat': seat.Name, 'aom_to_cat': pr['lens_s'],
                                  'cat_to_mirror': pr['mirror_s'] - pr['lens_s'], 'folded': False,
-                                 'diffraction_kink_deg': DIFF_ANGLE_DEG, 'configuration': cat_eye,
+                                 'axis': '0-order (input) axis; +1 order %.2f mm above it after the lens'
+                                         % F75_PLUS1_OFFSET_AFTER_LENS,
+                                 'diffraction_kink_deg': 0., 'configuration': cat_eye,
                                  'idle_f300_chain': [cat.Name, retro.Name]})
             info['geometry_assertions'].extend([
                 {'name': tag+'f75 AOM -> LA1612-B plane', 'measured': _dist(pr['A'], pr['lens_xy']),
@@ -807,10 +868,12 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
     # clamps are TAIL_CLAMP_WIDTH wide (audit default 50), so rows 40 mm apart do not overlap
     info.setdefault('fiber_clearance', {}).update({'rear_offsets_mm': [REAR_CLAMP_OFFSET],
                                                    'clamp_width_mm': TAIL_CLAMP_WIDTH})
-    # bolts (19,0) and (14,13) lie under bare return-leg beams: install before aligning
+    # both fiber-side bolts (20.125,0) and (20.125,13) lie under bare return-leg
+    # beams: install before aligning
     info.setdefault('hole_clearance', {})['platform_beam_crossings_allowed'] = True
-    # the optional f75 lens and mirror taps sit on the +1-order axis by design:
-    # empty holes 12.7 mm below the f = 300 beam, usable only with that beam absent
+    # the optional f75 lens and mirror taps sit on the 0-order axis by design:
+    # empty holes 12.7 mm below the input beam, usable only with the f = 300
+    # chain's first fold removed or the beam absent
     info['hole_clearance']['empty_holes_under_beam_allowed'] = [
         o.Label for o in f75_holes if 'lens' in o.Label or 'retro mirror' in o.Label]
 
@@ -845,8 +908,8 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
                                  [beam_dir[i+1] for i in range(6)]))
             + list(zip(external_holes, external_beam_dirs))
             # the two optional f75 lens taps are audited with the L05G footprint
-            # (beam along the +1 axis); the QWP and iris taps with a 10 mm disk
-            + [(o, d1) for o in f75_lens_holes]]
+            # (beam along +x, the 0-order axis); the QWP and iris taps with a 10 mm disk
+            + [(o, (1., 0.)) for o in f75_lens_holes]]
             + [{'object': o.Name, 'center_xy_mm': [o.BasePlacement.Base.x, o.BasePlacement.Base.y],
                 'diameter_mm': 10.0}
                for o in f75_holes if o not in f75_lens_holes and 'retro mirror' not in o.Label]}
@@ -907,6 +970,8 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
         'cat_eye_defocus_mm': {'aom_side': CAT_DEFOCUS_AOM_SIDE, 'mirror_side': CAT_DEFOCUS_MIRROR_SIDE,
                                'accepted': True},
         'f75_option': {'distances_from_aom_mm': {'DP%d' % k: v for k, v in F75.items()},
+                       'axis': '0-order (input) axis y = DP_Y (V9.4.1; V9.4 used the +1-order axis)',
+                       'plus1_offset_after_lens_mm': F75_PLUS1_OFFSET_AFTER_LENS,
                        'installed': f75_installed, 'configuration': cat_eye,
                        'bare_holes': [o.Name for o in f75_holes],
                        'note': 'With the lens->mirror 50 position every f = 300 part may stay installed; '
@@ -926,7 +991,7 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
     plate.Drill = drill
     plate.touch()
     doc.recompute()
-    doc.Label = ('Lattice V9.4 - ' + ('single TA' if mode == 'single' else 'external TA')
+    doc.Label = ('Lattice V9.4.1 - ' + ('single TA' if mode == 'single' else 'external TA')
                  + ('' if cat_eye == '300' else ' - f75 test ' + cat_eye))
     return info
 
