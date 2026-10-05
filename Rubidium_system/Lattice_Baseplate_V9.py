@@ -1,16 +1,30 @@
-"""Lattice baseplate V9.4.1 (2026-10-04) - 24 x 15 in, f = 300 mm folded cat-eyes.
+"""Lattice baseplate V9.4.2 (2026-10-04) - 24 x 15 in, f = 300 mm folded cat-eyes.
+
+V9.4.2 against V9.4.1 (bolt pairs no more than 10 in apart):
+
+* Both table-bolt pairs are now exactly 10 in apart and centred on the short
+  edge (y = 50.8 and 304.8, i.e. 2.375 in from the top and bottom edges). The
+  right-hand part of the plate between those two rows is full (0-order
+  irises, the optional f = 75 set, the output heads), so the fiber-side pair
+  moves inboard to 6.25 in (n = 5) from the right edge, x = 447.675: between
+  the AOM housings (x <= 426) and the optional f = 75 lens holders (x >= 465).
+  The TA-side pair stays 1.5 in from the left edge (x = 41.275), 16 in to the
+  left of the other pair. Nominal units: (17.125, 1.5), (17.125, 11.5),
+  (1.125, 1.5), (1.125, 11.5).
+* The TA block moves 5 mm up (TA_XY (60, 140) -> (60, 145)) so that its
+  adapter pocket clears the lower-left bolt by 5.3 mm; nothing else moves.
+* The upper fiber-side bolt lies under the DP1 beam between the AOM and the
+  f = 75 lens position (1.1 mm off the +1-order axis): install before aligning.
 
 V9.4.1 against V9.4 (two changes, nothing else moves):
 
 * Table bolts on the lab table's 1 in grid, whose first row is 1.5 in from
   the table edge. The plate's fiber-side (right, +x) edge sits 0.25 in inside
   the table edge, so a bolt (1.25 + n) in from that plate edge lands on row n.
-  The two fiber-side bolts are 3.25 in (n = 2) from the right edge, 13 in
-  apart and centred on the short edge (y = 12.7 and 342.9, i.e. 0.875 in from
-  the top and bottom edges); the two TA-side bolts are 19 in further left
-  (1.5 in from the left edge), 11 in apart and also centred (y = 38.1 and
-  317.5), so all four sit on 1 in grid points. In the script's nominal units:
-  (20.125, 0), (20.125, 13), (1.125, 1), (1.125, 12).
+  V9.4.1 had the two fiber-side bolts 3.25 in (n = 2) from the right edge,
+  13 in apart and centred on the short edge, and the two TA-side bolts 19 in
+  further left (1.5 in from the left edge), 11 in apart and also centred, so
+  all four sat on 1 in grid points (superseded by V9.4.2 above).
 * The optional f = 75 set (holes, QWP seat and the hardware of the two test
   configurations) sits on the 0-order / input axis y = DP_Y straight after each
   AOM - the V9.3 arrangement - instead of on the +1-order axis. The s-distances
@@ -69,9 +83,8 @@ What changed in V9.4 against V9.3:
 * The external telescope has both lenses on the input lane (LA1560-B hole at
   x = 349, LA1213-B 75.6 mm upstream); the injection leg carries no lens, so
   no holder sits between the two output steering mirrors' thumbscrews.
-* (V9.4) The four table bolts were the V9.2/V9.3 pattern; V9.4.1 replaces
-  them (see above). Both fiber-side bolts lie under a bare return-leg beam
-  (install the bolts before aligning).
+* (V9.4) The four table bolts were the V9.2/V9.3 pattern; V9.4.1/V9.4.2
+  replace them (see above).
 * The V9.3 geometry (f = 75 cat-eyes on a 24 x 14 in plate) is in the git
   history of this file; its lens/QWP/iris/mirror positions live on as the
   optional hole set below.
@@ -135,21 +148,24 @@ gap = layout.inch/8
 
 # x-y coordinates of the table mount holes (in inches, nominal frame: centre at
 # ((mx+0.5), (my+0.5)) in; the solid plate is inset 0.125 in from the nominal outline).
-# V9.4.1: the lab table has a 1 in grid whose first row is 1.5 in from the table
-# edge. With the plate's fiber-side (right) edge 0.25 in inside the table edge, a
-# bolt (1.25 + n) in from that plate edge lands on grid row n:
-#   fiber-side pair  x = 606.425 - 3.25 in = 523.875 (n = 2), y = 12.7 / 342.9
-#                    (13 in apart, centred on the 14.75 in short edge, 0.875 in from it)
-#   TA-side pair     19 in further left: x = 41.275 (1.5 in from the left edge),
-#                    y = 38.1 / 317.5 (11 in apart, centred; 1 in inside the other pair)
+# The lab table has a 1 in grid whose first row is 1.5 in from the table edge.
+# With the plate's fiber-side (right) edge 0.25 in inside the table edge, a
+# bolt (1.25 + n) in from that plate edge lands on grid row n. V9.4.2: both
+# pairs 10 in apart (the maximum allowed) and centred on the 14.75 in short
+# edge, y = 50.8 / 304.8 (2.375 in from the top and bottom edges):
+#   fiber-side pair  x = 606.425 - 6.25 in = 447.675 (n = 5): between the AOM
+#                    housings (x <= 426) and the optional f = 75 lens holders (x >= 465).
+#                    Nearer the fiber edge every centred 10 in pair hits the 0-order
+#                    irises, the f = 75 option or the output heads.
+#   TA-side pair     16 in further left: x = 41.275 (1.5 in from the left edge)
 # All four are 1 in multiples apart, so they fall on the table grid together.
-# Both fiber-side bolts lie under a bare return-leg beam 12.7 mm above the
-# recessed bolt head - install the bolts before aligning.
-mount_holes = [(20.125, 0), (20.125, 13), (1.125, 1), (1.125, 12)]
+# The upper fiber-side bolt lies under the DP1 beam (AOM -> f = 75 lens position)
+# 12.7 mm above the recessed bolt head - install the bolts before aligning.
+mount_holes = [(17.125, 1.5), (17.125, 11.5), (1.125, 1.5), (1.125, 11.5)]
 
 # --- common path ------------------------------------------------------------
 TOP_RUN_Y = 338.        # the run the TA folds sit on, above the isolator lane
-TA_XY = (60., 140.)     # TA emits +y
+TA_XY = (60., 145.)     # TA emits +y (V9.4.2: 140 -> 145, the adapter pocket clears the lower-left bolt by 5.3 mm)
 LANE_X = 130.           # isolator lane: HWP, isolator, QWP, stations 1-3 (V9.4: 138 -> 130, 8 mm nearer the TA)
 CELL_X = LANE_X + 66.   # 196: fold 2, stations 5/6, cell, shutter, fold 3
 MAIN_Y = 274.5          # top run: fold 3 -> power HWP -> main PBS (V9.4: 278.5 -> 274.5)
@@ -331,21 +347,21 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
             'alternate': False, 'service_regions': [], 'output_optical_routes': [],
             'layout_variant': 'Hand sketch V9',
             'plate_size_mm': [base_dx, base_dy, base_dz],
-            'layout_status': 'V9.4.1 (2026-10-04): f = 300 folded cat-eyes on the +1-order axis, optional f = 75 '
-                             'hole set on the 0-order axis, table bolts on the 1 in grid (fiber-side pair 3.25 in '
-                             'from the right edge, 13 in apart, centred), all mirrors M05, DP2 output row above '
-                             'its AOM row, 24 x 15 in plate.'
+            'layout_status': 'V9.4.2 (2026-10-04): f = 300 folded cat-eyes on the +1-order axis, optional f = 75 '
+                             'hole set on the 0-order axis, table bolts on the 1 in grid (both pairs 10 in apart and '
+                             'centred; fiber-side pair 6.25 in from the right edge, TA-side pair 1.5 in from the left '
+                             'edge), TA 5 mm up, all mirrors M05, DP2 output row above its AOM row, 24 x 15 in plate.'
                              + ('' if cat_eye == '300' else ' TEST CONFIGURATION cat_eye=%s on the same plate.' % cat_eye)}
     hidden = []
-    # the hole audit checks the table bolts against this list (V9.4.1 pattern)
+    # the hole audit checks the table bolts against this list (V9.4.2 pattern)
     info['mount_holes_mm'] = [((mx+.5)*layout.inch, (my+.5)*layout.inch) for mx, my in mount_holes]
     info['table_bolt_pattern'] = {
         'table_grid_in': 1.0, 'table_first_row_from_table_edge_in': 1.5,
-        'plate_fiber_edge_inside_table_edge_in': 0.25,
-        'fiber_side_pair': {'from_plate_right_edge_in': 3.25, 'n': 2, 'spacing_in': 13,
-                            'centred_on_short_edge': True, 'xy_mm': [(523.875, 12.7), (523.875, 342.9)]},
-        'ta_side_pair': {'from_plate_left_edge_in': 1.5, 'spacing_in': 11, 'centred_on_short_edge': True,
-                         'xy_mm': [(41.275, 38.1), (41.275, 317.5)]},
+        'plate_fiber_edge_inside_table_edge_in': 0.25, 'max_pair_spacing_in': 10,
+        'fiber_side_pair': {'from_plate_right_edge_in': 6.25, 'n': 5, 'spacing_in': 10,
+                            'centred_on_short_edge': True, 'xy_mm': [(447.675, 50.8), (447.675, 304.8)]},
+        'ta_side_pair': {'from_plate_left_edge_in': 1.5, 'spacing_in': 10, 'centred_on_short_edge': True,
+                         'xy_mm': [(41.275, 50.8), (41.275, 304.8)]},
         'plate_edges_mm': {'x': [3.175, 606.425], 'y': [-9.525, 365.125]}}
 
     # ---- placement helpers, so every optic below is a single readable line ----
@@ -844,7 +860,7 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
 
     info['service_regions'].append(
         {'name': 'TA thick bottom cable', 'kind': 'ta_cable', 'owner': ta.Name,
-         'origin_xy_mm': [9.844387, 110.075], 'direction_xy': [-1., 0.], 'length_mm': 101.6,
+         'origin_xy_mm': [9.844387, TA_XY[1] - 29.925], 'direction_xy': [-1., 0.], 'length_mm': 101.6,
          'width_mm': 96.25, 'allowed_paths': [], 'dimensions_verified': False,
          'assumptions': ['Conservative TA full body-width cable projection; connector dimensions '
                          'unverified. The 101.6 mm corridor extends beyond the plate left edge.']})
@@ -868,8 +884,8 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
     # clamps are TAIL_CLAMP_WIDTH wide (audit default 50), so rows 40 mm apart do not overlap
     info.setdefault('fiber_clearance', {}).update({'rear_offsets_mm': [REAR_CLAMP_OFFSET],
                                                    'clamp_width_mm': TAIL_CLAMP_WIDTH})
-    # both fiber-side bolts (20.125,0) and (20.125,13) lie under bare return-leg
-    # beams: install before aligning
+    # the upper fiber-side bolt (17.125, 11.5) lies under the DP1 beam between
+    # the AOM and the f = 75 lens position: install before aligning
     info.setdefault('hole_clearance', {})['platform_beam_crossings_allowed'] = True
     # the optional f75 lens and mirror taps sit on the 0-order axis by design:
     # empty holes 12.7 mm below the input beam, usable only with the f = 300
@@ -991,7 +1007,7 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
     plate.Drill = drill
     plate.touch()
     doc.recompute()
-    doc.Label = ('Lattice V9.4.1 - ' + ('single TA' if mode == 'single' else 'external TA')
+    doc.Label = ('Lattice V9.4.2 - ' + ('single TA' if mode == 'single' else 'external TA')
                  + ('' if cat_eye == '300' else ' - f75 test ' + cat_eye))
     return info
 

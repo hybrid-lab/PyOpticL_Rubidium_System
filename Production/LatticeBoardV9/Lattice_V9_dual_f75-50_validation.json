@@ -27,46 +27,46 @@
       "class": "IntegralAOMBaseplate"
     },
     {
-      "name": "Mount_Hole__20__0_",
-      "label": "Mount Hole (20, 0)",
+      "name": "Mount_Hole__17__1_",
+      "label": "Mount Hole (17, 1)",
       "type": "Part::FeaturePython",
       "state": [
         "Up-to-date"
       ],
       "bbox": [
-        518.975,
-        7.813701393812217,
+        442.775,
+        45.91370139381222,
         -38.099999999999994,
-        528.775,
-        17.586298606187782,
+        452.57499999999993,
+        55.686298606187776,
         -14.699999999999996
       ],
       "position": [
-        523.875,
-        12.7,
+        447.67499999999995,
+        50.8,
         0.0
       ],
       "valid": true,
       "class": "baseplate_mount"
     },
     {
-      "name": "Mount_Hole__20__13_",
-      "label": "Mount Hole (20, 13)",
+      "name": "Mount_Hole__17__11_",
+      "label": "Mount Hole (17, 11)",
       "type": "Part::FeaturePython",
       "state": [
         "Up-to-date"
       ],
       "bbox": [
-        518.975,
-        338.0137013938122,
+        442.775,
+        299.9137013938122,
         -38.099999999999994,
-        528.775,
-        347.78629860618776,
+        452.57499999999993,
+        309.68629860618773,
         -14.699999999999996
       ],
       "position": [
-        523.875,
-        342.9,
+        447.67499999999995,
+        304.79999999999995,
         0.0
       ],
       "valid": true,
@@ -81,38 +81,38 @@
       ],
       "bbox": [
         36.375,
-        33.213701393812215,
+        45.91370139381222,
         -38.099999999999994,
         46.175,
-        42.98629860618777,
+        55.686298606187776,
         -14.699999999999996
       ],
       "position": [
         41.275,
-        38.099999999999994,
+        50.8,
         0.0
       ],
       "valid": true,
       "class": "baseplate_mount"
     },
     {
-      "name": "Mount_Hole__1__12_",
-      "label": "Mount Hole (1, 12)",
+      "name": "Mount_Hole__1__11_",
+      "label": "Mount Hole (1, 11)",
       "type": "Part::FeaturePython",
       "state": [
         "Up-to-date"
       ],
       "bbox": [
         36.375,
-        312.6137013938122,
+        299.9137013938122,
         -38.099999999999994,
         46.175,
-        322.3862986061878,
+        309.68629860618773,
         -14.699999999999996
       ],
       "position": [
         41.275,
-        317.5,
+        304.79999999999995,
         0.0
       ],
       "valid": true,
@@ -127,15 +127,15 @@
       ],
       "bbox": [
         9.844387054443345,
-        61.94999694824219,
+        66.94999694824219,
         -13.000001907348633,
         90.80000495910645,
-        158.20000076293945,
+        163.20000076293945,
         12.512941360473633
       ],
       "position": [
         60.0,
-        140.0,
+        145.0,
         0.0
       ],
       "class": "TA_butterfly_on_adapter",
@@ -152,15 +152,15 @@
       ],
       "bbox": [
         11.999511718749986,
-        60.20003509521483,
+        65.20003509521483,
         -24.30000114440918,
         119.99951553344727,
-        160.20003509521484,
+        165.20003509521484,
         -13.000001907348633
       ],
       "position": [
         60.0,
-        140.0,
+        145.0,
         0.0
       ],
       "class": "TA_adapter",
@@ -4808,7 +4808,7 @@
       ],
       "bbox": [
         60.0,
-        140.0,
+        145.0,
         0.0,
         130.0,
         338.0,
@@ -5397,7 +5397,7 @@
       "points": [
         [
           60.0,
-          140.0
+          145.0
         ],
         [
           60.0,
@@ -5886,7 +5886,7 @@
       "owner": "TA",
       "origin_xy_mm": [
         9.844387,
-        110.075
+        115.075
       ],
       "direction_xy": [
         -1.0,
@@ -6128,7 +6128,7 @@
     }
   ],
   "output_optical_scope": {},
-  "layout_status": "V9.4.1 (2026-10-04): f = 300 folded cat-eyes on the +1-order axis, optional f = 75 hole set on the 0-order axis, table bolts on the 1 in grid (fiber-side pair 3.25 in from the right edge, 13 in apart, centred), all mirrors M05, DP2 output row above its AOM row, 24 x 15 in plate. TEST CONFIGURATION cat_eye=75-50 on the same plate.",
+  "layout_status": "V9.4.2 (2026-10-04): f = 300 folded cat-eyes on the +1-order axis, optional f = 75 hole set on the 0-order axis, table bolts on the 1 in grid (both pairs 10 in apart and centred; fiber-side pair 6.25 in from the right edge, TA-side pair 1.5 in from the left edge), TA 5 mm up, all mirrors M05, DP2 output row above its AOM row, 24 x 15 in plate. TEST CONFIGURATION cat_eye=75-50 on the same plate.",
   "plate_size_mm": [
     609.5999999999999,
     381.0,
@@ -6228,54 +6228,55 @@
   },
   "platform_holes_mm": [
     [
-      523.875,
-      12.7
+      447.67499999999995,
+      50.8
     ],
     [
-      523.875,
-      342.9
-    ],
-    [
-      41.275,
-      38.099999999999994
+      447.67499999999995,
+      304.79999999999995
     ],
     [
       41.275,
-      317.5
+      50.8
+    ],
+    [
+      41.275,
+      304.79999999999995
     ]
   ],
   "table_bolt_pattern": {
     "table_grid_in": 1.0,
     "table_first_row_from_table_edge_in": 1.5,
     "plate_fiber_edge_inside_table_edge_in": 0.25,
+    "max_pair_spacing_in": 10,
     "fiber_side_pair": {
-      "from_plate_right_edge_in": 3.25,
-      "n": 2,
-      "spacing_in": 13,
+      "from_plate_right_edge_in": 6.25,
+      "n": 5,
+      "spacing_in": 10,
       "centred_on_short_edge": true,
       "xy_mm": [
         [
-          523.875,
-          12.7
+          447.675,
+          50.8
         ],
         [
-          523.875,
-          342.9
+          447.675,
+          304.8
         ]
       ]
     },
     "ta_side_pair": {
       "from_plate_left_edge_in": 1.5,
-      "spacing_in": 11,
+      "spacing_in": 10,
       "centred_on_short_edge": true,
       "xy_mm": [
         [
           41.275,
-          38.1
+          50.8
         ],
         [
           41.275,
-          317.5
+          304.8
         ]
       ]
     },
@@ -6908,7 +6909,7 @@
         "owner": "TA",
         "origin_xy_mm": [
           9.844387,
-          110.075
+          115.075
         ],
         "direction_xy": [
           -1.0,
@@ -7150,7 +7151,7 @@
       }
     ],
     "output_optical_scope": {},
-    "layout_status": "V9.4.1 (2026-10-04): f = 300 folded cat-eyes on the +1-order axis, optional f = 75 hole set on the 0-order axis, table bolts on the 1 in grid (fiber-side pair 3.25 in from the right edge, 13 in apart, centred), all mirrors M05, DP2 output row above its AOM row, 24 x 15 in plate. TEST CONFIGURATION cat_eye=75-50 on the same plate.",
+    "layout_status": "V9.4.2 (2026-10-04): f = 300 folded cat-eyes on the +1-order axis, optional f = 75 hole set on the 0-order axis, table bolts on the 1 in grid (both pairs 10 in apart and centred; fiber-side pair 6.25 in from the right edge, TA-side pair 1.5 in from the left edge), TA 5 mm up, all mirrors M05, DP2 output row above its AOM row, 24 x 15 in plate. TEST CONFIGURATION cat_eye=75-50 on the same plate.",
     "fiber_clearance": {
       "rear_offsets_mm": [
         76.0
@@ -7249,7 +7250,7 @@
           }
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 3.531
+        "elapsed_seconds": 3.922
       }
     ],
     "confirmed_mesh_contacts": [],
@@ -8612,19 +8613,19 @@
     ],
     "platform_fasteners": [
       {
-        "object": "Mount_Hole__20__0_",
+        "object": "Mount_Hole__17__1_",
         "position": [
-          523.875,
-          12.7,
+          447.675,
+          50.8,
           0.0
         ],
         "status": "Original CAD fastener volume included in assembly collision checks"
       },
       {
-        "object": "Mount_Hole__20__13_",
+        "object": "Mount_Hole__17__11_",
         "position": [
-          523.875,
-          342.9,
+          447.675,
+          304.8,
           0.0
         ],
         "status": "Original CAD fastener volume included in assembly collision checks"
@@ -8633,16 +8634,16 @@
         "object": "Mount_Hole__1__1_",
         "position": [
           41.275,
-          38.1,
+          50.8,
           0.0
         ],
         "status": "Original CAD fastener volume included in assembly collision checks"
       },
       {
-        "object": "Mount_Hole__1__12_",
+        "object": "Mount_Hole__1__11_",
         "position": [
           41.275,
-          317.5,
+          304.8,
           0.0
         ],
         "status": "Original CAD fastener volume included in assembly collision checks"
@@ -8650,13 +8651,13 @@
     ],
     "drill_cut_checks": [
       {
-        "object": "Mount_Hole__20__0_",
+        "object": "Mount_Hole__17__1_",
         "cut_inside_plate_envelope_mm3": 2130.756887,
         "residual_plate_in_cut_mm3": 0.0,
         "status": "cut_removed_from_plate"
       },
       {
-        "object": "Mount_Hole__20__13_",
+        "object": "Mount_Hole__17__11_",
         "cut_inside_plate_envelope_mm3": 2130.756887,
         "residual_plate_in_cut_mm3": 0.0,
         "status": "cut_removed_from_plate"
@@ -8668,7 +8669,7 @@
         "status": "cut_removed_from_plate"
       },
       {
-        "object": "Mount_Hole__1__12_",
+        "object": "Mount_Hole__1__11_",
         "cut_inside_plate_envelope_mm3": 2130.756887,
         "residual_plate_in_cut_mm3": 0.0,
         "status": "cut_removed_from_plate"
@@ -10857,7 +10858,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 3,
         "screened_samples": 97195,
-        "elapsed_seconds": 0.515
+        "elapsed_seconds": 0.625
       },
       {
         "arm": 1,
@@ -10898,7 +10899,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 3,
         "screened_samples": 97195,
-        "elapsed_seconds": 0.485
+        "elapsed_seconds": 0.547
       },
       {
         "arm": 2,
@@ -12190,7 +12191,7 @@
         "owner_label": "TA",
         "origin_xy_mm": [
           9.844387,
-          110.075
+          115.075
         ],
         "direction_xy": [
           -1.0,
@@ -12201,19 +12202,19 @@
         "corners_xy_mm": [
           [
             9.844387,
-            158.2
+            163.2
           ],
           [
             -91.755613,
-            158.2
+            163.2
           ],
           [
             -91.755613,
-            61.95
+            66.95
           ],
           [
             9.844387,
-            61.95
+            66.95
           ]
         ],
         "excluded_owner_objects": [
@@ -12441,14 +12442,14 @@
     "holes": [
       {
         "kind": "platform",
-        "label": "Mount Hole (20, 0)",
+        "label": "Mount Hole (17, 1)",
         "center_xy_mm": [
-          523.875,
-          12.7
+          447.675,
+          50.8
         ],
         "reserved_radius_mm": 9.14375,
-        "owner": "Mount_Hole__20__0_",
-        "source": "Mount_Hole__20__0_",
+        "owner": "Mount_Hole__17__1_",
+        "source": "Mount_Hole__17__1_",
         "metadata": {
           "nominal_washer_diameter_mm": 14.2875
         },
@@ -12456,14 +12457,14 @@
       },
       {
         "kind": "platform",
-        "label": "Mount Hole (20, 13)",
+        "label": "Mount Hole (17, 11)",
         "center_xy_mm": [
-          523.875,
-          342.9
+          447.675,
+          304.8
         ],
         "reserved_radius_mm": 9.14375,
-        "owner": "Mount_Hole__20__13_",
-        "source": "Mount_Hole__20__13_",
+        "owner": "Mount_Hole__17__11_",
+        "source": "Mount_Hole__17__11_",
         "metadata": {
           "nominal_washer_diameter_mm": 14.2875
         },
@@ -12474,7 +12475,7 @@
         "label": "Mount Hole (1, 1)",
         "center_xy_mm": [
           41.275,
-          38.1
+          50.8
         ],
         "reserved_radius_mm": 9.14375,
         "owner": "Mount_Hole__1__1_",
@@ -12486,14 +12487,14 @@
       },
       {
         "kind": "platform",
-        "label": "Mount Hole (1, 12)",
+        "label": "Mount Hole (1, 11)",
         "center_xy_mm": [
           41.275,
-          317.5
+          304.8
         ],
         "reserved_radius_mm": 9.14375,
-        "owner": "Mount_Hole__1__12_",
-        "source": "Mount_Hole__1__12_",
+        "owner": "Mount_Hole__1__11_",
+        "source": "Mount_Hole__1__11_",
         "metadata": {
           "nominal_washer_diameter_mm": 14.2875
         },
@@ -13476,7 +13477,16 @@
       "mount_holes_at_one_x": false,
       "note": "Six post-isolator/pre-cell stations run around two orthogonal folds. V9.1: all six are bare 8-32 holes (holders and optics unselected); a provisional 16 mm diameter footprint is audited below."
     },
-    "platform_beam_crossings": [],
+    "platform_beam_crossings": [
+      {
+        "hole": "Mount Hole (17, 11)",
+        "path": "DP1 double pass",
+        "segment": 1,
+        "axis_distance_mm": 1.8,
+        "beam_half_width_upper_bound_mm": 1.981951,
+        "status": "note_beam_over_recessed_platform_bolt"
+      }
+    ],
     "optional_tap_beam_crossings": [],
     "future_mount_envelopes": [
       {

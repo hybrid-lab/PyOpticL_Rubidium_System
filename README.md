@@ -125,7 +125,7 @@ If you use this work in academic settings, please also cite:
 # Rb-87 795 nm lattice laser system — branch `gpt+claude+Haotian`
 
 Three baseplates for the 795 nm lattice light, designed in September 2026 by
-Haotian Xu with GPT (Codex) and Claude. Current revision **V9.4.1** (2026-10-04,
+Haotian Xu with GPT (Codex) and Claude. Current revision **V9.4.2** (2026-10-04,
 lattice board; the TA and double-pass boards are unchanged since V9.3); the
 change log is at the end of this section.
 
@@ -195,7 +195,7 @@ every other `Production/` folder.
 
 ## Boards
 
-**Lattice board (24 × 15 in, V9.4.1).** TA → two steering folds → HWP → isolator →
+**Lattice board (24 × 15 in, V9.4.2).** TA → two steering folds → HWP → isolator →
 QWP → six bare 8-32 conditioning stations (45/45 mm down the lane, then 60 mm
 and 100 mm along the beam) → Rb cell seat → SR475 shutter → power HWP/PBS. The
 transmitted and reflected beams feed two double-pass AOM arms: G&H AOMO
@@ -229,15 +229,19 @@ key there. Both test configurations were built on the same plate and audited
 (`example_baseplate(mode='dual', cat_eye='75-50')` / `'75-75'`; reports in
 `Production/LatticeBoardV9/`).
 
-**Table bolts (V9.4.1).** The lab table has a 1 in hole grid whose first row
+**Table bolts (V9.4.2).** The lab table has a 1 in hole grid whose first row
 is 1.5 in from the table edge. The plate is meant to sit with its fiber-side
 (right) edge 0.25 in inside the table edge, so a bolt (1.25 + n) in from that
-plate edge lands on grid row n. The two fiber-side bolts are 3.25 in (n = 2)
-from the right plate edge, 13 in apart and centred on the short edge (0.875 in
-from the top and bottom edges); the two TA-side bolts are 19 in further left
-(1.5 in from the left edge), 11 in apart and also centred, so all four fall on
-grid points together. STEP-file coordinates (mm): (523.875, 12.7),
-(523.875, 342.9), (41.275, 38.1), (41.275, 317.5).
+plate edge lands on grid row n. Both bolt pairs are 10 in apart (the maximum
+allowed) and centred on the short edge (2.375 in from the top and bottom
+edges). The right-hand part of the plate between those two rows is occupied
+(0-order irises, the optional f = 75 set, the output heads), so the fiber-side
+pair sits 6.25 in (n = 5) from the right plate edge, between the AOM housings
+and the optional f = 75 lens holders; the TA-side pair is 16 in further left
+(1.5 in from the left edge). All four fall on grid points together. STEP-file
+coordinates (mm): (447.675, 50.8), (447.675, 304.8), (41.275, 50.8),
+(41.275, 304.8). The TA block sits 5 mm higher than in V9.4.1 so that its
+adapter pocket clears the lower-left bolt by 5.3 mm.
 
 **TA board (25 × 14 in).** The same TA section, isolator lane, six stations and
 cell seat; after the cell the beam is folded up a column to the power HWP/PBS.
@@ -276,8 +280,8 @@ no cell part is modelled or listed in the BOM.
 `Production/Baseplate/` holds the three machined baseplate STEPs — one solid
 each, with all pockets, 8-32 tap-drill bores, the integral AOM seats, the cell
 pocket and the 1/4-20 table-bolt counterbores included (the lattice plate is
-`Lattice_V9_4_1_baseplate_24x15in.step`; the superseded V9.4 and 24 × 14 in
-V9.2/V9.3 plates are removed). The solid is inset
+`Lattice_V9_4_2_baseplate_24x15in.step`; the superseded V9.4/V9.4.1 and
+24 × 14 in V9.2/V9.3 plates are removed). The solid is inset
 3.175 mm from the nominal outline on every side, as in every PyOpticL plate.
 Threads are specified, not modelled — a STEP file shows every bore's diameter,
 position and depth but cannot say whether it is threaded, so each plate and
@@ -287,7 +291,7 @@ sizes, tolerances, material and finish are left to the shop):
 
 | Part | Sheet | Tapped | Not tapped |
 |---|---|---|---|
-| Lattice baseplate (V9.4.1) | `Production/LatticeBoardV9/Lattice_V9_4_1_baseplate_TAP_or_NOT.pdf` | 102 × #8-32 | 4 × 1/4-20 table-bolt clearance |
+| Lattice baseplate (V9.4.2) | `Production/LatticeBoardV9/Lattice_V9_4_2_baseplate_TAP_or_NOT.pdf` | 102 × #8-32 | 4 × 1/4-20 table-bolt clearance |
 | TA baseplate | `Production/TABoardV9/TA_Board_V9_baseplate_TAP_or_NOT.pdf` | 57 × #8-32 | 4 × 1/4-20 clearance |
 | Double-pass AOM baseplate | `Production/AOMDoublePassV9/AOM_DoublePass_V9_baseplate_TAP_or_NOT.pdf` | 22 × #8-32 | 3 × 1/4-20 clearance |
 | TA adapter (`stl/TA_adapter.stl`) | `Production/Adapters/TA_adapter_TAP_or_NOT.pdf` | 4 × M2.5 × 0.45 (board screws) | 4 × 8-32 clearance (to the plate taps) |
@@ -295,8 +299,8 @@ sizes, tolerances, material and finish are left to the shop):
 
 Every hole in the part is marked on its sheet; the rounded corners inside the
 milled pockets are R3.175 end-mill fillets, not holes. `Production/Adapters/`
-also holds `V9_4_1_tapping_sheets_all.pdf`, the five sheets in one file (the
-V9.4.1 lattice sheet and the four unchanged V9.3 sheets), and the hole
+also holds `V9_4_2_tapping_sheets_all.pdf`, the five sheets in one file (the
+V9.4.2 lattice sheet and the four unchanged V9.3 sheets), and the hole
 coordinates of every sheet are listed on it (plates: STEP-file coordinates;
 adapters: from the part's lower-left corner).
 
@@ -309,15 +313,29 @@ are the `*_validation.json` files in `Production/`. All three boards report no
 issue apart from accepted overhangs: on the TA board the two TA steering
 mirrors sit at the top of the plate, so their M05 bodies extend about 3.6 mm
 past the outline and their thumbscrews about 21 mm — above the plate, not
-through it; on the V9.4.1 lattice board the same two mirrors plus the three
+through it; on the V9.4.2 lattice board the same two mirrors plus the three
 fold mirrors at the plate corners (F1, F2, F4) and the DP1 0-order iris ring
 overhang the edge the same way (ten items), every screw of theirs landing at
-least 6.1 mm inside the edge. The two fiber-side table bolts lie under bare
-return-leg beams 12.7 mm above the recessed bolt head: install the bolts
-before aligning. The audit scripts themselves are development tooling and are
+least 6.1 mm inside the edge. The upper fiber-side table bolt lies under the
+DP1 beam (AOM → f = 75 lens position) 12.7 mm above the recessed bolt head:
+install the bolts before aligning. The audit scripts themselves are development tooling and are
 not part of this branch.
 
 ## Change log
+
+**V9.4.2 (2026-10-04, lattice board only)** — both table-bolt pairs are
+limited to 10 in spacing while staying centred on the short edge. Nearer the
+fiber edge every such pair collides with the 0-order irises, the optional
+f = 75 set or the output heads, so the fiber-side pair moves inboard to
+6.25 in (n = 5) from the right edge, between the AOM housings and the f = 75
+lens holders; the TA-side pair stays 1.5 in from the left edge (16 in to the
+left of the other pair). Nominal units (17.125, 1.5), (17.125, 11.5),
+(1.125, 1.5), (1.125, 11.5). The TA block moves 5 mm up so that its adapter
+pocket clears the lower-left bolt by 5.3 mm; nothing else moves. All four
+configurations rebuilt and audited: no contact, intersection or clearance
+conflict; the ten accepted overhangs are unchanged. New STEP
+(`Lattice_V9_4_2_baseplate_24x15in.step`), renders, audit reports, BOM and
+tapping sheets replace the V9.4.1 ones.
 
 **V9.4.1 (2026-10-04, lattice board only)** — two changes, nothing else
 moves. (1) The four table bolts are re-laid on the lab table's 1 in grid
@@ -335,7 +353,8 @@ V9.3; the distances from the AOM are unchanged, so every element moves down by
 intersection or clearance conflict; the ten accepted edge overhangs are the
 same. New STEP (`Lattice_V9_4_1_baseplate_24x15in.step`), renders, audit
 reports, BOM and tapping sheet (`Lattice_V9_4_1_baseplate_TAP_or_NOT`,
-`V9_4_1_tapping_sheets_all.pdf`); the V9.4 STEP and sheets are removed.
+`V9_4_1_tapping_sheets_all.pdf`); the V9.4 STEP and sheets were removed
+(and the V9.4.1 ones in turn by V9.4.2).
 
 **V9.4 (2026-10-01, lattice board only)** — the double-pass cat-eyes change
 from f = 75 mm (LA1612-B) to f = 300 mm (LA1618-B): the focused spot on the
