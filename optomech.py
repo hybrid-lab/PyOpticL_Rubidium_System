@@ -7946,7 +7946,7 @@ class ViewProvider:
 # =============================================================================
 
 
-# --- 1. three variants of existing parts -------------------------------------
+# --- 1. four variants of existing parts --------------------------------------
 class lens_holder_l05g_no_pin_slots:
     '''
     Lens Holder, Model L05G - without the two alignment-pin slots.
@@ -8062,6 +8062,46 @@ class TA_butterfly_on_adapter:
         # No plate holes of its own: the board is mounted on the TA adapter,
         # which carries the four 8-32 plate holes (see class doc).
         obj.DrillPart = Part.Shape()
+
+
+class mirror_mount_k05s1_no_pins:
+    '''
+    Mirror mount, model K05S1 - without the two 2 mm alignment-pin holes.
+
+    Same mesh and the same single 8-32 tap as ``mirror_mount_k05s1``; the two
+    2 x 2.2 mm pin holes are not drilled (a kinematic fold does not need the
+    pins, and at the plate corner they would sit 3 mm from the edge).
+
+    Args:
+        drill (bool) : Whether baseplate mounting for this part should be drilled
+        mirror (bool) : Whether to add a mirror component to the mount
+        thumbscrews (bool): Whether or not to add two HKTS 5-64 adjusters
+    '''
+    type = 'Mesh::FeaturePython'
+    def __init__(self, obj, drill=True, thumbscrews=False):
+        obj.Proxy = self
+        ViewProvider(obj.ViewObject)
+
+        obj.addProperty('App::PropertyBool', 'Drill').Drill = drill
+        obj.addProperty('App::PropertyBool', 'ThumbScrews').ThumbScrews = thumbscrews
+        obj.addProperty('Part::PropertyPartShape', 'DrillPart')
+
+        obj.ViewObject.ShapeColor = mount_color
+        self.part_numbers = ['POLARIS-K05S1']
+
+        if thumbscrews:
+            _add_linked_object(obj, "Upper Thumbscrew", thumbscrew_hkts_5_64, pos_offset=(-11.22, 8.89, 8.89))
+            _add_linked_object(obj, "Lower Thumbscrew", thumbscrew_hkts_5_64, pos_offset=(-11.22, -8.89, -8.89))
+
+    def execute(self, obj):
+        mesh = _import_stl("POLARIS-K05S1-Step.stl", (90, 0, -90), (-4.514, 0.254, -0.254))
+        mesh.Placement = obj.Mesh.Placement
+        obj.Mesh = mesh
+
+        part = _custom_cylinder(dia=bolt_8_32['tap_dia'], dz=drill_depth,
+                                x=-8.017, y=0, z=-layout.inch/2)
+        part.Placement = obj.Placement
+        obj.DrillPart = part
 
 
 
@@ -8359,6 +8399,359 @@ def place_cell_pocket(bp, x, y, angle=0, name="Rb vapor cell seat - plate pocket
     dimensions["placement_xy_angle"] = [float(x), float(y), float(angle)]
     pocket.DimensionsJSON = json.dumps(dimensions)
     return {"root": pocket, "objects": [pocket], "cut_object": pocket,
+            "dimensions": dimensions}
+
+
+# --- 3b. V9.5 sliding Rb vapour-cell enclosure -------------------------------
+#
+# Local frame of every part below: x along the bore (= the beam), y across
+# the beam in the plate plane (the sliding direction), z up. The origin is on
+# the bore axis at the middle of the body, so z = 0 is the plate's 12.7 mm
+# optical axis and the plate top is at z = -12.7.
+#
+#   SlidingCellEnclosure  the body: 76 x 40.4 x 48 mm block with a 30.4 mm
+#                         through bore (cell 25.4 + 5), a 12 mm stem hole from
+#                         the top, a 25 x 10 mm shoulder along one side with two
+#                         8-32 slots (12.7 mm of travel = one cell radius), eight
+#                         8-32 cover taps on the end faces, a 6 mm wire hole
+#   SlidingCellCover      two 40.4 x 48 x 10 mm end plates, four counterbored
+#                         8-32 clearance holes each, NO beam aperture yet
+#   SlidingCellGlass      the GC25075-RB envelope (25.4 x 71.84 mm, stem up)
+#   SlidingCellSeat       plate machining: the 10.3 mm deep pocket (body, covers,
+#                         travel and the shoulder ear; 100 x 61.4 mm + 48 x 27 mm ear)
+#                         and the two 8-32 taps through its floor
+#
+# The body slides along its local +y (board -x on the lattice board, where the
+# seat is placed at angle 90) by 0 .. 12.7 mm: at 0 the beam runs through the
+# cell centre, at 12.7 it runs along the cell wall.
+
+SLIDING_CELL = {
+    "model": "GC25075-RB",
+    "cell_radius_mm": 12.7,
+    "cell_length_mm": 71.84,
+    "stem_radius_mm": 3.15,
+    "stem_tip_above_axis_mm": 22.7,          # glass 12.7 + 10 mm stem
+    # body
+    "bore_radius_mm": 15.2,                  # bore 30.4 = cell 25.4 + 5
+    "length_mm": 76.0,                       # x = -38 .. +38 (2.08 mm beyond each cell end)
+    "half_width_mm": 20.2,                   # y = -20.2 .. +20.2 (5 mm walls beside the bore)
+    "bottom_mm": -23.0,                      # z; 7.8 mm of material below the bore
+    "top_mm": 25.0,                          # z; 9.8 mm above the bore
+    "stem_hole_radius_mm": 6.0,              # 12 mm hole from the top face into the bore, at x = 0
+    # shoulder with the two slots (local -y side = board +x on the lattice board)
+    "shoulder_width_mm": 25.0,               # y = -45.2 .. -20.2
+    "shoulder_height_mm": 10.0,              # z = -23 .. -13 (0.3 mm below the plate top)
+    "shoulder_x_mm": [-38.0, 6.0],           # stops at +6 (3.8 mm past the slot end): the external-TA injection
+                                             # fold's M05 body and thumbscrew pocket lie beyond
+    "slot_x_mm": [-30.0, 0.0],
+    "slot_centre_y_mm": -33.7,               # slot runs along y; screw at y = -27.35 (centred) .. -40.05 (edge)
+    "slot_width_mm": 0.172*25.4,             # 8-32 close clearance (4.37)
+    "travel_mm": 12.7,                       # one cell radius; the slot is 17.07 mm long overall
+    # covers
+    "cover_thickness_mm": 10.0,
+    "cover_hole_yz_mm": [[14.5, 17.0], [-14.5, 17.0], [14.5, -17.0], [-14.5, -17.0]],
+    "cover_hole_clearance_mm": 0.172*25.4,
+    "cover_counterbore_mm": [7.5, 4.5],      # diameter, depth: the socket head sits flush with the cover face
+    "cover_screw": "8-32 x 3/4 in socket head cap screw (19.05 mm), 8 per enclosure",
+    "cover_tap_depth_mm": 16.0,              # 19.05 - (10 - 4.5) = 13.55 mm of thread engaged, 2.45 mm spare
+    # wire exit (through the -y wall, above the shoulder)
+    "wire_hole_radius_mm": 3.0,
+    "wire_hole_xz_mm": [18.0, 8.0],
+    # plate machining
+    "pocket_clearance_mm": 2.0,              # around the body, the covers and the shoulder
+    "pocket_clearance_minus_y_mm": 6.3,      # local -y edge (board +x): reaches 1.5 mm past the external-TA injection
+                                             # fold's thumbscrew pocket (as the old pocket did) instead of leaving a
+                                             # 0.7 mm wall between the two pockets
+    "pocket_corner_radius_mm": 3.174,        # end-mill fillet on the six convex pocket corners
+    "seat_screw": "8-32 x 3/4 in socket head cap screw with a #8 washer, 2 per seat",
+    "seat_tap_depth_mm": 100.0,              # through the pocket floor (15.1 mm of stock)
+    "seat_tap_diameter_mm": 0.136*25.4,
+}
+
+
+def _sliding_cell_slot(x, y, travel, width, z0, dz):
+    """A stadium slot along y centred at (x, y): `travel` between the end centres."""
+    r = width/2.
+    slot = Part.makeBox(width, travel, dz, App.Vector(x - r, y - travel/2., z0))
+    for yy in (y - travel/2., y + travel/2.):
+        slot = slot.fuse(Part.makeCylinder(r, dz, App.Vector(x, yy, z0), App.Vector(0, 0, 1)))
+    return slot.removeSplitter()
+
+
+def sliding_cell_body_shape(p=None):
+    """The enclosure body in its local frame (pure geometry, no document)."""
+    p = p or SLIDING_CELL
+    length, hw = p["length_mm"], p["half_width_mm"]
+    z0, z1 = p["bottom_mm"], p["top_mm"]
+    body = Part.makeBox(length, 2*hw, z1 - z0, App.Vector(-length/2., -hw, z0))
+    sx0, sx1 = p["shoulder_x_mm"]
+    sw, sh = p["shoulder_width_mm"], p["shoulder_height_mm"]
+    body = body.fuse(Part.makeBox(sx1 - sx0, sw, sh, App.Vector(sx0, -hw - sw, z0))).removeSplitter()
+    # the through bore and the stem hole
+    body = body.cut(Part.makeCylinder(p["bore_radius_mm"], length + 2., App.Vector(-length/2. - 1., 0, 0),
+                                      App.Vector(1, 0, 0)))
+    body = body.cut(Part.makeCylinder(p["stem_hole_radius_mm"], z1 + 1., App.Vector(0, 0, 0),
+                                      App.Vector(0, 0, 1)))
+    # the two slots through the shoulder
+    for sx in p["slot_x_mm"]:
+        body = body.cut(_sliding_cell_slot(sx, p["slot_centre_y_mm"], p["travel_mm"], p["slot_width_mm"],
+                                           z0 - 1., sh + 2.))
+    # cover taps on both end faces
+    for sign in (1, -1):
+        for yy, zz in p["cover_hole_yz_mm"]:
+            body = body.cut(Part.makeCylinder(p["seat_tap_diameter_mm"]/2., p["cover_tap_depth_mm"],
+                                              App.Vector(sign*length/2., yy, zz), App.Vector(-sign, 0, 0)))
+    # the wire exit through the -y wall into the bore
+    wx, wz = p["wire_hole_xz_mm"]
+    body = body.cut(Part.makeCylinder(p["wire_hole_radius_mm"], hw + 1., App.Vector(wx, -hw - 1., wz),
+                                      App.Vector(0, 1, 0)))
+    return body.removeSplitter()
+
+
+def sliding_cell_cover_shape(p=None):
+    """One end cover: its inner face at x = 0, the plate extends to +x."""
+    p = p or SLIDING_CELL
+    t, hw = p["cover_thickness_mm"], p["half_width_mm"]
+    z0, z1 = p["bottom_mm"], p["top_mm"]
+    cover = Part.makeBox(t, 2*hw, z1 - z0, App.Vector(0, -hw, z0))
+    cb_dia, cb_depth = p["cover_counterbore_mm"]
+    for yy, zz in p["cover_hole_yz_mm"]:
+        cover = cover.cut(Part.makeCylinder(p["cover_hole_clearance_mm"]/2., t + 2., App.Vector(-1., yy, zz),
+                                            App.Vector(1, 0, 0)))
+        cover = cover.cut(Part.makeCylinder(cb_dia/2., cb_depth + 1., App.Vector(t - cb_depth, yy, zz),
+                                            App.Vector(1, 0, 0)))
+    return cover.removeSplitter()
+
+
+def sliding_cell_glass_shape(p=None):
+    """The GC25075-RB envelope: a 25.4 x 71.84 mm cylinder with the fill stem pointing up."""
+    p = p or SLIDING_CELL
+    r, length = p["cell_radius_mm"], p["cell_length_mm"]
+    glass = Part.makeCylinder(r, length, App.Vector(-length/2., 0, 0), App.Vector(1, 0, 0))
+    stem = Part.makeCylinder(p["stem_radius_mm"], p["stem_tip_above_axis_mm"] - r + 1.,
+                             App.Vector(0, 0, r - 1.), App.Vector(0, 0, 1))
+    return glass.fuse(stem).removeSplitter()
+
+
+def sliding_cell_pocket_outline(p=None):
+    """Pocket outline in the seat frame: (main rectangle, shoulder ear rectangle) as (x0, y0, x1, y1)."""
+    p = p or SLIDING_CELL
+    c = p["pocket_clearance_mm"]
+    half_len = p["length_mm"]/2. + p["cover_thickness_mm"] + c
+    hw = p["half_width_mm"]
+    main = (-half_len, -hw - p.get("pocket_clearance_minus_y_mm", c), half_len, hw + p["travel_mm"] + c)
+    sx0, sx1 = p["shoulder_x_mm"]
+    ear = (sx0 - c, -hw - p["shoulder_width_mm"] - c, sx1 + c, -hw)
+    return main, ear
+
+
+def sliding_cell_seat_taps(p=None):
+    """Seat tap centres in the seat frame: the screws at the slots' inner ends when the body is centred."""
+    p = p or SLIDING_CELL
+    y = p["slot_centre_y_mm"] + p["travel_mm"]/2.
+    return [[x, y] for x in p["slot_x_mm"]]
+
+
+def sliding_cell_pocket_shape(top, p=None):
+    """The plate cut in the seat frame: pocket (floor at the body bottom) plus the two taps."""
+    p = p or SLIDING_CELL
+    depth = top - p["bottom_mm"]
+    main, ear = sliding_cell_pocket_outline(p)
+    boxes = []
+    for x0, y0, x1, y1 in (main, ear):
+        boxes.append(Part.makeBox(x1 - x0, y1 - y0, depth + 1., App.Vector(x0, y0, top - depth)))
+    pocket = boxes[0].fuse(boxes[1]).removeSplitter()
+    radius = p["pocket_corner_radius_mm"]
+    if radius > 0:
+        # fillet the six convex vertical corners only; the two re-entrant corners
+        # where the ear meets the main pocket are left sharp (an end mill cuts
+        # them that way)
+        reentrant = [(ear[0], main[1]), (ear[2], main[1])]
+        edges = []
+        for e in pocket.Edges:
+            if abs(e.tangentAt(e.FirstParameter).z) < 0.999:
+                continue
+            v = e.Vertexes[0].Point
+            if any(abs(v.x - rx) < 1e-6 and abs(v.y - ry) < 1e-6 for rx, ry in reentrant):
+                continue
+            edges.append(e)
+        pocket = pocket.makeFillet(radius, edges)
+    cut = pocket
+    for x, y in sliding_cell_seat_taps(p):
+        cut = cut.fuse(Part.makeCylinder(p["seat_tap_diameter_mm"]/2., p["seat_tap_depth_mm"],
+                                         App.Vector(x, y, top + 1.), App.Vector(0, 0, -1)))
+    return cut.removeSplitter()
+
+
+def sliding_cell_dimensions(p=None):
+    """JSON-safe dimension record for the audits, the BOM and the drawing."""
+    p = p or SLIDING_CELL
+    main, ear = sliding_cell_pocket_outline(p)
+    d = json.loads(json.dumps(p))
+    d.update({
+        "holder": "V9.5 sliding enclosure: body + 2 covers in a 10.3 mm pocket, 2 slot screws",
+        "body_size_mm": [p["length_mm"], 2*p["half_width_mm"], p["top_mm"] - p["bottom_mm"]],
+        "cover_size_mm": [p["cover_thickness_mm"], 2*p["half_width_mm"], p["top_mm"] - p["bottom_mm"]],
+        "assembly_length_mm": p["length_mm"] + 2*p["cover_thickness_mm"],
+        "cell_bbox_local_mm": [-p["cell_length_mm"]/2., p["cell_length_mm"]/2., -p["cell_radius_mm"],
+                               p["cell_radius_mm"], -p["cell_radius_mm"], p["stem_tip_above_axis_mm"]],
+        "slot_overall_length_mm": p["travel_mm"] + p["slot_width_mm"],
+        "slot_y_range_mm": [p["slot_centre_y_mm"] - p["travel_mm"]/2., p["slot_centre_y_mm"] + p["travel_mm"]/2.],
+        "pocket_main_local_mm": list(main),
+        "pocket_ear_local_mm": list(ear),
+        "pocket_depth_below_standard_plate_top_mm": -OPTICAL_HEIGHT - p["bottom_mm"],
+        "pocket_floor_stock_mm": 25.4 - (-OPTICAL_HEIGHT - p["bottom_mm"]),
+        "tap_hole_diameter_mm": p["seat_tap_diameter_mm"],
+        "tap_holes_local_xy_mm": sliding_cell_seat_taps(p),
+        "stem_tip_below_top_face_mm": p["top_mm"] - p["stem_tip_above_axis_mm"],
+        "notes": [
+            "Local frame: x along the bore and the beam, y across (sliding direction), z up; origin on the bore axis "
+            "at mid-length, z = 0 is the 12.7 mm optical axis.",
+            "Bore 30.4 mm = cell 25.4 + 5; the cell is centred in the bore by the heater/insulation (not modelled).",
+            "Travel 12.7 mm = one cell radius toward local +y (board -x on the lattice board): beam through the cell "
+            "centre at 0, along the cell wall at 12.7.",
+            "Covers have no beam aperture yet (to be opened later); the beam-passage audit exempts them explicitly.",
+            "Seat taps are drilled through the 15.1 mm pocket floor; the shoulder is 10 mm thick, so a 3/4 in screw "
+            "with a #8 washer engages ~8 mm of plate thread.",
+            "Cover taps 16 mm deep from each end face; 3/4 in screws through the 10 mm counterbored covers engage 13.5 mm.",
+        ],
+    })
+    return d
+
+
+class SlidingCellEnclosure:
+    """V9.5 sliding Rb cell enclosure body (no plate drilling of its own: see SlidingCellSeat)."""
+    type = 'Part::FeaturePython'
+
+    def __init__(self, obj, slide=0.0, covers=True, glass=True):
+        obj.Proxy = self
+        ViewProvider(obj.ViewObject)
+        obj.ViewObject.ShapeColor = adapter_color
+        obj.ViewObject.Transparency = 35
+        p = SLIDING_CELL
+        obj.addProperty('App::PropertyLength', 'Slide', 'Design').Slide = slide
+        obj.addProperty('App::PropertyLength', 'Travel', 'Design').Travel = p["travel_mm"]
+        obj.addProperty('App::PropertyLength', 'BoreRadius', 'Design').BoreRadius = p["bore_radius_mm"]
+        obj.addProperty('App::PropertyLength', 'CellRadius', 'Design').CellRadius = p["cell_radius_mm"]
+        obj.addProperty('App::PropertyString', 'Purpose', 'Design')
+        obj.addProperty('App::PropertyString', 'DimensionsJSON', 'Design')
+        self.part_numbers = ['Rb cell enclosure body (machined, V9.5)']
+        if covers:
+            half = p["length_mm"]/2.
+            _add_linked_object(obj, "Rb cell enclosure cover +x", SlidingCellCover, pos_offset=(half, 0, 0))
+            _add_linked_object(obj, "Rb cell enclosure cover -x", SlidingCellCover, pos_offset=(-half, 0, 0),
+                               rot_offset=(0, 0, 180))
+        if glass:
+            _add_linked_object(obj, "Rb vapour cell GC25075-RB (envelope)", SlidingCellGlass)
+
+    def execute(self, obj):
+        obj.Shape = sliding_cell_body_shape()
+
+    def dumps(self): return None
+    def loads(self, state): return None
+
+
+class SlidingCellCover:
+    """One end cover of the sliding enclosure (four counterbored 8-32 clearance holes, no aperture yet)."""
+    type = 'Part::FeaturePython'
+
+    def __init__(self, obj):
+        obj.Proxy = self
+        ViewProvider(obj.ViewObject)
+        obj.ViewObject.ShapeColor = adapter_color
+        obj.ViewObject.Transparency = 35
+        obj.addProperty('App::PropertyString', 'Purpose', 'Design')
+        obj.Purpose = "V9.5 enclosure end cover; the beam aperture is to be machined later"
+        self.part_numbers = ['Rb cell enclosure cover (machined, V9.5)']
+
+    def execute(self, obj):
+        obj.Shape = sliding_cell_cover_shape()
+
+    def dumps(self): return None
+    def loads(self, state): return None
+
+
+class SlidingCellGlass:
+    """Envelope of the GC25075-RB cell inside the enclosure (display and beam audit only)."""
+    type = 'Part::FeaturePython'
+
+    def __init__(self, obj):
+        obj.Proxy = self
+        ViewProvider(obj.ViewObject)
+        obj.ViewObject.ShapeColor = glass_color
+        obj.ViewObject.Transparency = 50
+        self.part_numbers = ['GC25075-RB']
+
+    def execute(self, obj):
+        obj.Shape = sliding_cell_glass_shape()
+
+    def dumps(self): return None
+    def loads(self, state): return None
+
+
+class SlidingCellSeat:
+    """Hidden plate machining for the sliding enclosure: the pocket and its two 8-32 taps."""
+    type = "Part::FeaturePython"
+
+    def __init__(self, obj, drill=True):
+        obj.Proxy = self
+        keep_machining_hidden(obj)
+        p = SLIDING_CELL
+        obj.addProperty("App::PropertyBool", "Drill").Drill = drill
+        obj.addProperty("Part::PropertyPartShape", "DrillPart")
+        obj.addProperty("App::PropertyLength", "PocketDepth", "Machining").PocketDepth = -OPTICAL_HEIGHT - p["bottom_mm"]
+        obj.addProperty("App::PropertyLength", "CornerRadius", "Machining").CornerRadius = p["pocket_corner_radius_mm"]
+        obj.addProperty("App::PropertyLength", "TapDrillDiameter", "Machining").TapDrillDiameter = p["seat_tap_diameter_mm"]
+        obj.addProperty("App::PropertyString", "Thread", "Machining").Thread = "8-32 UNC through, 2 holes"
+        obj.addProperty("App::PropertyString", "Purpose", "Design")
+        obj.addProperty("App::PropertyString", "DimensionsJSON", "Design")
+
+    def execute(self, obj):
+        top = -obj.Baseplate.OpticsDz.Value          # plate top in the beam frame (-12.7)
+        cut = sliding_cell_pocket_shape(top)
+        cut.Placement = obj.Placement
+        obj.DrillPart = cut if obj.Drill else Part.Shape()
+        obj.Shape = Part.Shape()
+        keep_machining_hidden(obj)
+
+    def onDocumentRestored(self, obj):
+        keep_machining_hidden(obj)
+
+    def dumps(self): return None
+    def loads(self, state): return None
+
+
+def place_sliding_cell(bp, x, y, angle=90, slide=0.0,
+                       name="Rb cell seat - 10.3 mm pocket + 2 slot taps 8-32 (V9.5 sliding enclosure)"):
+    """V9.5: the sliding enclosure seat (plate machining) and the enclosure on it.
+
+    ``slide`` (0 .. 12.7 mm) moves the body along its local +y (board -x when
+    angle = 90) so that the beam passes the cell centre (0) or runs along the
+    cell wall (12.7). The seat - pocket and taps - never moves.
+    Returns ``root`` (the seat, owner of the taps and the cut), ``cell`` (the
+    body, with the covers and the glass envelope as its children), ``objects``,
+    ``cut_object`` and ``dimensions`` for the audits.
+    """
+    p = SLIDING_CELL
+    if not 0.0 <= slide <= p["travel_mm"] + 1e-9:
+        raise ValueError("slide must be between 0 and %.2f mm" % p["travel_mm"])
+    seat = bp.place_element(name, SlidingCellSeat, x=x, y=y, angle=angle)
+    seat.Purpose = ("V9.5 cell seat: pocket %.1f mm deep for the sliding enclosure (body, covers and %.1f mm of "
+                    "travel, plus the shoulder ear), two 8-32 taps through the floor; the enclosure is a separate "
+                    "part on it." % (-OPTICAL_HEIGHT - p["bottom_mm"], p["travel_mm"]))
+    a = radians(angle)
+    body = bp.place_element("Rb cell enclosure (sliding body, slide %.1f mm)" % slide, SlidingCellEnclosure,
+                            x=x - slide*sin(a), y=y + slide*cos(a), angle=angle, slide=slide)
+    body.Purpose = ("V9.5 sliding enclosure body; slide %.1f of %.1f mm along local +y (beam %.1f mm from the "
+                    "cell axis)." % (slide, p["travel_mm"], slide))
+    dimensions = sliding_cell_dimensions(p)
+    dimensions["placement_xy_angle"] = [float(x), float(y), float(angle)]
+    dimensions["slide_mm"] = float(slide)
+    seat.DimensionsJSON = json.dumps(dimensions)
+    body.DimensionsJSON = json.dumps(dimensions)
+    seat.Document.recompute()
+    objects = [seat] + descendants(body)
+    return {"root": seat, "cell": body, "objects": objects, "cut_object": seat,
             "dimensions": dimensions}
 
 

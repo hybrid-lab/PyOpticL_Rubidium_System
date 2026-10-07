@@ -1,4 +1,30 @@
-"""Lattice baseplate V9.4.2 (2026-10-04) - 24 x 15 in, f = 300 mm folded cat-eyes.
+"""Lattice baseplate V9.5 (2026-10-06) - 24 x 15 in, f = 300 mm folded cat-eyes,
+sliding Rb cell enclosure.
+
+V9.5 against V9.4.2 (only the cell seat changes; no other hole or part moves):
+
+* The Rb vapour cell gets its enclosure (optomech section 3b, SlidingCell*):
+  a 76 x 40.4 x 48 mm aluminium body with a 30.4 mm through bore (cell 25.4 mm
+  + 5 mm), a 12 mm hole from the top for the fill stem, two separate 10 mm end
+  covers (four counterbored 8-32 screws each, eight 16 mm deep taps in the
+  body; NO beam aperture yet - to be opened later), and a 6 mm wire hole in the
+  side wall. The enclosure can slide across the beam by one cell radius
+  (12.7 mm): a 25 x 10 mm shoulder along the +x (board) side carries two 8-32
+  slots (17.1 mm long, 30 mm apart) and the plate carries two 8-32 taps instead
+  of the old four corner taps. At slide 0 the beam runs through the cell
+  centre, at 12.7 along the cell wall (the body moves toward -x on the board;
+  the external-TA injection fold forbids the other direction).
+* The seat pocket is now 10.3 mm deep (the bore axis sits 23 mm above the
+  body's bottom) and shaped for the whole assembly plus the travel: 100 x 61.4 mm
+  (board x 161.1..222.5, y 112..212; its +x edge takes in the external-TA
+  injection fold's thumbscrew pocket, as the old pocket did, instead of leaving
+  a 0.7 mm wall) with a 48 x 27 mm ear for the shoulder (board x 216.2..243.2,
+  y 122..170); the old 104 x 56 x 19.05 pocket is gone. The two seat taps are
+  at (223.35, 132) and (223.35, 162), through the 15.1 mm pocket floor. Hole
+  count 106 -> 104 (100 x 8-32 + 4 table bolts).
+* example_baseplate(cell_slide=...) builds the enclosure at any position of its
+  travel; the dual configuration is additionally audited at cell_slide = 12.7.
+  The cell glass (GC25075-RB envelope, stem up) is modelled inside the bore.
 
 V9.4.2 against V9.4.1 (bolt pairs no more than 10 in apart):
 
@@ -112,7 +138,7 @@ Beam order, read top to bottom in example_baseplate():
     TA -> two steering folds -> HWP -> isolator -> QWP
        -> six bare 8-32 conditioning stations (45/45 mm on the lane,
           60/100 mm along the beam after fold 2)
-       -> Rb vapour cell seat (pocket only) -> SR475 shutter
+       -> Rb vapour cell in its sliding enclosure (V9.5) -> SR475 shutter
        -> power-division HWP -> main PBS
             transmitted -> DP1 arm: HWP, PBS, AOM on its integral seat,
                            folded f = 300 cat-eye (F1, iris, F2, lens, QWP, retro);
@@ -129,6 +155,7 @@ axis.
 Run in FreeCAD (Macro > Macros..., or paste into the Python console):
     example_baseplate()                  single-TA configuration
     example_baseplate(mode='dual')       external-TA configuration
+    example_baseplate(mode='dual', cell_slide=12.7)   enclosure slid by one cell radius
 """
 import math
 
@@ -171,7 +198,9 @@ CELL_X = LANE_X + 66.   # 196: fold 2, stations 5/6, cell, shutter, fold 3
 MAIN_Y = 274.5          # top run: fold 3 -> power HWP -> main PBS (V9.4: 278.5 -> 274.5)
 PBS_X = 263.            # main power PBS, and the column the DP2 feed turns on (V9.4: 273 -> 263 with the lane)
 HWP_X = PBS_X - 31.4    # 231.6: power-division HWP
-CELL_Y = 162.           # V9.4: 165 -> 162 (pocket 110..214, station 6 holder ends at 108)
+CELL_Y = 162.           # V9.4: 165 -> 162; V9.5 enclosure assembly 114..210, pocket 112..212 (station 6
+                        # holder ends at 108, its bonded-lens slab at 111; shutter housing from 218.7)
+CELL_SLIDE_MAX = 12.7   # V9.5: the enclosure's travel toward -x (one cell radius)
 SHUTTER_Y = 238.        # V9.4: 240 -> 238 (housing 218.7..262.7, fold 3 body from 266)
 TA_HWP_Y = 315.
 ISO_Y = 245.
@@ -317,7 +346,7 @@ def _dist(p, q):
     return math.hypot(q[0]-p[0], q[1]-p[1])
 
 
-def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300'):
+def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300', cell_slide=0.):
     """Build the lattice board. mode: 'single' (one TA) or 'dual' (external TA).
 
     cat_eye: '300' (V9.4 as machined: f = 300 folded cat-eyes, the f = 75 set
@@ -326,11 +355,16 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
     the f = 300 chain stays mounted except fold F1/F3 in '75-75'). The retro
     M05 of the f = 75 set carries no HKTS thumbscrews: those positions have no
     knob pocket, so the lower adjuster is driven with a plain 5/64 hex key.
+    cell_slide: V9.5 position of the cell enclosure along its travel, 0 (beam
+    through the cell centre) .. 12.7 mm (beam along the cell wall); the plate
+    machining is the same for every value.
     """
     if mode not in ('single', 'dual'):
         raise ValueError("mode must be 'single' or 'dual'")
     if cat_eye not in ('300', '75-50', '75-75'):
         raise ValueError("cat_eye must be '300', '75-50' or '75-75'")
+    if not 0. <= float(cell_slide) <= CELL_SLIDE_MAX + 1e-9:
+        raise ValueError("cell_slide must be between 0 and %.1f mm" % CELL_SLIDE_MAX)
     f75_installed = cat_eye != '300'
     f75_mirror_key = cat_eye.split('-')[1] if f75_installed else None
     if App.ActiveDocument is None:
@@ -347,10 +381,12 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
             'alternate': False, 'service_regions': [], 'output_optical_routes': [],
             'layout_variant': 'Hand sketch V9',
             'plate_size_mm': [base_dx, base_dy, base_dz],
-            'layout_status': 'V9.4.2 (2026-10-04): f = 300 folded cat-eyes on the +1-order axis, optional f = 75 '
-                             'hole set on the 0-order axis, table bolts on the 1 in grid (both pairs 10 in apart and '
-                             'centred; fiber-side pair 6.25 in from the right edge, TA-side pair 1.5 in from the left '
-                             'edge), TA 5 mm up, all mirrors M05, DP2 output row above its AOM row, 24 x 15 in plate.'
+            'layout_status': 'V9.5 (2026-10-06): sliding Rb cell enclosure (10.3 mm pocket, two 8-32 slot taps, '
+                             'travel 12.7 mm toward -x) on the V9.4.2 plate: f = 300 folded cat-eyes on the +1-order '
+                             'axis, optional f = 75 hole set on the 0-order axis, table bolts on the 1 in grid (both '
+                             'pairs 10 in apart and centred; fiber-side pair 6.25 in from the right edge, TA-side '
+                             'pair 1.5 in from the left edge), all mirrors M05, DP2 output row above its AOM row, '
+                             '24 x 15 in plate. Enclosure slide %.1f mm.' % cell_slide
                              + ('' if cat_eye == '300' else ' TEST CONFIGURATION cat_eye=%s on the same plate.' % cat_eye)}
     hidden = []
     # the hole audit checks the table bolts against this list (V9.4.2 pattern)
@@ -495,13 +531,17 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
     bend('Common post-isolator fold 2', route[1], route[2], route[3])         # (196, 42)
     bend('Common post-isolator fold 3', route[2], route[3], route[4])   # (196, 274.5)
 
-    # The enclosure has not been designed yet, so nothing is modelled above the
-    # plate here: the cell seat is a 3/4 in deep, beam-centred 104 x 56 mm
-    # pocket with four corner 8-32 taps, and nothing else.
-    cell = optomech.place_cell_pocket(baseplate, CELL_X, CELL_Y, angle=90)
-    info['cell'] = dict(cell, cell=cell['root'])
-    info['roots']['Rb cell seat (pocket only)'] = cell['root']
+    # V9.5: the sliding cell enclosure. The seat (a 10.3 mm pocket shaped for
+    # the body, its covers, its shoulder and 12.7 mm of travel, plus two 8-32
+    # taps through the floor) is placed with its local x along the beam
+    # (angle 90: local +y = board -x, the sliding direction). The body, its two
+    # covers and the cell glass stand on the seat `cell_slide` mm toward -x.
+    cell = optomech.place_sliding_cell(baseplate, CELL_X, CELL_Y, angle=90, slide=cell_slide)
+    info['cell'] = dict(cell)
+    info['roots']['Rb cell seat (V9.5 pocket + 2 slot taps)'] = cell['root']
+    info['roots']['Rb cell enclosure (V9.5 sliding body, covers, cell)'] = cell['cell']
     info['extra_cuts'].extend(o for o in cell['objects'] if hasattr(o, 'DrillPart'))
+    cell_body = cell['cell']
 
     put('SRS SR475 shutter', optomech.shutter_sr475, CELL_X, SHUTTER_Y, 90)
     wp('Main power division HWP', HWP_X, MAIN_Y, 0)
@@ -951,6 +991,13 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
     def dist(p, q):
         return math.hypot(q[0]-p[0], q[1]-p[1])
 
+    def seat_tap_xy(index):
+        # a seat tap (seat frame) carried into the board frame by the seat's placement
+        lx, ly = cell['dimensions']['tap_holes_local_xy_mm'][index]
+        seat = cell['root']
+        v = seat.BasePlacement.Rotation.multVec(App.Vector(lx, ly, 0))
+        return (seat.BasePlacement.Base.x + v.x, seat.BasePlacement.Base.y + v.y)
+
     info['geometry_assertions'].extend([
         {'name': 'DP1 AOM -> cat-eye lens along the folded beam',
          'measured': dist(A1, F1) + dist(F1, F2) + dist(F2, LZ1), 'expected': AOM_TO_CAT, 'tolerance': 1e-7},
@@ -979,7 +1026,24 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
          'expected': 60., 'tolerance': 1e-7},
         {'name': 'Station 4->6 along beam via fold 2',
          'measured': along_beam(sphere_stations[0], sphere_stations[2], (CELL_X, LOWER_RUN_Y)),
-         'expected': 100., 'tolerance': 1e-7}])
+         'expected': 100., 'tolerance': 1e-7},
+        # V9.5: the enclosure slides toward -x; the seat (pocket + taps) never moves
+        {'name': 'Cell enclosure bore axis offset from the beam (toward -x) = cell_slide',
+         'measured': CELL_X - cell_body.BasePlacement.Base.x, 'expected': float(cell_slide), 'tolerance': 1e-7},
+        {'name': 'Cell enclosure stays on the beam axis along y',
+         'measured': cell_body.BasePlacement.Base.y, 'expected': CELL_Y, 'tolerance': 1e-7},
+        {'name': 'Cell seat tap 1 on the board at (CELL_X + 27.35, CELL_Y - 30)',
+         'measured': dist(seat_tap_xy(0), (CELL_X + 27.35, CELL_Y - 30.)), 'expected': 0., 'tolerance': 1e-7},
+        {'name': 'Cell seat tap 2 on the board at (CELL_X + 27.35, CELL_Y)',
+         'measured': dist(seat_tap_xy(1), (CELL_X + 27.35, CELL_Y)), 'expected': 0., 'tolerance': 1e-7}])
+    info['cell_enclosure'] = {
+        'slide_mm': float(cell_slide), 'travel_mm': CELL_SLIDE_MAX, 'slide_direction_board': '-x',
+        'seat_taps_board_xy_mm': [[CELL_X + 27.35, CELL_Y - 30.], [CELL_X + 27.35, CELL_Y]],
+        'pocket_main_board_mm': [CELL_X - 34.9, CELL_Y - 50., CELL_X + 26.5, CELL_Y + 50.],
+        'pocket_ear_board_mm': [CELL_X + 20.2, CELL_Y - 40., CELL_X + 47.2, CELL_Y + 8.],
+        'assembly_board_mm': [CELL_X - 20.2 - cell_slide, CELL_Y - 48., CELL_X + 45.2 - cell_slide, CELL_Y + 48.],
+        'shoulder_board_mm': [CELL_X + 20.2 - cell_slide, CELL_Y - 38., CELL_X + 45.2 - cell_slide, CELL_Y + 6.],
+        'dimensions': cell['dimensions']}
     info['fold_geometry'] = {
         'diffraction_kink_deg': DIFF_ANGLE_DEG,
         'cat_eye_lens_catalogue': dict(LA1618B_CATALOGUE),
@@ -1007,8 +1071,9 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
     plate.Drill = drill
     plate.touch()
     doc.recompute()
-    doc.Label = ('Lattice V9.4.2 - ' + ('single TA' if mode == 'single' else 'external TA')
-                 + ('' if cat_eye == '300' else ' - f75 test ' + cat_eye))
+    doc.Label = ('Lattice V9.5 - ' + ('single TA' if mode == 'single' else 'external TA')
+                 + ('' if cat_eye == '300' else ' - f75 test ' + cat_eye)
+                 + ('' if not cell_slide else ' - cell slid %.1f mm' % cell_slide))
     return info
 
 
