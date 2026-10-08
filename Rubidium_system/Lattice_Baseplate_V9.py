@@ -1,5 +1,24 @@
-"""Lattice baseplate V9.6 (2026-10-08) - 24 x 15 in, f = 300 mm folded cat-eyes,
-split sliding Rb cell enclosure.
+"""Lattice baseplate V9.7 (2026-10-08) - 24 x 15 in, f = 300 mm folded cat-eyes,
+split sliding Rb cell enclosure (plain block, two end screws, closed stem pocket).
+
+V9.7 against V9.6 (only the cell enclosure and its seat change):
+
+* Screws at BOTH ends: the block is 88 long (x = +-44 about the cell), with a
+  through slot in each bore end region (x = +-39.9; 1.0 mm beyond the cell end
+  at its +0.8 tolerance) and two 8-32 x 2 in screws into two plate taps at
+  (185, 123.6) and (185, 203.4).
+* The stem pocket is closed: per the Thorlabs drawing 24088-E0W the stem sits
+  at mid-length and is < 10 mm high, so the 12 x 10 pocket (split 5/5) goes
+  from the bore to 24.2 mm from the axis and stops; the -x wall grows to
+  11.5 mm (face 26.7 from the axis, 2.5 mm beyond the pocket end). Block
+  46.9 wide (board x 169.3..216.2 centred).
+* Length budget along the beam: 7 mm covers (3.5 counterbore, heads 0.9 mm
+  proud) give a 102 mm assembly; the seat moves to CELL_Y = 163.5 so that the
+  pocket (111.3..215.7, 1.2 mm end clearance) stays 0.3 mm off the station-6
+  lens slab line (holder body ends at 108) and leaves 2 mm of plate to the
+  shutter housing pocket (217.7).
+* Pocket x 157.8..222.5 (travel 10.5 toward -x, 1 mm stop): 3.8 mm of plate
+  to the isolator / output-QWP pockets (x <= 154). Hole count 103 -> 104.
 
 V9.6 against V9.5 (only the cell enclosure and its seat change):
 
@@ -225,8 +244,8 @@ CELL_X = LANE_X + 66.   # 196: fold 2, stations 5/6, cell, shutter, fold 3
 MAIN_Y = 274.5          # top run: fold 3 -> power HWP -> main PBS (V9.4: 278.5 -> 274.5)
 PBS_X = 263.            # main power PBS, and the column the DP2 feed turns on (V9.4: 273 -> 263 with the lane)
 HWP_X = PBS_X - 31.4    # 231.6: power-division HWP
-CELL_Y = 162.           # V9.4: 165 -> 162; V9.6 enclosure assembly 116..214, pocket 114..216 (station 6
-                        # holder ends at 108, its bonded-lens slab at 111; shutter housing from 218.7)
+CELL_Y = 163.5          # V9.4: 165 -> 162; V9.7: 163.5 - enclosure assembly 112.5..214.5, pocket 111.3..215.7
+                        # (station 6 holder ends at 108, its bonded-lens slab at 111; shutter housing pocket from 217.7)
 CELL_SLIDE_MAX = 10.5   # V9.6: the enclosure's travel toward -x (beam 2.2 mm inside the cell wall at the end)
 SHUTTER_Y = 238.        # V9.4: 240 -> 238 (housing 218.7..262.7, fold 3 body from 266)
 TA_HWP_Y = 315.
@@ -408,8 +427,8 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
             'alternate': False, 'service_regions': [], 'output_optical_routes': [],
             'layout_variant': 'Hand sketch V9',
             'plate_size_mm': [base_dx, base_dy, base_dz],
-            'layout_status': 'V9.6 (2026-10-08): split sliding Rb cell enclosure, plain block (11.3 mm pocket, one 8-32 tap, '
-                             'one 2 in through-slot screw, travel 10.5 mm toward -x) on the V9.4.2 plate: f = 300 folded cat-eyes on the +1-order '
+            'layout_status': 'V9.7 (2026-10-08): split sliding Rb cell enclosure, plain block with two end screws and a closed '
+                             'stem pocket (11.3 mm pocket, two 8-32 taps, travel 10.5 mm toward -x) on the V9.4.2 plate: f = 300 folded cat-eyes on the +1-order '
                              'axis, optional f = 75 hole set on the 0-order axis, table bolts on the 1 in grid (both '
                              'pairs 10 in apart and centred; fiber-side pair 6.25 in from the right edge, TA-side '
                              'pair 1.5 in from the left edge), all mirrors M05, DP2 output row above its AOM row, '
@@ -558,16 +577,16 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
     bend('Common post-isolator fold 2', route[1], route[2], route[3])         # (196, 42)
     bend('Common post-isolator fold 3', route[2], route[3], route[4])   # (196, 274.5)
 
-    # V9.6: the split sliding cell enclosure (plain block). The seat (an 11.3 mm
-    # pocket shaped for both halves, the covers and 10.5 mm of travel, plus one
-    # 8-32 tap through the floor) is placed with its local x along the beam
+    # V9.7: the split sliding cell enclosure (plain block). The seat (an 11.3 mm
+    # pocket shaped for both halves, the covers and 10.5 mm of travel, plus two
+    # 8-32 taps through the floor) is placed with its local x along the beam
     # (angle 90: local +y = board -x, the sliding direction). The lower half,
     # its lid, the two covers and the cell glass stand on it `cell_slide` mm
     # toward -x.
     cell = optomech.place_sliding_cell(baseplate, CELL_X, CELL_Y, angle=90, slide=cell_slide)
     info['cell'] = dict(cell)
-    info['roots']['Rb cell seat (V9.6 pocket + 1 slot tap)'] = cell['root']
-    info['roots']['Rb cell enclosure (V9.6 lower half, lid, covers, cell)'] = cell['cell']
+    info['roots']['Rb cell seat (V9.7 pocket + 2 slot taps)'] = cell['root']
+    info['roots']['Rb cell enclosure (V9.7 lower half, lid, covers, cell)'] = cell['cell']
     info['extra_cuts'].extend(o for o in cell['objects'] if hasattr(o, 'DrillPart'))
     cell_body = cell['cell']
 
@@ -1060,16 +1079,18 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
          'measured': CELL_X - cell_body.BasePlacement.Base.x, 'expected': float(cell_slide), 'tolerance': 1e-7},
         {'name': 'Cell enclosure stays on the beam axis along y',
          'measured': cell_body.BasePlacement.Base.y, 'expected': CELL_Y, 'tolerance': 1e-7},
-        {'name': 'Cell seat tap on the board at (CELL_X - 11, CELL_Y + 39.3)',
-         'measured': dist(seat_tap_xy(0), (CELL_X - 11., CELL_Y + 39.3)), 'expected': 0., 'tolerance': 1e-7},
-        {'name': 'Cell seat has exactly one tap',
-         'measured': float(len(cell['dimensions']['tap_holes_local_xy_mm'])), 'expected': 1., 'tolerance': 1e-9}])
+        {'name': 'Cell seat tap 1 on the board at (CELL_X - 11, CELL_Y - 39.9)',
+         'measured': dist(seat_tap_xy(0), (CELL_X - 11., CELL_Y - 39.9)), 'expected': 0., 'tolerance': 1e-7},
+        {'name': 'Cell seat tap 2 on the board at (CELL_X - 11, CELL_Y + 39.9)',
+         'measured': dist(seat_tap_xy(1), (CELL_X - 11., CELL_Y + 39.9)), 'expected': 0., 'tolerance': 1e-7},
+        {'name': 'Cell seat has exactly two taps',
+         'measured': float(len(cell['dimensions']['tap_holes_local_xy_mm'])), 'expected': 2., 'tolerance': 1e-9}])
     info['cell_enclosure'] = {
         'slide_mm': float(cell_slide), 'travel_mm': CELL_SLIDE_MAX, 'slide_direction_board': '-x',
-        'seat_taps_board_xy_mm': [[CELL_X - 11., CELL_Y + 39.3]],
-        'pocket_board_mm': [CELL_X - 35.2, CELL_Y - 48., CELL_X + 26.5, CELL_Y + 54.],
-        'body_board_mm': [CELL_X - 23.7 - cell_slide, CELL_Y - 38., CELL_X + 20.2 - cell_slide, CELL_Y + 44.],
-        'assembly_board_mm': [CELL_X - 23.7 - cell_slide, CELL_Y - 46., CELL_X + 20.2 - cell_slide, CELL_Y + 52.],
+        'seat_taps_board_xy_mm': [[CELL_X - 11., CELL_Y - 39.9], [CELL_X - 11., CELL_Y + 39.9]],
+        'pocket_board_mm': [CELL_X - 38.2, CELL_Y - 52.2, CELL_X + 26.5, CELL_Y + 52.2],
+        'body_board_mm': [CELL_X - 26.7 - cell_slide, CELL_Y - 44., CELL_X + 20.2 - cell_slide, CELL_Y + 44.],
+        'assembly_board_mm': [CELL_X - 26.7 - cell_slide, CELL_Y - 51., CELL_X + 20.2 - cell_slide, CELL_Y + 51.],
         'stem_tip_board_x_mm': CELL_X - 22.7 - cell_slide,
         'dimensions': cell['dimensions']}
     info['fold_geometry'] = {
@@ -1099,7 +1120,7 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
     plate.Drill = drill
     plate.touch()
     doc.recompute()
-    doc.Label = ('Lattice V9.6 - ' + ('single TA' if mode == 'single' else 'external TA')
+    doc.Label = ('Lattice V9.7 - ' + ('single TA' if mode == 'single' else 'external TA')
                  + ('' if cat_eye == '300' else ' - f75 test ' + cat_eye)
                  + ('' if not cell_slide else ' - cell slid %.1f mm' % cell_slide))
     return info

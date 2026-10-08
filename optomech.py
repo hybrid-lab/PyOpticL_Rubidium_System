@@ -8402,71 +8402,76 @@ def place_cell_pocket(bp, x, y, angle=0, name="Rb vapor cell seat - plate pocket
             "dimensions": dimensions}
 
 
-# --- 3b. V9.6 split sliding Rb vapour-cell enclosure (plain block) -----------
+# --- 3b. V9.7 split sliding Rb vapour-cell enclosure (plain block) -----------
 #
 # Local frame of every part below: x along the bore (= the beam), y across the
 # beam in the plate plane (the sliding direction), z up. The origin is on the
 # bore axis at the middle of the CELL; the parting plane of the two halves is
 # z = 0 = the plate's 12.7 mm optical axis, so the beam runs along the split.
 #
-#   SlidingCellEnclosure  the LOWER half (root): a plain 82 x 43.9 x 24 block
-#                         (x = -38 .. +44; 20.2 toward local -y, 23.7 toward
+#   SlidingCellEnclosure  the LOWER half (root): a plain 88 x 46.9 x 24 block
+#                         (x = +-44; 20.2 toward local -y, 26.7 toward
 #                         local +y) with the half bore, the lower half of the
-#                         stem channel, the cable notch, the through slot and
-#                         the four lower cover taps
+#                         closed stem pocket, the cable notch, the two through
+#                         slots and the four lower cover taps
 #   SlidingCellLid        the UPPER half: the same plain block, 24 tall, with the
-#                         half bore, the upper half of the stem channel, the
-#                         through slot with its counter-slot, the upper taps
-#   SlidingCellCover      two 43.9 x 48 x 8 mm end plates, four counterbored
+#                         half bore, the upper half of the stem pocket, the two
+#                         through slots with their counter-slots, the upper taps
+#   SlidingCellCover      two 46.9 x 48 x 7 mm end plates, four counterbored
 #                         8-32 clearance holes each, NO beam aperture yet
-#   SlidingCellGlass      the GC25075-RB envelope (25.4 x 71.84, stem sideways
-#                         along local +y, i.e. away from the beam side)
+#   SlidingCellGlass      the GC25075-RB envelope (25.4 x 71.8, Thorlabs drawing
+#                         24088-E0W: stem at mid-length, < 10 mm high), the stem
+#                         along local +y, i.e. away from the beam side
 #   SlidingCellSeat       plate machining: the 11.3 mm deep pocket (both halves,
-#                         covers and travel) and the single 8-32 tap
+#                         covers and travel) and the two 8-32 taps
 #
-# One 8-32 x 2 in screw goes from the lid top through the slot of BOTH halves
-# into the plate: it clamps the halves together and fixes the position. The
-# slot sits in the bore's end region beyond the cell (the body is 6 mm longer
-# than the cell needs at that end), on the local +y half of the bore - the beam
-# uses the centre and the local -y half - so the screw never meets the cell or
-# the beam. The body slides along local +y (board -x on the lattice board,
-# where the seat is placed at angle 90) by 0 .. 10.5 mm: at 0 the beam runs
-# through the cell centre, at 10.5 it runs 2.2 mm inside the cell wall on the
-# local -y side; in the body frame the screw then moves from y = 11 to y = 0.5.
+# Two 8-32 x 2 in screws, one at each end, go from the lid top through the
+# slots of BOTH halves into the plate: they clamp the halves together and fix
+# the position. The slots sit in the bore's end regions beyond the cell (the
+# body is 8.1 mm longer than the cell at each end), on the local +y half of the
+# bore - the beam uses the centre and the local -y half - so the screws never
+# meet the cell or the beam. The stem pocket is CLOSED: it ends 1.5 mm beyond
+# the longest stem Thorlabs allows, with 2.5 mm of wall to the outer face. The
+# body slides along local +y (board -x on the lattice board, where the seat is
+# placed at angle 90) by 0 .. 10.5 mm: at 0 the beam runs through the cell
+# centre, at 10.5 it runs 2.2 mm inside the cell wall on the local -y side; in
+# the body frame the screws then move from y = 11 to y = 0.5.
 
 SLIDING_CELL = {
     "model": "GC25075-RB",
     "cell_radius_mm": 12.7,
-    "cell_length_mm": 71.84,
-    "stem_radius_mm": 3.15,
-    "stem_tip_from_axis_mm": 22.7,           # glass 12.7 + 10 mm stem, pointing along local +y
+    "cell_length_mm": 71.8,                  # Thorlabs 24088-E0W: 71.8, dimensional tolerance 0.8
+    "cell_length_tolerance_mm": 0.8,
+    "stem_radius_mm": 3.15,                  # stem diameter is not on the drawing; ~6.3 assumed for display
+    "stem_tip_from_axis_mm": 22.7,           # glass 12.7 + the 10 mm MAX stem height of the drawing, along local +y
     # body (both halves): a plain rectangular block
     "bore_radius_mm": 15.2,                  # bore 30.4 = cell 25.4 + 5, through the whole length
-    "x_range_mm": [-38.0, 44.0],             # 2.08 mm beyond the cell at -x, 8.08 at +x (the slot end)
+    "x_range_mm": [-44.0, 44.0],             # 8.1 mm beyond the nominal cell end at each end (the slot ends)
     "half_width_beam_side_mm": 20.2,         # local -y face (board +x): 5 mm beside the bore
-    "half_width_stem_side_mm": 23.7,         # local +y face (board -x): 8.5 mm wall carrying the stem channel
+    "half_width_stem_side_mm": 26.7,         # local +y face (board -x): 11.5 mm wall carrying the closed stem pocket
     "half_height_mm": 24.0,                  # lower half z = -24 .. 0, lid z = 0 .. 24: the block is cut in half
-    # the single through slot (both halves) in the bore's +x end region, local +y half
-    "slot_x_mm": 39.3,                       # 3.4 mm beyond the cell end (35.92), 4.7 mm inside the end face
+    # the two through slots (both halves) in the bore's end regions, local +y half
+    "slot_x_mm": [-39.9, 39.9],              # inner edge 37.7: 1.0 mm beyond the cell at its +0.8 tolerance, end wall 1.9
     "slot_y_mm": [0.5, 11.0],                # screw centre at full travel .. centred (slide 0)
     "slot_width_mm": 0.172*25.4,             # 8-32 close clearance (4.37)
     "travel_mm": 10.5,                       # beam 2.2 mm inside the cell wall at the end (the isolator limits more)
     "lid_counterslot_mm": [8.5, 5.0],        # width, depth from the lid top: the socket head sits 0.6 mm below the top
-    # stem channel through the local +y wall, centred on the parting plane, open at the outer face
-    "stem_channel_mm": [12.0, 10.0],         # x width, z height (5 in each half): 1.85 mm around the 6.3 mm stem
+    # closed stem pocket in the local +y wall, centred on the parting plane and on the cell's mid-length
+    "stem_channel_mm": [12.0, 10.0],         # x width, z height (5 in each half): 1.85 mm around a 6.3 mm stem
+    "stem_pocket_depth_from_axis_mm": 24.2,  # 1.5 mm beyond the 10 mm MAX stem; 2.5 mm of wall stays to the face
     # cable notch in the lower half's parting face, through the local +y wall
     "cable_notch_mm": [6.0, 6.0],            # x width, depth below the parting plane
     "cable_notch_x_mm": -20.0,
     # covers
-    "cover_thickness_mm": 8.0,
-    "cover_hole_yz_mm": [[17.0, 17.0], [-14.5, 17.0], [17.0, -17.0], [-14.5, -17.0]],   # +y pair clears the slot
+    "cover_thickness_mm": 7.0,
+    "cover_hole_yz_mm": [[17.0, 17.0], [-14.5, 17.0], [17.0, -17.0], [-14.5, -17.0]],   # +y pair clears the slots
     "cover_hole_clearance_mm": 0.172*25.4,
-    "cover_counterbore_mm": [7.5, 4.5],      # diameter, depth: the socket head sits flush with the cover face
+    "cover_counterbore_mm": [7.5, 3.5],      # diameter, depth: the 4.4 mm socket head stands 0.9 mm proud
     "cover_screw": "8-32 x 5/8 in socket head cap screw (15.9 mm), 8 per enclosure",
-    "cover_tap_depth_mm": 16.0,              # 15.9 - (8 - 4.5) = 12.4 mm of thread engaged, 3.6 mm spare
-    "seat_screw": "8-32 x 2 in socket head cap screw (50.8 mm) through the lid and the lower half, 1 per seat",
+    "cover_tap_depth_mm": 16.0,              # 15.9 - (7 - 3.5) = 12.4 mm of thread engaged, 3.6 mm spare
+    "seat_screw": "8-32 x 2 in socket head cap screw (50.8 mm) through the lid and the lower half, 2 per seat",
     # plate machining
-    "pocket_clearance_mm": 2.0,              # beyond the covers (x)
+    "pocket_clearance_mm": 1.2,              # beyond the covers (x): the proud screw heads take 0.9 of it
     "pocket_clearance_stem_side_mm": 1.0,    # local +y end of the travel: the pocket wall is the travel stop
     "pocket_clearance_beam_side_mm": 6.3,    # local -y edge (board +x): reaches past the injection fold's
                                              # thumbscrew pocket (as the old pocket did) instead of leaving a thin wall
@@ -8499,13 +8504,15 @@ def _sliding_cell_common_cuts(p, shape, z0, z1, sign):
     shape = shape.cut(Part.makeCylinder(p["bore_radius_mm"], x1 - x0 + 2., App.Vector(x0 - 1., 0, 0),
                                         App.Vector(1, 0, 0)))
     cw, ch = p["stem_channel_mm"]
-    # the channel runs from inside the bore out through the +y face; this half
-    # takes ch/2 of its height (the box reaches 1 mm past the parting plane)
+    # the stem pocket runs from inside the bore to stem_pocket_depth_from_axis and
+    # stops there (closed); this half takes ch/2 of its height (the box reaches
+    # 1 mm past the parting plane)
     z_box = -ch/2. if sign < 0 else -1.
-    shape = shape.cut(Part.makeBox(cw, ys - p["bore_radius_mm"] + 4., ch/2. + 1.,
+    shape = shape.cut(Part.makeBox(cw, p["stem_pocket_depth_from_axis_mm"] - (p["bore_radius_mm"] - 2.), ch/2. + 1.,
                                    App.Vector(-cw/2., p["bore_radius_mm"] - 2., z_box)))
     y0, y1 = p["slot_y_mm"]
-    shape = shape.cut(_sliding_cell_slot(p["slot_x_mm"], y0, y1, p["slot_width_mm"], z0 - 1., z1 - z0 + 2.))
+    for sx in p["slot_x_mm"]:
+        shape = shape.cut(_sliding_cell_slot(sx, y0, y1, p["slot_width_mm"], z0 - 1., z1 - z0 + 2.))
     for x_end, direction in ((x0, 1), (x1, -1)):
         for yy, zz in p["cover_hole_yz_mm"]:
             if (zz > 0) != (sign > 0):
@@ -8516,7 +8523,7 @@ def _sliding_cell_common_cuts(p, shape, z0, z1, sign):
 
 
 def sliding_cell_lower_shape(p=None):
-    """The lower half in the local frame: trough, lower stem channel, cable notch, slot, lower cover taps."""
+    """The lower half in the local frame: trough, lower stem pocket, cable notch, slots, lower cover taps."""
     p = p or SLIDING_CELL
     h = p["half_height_mm"]
     shape = _sliding_cell_block(p, -h, 0.)
@@ -8529,14 +8536,15 @@ def sliding_cell_lower_shape(p=None):
 
 
 def sliding_cell_lid_shape(p=None):
-    """The upper half: trough, upper stem channel, the through slot with its counter-slot, upper cover taps."""
+    """The upper half: trough, upper stem pocket, the through slots with their counter-slots, upper cover taps."""
     p = p or SLIDING_CELL
     h = p["half_height_mm"]
     shape = _sliding_cell_block(p, 0., h)
     shape = _sliding_cell_common_cuts(p, shape, 0., h, +1)
     cw, cd = p["lid_counterslot_mm"]
     y0, y1 = p["slot_y_mm"]
-    shape = shape.cut(_sliding_cell_slot(p["slot_x_mm"], y0, y1, cw, h - cd, cd + 1.))
+    for sx in p["slot_x_mm"]:
+        shape = shape.cut(_sliding_cell_slot(sx, y0, y1, cw, h - cd, cd + 1.))
     return shape.removeSplitter()
 
 
@@ -8561,7 +8569,7 @@ def sliding_cell_cover_shape(p=None):
 
 
 def sliding_cell_glass_shape(p=None):
-    """The GC25075-RB envelope: a 25.4 x 71.84 mm cylinder with the fill stem along local +y."""
+    """The GC25075-RB envelope: a 25.4 x 71.8 mm cylinder with the fill stem (mid-length) along local +y."""
     p = p or SLIDING_CELL
     r, length = p["cell_radius_mm"], p["cell_length_mm"]
     glass = Part.makeCylinder(r, length, App.Vector(-length/2., 0, 0), App.Vector(1, 0, 0))
@@ -8581,13 +8589,13 @@ def sliding_cell_pocket_outline(p=None):
 
 
 def sliding_cell_seat_taps(p=None):
-    """Seat tap centres in the seat frame: the screw at the slot's outer end when the body is centred."""
+    """Seat tap centres in the seat frame: the screws at the slots' outer ends when the body is centred."""
     p = p or SLIDING_CELL
-    return [[p["slot_x_mm"], p["slot_y_mm"][1]]]
+    return [[sx, p["slot_y_mm"][1]] for sx in p["slot_x_mm"]]
 
 
 def sliding_cell_pocket_shape(top, p=None):
-    """The plate cut in the seat frame: the pocket (floor at the body bottom) plus the tap."""
+    """The plate cut in the seat frame: the pocket (floor at the body bottom) plus the two taps."""
     p = p or SLIDING_CELL
     depth = top + p["half_height_mm"]
     x0, y0, x1, y1 = sliding_cell_pocket_outline(p)
@@ -8611,8 +8619,8 @@ def sliding_cell_dimensions(p=None):
     width = p["half_width_beam_side_mm"] + p["half_width_stem_side_mm"]
     x0, x1 = p["x_range_mm"]
     d.update({
-        "holder": "V9.6 split sliding enclosure: plain block, lower half + lid + 2 covers in an 11.3 mm pocket, "
-                  "one through-slot screw",
+        "holder": "V9.7 split sliding enclosure: plain block, lower half + lid + 2 covers in an 11.3 mm pocket, "
+                  "two through-slot screws (one per end), closed stem pocket",
         "length_mm": x1 - x0,
         "body_size_mm": [x1 - x0, width, 2*p["half_height_mm"]],
         "cover_size_mm": [p["cover_thickness_mm"], width, 2*p["half_height_mm"]],
@@ -8622,8 +8630,12 @@ def sliding_cell_dimensions(p=None):
                                p["stem_tip_from_axis_mm"], -p["cell_radius_mm"], p["cell_radius_mm"]],
         "slot_overall_length_mm": p["slot_y_mm"][1] - p["slot_y_mm"][0] + p["slot_width_mm"],
         "slot_y_range_mm": list(p["slot_y_mm"]),
-        "slot_to_cell_end_mm": p["slot_x_mm"] - p["slot_width_mm"]/2. - p["cell_length_mm"]/2.,
-        "slot_to_end_face_mm": x1 - p["slot_x_mm"] - p["slot_width_mm"]/2.,
+        "slot_to_cell_end_mm": p["slot_x_mm"][1] - p["slot_width_mm"]/2. - p["cell_length_mm"]/2.,
+        "slot_to_cell_end_at_tolerance_mm": p["slot_x_mm"][1] - p["slot_width_mm"]/2. - p["cell_length_mm"]/2.
+                                            - p["cell_length_tolerance_mm"],
+        "slot_to_end_face_mm": x1 - p["slot_x_mm"][1] - p["slot_width_mm"]/2.,
+        "stem_pocket_wall_to_face_mm": p["half_width_stem_side_mm"] - p["stem_pocket_depth_from_axis_mm"],
+        "stem_tip_to_pocket_end_mm": p["stem_pocket_depth_from_axis_mm"] - p["stem_tip_from_axis_mm"],
         "pocket_local_mm": list(pocket),
         "pocket_main_local_mm": list(pocket),
         "pocket_ear_local_mm": None,
@@ -8635,24 +8647,27 @@ def sliding_cell_dimensions(p=None):
         "notes": [
             "Local frame: x along the bore and the beam, y across (sliding direction), z up; origin on the bore axis "
             "at the middle of the cell; the parting plane z = 0 is the 12.7 mm optical axis.",
-            "Plain rectangular block 82 x 43.9 x 48 (x = -38 .. +44), no boss. Bore 30.4 mm = cell 25.4 + 5, through "
-            "the whole length, bored with the two halves clamped together; the cell is centred in the bore by the "
-            "heater/insulation (not modelled).",
-            "One through slot (4.37 wide, screw centres y = 0.5 .. 11, both halves) at x = 39.3 in the bore's +x end "
-            "region, 1.2 mm beyond the cell end and 2.5 mm inside the end face; it lies in the local +y half of the "
-            "bore while the beam uses the centre and the local -y half, so the screw never meets the cell or the beam.",
+            "Cell per Thorlabs drawing 24088-E0W (GC25075-RB): dia 25.4 x 71.8 (tolerances 0.3 / 0.8), fill stem at "
+            "mid-length, stem height 10 mm MAX; the stem diameter is not on the drawing (6.3 assumed for display).",
+            "Plain rectangular block 88 x 46.9 x 48 (x = +-44), nothing protrudes. Bore 30.4 mm = cell 25.4 + 5, "
+            "through the whole length, bored with the two halves clamped together; the cell is centred in the bore "
+            "by the heater/insulation (not modelled), which must also keep it from sliding along the bore.",
+            "Two through slots (4.37 wide, screw centres y = 0.5 .. 11, both halves) at x = +-39.9 in the bore's end "
+            "regions, 1.0 mm beyond the cell end at its +0.8 tolerance and 1.9 mm inside the end faces; they lie in "
+            "the local +y half of the bore while the beam uses the centre and the local -y half, so the screws never "
+            "meet the cell or the beam.",
             "Travel 10.5 mm toward local +y (board -x on the lattice board): beam through the cell centre at 0, "
             "2.2 mm inside the cell wall at 10.5; the pocket wall on that side is the travel stop (1 mm clearance). "
-            "In the body frame the screw moves from y = 11 (centred) to y = 0.5 (full travel).",
-            "One 8-32 x 2 in screw from the lid top through the slot of both halves into the plate tap clamps the "
-            "halves and fixes the position; its head rides in the lid's 8.5 x 5 counter-slot. The pocket's end walls "
-            "(2 mm clearance) keep the block square; the eight cover screws tie the halves at both ends.",
-            "Stem channel 12 x 10 split 5/5 by the parting plane, through the local +y wall and open at its face: the "
-            "stem tip ends 1 mm inside the face (a longer stem simply protrudes).",
+            "In the body frame the screws move from y = 11 (centred) to y = 0.5 (full travel).",
+            "Two 8-32 x 2 in screws, one per end, from the lid top through the slots of both halves into the plate "
+            "taps clamp the halves and fix the position; their heads ride in the lid's 8.5 x 5 counter-slots.",
+            "Stem pocket 12 x 10 split 5/5 by the parting plane, from the bore to 24.2 from the axis and CLOSED: "
+            "1.5 mm beyond the 10 mm MAX stem, 2.5 mm of wall to the outer face.",
             "Cable notch 6 x 6 in the lower half's parting face through the local +y wall at x = -20.",
-            "Covers 8 mm thick, no beam aperture yet (to be opened later; the beam-passage audit exempts them "
-            "explicitly). Cover holes at y = +17 / -14.5, z = +/-17: the +y pair clears the slot by 2.1 mm.",
-            "Cover taps 16 mm deep from each end face (two in each half); 5/8 in screws through the 8 mm counterbored "
+            "Covers 7 mm thick, no beam aperture yet (to be opened later; the beam-passage audit exempts them "
+            "explicitly). Cover holes at y = +17 / -14.5, z = +/-17: the +y pair clears the slots by 2.1 mm. The "
+            "socket heads stand 0.9 mm proud of the 3.5 mm counterbores.",
+            "Cover taps 16 mm deep from each end face (two in each half); 5/8 in screws through the counterbored "
             "covers engage 12.4 mm and tie the halves together.",
         ],
     })
@@ -8660,7 +8675,7 @@ def sliding_cell_dimensions(p=None):
 
 
 class SlidingCellEnclosure:
-    """V9.6 split sliding Rb cell enclosure (plain block), lower half (root; the lid, covers and glass are its children)."""
+    """V9.7 split sliding Rb cell enclosure (plain block), lower half (root; the lid, covers and glass are its children)."""
     type = 'Part::FeaturePython'
 
     def __init__(self, obj, slide=0.0, covers=True, glass=True, lid=True):
@@ -8675,7 +8690,7 @@ class SlidingCellEnclosure:
         obj.addProperty('App::PropertyLength', 'CellRadius', 'Design').CellRadius = p["cell_radius_mm"]
         obj.addProperty('App::PropertyString', 'Purpose', 'Design')
         obj.addProperty('App::PropertyString', 'DimensionsJSON', 'Design')
-        self.part_numbers = ['Rb cell enclosure lower half (machined, V9.6)']
+        self.part_numbers = ['Rb cell enclosure lower half (machined, V9.7)']
         if lid:
             _add_linked_object(obj, "Rb cell enclosure lid (upper half)", SlidingCellLid)
         if covers:
@@ -8696,7 +8711,7 @@ class SlidingCellEnclosure:
 
 
 class SlidingCellLid:
-    """Upper half of the split enclosure (the long seat screw passes through its slot)."""
+    """Upper half of the split enclosure (the two long seat screws pass through its slots)."""
     type = 'Part::FeaturePython'
 
     def __init__(self, obj):
@@ -8705,8 +8720,8 @@ class SlidingCellLid:
         obj.ViewObject.ShapeColor = adapter_color
         obj.ViewObject.Transparency = 35
         obj.addProperty('App::PropertyString', 'Purpose', 'Design')
-        obj.Purpose = "V9.6 enclosure upper half; the seat screw passes through its slot and counter-slot"
-        self.part_numbers = ['Rb cell enclosure lid (machined, V9.6)']
+        obj.Purpose = "V9.7 enclosure upper half; the seat screws pass through its slots and counter-slots"
+        self.part_numbers = ['Rb cell enclosure lid (machined, V9.7)']
 
     def execute(self, obj):
         obj.Shape = sliding_cell_lid_shape()
@@ -8725,8 +8740,8 @@ class SlidingCellCover:
         obj.ViewObject.ShapeColor = adapter_color
         obj.ViewObject.Transparency = 35
         obj.addProperty('App::PropertyString', 'Purpose', 'Design')
-        obj.Purpose = "V9.6 enclosure end cover (8 mm); the beam aperture is to be machined later"
-        self.part_numbers = ['Rb cell enclosure cover (machined, V9.6)']
+        obj.Purpose = "V9.7 enclosure end cover (7 mm); the beam aperture is to be machined later"
+        self.part_numbers = ['Rb cell enclosure cover (machined, V9.7)']
 
     def execute(self, obj):
         obj.Shape = sliding_cell_cover_shape()
@@ -8754,7 +8769,7 @@ class SlidingCellGlass:
 
 
 class SlidingCellSeat:
-    """Hidden plate machining for the sliding enclosure: the pocket and its single 8-32 tap."""
+    """Hidden plate machining for the sliding enclosure: the pocket and its two 8-32 taps."""
     type = "Part::FeaturePython"
 
     def __init__(self, obj, drill=True):
@@ -8766,7 +8781,7 @@ class SlidingCellSeat:
         obj.addProperty("App::PropertyLength", "PocketDepth", "Machining").PocketDepth = p["half_height_mm"] - OPTICAL_HEIGHT
         obj.addProperty("App::PropertyLength", "CornerRadius", "Machining").CornerRadius = p["pocket_corner_radius_mm"]
         obj.addProperty("App::PropertyLength", "TapDrillDiameter", "Machining").TapDrillDiameter = p["seat_tap_diameter_mm"]
-        obj.addProperty("App::PropertyString", "Thread", "Machining").Thread = "8-32 UNC through, 1 hole"
+        obj.addProperty("App::PropertyString", "Thread", "Machining").Thread = "8-32 UNC through, 2 holes"
         obj.addProperty("App::PropertyString", "Purpose", "Design")
         obj.addProperty("App::PropertyString", "DimensionsJSON", "Design")
 
@@ -8786,13 +8801,13 @@ class SlidingCellSeat:
 
 
 def place_sliding_cell(bp, x, y, angle=90, slide=0.0,
-                       name="Rb cell seat - 11.3 mm pocket + 1 slot tap 8-32 (V9.6 split sliding enclosure)"):
-    """V9.6: the split sliding enclosure seat (plate machining) and the plain-block enclosure on it.
+                       name="Rb cell seat - 11.3 mm pocket + 2 slot taps 8-32 (V9.7 split sliding enclosure)"):
+    """V9.7: the split sliding enclosure seat (plate machining) and the plain-block enclosure on it.
 
     ``slide`` (0 .. 10.5 mm) moves the enclosure along its local +y (board -x
     when angle = 90) so that the beam passes the cell centre (0) or runs just
     inside the cell wall (10.5). The seat - pocket and taps - never moves.
-    Returns ``root`` (the seat, owner of the tap and the cut), ``cell`` (the
+    Returns ``root`` (the seat, owner of the taps and the cut), ``cell`` (the
     lower half, with the lid, the covers and the glass envelope as its
     children), ``objects``, ``cut_object`` and ``dimensions`` for the audits.
     """
@@ -8800,13 +8815,13 @@ def place_sliding_cell(bp, x, y, angle=90, slide=0.0,
     if not 0.0 <= slide <= p["travel_mm"] + 1e-9:
         raise ValueError("slide must be between 0 and %.2f mm" % p["travel_mm"])
     seat = bp.place_element(name, SlidingCellSeat, x=x, y=y, angle=angle)
-    seat.Purpose = ("V9.6 cell seat: pocket %.1f mm deep for the split sliding enclosure (both halves, covers "
-                    "and %.1f mm of travel), one 8-32 tap through the floor; the enclosure is a separate part "
+    seat.Purpose = ("V9.7 cell seat: pocket %.1f mm deep for the split sliding enclosure (both halves, covers "
+                    "and %.1f mm of travel), two 8-32 taps through the floor; the enclosure is a separate part "
                     "on it." % (p["half_height_mm"] - OPTICAL_HEIGHT, p["travel_mm"]))
     a = radians(angle)
     body = bp.place_element("Rb cell enclosure (sliding lower half, slide %.1f mm)" % slide, SlidingCellEnclosure,
                             x=x - slide*sin(a), y=y + slide*cos(a), angle=angle, slide=slide)
-    body.Purpose = ("V9.6 split sliding enclosure (plain block); slide %.1f of %.1f mm along local +y (beam %.1f mm from the "
+    body.Purpose = ("V9.7 split sliding enclosure (plain block); slide %.1f of %.1f mm along local +y (beam %.1f mm from the "
                     "cell axis)." % (slide, p["travel_mm"], slide))
     dimensions = sliding_cell_dimensions(p)
     dimensions["placement_xy_angle"] = [float(x), float(y), float(angle)]

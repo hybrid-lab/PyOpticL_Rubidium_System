@@ -125,8 +125,8 @@ If you use this work in academic settings, please also cite:
 # Rb-87 795 nm lattice laser system — branch `gpt+claude+Haotian`
 
 Three baseplates for the 795 nm lattice light, designed in September 2026 by
-Haotian Xu with GPT (Codex) and Claude. Current revision **V9.6** (2026-10-08,
-lattice board: split sliding Rb cell enclosure; the TA and double-pass boards
+Haotian Xu with GPT (Codex) and Claude. Current revision **V9.7** (2026-10-08,
+lattice board: split sliding Rb cell enclosure with two end screws; the TA and double-pass boards
 are unchanged since V9.3); the change log is at the end of this section.
 
 | Board | Script | Size | Production folder |
@@ -170,14 +170,14 @@ yajur-branch file, unchanged):
   counterbore, used for every position whose holder is not yet chosen.
 - `SlidingCellEnclosure` / `SlidingCellLid` / `SlidingCellCover` /
   `SlidingCellGlass` / `SlidingCellSeat` / `place_sliding_cell` (V9.5, split in
-  V9.6) — the Rb cell enclosure and its seat: a plain block cut into a lower
-  half and a lid, 82 × 43.9 × 24 mm each, parted on the bore axis, with the
-  30.4 mm bore, a 12 × 10 mm stem channel split between them, one through slot
-  in the bore's end region, eight 16 mm deep cover taps and a 6 × 6 mm cable
-  notch; two 8 mm end covers with counterbored 8-32 holes (no beam aperture
-  yet); the GC25075-RB envelope; and the plate machining (an 11.3 mm pocket
-  shaped for the assembly plus 10.5 mm of travel, one 8-32 tap through its
-  floor). `place_sliding_cell(bp, x, y,
+  V9.6, two end screws and closed stem pocket in V9.7) — the Rb cell enclosure
+  and its seat: a plain block cut into a lower half and a lid, 88 × 46.9 × 24 mm
+  each, parted on the bore axis, with the 30.4 mm bore, a closed 12 × 10 mm
+  stem pocket split between them, a through slot in each bore end region,
+  eight 16 mm deep cover taps and a 6 × 6 mm cable notch; two 7 mm end covers
+  with counterbored 8-32 holes (no beam aperture yet); the GC25075-RB envelope;
+  and the plate machining (an 11.3 mm pocket shaped for the assembly plus
+  10.5 mm of travel, two 8-32 taps through its floor). `place_sliding_cell(bp, x, y,
   angle, slide)` places the seat and the enclosure `slide` mm along the slot
   direction. All dimensions live in the `SLIDING_CELL` dict and are exported
   with the parts (`Production/CellEnclosure/`). The V9.2–V9.4 pocket-only seat
@@ -210,7 +210,7 @@ every other `Production/` folder.
 
 ## Boards
 
-**Lattice board (24 × 15 in, V9.6).** TA → two steering folds → HWP → isolator →
+**Lattice board (24 × 15 in, V9.7).** TA → two steering folds → HWP → isolator →
 QWP → six bare 8-32 conditioning stations (45/45 mm down the lane, then 60 mm
 and 100 mm along the beam) → Rb cell in its sliding enclosure → SR475 shutter →
 power HWP/PBS. The
@@ -245,54 +245,57 @@ key there. Both test configurations were built on the same plate and audited
 (`example_baseplate(mode='dual', cat_eye='75-50')` / `'75-75'`; reports in
 `Production/LatticeBoardV9/`).
 
-**Rb cell enclosure (V9.6).** The GC25075-RB cell (Ø25.4 × 71.84 mm) sits in a
-plain machined aluminium block, 82 × 43.9 × 48 mm, that is cut in two along
-the bore axis — a lower half and a lid, 24 mm each — so the cell is simply
-laid in. Nothing sticks out of the block. The parting plane is the plate's
-12.7 mm optical axis, so the beam runs along the split. The bore is Ø30.4 mm
-(cell diameter + 5 mm), through the whole length, bored with the two halves
-clamped together. The fill stem lies in the parting plane and points toward
-−x on the board (away from the side the beam moves to), in a 12 × 10 mm
-channel split 5/5 between the halves and open at the outer face (the stem tip
-ends 1 mm inside it; a longer stem simply protrudes). A 6 × 6 mm cable notch
-in the lower half's parting face leaves through the same wall. Two separate
-8 mm end covers are each held by four 8-32 × 5/8 in socket head screws in
-counterbored holes — eight 16 mm deep taps, two in each half, so the covers
-also tie the halves together. The covers carry **no beam aperture yet** — it
-is to be opened later on the bore axis.
+**Rb cell enclosure (V9.7).** The GC25075-RB cell (Ø25.4 × 71.8 mm per the
+Thorlabs drawing 24088-E0W, length tolerance 0.8, fill stem at mid-length and
+< 10 mm high) sits in a plain machined aluminium block, 88 × 46.9 × 48 mm, that
+is cut in two along the bore axis — a lower half and a lid, 24 mm each — so
+the cell is simply laid in. Nothing sticks out of the block. The parting plane
+is the plate's 12.7 mm optical axis, so the beam runs along the split. The
+bore is Ø30.4 mm (cell diameter + 5 mm), through the whole length, bored with
+the two halves clamped together. The fill stem lies in the parting plane and
+points toward −x on the board (away from the side the beam moves to), in a
+12 × 10 mm pocket split 5/5 between the halves; the pocket is **closed**: it
+runs from the bore to 24.2 mm from the axis (1.5 mm beyond the longest stem
+Thorlabs allows) and leaves 2.5 mm of wall to the outer face, so nothing
+connects the cell space to the outside there. A 6 × 6 mm cable notch in the
+lower half's parting face leaves through the same wall. Two separate 7 mm end
+covers are each held by four 8-32 × 5/8 in socket head screws in 3.5 mm
+counterbores (the heads stand 0.9 mm proud) — eight 16 mm deep taps, two in
+each half, so the covers also tie the halves together. The covers carry **no
+beam aperture yet** — it is to be opened later on the bore axis.
 
-The enclosure slides across the beam and is held by a single screw. The block
-is 6 mm longer than the cell needs at its +y end (board), and in that end
-region of the bore — beyond the cell, 1.2 mm from its end — one through slot
-(4.37 wide, 14.9 long, running through both halves) sits on the −x half of the
-bore while the beam uses the centre and the +x half; one 8-32 × 2 in screw
-goes from the lid top through the slot into an 8-32 tap in the plate at
-(185, 201.3). It clamps the halves together and fixes the position, its head
-riding in an 8.5 × 5 mm counter-slot below the lid top, so the position is
-set from above with everything assembled; the screw never meets the cell or
-the beam (≥ 8.9 mm from the beam at any position). The pocket's end walls
-keep the block square and the eight cover screws tie the halves at both ends.
-With the screw at the slot's outer end the beam passes through the cell
-centre; pushed to the other end (the block moving 10.5 mm toward −x) the beam
-runs 2.2 mm inside the cell wall on the +x side — further than that the beam
-would be in the glass, and the pocket would merge with the isolator's. The
-plate pocket is 11.3 mm deep (the bore axis is 24 mm above the block's bottom,
-so this puts it at the 12.7 mm optical height) and shaped for both halves, the
-covers and the travel: 102 × 61.7 mm (board x 160.8–222.5, y 114–216; its +x
-edge runs into the injection fold's thumbscrew pocket, as the old pocket did);
-the pocket wall on the −x side is the travel stop, and the 98 mm assembly
-keeps 3 mm to the station-6 holder slab and 2.7 mm of plate to the shutter
-housing pocket. Both ends of the travel were built and audited
+The enclosure slides across the beam and is held by a screw at each end. The
+block is 8.1 mm longer than the cell at both ends, and in each bore end region
+— beyond the cell, 1 mm from its end even at the +0.8 length tolerance — a
+through slot (4.37 wide, 14.9 long, running through both halves) sits on the
+−x half of the bore while the beam uses the centre and the +x half; two 8-32 ×
+2 in screws go from the lid top through the slots into two 8-32 taps in the
+plate at (185, 123.6) and (185, 203.4). They clamp the halves together and fix
+the position, their heads riding in 8.5 × 5 mm counter-slots below the lid
+top, so the position is set from above with everything assembled; the screws
+never meet the cell or the beam (≥ 8.9 mm from the beam at any position). With
+the screws at the slots' outer ends the beam passes through the cell centre;
+pushed to the other end (the block moving 10.5 mm toward −x) the beam runs
+2.2 mm inside the cell wall on the +x side — further than that the beam would
+be in the glass. The plate pocket is 11.3 mm deep (the bore axis is 24 mm
+above the block's bottom, so this puts it at the 12.7 mm optical height) and
+shaped for both halves, the covers and the travel: 104.4 × 64.7 mm (board
+x 157.8–222.5, y 111.3–215.7; its +x edge runs into the injection fold's
+thumbscrew pocket, as the old pocket did, and its −x edge keeps 3.8 mm of
+plate to the isolator and output-QWP pockets); the pocket wall on the −x side
+is the travel stop. To fit the longer block between the station-6 lens slab
+(y 111) and the shutter housing pocket (y 217.7) the seat moved 1.5 mm along
+the beam to y = 163.5. Both ends of the travel were built and audited
 (`example_baseplate(mode='dual', cell_slide=10.5)` is the second report in
 `Production/LatticeBoardV9/`): the two halves are never exempted — the beam
 has to pass the bore geometrically — while the aperture-less covers and the
 cell envelope are exempted explicitly for a beam running along the bore. The
 enclosure parts are in `Production/CellEnclosure/`
-(`Rb_Cell_Enclosure_LowerHalf_V9_6.step`, `..._Lid_V9_6.step`,
-`..._Cover_V9_6.step`, `..._Assembly_V9_6.step`, the drawing
-`Rb_Cell_Enclosure_V9_6_drawing.pdf` and `..._dimensions.json`); the cell is
-centred in the bore by its heater/insulation, which is not part of this
-design.
+(`Rb_Cell_Enclosure_LowerHalf_V9_7.step`, `..._Lid_V9_7.step`,
+`..._Cover_V9_7.step`, `..._Assembly_V9_7.step`, the drawing
+`Rb_Cell_Enclosure_V9_7_drawing.pdf` and `..._dimensions.json`); the cell is
+centred in the bore, and kept from sliding along it, by its heater/insulation,
+which is not part of this design.
 
 **Table bolts (V9.4.2).** The lab table has a 1 in hole grid whose first row
 is 1.5 in from the table edge. The plate is meant to sit with its fiber-side
@@ -337,7 +340,7 @@ that set lie on the input beam axis by design — empty holes 12.7 mm below the
 beam, usable only with that beam absent or the f = 300 chain's first fold
 removed.
 
-The Rb cell seat carries the V9.6 enclosure described above; the covers' beam
+The Rb cell seat carries the V9.7 enclosure described above; the covers' beam
 apertures are the one feature of it still to be machined.
 
 ## Machining
@@ -356,7 +359,7 @@ sizes, tolerances, material and finish are left to the shop):
 
 | Part | Sheet | Tapped | Not tapped |
 |---|---|---|---|
-| Lattice baseplate (V9.6) | `Production/LatticeBoardV9/Lattice_V9_6_baseplate_TAP_or_NOT.pdf` | 99 × #8-32 | 4 × 1/4-20 table-bolt clearance |
+| Lattice baseplate (V9.7) | `Production/LatticeBoardV9/Lattice_V9_7_baseplate_TAP_or_NOT.pdf` | 100 × #8-32 | 4 × 1/4-20 table-bolt clearance |
 | TA baseplate | `Production/TABoardV9/TA_Board_V9_baseplate_TAP_or_NOT.pdf` | 57 × #8-32 | 4 × 1/4-20 clearance |
 | Double-pass AOM baseplate | `Production/AOMDoublePassV9/AOM_DoublePass_V9_baseplate_TAP_or_NOT.pdf` | 22 × #8-32 | 3 × 1/4-20 clearance |
 | TA adapter (`stl/TA_adapter.stl`) | `Production/Adapters/TA_adapter_TAP_or_NOT.pdf` | 4 × M2.5 × 0.45 (board screws) | 4 × 8-32 clearance (to the plate taps) |
@@ -364,8 +367,8 @@ sizes, tolerances, material and finish are left to the shop):
 
 Every hole in the part is marked on its sheet; the rounded corners inside the
 milled pockets are R3.175 end-mill fillets, not holes. `Production/Adapters/`
-also holds `V9_6_tapping_sheets_all.pdf`, the five sheets in one file (the
-V9.6 lattice sheet and the four unchanged V9.3 sheets), and the hole
+also holds `V9_7_tapping_sheets_all.pdf`, the five sheets in one file (the
+V9.7 lattice sheet and the four unchanged V9.3 sheets), and the hole
 coordinates of every sheet are listed on it (plates: STEP-file coordinates;
 adapters: from the part's lower-left corner).
 
@@ -378,7 +381,7 @@ are the `*_validation.json` files in `Production/`. All three boards report no
 issue apart from accepted overhangs: on the TA board the two TA steering
 mirrors sit at the top of the plate, so their M05 bodies extend about 3.6 mm
 past the outline and their thumbscrews about 21 mm — above the plate, not
-through it; on the V9.6 lattice board the same two mirrors plus the three
+through it; on the V9.7 lattice board the same two mirrors plus the three
 fold mirrors at the plate corners (F1, F2, F4) and the DP1 0-order iris ring
 overhang the edge the same way (ten items), every screw of theirs landing at
 least 6.1 mm inside the edge. The upper fiber-side table bolt lies under the
@@ -387,6 +390,21 @@ install the bolts before aligning. The audit scripts themselves are development 
 not part of this branch.
 
 ## Change log
+
+**V9.7 (2026-10-08, lattice board only)** — the cell enclosure gets a
+screw at each end and a closed stem pocket: the plain block grows to 88 ×
+46.9 × 48 (x = ±44 about the cell) with a through slot in each bore end
+region and two 8-32 × 2 in screws into plate taps at (185, 123.6) and
+(185, 203.4); the stem pocket stops 2.5 mm before the −x face (the Thorlabs
+drawing gives the stem as < 10 mm high at mid-length); covers 7 mm; the seat
+moves to y = 163.5 so that the 102 mm assembly fits between the station-6
+slab and the shutter pocket. Plate: pocket 104.4 × 61.7 at x 157.8–222.5,
+y 111.3–215.7, two taps; hole count 103 → 104. Five configurations rebuilt
+and audited — no contact, intersection or clearance conflict, the same ten
+accepted overhangs. New STEP (`Lattice_V9_7_baseplate_24x15in.step`),
+renders, audit reports, BOM and tapping sheets replace the V9.6 ones;
+`Production/CellEnclosure/` holds the V9_7 lower half, lid, cover and
+assembly STEPs, drawing and dimension JSON (V9.6 files removed).
 
 **V9.6 (2026-10-08, lattice board only)** — the cell enclosure is redesigned
 after review of V9.5 as a plain block cut in two along the bore axis (lower
