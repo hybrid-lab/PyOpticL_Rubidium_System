@@ -1,0 +1,140 @@
+{
+  "model": "GC25075-RB",
+  "cell_radius_mm": 12.7,
+  "cell_length_mm": 71.84,
+  "stem_radius_mm": 3.15,
+  "stem_tip_from_axis_mm": 22.7,
+  "bore_radius_mm": 15.2,
+  "x_range_mm": [
+    -38.0,
+    44.0
+  ],
+  "half_width_beam_side_mm": 20.2,
+  "half_width_stem_side_mm": 23.7,
+  "half_height_mm": 24.0,
+  "slot_x_mm": 39.3,
+  "slot_y_mm": [
+    0.5,
+    11.0
+  ],
+  "slot_width_mm": 4.368799999999999,
+  "travel_mm": 10.5,
+  "lid_counterslot_mm": [
+    8.5,
+    5.0
+  ],
+  "stem_channel_mm": [
+    12.0,
+    10.0
+  ],
+  "cable_notch_mm": [
+    6.0,
+    6.0
+  ],
+  "cable_notch_x_mm": -20.0,
+  "cover_thickness_mm": 8.0,
+  "cover_hole_yz_mm": [
+    [
+      17.0,
+      17.0
+    ],
+    [
+      -14.5,
+      17.0
+    ],
+    [
+      17.0,
+      -17.0
+    ],
+    [
+      -14.5,
+      -17.0
+    ]
+  ],
+  "cover_hole_clearance_mm": 4.368799999999999,
+  "cover_counterbore_mm": [
+    7.5,
+    4.5
+  ],
+  "cover_screw": "8-32 x 5/8 in socket head cap screw (15.9 mm), 8 per enclosure",
+  "cover_tap_depth_mm": 16.0,
+  "seat_screw": "8-32 x 2 in socket head cap screw (50.8 mm) through the lid and the lower half, 1 per seat",
+  "pocket_clearance_mm": 2.0,
+  "pocket_clearance_stem_side_mm": 1.0,
+  "pocket_clearance_beam_side_mm": 6.3,
+  "pocket_corner_radius_mm": 3.174,
+  "seat_tap_depth_mm": 100.0,
+  "seat_tap_diameter_mm": 3.4544,
+  "holder": "V9.6 split sliding enclosure: plain block, lower half + lid + 2 covers in an 11.3 mm pocket, one through-slot screw",
+  "length_mm": 82.0,
+  "body_size_mm": [
+    82.0,
+    43.9,
+    48.0
+  ],
+  "cover_size_mm": [
+    8.0,
+    43.9,
+    48.0
+  ],
+  "assembly_length_mm": 98.0,
+  "assembly_x_range_mm": [
+    -46.0,
+    52.0
+  ],
+  "cell_bbox_local_mm": [
+    -35.92,
+    35.92,
+    -12.7,
+    22.7,
+    -12.7,
+    12.7
+  ],
+  "slot_overall_length_mm": 14.8688,
+  "slot_y_range_mm": [
+    0.5,
+    11.0
+  ],
+  "slot_to_cell_end_mm": 1.1955999999999989,
+  "slot_to_end_face_mm": 2.515600000000003,
+  "pocket_local_mm": [
+    -48.0,
+    -26.5,
+    54.0,
+    35.2
+  ],
+  "pocket_main_local_mm": [
+    -48.0,
+    -26.5,
+    54.0,
+    35.2
+  ],
+  "pocket_ear_local_mm": null,
+  "pocket_depth_below_standard_plate_top_mm": 11.3,
+  "pocket_floor_stock_mm": 14.099999999999998,
+  "tap_hole_diameter_mm": 3.4544,
+  "tap_holes_local_xy_mm": [
+    [
+      39.3,
+      11.0
+    ]
+  ],
+  "stem_tip_inside_outer_face_mm": 1.0,
+  "notes": [
+    "Local frame: x along the bore and the beam, y across (sliding direction), z up; origin on the bore axis at the middle of the cell; the parting plane z = 0 is the 12.7 mm optical axis.",
+    "Plain rectangular block 82 x 43.9 x 48 (x = -38 .. +44), no boss. Bore 30.4 mm = cell 25.4 + 5, through the whole length, bored with the two halves clamped together; the cell is centred in the bore by the heater/insulation (not modelled).",
+    "One through slot (4.37 wide, screw centres y = 0.5 .. 11, both halves) at x = 39.3 in the bore's +x end region, 1.2 mm beyond the cell end and 2.5 mm inside the end face; it lies in the local +y half of the bore while the beam uses the centre and the local -y half, so the screw never meets the cell or the beam.",
+    "Travel 10.5 mm toward local +y (board -x on the lattice board): beam through the cell centre at 0, 2.2 mm inside the cell wall at 10.5; the pocket wall on that side is the travel stop (1 mm clearance). In the body frame the screw moves from y = 11 (centred) to y = 0.5 (full travel).",
+    "One 8-32 x 2 in screw from the lid top through the slot of both halves into the plate tap clamps the halves and fixes the position; its head rides in the lid's 8.5 x 5 counter-slot. The pocket's end walls (2 mm clearance) keep the block square; the eight cover screws tie the halves at both ends.",
+    "Stem channel 12 x 10 split 5/5 by the parting plane, through the local +y wall and open at its face: the stem tip ends 1 mm inside the face (a longer stem simply protrudes).",
+    "Cable notch 6 x 6 in the lower half's parting face through the local +y wall at x = -20.",
+    "Covers 8 mm thick, no beam aperture yet (to be opened later; the beam-passage audit exempts them explicitly). Cover holes at y = +17 / -14.5, z = +/-17: the +y pair clears the slot by 2.1 mm.",
+    "Cover taps 16 mm deep from each end face (two in each half); 5/8 in screws through the 8 mm counterbored covers engage 12.4 mm and tie the halves together."
+  ],
+  "placement_xy_angle": [
+    196.0,
+    162.0,
+    90.0
+  ],
+  "slide_mm": 0.0
+}

@@ -951,8 +951,8 @@
       ]
     },
     {
-      "name": "Rb_cell_seat___10_3_mm_pocket___2_slot_taps_8_32__V9_5_sliding_enclosure_",
-      "label": "Rb cell seat - 10.3 mm pocket + 2 slot taps 8-32 (V9.5 sliding enclosure)",
+      "name": "Rb_cell_seat___11_3_mm_pocket___1_slot_tap_8_32__V9_6_split_sliding_enclosure_",
+      "label": "Rb cell seat - 11.3 mm pocket + 1 slot tap 8-32 (V9.6 split sliding enclosure)",
       "type": "Part::FeaturePython",
       "state": [
         "Up-to-date"
@@ -965,19 +965,19 @@
       "class": "SlidingCellSeat"
     },
     {
-      "name": "Rb_cell_enclosure__sliding_body__slide_0_0_mm_",
-      "label": "Rb cell enclosure (sliding body, slide 0.0 mm)",
+      "name": "Rb_cell_enclosure__sliding_lower_half__slide_0_0_mm_",
+      "label": "Rb cell enclosure (sliding lower half, slide 0.0 mm)",
       "type": "Part::FeaturePython",
       "state": [
         "Up-to-date"
       ],
       "bbox": [
-        175.80000000000004,
+        172.3,
         123.99999999999999,
-        -23.000000000000007,
-        241.20000000000005,
-        200.0,
-        25.000000000000007
+        -24.000000000000007,
+        216.20000000000002,
+        206.0,
+        0.0
       ],
       "position": [
         196.0,
@@ -987,7 +987,33 @@
       "valid": true,
       "class": "SlidingCellEnclosure",
       "part_numbers": [
-        "Rb cell enclosure body (machined, V9.5)"
+        "Rb cell enclosure lower half (machined, V9.6)"
+      ]
+    },
+    {
+      "name": "Rb_cell_enclosure_lid__upper_half_",
+      "label": "Rb cell enclosure lid (upper half)",
+      "type": "Part::FeaturePython",
+      "state": [
+        "Up-to-date"
+      ],
+      "bbox": [
+        172.3,
+        123.99999999999999,
+        0.0,
+        216.20000000000002,
+        206.0,
+        24.000000000000007
+      ],
+      "position": [
+        196.0,
+        162.0,
+        0.0
+      ],
+      "valid": true,
+      "class": "SlidingCellLid",
+      "part_numbers": [
+        "Rb cell enclosure lid (machined, V9.6)"
       ]
     },
     {
@@ -998,22 +1024,22 @@
         "Up-to-date"
       ],
       "bbox": [
-        175.8,
-        200.0,
-        -23.000000000000004,
+        172.30000000000004,
+        206.0,
+        -24.000000000000007,
         216.2,
-        210.00000000000003,
-        25.000000000000007
+        214.00000000000003,
+        24.000000000000007
       ],
       "position": [
         196.0,
-        200.0,
+        206.0,
         0.0
       ],
       "valid": true,
       "class": "SlidingCellCover",
       "part_numbers": [
-        "Rb cell enclosure cover (machined, V9.5)"
+        "Rb cell enclosure cover (machined, V9.6)"
       ]
     },
     {
@@ -1024,12 +1050,12 @@
         "Up-to-date"
       ],
       "bbox": [
-        175.8,
-        114.0,
-        -23.000000000000004,
+        172.30000000000004,
+        115.99999999999997,
+        -24.000000000000007,
         216.2,
-        124.0,
-        25.000000000000007
+        124.00000000000003,
+        24.00000000000001
       ],
       "position": [
         196.0,
@@ -1039,7 +1065,7 @@
       "valid": true,
       "class": "SlidingCellCover",
       "part_numbers": [
-        "Rb cell enclosure cover (machined, V9.5)"
+        "Rb cell enclosure cover (machined, V9.6)"
       ]
     },
     {
@@ -1050,12 +1076,12 @@
         "Up-to-date"
       ],
       "bbox": [
-        183.3433769388153,
+        173.30000000000004,
         126.07999999999998,
         -12.700000000000003,
         208.65662306118472,
         197.92000000000002,
-        22.700000000000003
+        12.700000000000003
       ],
       "position": [
         196.0,
@@ -4973,11 +4999,12 @@
       "Upper_Thumbscrew004",
       "Lower_Thumbscrew004"
     ],
-    "Rb cell seat (V9.5 pocket + 2 slot taps)": [
-      "Rb_cell_seat___10_3_mm_pocket___2_slot_taps_8_32__V9_5_sliding_enclosure_"
+    "Rb cell seat (V9.6 pocket + 1 slot tap)": [
+      "Rb_cell_seat___11_3_mm_pocket___1_slot_tap_8_32__V9_6_split_sliding_enclosure_"
     ],
-    "Rb cell enclosure (V9.5 sliding body, covers, cell)": [
-      "Rb_cell_enclosure__sliding_body__slide_0_0_mm_",
+    "Rb cell enclosure (V9.6 lower half, lid, covers, cell)": [
+      "Rb_cell_enclosure__sliding_lower_half__slide_0_0_mm_",
+      "Rb_cell_enclosure_lid__upper_half_",
       "Rb_cell_enclosure_cover__x",
       "Rb_cell_enclosure_cover__x001",
       "Rb_vapour_cell_GC25075_RB__envelope_"
@@ -6048,7 +6075,7 @@
     }
   ],
   "output_optical_scope": {},
-  "layout_status": "V9.5 (2026-10-06): sliding Rb cell enclosure (10.3 mm pocket, two 8-32 slot taps, travel 12.7 mm toward -x) on the V9.4.2 plate: f = 300 folded cat-eyes on the +1-order axis, optional f = 75 hole set on the 0-order axis, table bolts on the 1 in grid (both pairs 10 in apart and centred; fiber-side pair 6.25 in from the right edge, TA-side pair 1.5 in from the left edge), all mirrors M05, DP2 output row above its AOM row, 24 x 15 in plate. Enclosure slide 0.0 mm.",
+  "layout_status": "V9.6 (2026-10-08): split sliding Rb cell enclosure, plain block (11.3 mm pocket, one 8-32 tap, one 2 in through-slot screw, travel 10.5 mm toward -x) on the V9.4.2 plate: f = 300 folded cat-eyes on the +1-order axis, optional f = 75 hole set on the 0-order axis, table bolts on the 1 in grid (both pairs 10 in apart and centred; fiber-side pair 6.25 in from the right edge, TA-side pair 1.5 in from the left edge), all mirrors M05, DP2 output row above its AOM row, 24 x 15 in plate. Enclosure slide 0.0 mm.",
   "plate_size_mm": [
     609.5999999999999,
     381.0,
@@ -6060,30 +6087,39 @@
     "cell_radius_mm": 12.7,
     "cell_length_mm": 71.84,
     "stem_radius_mm": 3.15,
-    "stem_tip_above_axis_mm": 22.7,
+    "stem_tip_from_axis_mm": 22.7,
     "bore_radius_mm": 15.2,
-    "length_mm": 76.0,
-    "half_width_mm": 20.2,
-    "bottom_mm": -23.0,
-    "top_mm": 25.0,
-    "stem_hole_radius_mm": 6.0,
-    "shoulder_width_mm": 25.0,
-    "shoulder_height_mm": 10.0,
-    "shoulder_x_mm": [
+    "x_range_mm": [
       -38.0,
+      44.0
+    ],
+    "half_width_beam_side_mm": 20.2,
+    "half_width_stem_side_mm": 23.7,
+    "half_height_mm": 24.0,
+    "slot_x_mm": 39.3,
+    "slot_y_mm": [
+      0.5,
+      11.0
+    ],
+    "slot_width_mm": 4.368799999999999,
+    "travel_mm": 10.5,
+    "lid_counterslot_mm": [
+      8.5,
+      5.0
+    ],
+    "stem_channel_mm": [
+      12.0,
+      10.0
+    ],
+    "cable_notch_mm": [
+      6.0,
       6.0
     ],
-    "slot_x_mm": [
-      -30.0,
-      0.0
-    ],
-    "slot_centre_y_mm": -33.7,
-    "slot_width_mm": 4.368799999999999,
-    "travel_mm": 12.7,
-    "cover_thickness_mm": 10.0,
+    "cable_notch_x_mm": -20.0,
+    "cover_thickness_mm": 8.0,
     "cover_hole_yz_mm": [
       [
-        14.5,
+        17.0,
         17.0
       ],
       [
@@ -6091,7 +6127,7 @@
         17.0
       ],
       [
-        14.5,
+        17.0,
         -17.0
       ],
       [
@@ -6104,77 +6140,80 @@
       7.5,
       4.5
     ],
-    "cover_screw": "8-32 x 3/4 in socket head cap screw (19.05 mm), 8 per enclosure",
+    "cover_screw": "8-32 x 5/8 in socket head cap screw (15.9 mm), 8 per enclosure",
     "cover_tap_depth_mm": 16.0,
-    "wire_hole_radius_mm": 3.0,
-    "wire_hole_xz_mm": [
-      18.0,
-      8.0
-    ],
+    "seat_screw": "8-32 x 2 in socket head cap screw (50.8 mm) through the lid and the lower half, 1 per seat",
     "pocket_clearance_mm": 2.0,
-    "pocket_clearance_minus_y_mm": 6.3,
+    "pocket_clearance_stem_side_mm": 1.0,
+    "pocket_clearance_beam_side_mm": 6.3,
     "pocket_corner_radius_mm": 3.174,
-    "seat_screw": "8-32 x 3/4 in socket head cap screw with a #8 washer, 2 per seat",
     "seat_tap_depth_mm": 100.0,
     "seat_tap_diameter_mm": 3.4544,
-    "holder": "V9.5 sliding enclosure: body + 2 covers in a 10.3 mm pocket, 2 slot screws",
+    "holder": "V9.6 split sliding enclosure: plain block, lower half + lid + 2 covers in an 11.3 mm pocket, one through-slot screw",
+    "length_mm": 82.0,
     "body_size_mm": [
-      76.0,
-      40.4,
+      82.0,
+      43.9,
       48.0
     ],
     "cover_size_mm": [
-      10.0,
-      40.4,
+      8.0,
+      43.9,
       48.0
     ],
-    "assembly_length_mm": 96.0,
+    "assembly_length_mm": 98.0,
+    "assembly_x_range_mm": [
+      -46.0,
+      52.0
+    ],
     "cell_bbox_local_mm": [
       -35.92,
       35.92,
       -12.7,
-      12.7,
+      22.7,
       -12.7,
-      22.7
+      12.7
     ],
-    "slot_overall_length_mm": 17.0688,
+    "slot_overall_length_mm": 14.8688,
     "slot_y_range_mm": [
-      -40.050000000000004,
-      -27.35
+      0.5,
+      11.0
+    ],
+    "slot_to_cell_end_mm": 1.1955999999999989,
+    "slot_to_end_face_mm": 2.515600000000003,
+    "pocket_local_mm": [
+      -48.0,
+      -26.5,
+      54.0,
+      35.2
     ],
     "pocket_main_local_mm": [
-      -50.0,
+      -48.0,
       -26.5,
-      50.0,
-      34.9
+      54.0,
+      35.2
     ],
-    "pocket_ear_local_mm": [
-      -40.0,
-      -47.2,
-      8.0,
-      -20.2
-    ],
-    "pocket_depth_below_standard_plate_top_mm": 10.3,
-    "pocket_floor_stock_mm": 15.099999999999998,
+    "pocket_ear_local_mm": null,
+    "pocket_depth_below_standard_plate_top_mm": 11.3,
+    "pocket_floor_stock_mm": 14.099999999999998,
     "tap_hole_diameter_mm": 3.4544,
     "tap_holes_local_xy_mm": [
       [
-        -30.0,
-        -27.35
-      ],
-      [
-        0.0,
-        -27.35
+        39.3,
+        11.0
       ]
     ],
-    "stem_tip_below_top_face_mm": 2.3000000000000007,
+    "stem_tip_inside_outer_face_mm": 1.0,
     "notes": [
-      "Local frame: x along the bore and the beam, y across (sliding direction), z up; origin on the bore axis at mid-length, z = 0 is the 12.7 mm optical axis.",
-      "Bore 30.4 mm = cell 25.4 + 5; the cell is centred in the bore by the heater/insulation (not modelled).",
-      "Travel 12.7 mm = one cell radius toward local +y (board -x on the lattice board): beam through the cell centre at 0, along the cell wall at 12.7.",
-      "Covers have no beam aperture yet (to be opened later); the beam-passage audit exempts them explicitly.",
-      "Seat taps are drilled through the 15.1 mm pocket floor; the shoulder is 10 mm thick, so a 3/4 in screw with a #8 washer engages ~8 mm of plate thread.",
-      "Cover taps 16 mm deep from each end face; 3/4 in screws through the 10 mm counterbored covers engage 13.5 mm."
+      "Local frame: x along the bore and the beam, y across (sliding direction), z up; origin on the bore axis at the middle of the cell; the parting plane z = 0 is the 12.7 mm optical axis.",
+      "Plain rectangular block 82 x 43.9 x 48 (x = -38 .. +44), no boss. Bore 30.4 mm = cell 25.4 + 5, through the whole length, bored with the two halves clamped together; the cell is centred in the bore by the heater/insulation (not modelled).",
+      "One through slot (4.37 wide, screw centres y = 0.5 .. 11, both halves) at x = 39.3 in the bore's +x end region, 1.2 mm beyond the cell end and 2.5 mm inside the end face; it lies in the local +y half of the bore while the beam uses the centre and the local -y half, so the screw never meets the cell or the beam.",
+      "Travel 10.5 mm toward local +y (board -x on the lattice board): beam through the cell centre at 0, 2.2 mm inside the cell wall at 10.5; the pocket wall on that side is the travel stop (1 mm clearance). In the body frame the screw moves from y = 11 (centred) to y = 0.5 (full travel).",
+      "One 8-32 x 2 in screw from the lid top through the slot of both halves into the plate tap clamps the halves and fixes the position; its head rides in the lid's 8.5 x 5 counter-slot. The pocket's end walls (2 mm clearance) keep the block square; the eight cover screws tie the halves at both ends.",
+      "Stem channel 12 x 10 split 5/5 by the parting plane, through the local +y wall and open at its face: the stem tip ends 1 mm inside the face (a longer stem simply protrudes).",
+      "Cable notch 6 x 6 in the lower half's parting face through the local +y wall at x = -20.",
+      "Covers 8 mm thick, no beam aperture yet (to be opened later; the beam-passage audit exempts them explicitly). Cover holes at y = +17 / -14.5, z = +/-17: the +y pair clears the slot by 2.1 mm.",
+      "Cover taps 16 mm deep from each end face (two in each half); 5/8 in screws through the 8 mm counterbored covers engage 12.4 mm and tie the halves together."
     ],
     "placement_xy_angle": [
       196.0,
@@ -6385,8 +6424,8 @@
       "Common post-isolator fold 1": "Common_post_isolator_fold_1",
       "Common post-isolator fold 2": "Common_post_isolator_fold_2",
       "Common post-isolator fold 3": "Common_post_isolator_fold_3",
-      "Rb cell seat (V9.5 pocket + 2 slot taps)": "Rb_cell_seat___10_3_mm_pocket___2_slot_taps_8_32__V9_5_sliding_enclosure_",
-      "Rb cell enclosure (V9.5 sliding body, covers, cell)": "Rb_cell_enclosure__sliding_body__slide_0_0_mm_",
+      "Rb cell seat (V9.6 pocket + 1 slot tap)": "Rb_cell_seat___11_3_mm_pocket___1_slot_tap_8_32__V9_6_split_sliding_enclosure_",
+      "Rb cell enclosure (V9.6 lower half, lid, covers, cell)": "Rb_cell_enclosure__sliding_lower_half__slide_0_0_mm_",
       "SRS SR475 shutter": "SRS_SR475_shutter",
       "Main power division HWP": "Main_power_division_HWP",
       "Main power PBS": "Main_power_PBS",
@@ -6450,7 +6489,7 @@
       "Common_station_8_32_4",
       "Common_station_8_32_5",
       "Common_station_8_32_6",
-      "Rb_cell_seat___10_3_mm_pocket___2_slot_taps_8_32__V9_5_sliding_enclosure_",
+      "Rb_cell_seat___11_3_mm_pocket___1_slot_tap_8_32__V9_6_split_sliding_enclosure_",
       "DP1_AOMO_3100_125_integral_seat",
       "DP2_AOMO_3100_125_integral_seat",
       "DP1_f75_lens_8_32",
@@ -6465,11 +6504,12 @@
       "External_spherical_second_8_32",
       "External_spherical_spare_8_32"
     ],
-    "cell_root": "Rb_cell_seat___10_3_mm_pocket___2_slot_taps_8_32__V9_5_sliding_enclosure_",
-    "cell_body": "Rb_cell_enclosure__sliding_body__slide_0_0_mm_",
+    "cell_root": "Rb_cell_seat___11_3_mm_pocket___1_slot_tap_8_32__V9_6_split_sliding_enclosure_",
+    "cell_body": "Rb_cell_enclosure__sliding_lower_half__slide_0_0_mm_",
     "cell_objects": [
-      "Rb_cell_seat___10_3_mm_pocket___2_slot_taps_8_32__V9_5_sliding_enclosure_",
-      "Rb_cell_enclosure__sliding_body__slide_0_0_mm_",
+      "Rb_cell_seat___11_3_mm_pocket___1_slot_tap_8_32__V9_6_split_sliding_enclosure_",
+      "Rb_cell_enclosure__sliding_lower_half__slide_0_0_mm_",
+      "Rb_cell_enclosure_lid__upper_half_",
       "Rb_cell_enclosure_cover__x",
       "Rb_cell_enclosure_cover__x001",
       "Rb_vapour_cell_GC25075_RB__envelope_"
@@ -6823,16 +6863,16 @@
         "tolerance": 1e-07
       },
       {
-        "name": "Cell seat tap 1 on the board at (CELL_X + 27.35, CELL_Y - 30)",
-        "measured": 2.842170943040401e-14,
+        "name": "Cell seat tap on the board at (CELL_X - 11, CELL_Y + 39.3)",
+        "measured": 0.0,
         "expected": 0.0,
         "tolerance": 1e-07
       },
       {
-        "name": "Cell seat tap 2 on the board at (CELL_X + 27.35, CELL_Y)",
-        "measured": 2.842170943040401e-14,
-        "expected": 0.0,
-        "tolerance": 1e-07
+        "name": "Cell seat has exactly one tap",
+        "measured": 1.0,
+        "expected": 1.0,
+        "tolerance": 1e-09
       }
     ],
     "isolator": {
@@ -7172,7 +7212,7 @@
       }
     ],
     "output_optical_scope": {},
-    "layout_status": "V9.5 (2026-10-06): sliding Rb cell enclosure (10.3 mm pocket, two 8-32 slot taps, travel 12.7 mm toward -x) on the V9.4.2 plate: f = 300 folded cat-eyes on the +1-order axis, optional f = 75 hole set on the 0-order axis, table bolts on the 1 in grid (both pairs 10 in apart and centred; fiber-side pair 6.25 in from the right edge, TA-side pair 1.5 in from the left edge), all mirrors M05, DP2 output row above its AOM row, 24 x 15 in plate. Enclosure slide 0.0 mm.",
+    "layout_status": "V9.6 (2026-10-08): split sliding Rb cell enclosure, plain block (11.3 mm pocket, one 8-32 tap, one 2 in through-slot screw, travel 10.5 mm toward -x) on the V9.4.2 plate: f = 300 folded cat-eyes on the +1-order axis, optional f = 75 hole set on the 0-order axis, table bolts on the 1 in grid (both pairs 10 in apart and centred; fiber-side pair 6.25 in from the right edge, TA-side pair 1.5 in from the left edge), all mirrors M05, DP2 output row above its AOM row, 24 x 15 in plate. Enclosure slide 0.0 mm.",
     "fiber_clearance": {
       "inactive_roots": [
         "DP1 f75 cat eye QWP",
@@ -7226,51 +7266,6 @@
     "units": "mm",
     "bbox_overlap_candidates": [
       {
-        "a": "Rb_cell_enclosure__sliding_body__slide_0_0_mm_",
-        "b": "Mount039",
-        "root_a": "Rb cell enclosure (V9.5 sliding body, covers, cell)",
-        "root_b": "Optional external TA injection mirror",
-        "overlap_box": [
-          238.466715,
-          164.516079,
-          -12.700903,
-          241.2,
-          198.027688,
-          12.69516
-        ],
-        "status": "no_mesh_intersection_detected"
-      },
-      {
-        "a": "Rb_cell_enclosure__sliding_body__slide_0_0_mm_",
-        "b": "Upper_Thumbscrew019",
-        "root_a": "Rb cell enclosure (V9.5 sliding body, covers, cell)",
-        "root_b": "Optional external TA injection mirror",
-        "overlap_box": [
-          239.449288,
-          188.07058,
-          1.947662,
-          241.2,
-          200.0,
-          16.394782
-        ],
-        "status": "no_mesh_intersection_detected"
-      },
-      {
-        "a": "Rb_cell_enclosure__sliding_body__slide_0_0_mm_",
-        "b": "Lower_Thumbscrew019",
-        "root_a": "Rb cell enclosure (V9.5 sliding body, covers, cell)",
-        "root_b": "Optional external TA injection mirror",
-        "overlap_box": [
-          226.158509,
-          175.498222,
-          -16.340338,
-          241.2,
-          197.410047,
-          -1.893218
-        ],
-        "status": "no_mesh_intersection_detected"
-      },
-      {
         "a": "Mount028",
         "b": "Slide_Mount004",
         "root_a": "DP1 output steering mirror",
@@ -7288,120 +7283,6 @@
     ],
     "confirmed_part_intersections": [],
     "mesh_pair_checks": [
-      {
-        "a": "Rb_cell_enclosure__sliding_body__slide_0_0_mm_",
-        "b": "Mount039",
-        "root_a": "Rb cell enclosure (V9.5 sliding body, covers, cell)",
-        "root_b": "Optional external TA injection mirror",
-        "overlap_box": [
-          238.466715,
-          164.516079,
-          -12.700903,
-          241.2,
-          198.027688,
-          12.69516
-        ],
-        "status": "no_mesh_intersection_detected",
-        "method": "Triangle BVH + 17-axis triangle SAT + closed-shell parity containment",
-        "tolerance_mm": 1e-06,
-        "brep_tessellation_deflection_mm": 0.04,
-        "triangle_counts": [
-          6788,
-          319128
-        ],
-        "closed_shell_checks": [
-          {
-            "object": "Rb_cell_enclosure__sliding_body__slide_0_0_mm_",
-            "closed": true,
-            "shells": 1,
-            "nonmanifold_or_boundary_edge_count": 0
-          },
-          {
-            "object": "Mount039",
-            "closed": false,
-            "shells": 6,
-            "nonmanifold_or_boundary_edge_count": 2
-          }
-        ],
-        "tested_triangle_pairs": 0,
-        "elapsed_seconds": 3.578
-      },
-      {
-        "a": "Rb_cell_enclosure__sliding_body__slide_0_0_mm_",
-        "b": "Upper_Thumbscrew019",
-        "root_a": "Rb cell enclosure (V9.5 sliding body, covers, cell)",
-        "root_b": "Optional external TA injection mirror",
-        "overlap_box": [
-          239.449288,
-          188.07058,
-          1.947662,
-          241.2,
-          200.0,
-          16.394782
-        ],
-        "status": "no_mesh_intersection_detected",
-        "method": "Triangle BVH + 17-axis triangle SAT + closed-shell parity containment",
-        "tolerance_mm": 1e-06,
-        "brep_tessellation_deflection_mm": 0.04,
-        "triangle_counts": [
-          6788,
-          6118
-        ],
-        "closed_shell_checks": [
-          {
-            "object": "Rb_cell_enclosure__sliding_body__slide_0_0_mm_",
-            "closed": true,
-            "shells": 1,
-            "nonmanifold_or_boundary_edge_count": 0
-          },
-          {
-            "object": "Upper_Thumbscrew019",
-            "closed": true,
-            "shells": 3,
-            "nonmanifold_or_boundary_edge_count": 0
-          }
-        ],
-        "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.047
-      },
-      {
-        "a": "Rb_cell_enclosure__sliding_body__slide_0_0_mm_",
-        "b": "Lower_Thumbscrew019",
-        "root_a": "Rb cell enclosure (V9.5 sliding body, covers, cell)",
-        "root_b": "Optional external TA injection mirror",
-        "overlap_box": [
-          226.158509,
-          175.498222,
-          -16.340338,
-          241.2,
-          197.410047,
-          -1.893218
-        ],
-        "status": "no_mesh_intersection_detected",
-        "method": "Triangle BVH + 17-axis triangle SAT + closed-shell parity containment",
-        "tolerance_mm": 1e-06,
-        "brep_tessellation_deflection_mm": 0.04,
-        "triangle_counts": [
-          6788,
-          6118
-        ],
-        "closed_shell_checks": [
-          {
-            "object": "Rb_cell_enclosure__sliding_body__slide_0_0_mm_",
-            "closed": true,
-            "shells": 1,
-            "nonmanifold_or_boundary_edge_count": 0
-          },
-          {
-            "object": "Lower_Thumbscrew019",
-            "closed": true,
-            "shells": 3,
-            "nonmanifold_or_boundary_edge_count": 0
-          }
-        ],
-        "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.047
-      },
       {
         "a": "Mount028",
         "b": "Slide_Mount004",
@@ -7438,7 +7319,7 @@
           }
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 3.453
+        "elapsed_seconds": 3.469
       }
     ],
     "confirmed_mesh_contacts": [],
@@ -7703,25 +7584,25 @@
         "path": "Common spherical telescope",
         "segment": 1,
         "object": "Rb_cell_enclosure_cover__x001",
-        "reason": "V9.5 enclosure cover: beam runs along the bore; the cover aperture is not machined yet (to be opened later)"
+        "reason": "Sliding cell enclosure cover: beam runs along the bore; the cover aperture is not machined yet (to be opened later)"
       },
       {
         "path": "Common spherical telescope",
         "segment": 1,
         "object": "Rb_vapour_cell_GC25075_RB__envelope_",
-        "reason": "V9.5 cell in the sliding seat: passage along the cell axis, up to one radius off centre by design; refraction not simulated"
+        "reason": "Rb cell in the sliding enclosure: passage along the cell axis, up to one radius off centre by design; refraction not simulated"
       },
       {
         "path": "Common spherical telescope",
         "segment": 2,
         "object": "Rb_cell_enclosure_cover__x",
-        "reason": "V9.5 enclosure cover: beam runs along the bore; the cover aperture is not machined yet (to be opened later)"
+        "reason": "Sliding cell enclosure cover: beam runs along the bore; the cover aperture is not machined yet (to be opened later)"
       },
       {
         "path": "Common spherical telescope",
         "segment": 2,
         "object": "Rb_vapour_cell_GC25075_RB__envelope_",
-        "reason": "V9.5 cell in the sliding seat: passage along the cell axis, up to one radius off centre by design; refraction not simulated"
+        "reason": "Rb cell in the sliding enclosure: passage along the cell axis, up to one radius off centre by design; refraction not simulated"
       },
       {
         "path": "Common spherical telescope",
@@ -8935,8 +8816,8 @@
         "status": "cut_removed_from_plate"
       },
       {
-        "object": "Rb_cell_seat___10_3_mm_pocket___2_slot_taps_8_32__V9_5_sliding_enclosure_",
-        "cut_inside_plate_envelope_mm3": 73625.507246,
+        "object": "Rb_cell_seat___11_3_mm_pocket___1_slot_tap_8_32__V9_6_split_sliding_enclosure_",
+        "cut_inside_plate_envelope_mm3": 71149.84556,
         "residual_plate_in_cut_mm3": 0.0,
         "status": "cut_removed_from_plate"
       },
@@ -9203,15 +9084,35 @@
         ]
       },
       {
-        "object": "Rb_cell_enclosure__sliding_body__slide_0_0_mm_",
+        "object": "Rb_cell_enclosure__sliding_lower_half__slide_0_0_mm_",
         "method": "identity copy topology plus original placement exactly once",
         "vertex_bbox": [
-          175.8,
+          172.3,
           124.0,
-          -23.0,
-          241.2,
-          200.0,
-          25.0
+          -24.0,
+          216.2,
+          206.0,
+          0.0
+        ],
+        "conservative_bbox_slack_mm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "object": "Rb_cell_enclosure_lid__upper_half_",
+        "method": "identity copy topology plus original placement exactly once",
+        "vertex_bbox": [
+          172.3,
+          124.0,
+          0.0,
+          216.2,
+          206.0,
+          24.0
         ],
         "conservative_bbox_slack_mm": [
           0.0,
@@ -10023,46 +9924,6 @@
         ]
       },
       {
-        "object": "Upper_Thumbscrew019",
-        "method": "identity copy topology plus original placement exactly once",
-        "vertex_bbox": [
-          239.898301,
-          192.379209,
-          1.947662,
-          257.052485,
-          209.533393,
-          16.394782
-        ],
-        "conservative_bbox_slack_mm": [
-          0.449013,
-          4.308628,
-          0.0,
-          4.308628,
-          0.449013,
-          0.0
-        ]
-      },
-      {
-        "object": "Lower_Thumbscrew019",
-        "method": "identity copy topology plus original placement exactly once",
-        "vertex_bbox": [
-          226.607522,
-          179.80685,
-          -16.340338,
-          243.761706,
-          196.961034,
-          -1.893218
-        ],
-        "conservative_bbox_slack_mm": [
-          0.449013,
-          4.308628,
-          0.0,
-          4.308628,
-          0.449013,
-          0.0
-        ]
-      },
-      {
         "object": "Optional_PBS_leakage_blocking_iris",
         "method": "identity copy topology plus original placement exactly once",
         "vertex_bbox": [
@@ -10571,17 +10432,17 @@
         "status": "pass"
       },
       {
-        "name": "Cell seat tap 1 on the board at (CELL_X + 27.35, CELL_Y - 30)",
-        "measured": 2.842170943040401e-14,
+        "name": "Cell seat tap on the board at (CELL_X - 11, CELL_Y + 39.3)",
+        "measured": 0.0,
         "expected": 0.0,
         "tolerance": 1e-07,
         "status": "pass"
       },
       {
-        "name": "Cell seat tap 2 on the board at (CELL_X + 27.35, CELL_Y)",
-        "measured": 2.842170943040401e-14,
-        "expected": 0.0,
-        "tolerance": 1e-07,
+        "name": "Cell seat has exactly one tap",
+        "measured": 1.0,
+        "expected": 1.0,
+        "tolerance": 1e-09,
         "status": "pass"
       }
     ],
@@ -11284,7 +11145,7 @@
         "nearest_unrelated_beam": {
           "path": "PBS residual blocked",
           "segment": 0,
-          "conservative_envelope_clearance_xy_mm": 6.548909
+          "conservative_envelope_clearance_xy_mm": 3.280647
         },
         "status": "review_hand_access",
         "scope": "Conservative XY knob-bounding-rectangle distance; 10 mm is a review trigger, not a guaranteed hand or tool clearance."
@@ -11295,7 +11156,7 @@
         "nearest_unrelated_beam": {
           "path": "PBS residual blocked",
           "segment": 0,
-          "conservative_envelope_clearance_xy_mm": 24.770245
+          "conservative_envelope_clearance_xy_mm": 21.349522
         },
         "status": "at_least_10_mm_projected_clearance",
         "scope": "Conservative XY knob-bounding-rectangle distance; 10 mm is a review trigger, not a guaranteed hand or tool clearance."
@@ -11323,7 +11184,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 3,
         "screened_samples": 97195,
-        "elapsed_seconds": 0.468
+        "elapsed_seconds": 0.5
       },
       {
         "arm": 1,
@@ -11341,7 +11202,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 0,
         "screened_samples": 0,
-        "elapsed_seconds": 0.0
+        "elapsed_seconds": 0.016
       },
       {
         "arm": 2,
@@ -11364,7 +11225,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 3,
         "screened_samples": 97195,
-        "elapsed_seconds": 0.453
+        "elapsed_seconds": 0.469
       },
       {
         "arm": 2,
@@ -11382,7 +11243,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 0,
         "screened_samples": 0,
-        "elapsed_seconds": 0.0
+        "elapsed_seconds": 0.015
       }
     ],
     "limitations": [
@@ -11408,7 +11269,7 @@
       365.125,
       -12.7
     ],
-    "checked_geometry_objects": 168,
+    "checked_geometry_objects": 169,
     "mirror_inventory": [
       {
         "object": "TA_steering_fold_1",
@@ -12257,7 +12118,7 @@
       "nominal_feasible": true
     },
     "counts": {
-      "bbox_overlap_candidates": 4,
+      "bbox_overlap_candidates": 1,
       "confirmed_part_intersections": 0,
       "outside_plate_xy": 10,
       "confirmed_mesh_contacts": 0,
@@ -12620,7 +12481,7 @@
     "plate_top_z_mm": -12.7,
     "plate_shape_bbox_top_z_mm": -12.7,
     "plate_top_reference": "Placement.Base.z - OpticsDz",
-    "physical_objects_checked": 168,
+    "physical_objects_checked": 169,
     "beam_segments_checked": 48,
     "failure_counts": {
       "hardware_conflicts": 0,
@@ -13053,7 +12914,7 @@
       "Surface_Adapter008",
       "Surface_Adapter009"
     ],
-    "physical_objects_checked": 168,
+    "physical_objects_checked": 169,
     "beam_segments_checked": 48,
     "minimum_axial_length_mm": {
       "fiber_front": 28.0,
@@ -13091,8 +12952,8 @@
     "mode": "dual",
     "plate_drilled": true,
     "plate_top_z_mm": -12.7,
-    "hole_count": 31,
-    "installed_geometry_count": 168,
+    "hole_count": 30,
+    "installed_geometry_count": 169,
     "holes": [
       {
         "kind": "platform",
@@ -13541,34 +13402,16 @@
         "kind": "cell_clamp_8_32",
         "label": "cell clamp 1",
         "center_xy_mm": [
-          223.35,
-          132.0
+          185.0,
+          201.3
         ],
         "reserved_radius_mm": 3.7272,
-        "owner": "Rb_cell_enclosure__sliding_body__slide_0_0_mm_",
-        "source": "Rb_cell_seat___10_3_mm_pocket___2_slot_taps_8_32__V9_5_sliding_enclosure_",
+        "owner": "Rb_cell_enclosure__sliding_lower_half__slide_0_0_mm_",
+        "source": "Rb_cell_seat___11_3_mm_pocket___1_slot_tap_8_32__V9_6_split_sliding_enclosure_",
         "metadata": {
           "local_xy_mm": [
-            -30.0,
-            -27.35
-          ]
-        },
-        "within_plate_xy": true
-      },
-      {
-        "kind": "cell_clamp_8_32",
-        "label": "cell clamp 2",
-        "center_xy_mm": [
-          223.35,
-          162.0
-        ],
-        "reserved_radius_mm": 3.7272,
-        "owner": "Rb_cell_enclosure__sliding_body__slide_0_0_mm_",
-        "source": "Rb_cell_seat___10_3_mm_pocket___2_slot_taps_8_32__V9_5_sliding_enclosure_",
-        "metadata": {
-          "local_xy_mm": [
-            0.0,
-            -27.35
+            39.3,
+            11.0
           ]
         },
         "within_plate_xy": true
