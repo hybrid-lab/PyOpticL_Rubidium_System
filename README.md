@@ -128,12 +128,17 @@ Three baseplates for the 795 nm lattice light, designed in September 2026 by
 Haotian Xu with GPT (Codex) and Claude. Current revision **V9.7** (2026-10-08,
 lattice board: split sliding Rb cell enclosure with two end screws; the TA and double-pass boards
 are unchanged since V9.3); the change log is at the end of this section.
+Since 2026-10-09 the branch also carries a fourth, independent board, the
+**Splitting Board V2** (24 × 14 in): one fiber in, HWP → PBS splits 1 → 2 → 4
+with a single-pass AOM after every stage (1 + 2 + 4 AOMs), four fibers out on
+one short edge.
 
 | Board | Script | Size | Production folder |
 |---|---|---|---|
 | Lattice board | `Rubidium_system/Lattice_Baseplate_V9.py` | 24 × 15 in | `Production/LatticeBoardV9/` |
 | TA board | `Rubidium_system/TA_Baseplate_V9.py` | 25 × 14 in | `Production/TABoardV9/` |
 | Double-pass AOM board | `Rubidium_system/AOM_DoublePass_Baseplate_V9.py` | 17 × 6 in | `Production/AOMDoublePassV9/` |
+| Splitting board (1 → 2 → 4 AOMs) | `Rubidium_system/Splitting_Board_V2.py` | 24 × 14 in | `Production/SplittingBoardV2/` |
 
 Each script is self-contained: constants at the top, then every optic placed in
 beam order inside `example_baseplate()`. Run one in FreeCAD (Macro > Macros…, or
@@ -192,13 +197,16 @@ yajur-branch file, unchanged):
 The three variants are new classes rather than edits to the existing ones, so
 the other boards on this branch keep the exact geometry they had.
 
-**Added — three board scripts** in `Rubidium_system/`, listed in the table above.
+**Added — four board scripts** in `Rubidium_system/`, listed in the table above
+(`Splitting_Board_V2.py` since 2026-10-09; it uses only classes that are already
+in `optomech.py`).
 
-**Added — three `Production/` folders**, each holding the top and 3D renders,
+**Added — four `Production/` folders** (`Production/SplittingBoardV2/` since
+2026-10-09), each holding the top and 3D renders,
 the audit report (`*_validation.json`), a BOM spreadsheet in the same
 Adaptors/Elements layout as the other branches, `StepFile/` with the machined
 baseplate STEP, and a `*_TAP_or_NOT` sheet (PDF + PNG) that marks which holes
-of that plate are tapped. The three baseplate STEPs are also collected in
+of that plate are tapped. The baseplate STEPs are also collected in
 `Production/Baseplate/`, and the same sheets for the two adapters are in
 `Production/Adapters/`. **`Production/CellEnclosure/`** (since V9.5) holds the
 Rb cell enclosure: lower half, lid, cover and assembly STEPs, the four-sheet
@@ -322,6 +330,46 @@ AOM on an integral seat, f = 75 mm cat-eye (LA1612-B, 795 nm EFL 75.95 mm), QWP,
 iris, retro mirror; the return line runs 74 mm above the input line through a
 steering mirror, HWP, rotating PBS and iris into a KA05T.
 
+**Splitting board (24 × 14 in, V2, 2026-10-09).** One KA05T input on the left
+short edge, seven G&H AOMO 3100-125 in single pass (+1 order) on integral
+seats, three HWP → PBS splits and four KA05T outputs, all four on the right
+short edge (output 1 at the top):
+
+    input KA05T -> A:  M1, AOM, iris, HWP, PBS
+        A transmitted -> B1: M1, M2, AOM, iris, HWP, PBS
+            B1 transmitted -> C1: FR, M1, M2, AOM, HWP, rotating-PBS RSP05, iris -> output 4
+            B1 reflected   -> C2:     M1, M2, AOM, HWP, rotating-PBS RSP05, iris -> output 3
+        A reflected   -> B2: M1, M2, AOM, iris, HWP, PBS
+            B2 transmitted -> C3:     M1, M2, AOM, HWP, rotating-PBS RSP05, iris -> output 2
+            B2 reflected   -> C4: FR, M1, M2, AOM, HWP, rotating-PBS RSP05, iris -> output 1
+
+Every mirror is a Newport M05 at 45° incidence (a 90° fold); the one right in
+front of each AOM (A: M1, the others: M2) works at 45 ± 0.54° and takes the
+2θ_B = 1.08° Bragg deflection, so every +1 order leaves its AOM along a board
+axis. A has one mirror (the input head is itself adjustable), B1, B2, C2 and
+C3 have two. The two outputs of a PBS always leave perpendicular to each
+other, so one output of each pair (C1, C4) needs one extra 45° fold (FR) in
+its feed to reach the common output edge. No beam crosses another beam and no
+beam passes over or under another element's hardware: in the CAD XY
+projection every beam axis stays at least 6 mm from hardware that is not on
+its own path (beam edge ≥ 3 mm from any thumbscrew or KM100PM), and beams of
+different lanes stay at least 20 mm apart. The A and B lanes keep the lattice
+spacing (AOM → iris 81 mm, → HWP 98 mm, → PBS 121 mm). Each output lane runs
+AOM → HWP (RSP05) → an empty RSP05 for a user-bonded rotating PBS (mount only)
+→ IDA12 iris → ≥ 30 mm → KA05T (iris → lens-tube front 30 mm on outputs 1
+and 4, about 42 mm on outputs 2 and 3, staggered against the neighbouring
+row), with AOM → iris ≥ 81 mm so that the 0 order is at least 1.53 mm off axis
+at the iris. AOMs A, B1, B2, C2 and C4 are in orientation D (KM100PM
+downstream), C1 and C3 in U; every AOM keeps 40 × 20 mm free for its RF elbow
+(B2, C4 and C1 point theirs off the plate edge). The four output tail clamps
+end at the right plate edge, within 0.5 mm of each other. Table bolts: two per
+short side, 7 in apart and centred on the short edge, the two columns 22 in
+apart — STEP-file coordinates (13.41, 88.90), (13.41, 266.70), (572.21, 88.90),
+(572.21, 266.70). The layout was found with a 2-D footprint model of the same
+parts (their FreeCAD bounding boxes) and a sequential-LP compactor, then built
+and audited in FreeCAD. (V2 is the second layout of this board; the first one
+had crossing beams and outputs on three edges and was not published.)
+
 ## Positions with nothing installed yet
 
 On both boards the six conditioning stations and, on the lattice board, the
@@ -345,11 +393,12 @@ apertures are the one feature of it still to be machined.
 
 ## Machining
 
-`Production/Baseplate/` holds the three machined baseplate STEPs — one solid
+`Production/Baseplate/` holds the machined baseplate STEPs — one solid
 each, with all pockets, 8-32 tap-drill bores, the integral AOM seats, the cell
 pocket and the 1/4-20 table-bolt counterbores included (the lattice plate is
 `Lattice_V9_6_baseplate_24x15in.step`; the superseded V9.4–V9.5 and
-24 × 14 in V9.2/V9.3 plates are removed). The solid is inset
+24 × 14 in V9.2/V9.3 plates are removed; the splitting plate is
+`Splitting_Board_V2_baseplate_24x14in.step`). The solid is inset
 3.175 mm from the nominal outline on every side, as in every PyOpticL plate.
 Threads are specified, not modelled — a STEP file shows every bore's diameter,
 position and depth but cannot say whether it is threaded, so each plate and
@@ -362,6 +411,7 @@ sizes, tolerances, material and finish are left to the shop):
 | Lattice baseplate (V9.7) | `Production/LatticeBoardV9/Lattice_V9_7_baseplate_TAP_or_NOT.pdf` | 100 × #8-32 | 4 × 1/4-20 table-bolt clearance |
 | TA baseplate | `Production/TABoardV9/TA_Board_V9_baseplate_TAP_or_NOT.pdf` | 57 × #8-32 | 4 × 1/4-20 clearance |
 | Double-pass AOM baseplate | `Production/AOMDoublePassV9/AOM_DoublePass_V9_baseplate_TAP_or_NOT.pdf` | 22 × #8-32 | 3 × 1/4-20 clearance |
+| Splitting baseplate (V2) | `Production/SplittingBoardV2/Splitting_Board_V2_baseplate_TAP_or_NOT.pdf` | 72 × #8-32 | 4 × 1/4-20 table-bolt clearance |
 | TA adapter (`stl/TA_adapter.stl`) | `Production/Adapters/TA_adapter_TAP_or_NOT.pdf` | 4 × M2.5 × 0.45 (board screws) | 4 × 8-32 clearance (to the plate taps) |
 | AOM adapter (`stl/aom_adapter.stl`) | `Production/Adapters/AOM_adapter_TAP_or_NOT.pdf` | 2 × M4 × 0.7 | 4 × clearance, in a row |
 
@@ -386,10 +436,25 @@ fold mirrors at the plate corners (F1, F2, F4) and the DP1 0-order iris ring
 overhang the edge the same way (ten items), every screw of theirs landing at
 least 6.1 mm inside the edge. The upper fiber-side table bolt lies under the
 DP1 beam (AOM → f = 75 lens position) 12.7 mm above the recessed bolt head:
-install the bolts before aligning. The audit scripts themselves are development tooling and are
-not part of this branch.
+install the bolts before aligning. The Splitting Board V2 report
+(`Production/SplittingBoardV2/Splitting_Board_V2_validation.json`) shows no
+contact, intersection, beam-crossing or clearance issue; its accepted items
+are twelve overhang entries — the four mirrors on the long edges (C1 FR and
+C1 M1 at the bottom, C4 FR and C4 M1 at the top) stand up to 8.4 mm (M05 body)
+and 21 mm (thumbscrew) past the outline, their thumbscrew-relief pockets open
+to the plate edge, and every screw lands at least 6.9 mm inside it — and
+three mirror-mount pairs whose triangle-level mesh test ran out of time (the
+M05 mesh has 319 k triangles); the XY convex hulls of those meshes are 5.5,
+7.1 and 8.7 mm apart, so they cannot touch. The audit scripts themselves are
+development tooling and are not part of this branch.
 
 ## Change log
+
+**Splitting board V2 (2026-10-09, new board)** — `Rubidium_system/Splitting_Board_V2.py`
+and `Production/SplittingBoardV2/` (top and 3D renders, layout figure, audit
+report, BOM, tapping sheet, `StepFile/Splitting_Board_V2_baseplate_24x14in.step`;
+the STEP is also in `Production/Baseplate/`). Nothing else on the branch
+changes.
 
 **V9.7 (2026-10-08, lattice board only)** — the cell enclosure gets a
 screw at each end and a closed stem pocket: the plain block grows to 88 ×
