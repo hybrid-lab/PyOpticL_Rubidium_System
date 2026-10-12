@@ -209,6 +209,12 @@ def build_bom(report, holes, title, step_name, source_name, sheet_name):
         notes.append("KM05T mounts are counted once at each fiber assembly root; their mirror-mount child is not counted again. The lip adapters and optical subparts are listed separately.")
     if report.get("mode") == "splitting":
         notes.append("The splitting-board optical model assumes an f ~4.5 mm fiber collimation lens in each head. C220TMD-A is the retained CAD envelope, not the specified optical prescription. Confirm the actual lens and beam size before operation.")
+        entrance_hwps = report.get("pre_aom_waveplates") or (report.get("pre_aom_waveplate_audit") or {}).get("declaration") or []
+        if entrance_hwps:
+            hwp_count = sum(o.get("class") == "waveplate" and "QWP" not in o.get("label", "").upper() for o in objects)
+            stage_count = classes["rotation_stage_rsp05"] + classes["rotation_stage_rsp05_bonded_cube"]
+            bonded_count = classes["rotation_stage_rsp05_bonded_cube"]
+            notes.append(f"Each of the {len(entrance_hwps)} AOM entrances has a dedicated HWP, RSP05 and lip adapter. The {hwp_count-len(entrance_hwps)} downstream HWPs remain installed, giving {hwp_count} HWPs in total. The {stage_count} RSP05 mounts include {bonded_count} bonded-PBS stages that hold cubes, not additional waveplates.")
     reference = report.get("optical_reference_model") or {}
     if (reference.get("kind") == "zero_order_reference_model" and
             reference.get("aom_rf_state") == "off" and

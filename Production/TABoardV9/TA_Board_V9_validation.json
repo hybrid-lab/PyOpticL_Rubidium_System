@@ -19370,5 +19370,21 @@
       "TA_Board_V9_table_clearance.png": "305b56088384036be81c4989a6b6eaf5323568880b6d9a2034110010e6b9f302"
     },
     "scope": "Final documents derived from the current exported geometry and hole census; native CAD audit evidence unchanged."
-  }
+  },
+  "source_revision_commit": "5e02da8d4b98df31aecd14c9a538b4d1b90e961c",
+  "source_revision_note": "TA geometry, audit sources and documents were generated and delivered in this commit. Later shared audit/document helpers may change for Splitting; original TA source hashes and audit evidence are preserved.",
+  "source_revision_verified_repository_files": [
+    "optomech.py",
+    "Rubidium_system/TA_Baseplate_V9.py",
+    "tools/ta_projection_audit.py",
+    "tools/export_ta_board.py",
+    "tools/render_ta_documents.py",
+    "tools/test_ta_projection.py",
+    "tools/table_envelope_audit.py",
+    "tools/refine_mesh_candidates.py",
+    "tools/bonded_cube_audit.py",
+    "tools/single_output_audit.py",
+    "tools/conditioning_station_audit.py",
+    "tools/table_mount_audit.py"
+  ]
 }

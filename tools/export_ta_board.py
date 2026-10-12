@@ -234,6 +234,7 @@ def export_board(doc, info, report, output_directory, fcstd_directory=None, *,
                           ('conditioning_station_audit', 'conditioning_station_audit.py'),
                           ('pre_aom_waveplate_audit', 'pre_aom_waveplate_audit.py'),
                           ('table_mount_grid', 'table_mount_audit.py'),
+                          ('table_grid_installation', 'splitting_table_grid_audit.py'),
                           ('installation_envelope', 'splitting_table_envelope_audit.py')):
         if key in report:
             source_files['tools/'+filename] = repo/'tools'/filename

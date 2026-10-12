@@ -1,6 +1,6 @@
 {
   "plate": "Splitting_plate_24_x_14_in",
-  "corner_fillet_faces": 259,
+  "corner_fillet_faces": 283,
   "features": [
     {
       "x": 22.22,
@@ -56,7 +56,7 @@
     },
     {
       "x": 13.42,
-      "y": 33.25,
+      "y": 32.35,
       "diameters": [
         3.45
       ],
@@ -68,7 +68,7 @@
     },
     {
       "x": 13.42,
-      "y": 51.58,
+      "y": 50.68,
       "diameters": [
         3.45
       ],
@@ -79,7 +79,7 @@
       "z_top": -12.7
     },
     {
-      "x": 74.61,
+      "x": 63.61,
       "y": 188.2,
       "diameters": [
         3.45
@@ -91,7 +91,7 @@
       "z_top": -12.7
     },
     {
-      "x": 74.61,
+      "x": 63.61,
       "y": 299.48,
       "diameters": [
         3.45
@@ -104,7 +104,7 @@
     },
     {
       "x": 79.72,
-      "y": 24.42,
+      "y": 23.52,
       "diameters": [
         3.45
       ],
@@ -116,7 +116,7 @@
     },
     {
       "x": 79.72,
-      "y": 60.42,
+      "y": 59.52,
       "diameters": [
         3.45
       ],
@@ -127,8 +127,32 @@
       "z_top": -22.7
     },
     {
+      "x": 89.37,
+      "y": 277.82,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 89.37,
+      "y": 302.82,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
       "x": 104.98,
-      "y": 155.41,
+      "y": 156.91,
       "diameters": [
         3.45
       ],
@@ -137,6 +161,18 @@
       "through": true,
       "depth_mm": 25.4,
       "z_top": -12.7
+    },
+    {
+      "x": 119.81,
+      "y": 58.16,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
     },
     {
       "x": 119.81,
@@ -176,7 +212,7 @@
     },
     {
       "x": 128.69,
-      "y": 120.76,
+      "y": 122.26,
       "diameters": [
         3.45
       ],
@@ -188,7 +224,7 @@
     },
     {
       "x": 141.48,
-      "y": 33.25,
+      "y": 32.35,
       "diameters": [
         3.45
       ],
@@ -209,6 +245,18 @@
       "through": false,
       "depth_mm": 24.049,
       "z_top": -14.051
+    },
+    {
+      "x": 144.81,
+      "y": 58.16,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
     },
     {
       "x": 144.81,
@@ -237,6 +285,18 @@
     {
       "x": 172.85,
       "y": 84.49,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 172.85,
+      "y": 202.58,
       "diameters": [
         3.45
       ],
@@ -321,6 +381,18 @@
     {
       "x": 197.85,
       "y": 84.49,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 197.85,
+      "y": 202.58,
       "diameters": [
         3.45
       ],
@@ -451,16 +523,52 @@
       "z_top": -12.7
     },
     {
-      "x": 286.64,
-      "y": 227.36,
+      "x": 269.15,
+      "y": 218.48,
       "diameters": [
         3.45
       ],
       "spec": "8-32 tap drill (3.454)",
       "kind": "TAP",
       "through": false,
-      "depth_mm": 6.984,
-      "z_top": -31.116
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 269.15,
+      "y": 243.48,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 270.83,
+      "y": 107.45,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 270.83,
+      "y": 132.45,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
     },
     {
       "x": 286.9,
@@ -487,6 +595,18 @@
       "z_top": -12.7
     },
     {
+      "x": 304.64,
+      "y": 227.36,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 6.984,
+      "z_top": -31.116
+    },
+    {
       "x": 305.22,
       "y": 337.0,
       "diameters": [
@@ -511,7 +631,55 @@
       "z_top": -12.7
     },
     {
-      "x": 324.63,
+      "x": 314.72,
+      "y": 54.59,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 314.72,
+      "y": 79.59,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 323.32,
+      "y": 278.57,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 323.32,
+      "y": 303.57,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 335.63,
       "y": 123.57,
       "diameters": [
         3.45
@@ -523,7 +691,7 @@
       "z_top": -31.116
     },
     {
-      "x": 332.22,
+      "x": 350.22,
       "y": 63.47,
       "diameters": [
         3.45
@@ -533,18 +701,6 @@
       "through": false,
       "depth_mm": 6.984,
       "z_top": -31.116
-    },
-    {
-      "x": 370.34,
-      "y": 155.66,
-      "diameters": [
-        3.45
-      ],
-      "spec": "8-32 tap drill (3.454)",
-      "kind": "TAP",
-      "through": true,
-      "depth_mm": 25.4,
-      "z_top": -12.7
     },
     {
       "x": 388.11,
@@ -559,8 +715,8 @@
       "z_top": -31.116
     },
     {
-      "x": 388.66,
-      "y": 110.79,
+      "x": 388.34,
+      "y": 155.66,
       "diameters": [
         3.45
       ],
@@ -583,52 +739,16 @@
       "z_top": -12.7
     },
     {
-      "x": 395.4,
-      "y": 134.0,
+      "x": 406.66,
+      "y": 110.79,
       "diameters": [
         3.45
       ],
       "spec": "8-32 tap drill (3.454)",
       "kind": "TAP",
-      "through": false,
-      "depth_mm": 16.13,
-      "z_top": -21.97
-    },
-    {
-      "x": 395.4,
-      "y": 159.0,
-      "diameters": [
-        3.45
-      ],
-      "spec": "8-32 tap drill (3.454)",
-      "kind": "TAP",
-      "through": false,
-      "depth_mm": 16.13,
-      "z_top": -21.97
-    },
-    {
-      "x": 404.9,
-      "y": 54.59,
-      "diameters": [
-        3.45
-      ],
-      "spec": "8-32 tap drill (3.454)",
-      "kind": "TAP",
-      "through": false,
-      "depth_mm": 16.13,
-      "z_top": -21.97
-    },
-    {
-      "x": 404.9,
-      "y": 79.59,
-      "diameters": [
-        3.45
-      ],
-      "spec": "8-32 tap drill (3.454)",
-      "kind": "TAP",
-      "through": false,
-      "depth_mm": 16.13,
-      "z_top": -21.97
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
     },
     {
       "x": 409.16,
@@ -641,6 +761,54 @@
       "through": true,
       "depth_mm": 25.4,
       "z_top": -12.7
+    },
+    {
+      "x": 413.4,
+      "y": 134.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 413.4,
+      "y": 159.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 414.9,
+      "y": 54.59,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 414.9,
+      "y": 79.59,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
     },
     {
       "x": 415.9,
@@ -667,30 +835,6 @@
       "z_top": -21.97
     },
     {
-      "x": 425.1,
-      "y": 134.0,
-      "diameters": [
-        3.45
-      ],
-      "spec": "8-32 tap drill (3.454)",
-      "kind": "TAP",
-      "through": false,
-      "depth_mm": 16.13,
-      "z_top": -21.97
-    },
-    {
-      "x": 425.1,
-      "y": 159.0,
-      "diameters": [
-        3.45
-      ],
-      "spec": "8-32 tap drill (3.454)",
-      "kind": "TAP",
-      "through": false,
-      "depth_mm": 16.13,
-      "z_top": -21.97
-    },
-    {
       "x": 425.64,
       "y": 334.16,
       "diameters": [
@@ -703,8 +847,8 @@
       "z_top": -12.7
     },
     {
-      "x": 434.6,
-      "y": 54.59,
+      "x": 443.1,
+      "y": 134.0,
       "diameters": [
         3.45
       ],
@@ -715,8 +859,8 @@
       "z_top": -21.97
     },
     {
-      "x": 434.6,
-      "y": 79.59,
+      "x": 443.1,
+      "y": 159.0,
       "diameters": [
         3.45
       ],
@@ -725,18 +869,6 @@
       "through": false,
       "depth_mm": 16.13,
       "z_top": -21.97
-    },
-    {
-      "x": 443.74,
-      "y": 173.83,
-      "diameters": [
-        3.45
-      ],
-      "spec": "8-32 tap drill (3.454)",
-      "kind": "TAP",
-      "through": true,
-      "depth_mm": 25.4,
-      "z_top": -12.7
     },
     {
       "x": 443.96,
@@ -749,6 +881,30 @@
       "through": true,
       "depth_mm": 25.4,
       "z_top": -12.7
+    },
+    {
+      "x": 444.6,
+      "y": 54.59,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 444.6,
+      "y": 79.59,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
     },
     {
       "x": 445.6,
@@ -801,6 +957,18 @@
     {
       "x": 454.84,
       "y": 21.84,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 461.74,
+      "y": 173.83,
       "diameters": [
         3.45
       ],

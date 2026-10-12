@@ -141,16 +141,19 @@ the double-pass board at V9.3; earlier TA designs remain in the change log.
 Since 2026-10-09 the branch also carries a fourth, independent board, the
 **Splitting Board V2** (24 × 14 in): one fiber in, HWP → PBS splits 1 → 2 → 4
 with a single-pass AOM after every stage (1 + 2 + 4 AOMs), four fibers out on
-one short edge. The current 2026-10-12 design uses five KM05T assemblies on
-lip adapters, two output steering mirrors per final lane, and four modelled
+one short edge. The current 2026-10-12 design adds a dedicated HWP on an RSP05
+immediately before each of the seven AOM assemblies, retaining all seven
+downstream HWPs. It uses five KM05T assemblies on lip adapters, two output
+steering mirrors per final lane, and four modelled
 12.7 mm PBS cubes bonded to their rotating stages. It is an **AOM RF-off,
 zero-order reference layout**: every beam leg follows a board axis, and all
 23 mirrors have 45° incidence. The RF-on first-order paths are not validated.
-The subsequent Splitting mounting update moves only its four platform-fixing
-holes onto a relative 1 in grid; its plate size, optical parts and placements
-remain unchanged. With the confirmed 25.4 mm platform-edge hole offset, all
-four bolts align after a (+53.975, +22.225) mm board-frame translation. The
-user has accepted the resulting maximum 5.451278 mm hardware/RF overhang.
+The four platform holes retain the 1 in pattern introduced by the preceding
+mounting-only revision. That earlier revision left the optics unchanged;
+the new entrance-HWP revision adjusts selected internal placements. With the
+confirmed 25.4 mm platform-edge hole offset, the fixed installation translation
+is (+53.975, +22.225) mm. A fresh audit of the new actual geometry confirms
+that the top hardware/RF overhang stays within the accepted 5.451278 mm limit.
 
 | Board | Script | Size | Production folder |
 |---|---|---|---|
@@ -489,13 +492,43 @@ and four KM05T outputs, all four pointing +X through the right short edge
 (output 1 at the top). The model has **RF off and follows the straight-through
 zero order** at every AOM:
 
-    input KM05T -> A:  M1, AOM, iris, HWP, PBS
-        A transmitted -> B1: M1, M2, AOM, iris, HWP, PBS
-            B1 transmitted -> C1: FR, M1, M2, AOM, HWP, bonded PBS, output fold, iris, output fold -> output 4
-            B1 reflected   -> C2:     M1, M2, AOM, output fold, output fold, HWP, bonded PBS, iris -> output 3
-        A reflected   -> B2: M1, M2, AOM, iris, HWP, PBS
-            B2 transmitted -> C3:     M1, M2, AOM, output fold, output fold, HWP, bonded PBS, iris -> output 2
-            B2 reflected   -> C4: FR, M1, M2, AOM, output fold, output fold, HWP, bonded PBS, iris -> output 1
+    input KM05T -> A:  M1, entrance HWP, AOM, iris, HWP, PBS
+        A transmitted -> B1: M1, M2, entrance HWP, AOM, iris, HWP, PBS
+            B1 transmitted -> C1: FR, M1, M2, entrance HWP, AOM, HWP, bonded PBS, output fold, iris, output fold -> output 4
+            B1 reflected   -> C2:     M1, M2, entrance HWP, AOM, output fold, output fold, HWP, bonded PBS, iris -> output 3
+        A reflected   -> B2: M1, M2, entrance HWP, AOM, iris, HWP, PBS
+            B2 transmitted -> C3:     M1, M2, entrance HWP, AOM, output fold, output fold, HWP, bonded PBS, iris -> output 2
+            B2 reflected   -> C4: FR, M1, M2, entrance HWP, AOM, output fold, output fold, HWP, bonded PBS, iris -> output 1
+
+Each entrance HWP is a modelled half-inch, 1 mm-thick optic on its own RSP05
+and lip adapter, reversed 180° about the vertical axis to keep its downstream
+intrusion small. It is added between the last feed mirror and its AOM; the
+original three splitting HWPs and four output HWPs all remain. The entrance
+HWP centre-to-AOM optical-bore distances are:
+
+| AOM lane | Entrance HWP to AOM (mm) | AOM mount orientation |
+|---|---|---|
+| A | 18.8 | D, KM100PM downstream |
+| B1 | 18.3 | D, KM100PM downstream |
+| B2 | 19.5 | D, KM100PM downstream |
+| C1 | 79 | U, KM100PM upstream |
+| C2 | 19.5 | D, KM100PM downstream |
+| C3 | 79 | U, KM100PM upstream |
+| C4 | 19.5 | D, KM100PM downstream |
+
+The 79 mm U-orientation distance accommodates the KM100PM assembly upstream
+of the AOM. Positions reference the actual optical bore, including the AOM
+mesh's (0, −0.030, −0.115) mm local aperture correction, not its shifted mesh
+placement origin. A's entrance HWP is at (132.3113, 59.0616) mm. Relative to
+the preceding mounting-only revision, the input head, A M1 and the two input
+tail taps move 0.9 mm in −Y; B2's feed mirrors move 11 mm in −X; the C1/C3 AOMs
+move 18 mm in +X; C1's existing HWP/PBS pair moves 10 mm in +X; and C2's AOM
+moves 11 mm in +X with its output dogleg group 18 mm in +X. All four output
+heads, their eight tail taps and the four table-fixing holes retain their
+previous positions. A's AOM and iris additionally move 1.5 mm in +Y to
+(132.3113, 77.8616) and (132.3113, 158.8616) mm, respectively; its downstream
+HWP and PBS stay at Y = 174.3616 and 197.3616 mm. The AOM adapter geometry
+is unchanged. The plate remains 24 × 14 in.
 
 All 23 steering mirrors use Newport M05 mounts at exactly 45° incidence,
 giving 90° folds and horizontal or vertical beam legs. This includes the
@@ -517,7 +550,9 @@ centres are about 8.93 mm inside the edge. These are geometric support
 measurements, not a certification of mount strength or stiffness; the final
 report records the accepted overhangs separately from collisions.
 
-The A and B lanes keep AOM → iris 81 mm, → HWP 98 mm and → PBS 121 mm.
+All A and B lanes keep AOM → iris 81 mm. B1/B2 retain AOM → downstream HWP
+98 mm and → PBS 121 mm; A uses 96.5 mm and 119.5 mm, respectively, after its
+1.5 mm AOM/iris shift while retaining its downstream HWP/PBS positions.
 The output HWP and second RSP05 **stage references** are 32 mm apart. Each
 second stage is turned 180° so that the cube bonds to the supported engraved
 rotating face on the upstream side. With the 0.2 mm adhesive layer, the cube
@@ -539,10 +574,11 @@ of its then-current parts (their FreeCAD bounding boxes) and a sequential-LP
 compactor, then built and audited in FreeCAD. (V2 is the second layout of this board; the first one
 had crossing beams and outputs on three edges and was not published.)
 
-**Splitting table bolts (2026-10-12 mounting update).** Only the four
-1/4-20 platform-fixing clearance holes and their counterbores move. The
-24 × 14 in plate, all optical parts and placements, component taps and
-fiber-tail clamp holes remain unchanged. The lower-right fixing-hole centre is
+**Splitting table bolts (retained from the 2026-10-12 mounting-only update).**
+That earlier update moved only the four 1/4-20 platform-fixing clearance
+holes and their counterbores; its statement that all other placements stayed
+unchanged applies to that historical update. The new entrance-HWP revision
+retains those four fixing holes. The lower-right fixing-hole centre is
 25.4 mm from both the **actual machined right and lower edges**. Those edges
 are inset 3.175 mm from the nominal outline; the nominal X/Y = 0 lines are not
 the edge datum. Coordinates below use the script's board frame, in millimetres.
@@ -560,12 +596,16 @@ separation is an integer multiple of 25.4 mm. The user confirmed that the
 28 × 15 in platform's outermost holes are 25.4 mm from its edges. Translating
 the board frame by **(+53.975, +22.225) mm** places the four holes at table
 coordinates (635, 50.8), (76.2, 101.6), (76.2, 355.6), and (635, 304.8) mm:
-all four align with the 1 in grid. The actual machined plate lies fully within
-the platform. Its hardware and RF reservations extend beyond the upper edge;
-the maximum is **5.4512777506515 mm**, at `Lower_Thumbscrew023`, and the user
-explicitly accepted retaining this layout with that overhang. The B2 and C4
-RF reservations extend 4.566 and 5.3155 mm beyond the upper edge, respectively.
-The machining inventory remains 85 tapped plus four clearance holes.
+all four align with the 1 in grid. The fresh native audit confirms that the
+actual machined plate lies fully within the platform. Hardware and RF
+reservations extend beyond the upper edge by at most
+**5.4512777506515 mm**, at `Lower_Thumbscrew023`, within the overhang accepted
+for the preceding mounting-only revision. B2 and C4 RF reservations extend
+4.566 and 5.3155 mm, respectively. No additional platform overhang is accepted.
+The preceding mounting-only machining inventory was 85 tapped plus four
+clearance holes. The seven new HWP adapters add two mounting taps each;
+the final native machined-solid inventory is **99 tapped plus four clearance
+holes**.
 
 The lower-right counterbore clears the actual hardware and the fiber-tail
 clamp taps, but the C1 / Output 4 fiber-tail corridor passes above it.
@@ -578,16 +618,16 @@ The lens tube, fiber adapter, lens adapter and lens-envelope positions match
 the former KA05T assembly. Each lip adapter drills only its two mounting taps;
 two separate `BareTappedHole` features place each tail-clamp pair, spaced
 18.328 mm apart. The input and C1–C3 heads keep a 76 mm rear offset. The C4
-head moves 32 mm right toward its existing pair, reducing its offset to
-44 mm while keeping the pair centre at board coordinates (596.415072, 325) mm.
-C3's output row moves to Y = 207 mm, including its head and tail-clamp pair;
+head retains the 44 mm offset established by the preceding output-steering
+revision, with its pair centre at board coordinates (596.415072, 325) mm.
+C3's output row remains at Y = 207 mm, including its head and tail-clamp pair;
 its rear offset remains 76 mm. No additional rear extension is introduced.
 The optional Y-shape and
 52.7/72.7/82.7 mm rear-pair patterns are disabled. The board still reserves a
 20 × 40 mm tail-clamp area and a 20 mm straight fiber corridor. Clamps are not
 modelled parts. The BOM counts five KM05T mounts, five separate lip adapters,
 their optical subparts, seven actual PBS cubes (three splitting cubes and four
-bonded output cubes), and eleven RSP05 stages (seven for waveplates and four
+bonded output cubes), fourteen HWPs, and eighteen RSP05 stages (fourteen for waveplates and four
 for the bonded cubes). The four modelled output cubes replace the former
 manual allowance for four unmodelled cubes; they are not counted twice.
 C220TMD-A remains a CAD envelope; the optical design assumes an
@@ -595,7 +635,10 @@ f ≈ 4.5 mm fiber collimation lens.
 
 The [layout illustration](Production/SplittingBoardV2/Splitting_Board_V2_layout_model.png),
 top/3D renders, STEP, BOM, tapping sheet and validation report all describe
-the current RF-off reference layout. The illustration shows conservative XY
+the current RF-off reference layout with seven entrance HWPs. The
+[table-clearance plan](Production/SplittingBoardV2/Splitting_Board_V2_table_clearance.png)
+shows the fixed grid-aligned installation and its accepted upper-edge overhang.
+The illustrations show conservative XY
 envelopes and service reservations; overlapping rectangles are not evidence
 of a physical collision. The final STEP is a valid single solid measuring
 603.25 × 349.25 × 25.4 mm.
@@ -649,7 +692,7 @@ sizes, tolerances, material and finish are left to the shop):
 | Lattice baseplate (V9.7) | `Production/LatticeBoardV9/Lattice_V9_7_baseplate_TAP_or_NOT.pdf` | 100 × #8-32 | 4 × 1/4-20 table-bolt clearance |
 | TA baseplate (V9.13) | `Production/TABoardV9/TA_Board_V9_baseplate_TAP_or_NOT.pdf` | 31 × #8-32 | 4 × 1/4-20 table-bolt clearance |
 | Double-pass AOM baseplate | `Production/AOMDoublePassV9/AOM_DoublePass_V9_baseplate_TAP_or_NOT.pdf` | 22 × #8-32 | 3 × 1/4-20 clearance |
-| Splitting baseplate (V2, RF-off reference) | `Production/SplittingBoardV2/Splitting_Board_V2_baseplate_TAP_or_NOT.pdf` | 85 × #8-32 | 4 × 1/4-20 table-bolt clearance |
+| Splitting baseplate (V2, entrance-HWP revision) | `Production/SplittingBoardV2/Splitting_Board_V2_baseplate_TAP_or_NOT.pdf` | 99 × #8-32 | 4 × 1/4-20 table-bolt clearance |
 | TA adapter (`stl/TA_adapter.stl`) | `Production/Adapters/TA_adapter_TAP_or_NOT.pdf` | 4 × M2.5 × 0.45 (board screws) | 4 × 8-32 clearance (to the plate taps) |
 | AOM adapter (`stl/aom_adapter.stl`) | `Production/Adapters/AOM_adapter_TAP_or_NOT.pdf` | 2 × M4 × 0.7 | 4 × clearance, in a row |
 
@@ -670,9 +713,11 @@ The adapter's four outer holes also align with the holes in both machined
 baseplate solids. Checks and source hashes are recorded in
 [`TA_adapter_board_model_validation.json`](Production/Adapters/TA_adapter_board_model_validation.json).
 
-The final machined-solid inventories contain 35 hole axes on TA V9.13 and
-89 on the RF-off Splitting board. Splitting has eight more tapped holes than
-the preceding KM05T export, one for each added output steering mirror.
+The final machined-solid inventory contains 35 hole axes on TA V9.13. The
+Splitting entrance-HWP revision contains 103 axes in its final native inventory:
+14 added adapter taps compared with the 89-axis
+mounting-only revision. Its earlier output-steering revision had added eight
+mirror taps to the preceding KM05T export.
 
 Every hole in the part is marked on its sheet; the rounded corners inside the
 milled pockets are R3.175 end-mill fillets, not holes. `Production/Adapters/`
@@ -753,25 +798,45 @@ are archived only when that independent hole check supplies matching evidence.
 Its results appear as `fiber_clearance`, `fiber_installation`,
 `service_clearance`, `hole_clearance` and the combined `km05t_audit` gate in
 [the Splitting validation report](Production/SplittingBoardV2/Splitting_Board_V2_validation.json).
-The current RF-off design also requires the explicit zero-order/45° checks,
+The new entrance-HWP revision additionally requires
+`tools/pre_aom_waveplate_audit.py`: seven unique HWP/RSP05/adapter parent
+chains, all fourteen actual waveplates, actual glass centre and volume,
+declared mirror → HWP → AOM order and distances, axial poses, and every
+retained downstream route are checked against the live model. The glass
+centroid is computed from all valid positive-volume solids, including a
+compound wrapper. No placement assertion replaces a mechanical-clearance
+check. Its combined gate requires the independent full native, knob-projection,
+machining, fiber and RF-service audits to pass. The fixed platform installation
+is recomputed by `tools/splitting_table_grid_audit.py` from the live plate bores,
+physical meshes and service envelopes; an old installation PASS is not reused.
+The final 265-object assembly passes these checks, as well as the explicit zero-order/45° checks,
 the four actual bonded-cube contact and rotation-envelope audits, and the
 platform-envelope check described above. These checks pass for all seven
 AOMs, all 23 mirrors and all four bonded cubes. The full report has zero
 detected mechanical, aperture, fiber-installation, service, hole-access or
-unresolved-candidate issues. Projection checks cover 55 beam segments,
-198 physical objects and 12,187 object/segment pairs, with zero ray crossings,
+unresolved-candidate issues; all 19 broad-phase overlap candidates are resolved.
+Projection checks cover 62 beam segments,
+212 physical objects and 14,609 object/segment pairs, with zero ray crossings,
 knob hits or foreign-hardware conflicts. The minimum beam-edge/knob projection
 margin is 0.520322 mm, between the C4 route and C3 M1's lower knob. A deliberate
 beam beneath an elevated KM100PM knob is correctly rejected without changing
-the model. RF-on first-order readiness remains unevaluated; a mechanical and
+the model. Four native negative checks also reject a mismatched document,
+a plate-only empty hardware inventory, a displaced entrance HWP, and a report
+with a prior mesh-contact failure. The original geometry and placement are
+restored after the probes; no existing failure is overwritten by an entrance-HWP
+placement pass. RF-on first-order readiness remains unevaluated; a mechanical and
 zero-order reference pass does not establish RF-on optical performance.
 
 Ten conservative edge-overhang entries are retained: eight knobs and the
-two C1 mirror bodies described above. The occupied assembly and service
-envelope is 609.6 × 379.354756 mm (24 × 14.935227 in). It fits the 28 × 15 in
+two C1 mirror bodies described above. Including the nominal plate allocation,
+the conservative assembly/service envelope is 609.6 × 379.354756 mm
+(24 × 14.935227 in). It fits the 28 × 15 in
 platform under continuous translation, leaving 101.6 mm in length and only
 1.645244 mm in total width. The selected grid-aligned installation instead
-uses the confirmed (+53.975, +22.225) mm translation: all four fixing holes
+uses the confirmed (+53.975, +22.225) mm translation. Its fresh audit reads
+235 physical hardware objects plus the actual machined plate, and reruns the
+five-head tail and RF/front-service checks. The physical/service envelope
+without the empty nominal border is 603.25 × 379.354756 mm. All four fixing holes
 align and the machined plate stays inside, while the uppermost actual knob
 extends 5.451278 mm beyond the platform. The user accepts this hardware/RF
 overhang. It is recorded separately in `table_grid_installation`; the earlier
@@ -779,13 +844,24 @@ free-translation envelope pass is not a claim that this selected installation
 contains every protrusion. Outside-plate fiber routing and overhang strength
 are not certified by the envelope check.
 
-The saved FCStd reopens with 244 objects, unchanged placements and object
+The saved FCStd reopens with 265 objects, unchanged placements and object
 names, no object error states, and a valid single-solid plate with unchanged
 volume. Its external `PyOpticL.layout.ViewProvider` raises an `Object`
 attribute error when restoring the plate's tree view. This is a remaining
 runtime tree-view limitation; the stored plate geometry and placements pass
 their independent checks. The STEP round trip also preserves a valid single
 solid and its volume.
+
+Comparison against the preceding native assembly verifies all 66 existing
+root assemblies and 225 objects by class, rotation, the stated translations,
+mesh topology, 5,358,764 mesh vertices and analytic BREP geometry. The maximum
+translated mesh-vertex difference is 1.14 × 10⁻¹³ mm. There are exactly seven
+new root assemblies, and all four actual platform holes are preserved.
+Twenty-seven ordinary display-box differences on curved parts were traced to
+triangulation caches: their analytic bounds, area, volume, topology and vertices
+match, and full Boolean comparisons give equal common volume and zero volume
+in both directional differences. The raw differences remain in the report;
+they are not hidden by increasing a geometric tolerance.
 
 The preceding KM05T-only revision passed all four fiber-related checks for
 five heads, five lip adapters, ten tail holes and ten adapter mounting holes.
@@ -810,6 +886,24 @@ local development tooling. The TA projection, export and document-generation
 helpers and the Splitting KM05T audit are included in `tools/`.
 
 ## Change log
+
+**Splitting V2 (2026-10-12, seven entrance HWPs)** —
+adds one half-inch HWP, RSP05 and lip adapter before each of the seven AOMs,
+retaining all seven original downstream HWPs: fourteen HWPs and eighteen
+RSP05 stages in total. A uses an 18.8 mm HWP-to-AOM bore distance, B1 uses
+18.3 mm, B2/C2/C4 use 19.5 mm, and the C1/C3 upstream-facing KM100PM assemblies
+use 79 mm.
+Selected internal positions change to make room; the input head and its tail
+taps move 0.9 mm in −Y. A's AOM and iris move 1.5 mm in +Y, retaining their
+81 mm spacing and the original downstream HWP/PBS positions. The 24 × 14 in
+plate, four output heads and their eight
+tail taps, four platform holes, seven AOMs, four bonded output cubes and
+RF-off orthogonal/45° reference routing are retained. The final assembly has
+265 objects and 99 tapped plus four clearance holes. Native full, projection,
+entrance-HWP, fixed-grid, preservation and negative checks pass; STEP and FCStd
+round trips preserve the valid machined solid. Layout/views, BOM, tapping sheets
+and validation evidence are regenerated for this revision. The user-approved
+5.451278 mm top hardware/RF overhang is unchanged.
 
 **V9.13 (2026-10-12, compact TA with four conditioning provisions)** — reduces
 the single-output plate from 14 × 11 to 11.625 × 11 in. The non-mirror optical

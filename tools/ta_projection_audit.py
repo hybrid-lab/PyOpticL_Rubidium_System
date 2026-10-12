@@ -493,7 +493,22 @@ def audit(doc, info):
         'optical_path_readiness': 'not_certified_by_a_mechanical_projection_audit',
         'scope': 'Mechanical XY placement, with declared axial-housing exceptions; 3-D bore/aperture checks remain separate.',
     }
-    plate = info['plate']
+    plate = info.get('plate')
+    if (plate is None or getattr(plate, 'Document', None) != doc or
+            doc.getObject(plate.Name) != plate):
+        report['geometry_errors'].append({
+            'error': 'The supplied baseplate must belong to the audited document and resolve there to the same object.',
+            'document': getattr(doc, 'Name', None),
+            'plate': getattr(plate, 'Name', None),
+            'plate_document': getattr(getattr(plate, 'Document', None), 'Name', None),
+        })
+        report['counts'] = {'segments': 0, 'physical_objects': 0, 'tested_object_segment_pairs': 0}
+        for key in ('ray_crossings', 'thumbscrew_projection_hits', 'foreign_hardware_projection_conflicts',
+                    'hull_only_candidates', 'unresolved_candidates', 'geometry_errors', 'optical_exceptions',
+                    'embedded_adjustment_parts', 'documented_unmachined_cell_covers'):
+            report['counts'][key] = len(report[key])
+        report['status'] = 'mechanical_projection_failed'
+        return report
     inverse_plate = plate.Placement.inverse()
     plate_top = -float(plate.OpticsDz.Value)
     roots = {obj.Name: obj for obj in info.get('roots', {}).values()}
@@ -638,6 +653,10 @@ def audit(doc, info):
             else:
                 check_projection(segment, geometry, knob)
 
+    if relevant == 0:
+        report['geometry_errors'].append({
+            'error': 'No physical hardware was available for the projection audit; an empty inventory cannot pass.',
+        })
     report['minimum_margins'] = minima
     report['counts'] = {'segments': len(segments), 'physical_objects': relevant, 'tested_object_segment_pairs': tested_pairs}
     for key in ('ray_crossings', 'thumbscrew_projection_hits', 'foreign_hardware_projection_conflicts',
@@ -645,7 +664,7 @@ def audit(doc, info):
         report['counts'][key] = len(report[key])
     report['counts']['embedded_adjustment_parts'] = len(report['embedded_adjustment_parts'])
     report['counts']['documented_unmachined_cell_covers'] = len(report['documented_unmachined_cell_covers'])
-    report['mechanical_projection_passed'] = bool(segments) and not any(report[key] for key in (
+    report['mechanical_projection_passed'] = bool(segments) and relevant > 0 and not any(report[key] for key in (
         'ray_crossings', 'thumbscrew_projection_hits', 'foreign_hardware_projection_conflicts',
         'unresolved_candidates', 'geometry_errors'))
     if report['documented_unmachined_cell_covers']:
