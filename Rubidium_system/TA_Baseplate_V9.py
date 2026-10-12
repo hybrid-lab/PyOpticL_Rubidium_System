@@ -1,14 +1,15 @@
-"""TA baseplate V9.12 - 14 x 11 in, with one fiber output.
+"""TA baseplate V9.13 - 11.625 x 11 in, with one fiber output.
 
 Beam order, read top to bottom in example_baseplate():
 
-    TA -> two steering folds -> HWP -> isolator -> QWP
-       -> six bare 8-32 conditioning stations
+    TA -> HWP -> two steering folds -> isolator -> fold -> QWP
+       -> four bare 8-32 conditioning stations (two cylindrical, two spherical)
        -> lattice V9.7 sliding Rb cell enclosure -> output fold 1 -> L1
        -> output fold 2 -> L2, HWP, real half-inch PBS bonded to RSP05 -> one KA05T
 
-The pre-cell assembly preserves V9.11 relative placements and is translated
-138 mm down. The TA emits right; its thick cable exits the upper long edge.
+The TA emits right; its thick cable exits the upper long edge. Its HWP lies
+on the first output leg and its two conditioning provisions straddle a fold.
+Four unselected conditioning stations replace the previous six provisions.
 After the cell, two 45-degree mirrors turn the output down and then left.
 The second mirror lies between the lenses; their 45.319348 mm propagation
 distance is measured along this folded path. The bonded PBS lies upstream of its
@@ -29,7 +30,7 @@ import Part
 from PyOpticL import layout, optomech
 
 # baseplate constants
-base_dx = 14*layout.inch
+base_dx = 11.625*layout.inch
 base_dy = 11*layout.inch
 base_dz = layout.inch
 gap = layout.inch/8
@@ -37,7 +38,7 @@ gap = layout.inch/8
 # Anchor one inch from the actual right and lower machined edges. All other
 # centres share its one-inch table grid; PyOpticL indices include a +0.5 shift.
 TABLE_MOUNT_ANCHOR_MM = (base_dx-gap-layout.inch, gap+layout.inch)
-TABLE_MOUNT_OFFSETS_IN = ((0, 0), (-10, 3), (-7, 9), (-2, 9))
+TABLE_MOUNT_OFFSETS_IN = ((0, 0), (-9, 0), (-9, 9), (-3, 9))
 mount_holes = [(TABLE_MOUNT_ANCHOR_MM[0]/layout.inch+dx-.5,
                 TABLE_MOUNT_ANCHOR_MM[1]/layout.inch+dy-.5)
                for dx, dy in TABLE_MOUNT_OFFSETS_IN]
@@ -52,20 +53,21 @@ def board_direction(dx, dy):
     return dx, dy
 
 # --- common path: lattice ordering and conditioning pitches -----------------
-TA_XY = (105., 226.)
-TA_FOLD1_XY = (327., 226.)
-TA_FOLD2_XY = (327., 153.)
-TA_HWP_XY = (305., 153.)
-ISO_XY = (235., 153.)
-QWP_XY = (171., 153.)
-STATIONS_XY = ((150., 153.), (105., 153.), (60., 153.),
-               (32., 131.), (48., 87.), (88., 87.))
-COMMON_FOLD1_XY = (32., 153.)
-COMMON_FOLD2_XY = (32., 87.)
-CELL_XY = (189., 87.)
-COMMON_FOLD3_XY = (275., 87.)
-COMMON_FOLD4_XY = (275., 40.)
-OUTPUT_L1_XY = (275., 58.)
+TA_XY = (132., 226.)
+TA_FOLD1_XY = (266., 226.)
+TA_FOLD2_XY = (266., 182.)
+TA_HWP_XY = (230., 226.)
+ISO_XY = (205., 182.)
+QWP_XY = (27.8, 157.)
+CYLINDRICAL_PITCH = 45.2  # propagation through the intervening 45-degree fold
+STATION_IDS = (1, 2, 5, 6)  # retain four provisions, removing old positions 3 and 4
+STATIONS_XY = ((27.8, 138.), (50., 115.), (75., 115.), (115., 115.))
+COMMON_FOLD1_XY = (27.8, 182.)
+COMMON_FOLD2_XY = (27.8, 115.)
+CELL_XY = (180., 115.)
+COMMON_FOLD3_XY = (265., 115.)
+COMMON_FOLD4_XY = (265., 68.)
+OUTPUT_L1_XY = (265., 97.)
 
 # L1 lies on the downward leg. The remaining distances run leftward from
 # the second post-cell mirror, preserving L1 -> mirror -> L2 propagation.
@@ -87,9 +89,8 @@ RED = (.85, .15, .1)
 BLUE = (.1, .35, .95)
 UPSTREAM = 'Assumed upstream clearance radius 2.5 mm; TA measured q/M2 not supplied.'
 DOWNSTREAM = 'Nominal conditioned beam envelope, not a measured Gaussian mode or coupling calculation.'
-STATION_NOTE = ('Bare 8-32 hole (station %d of 6); holder and optic not yet selected. '
-                'The audit reserves a 10 mm round envelope at the hole and checks a 16 mm '
-                'along-beam holder footprint.')
+STATION_NOTE = ('Bare 8-32 conditioning hole (retained station %d); holder and optic not yet selected. '
+                'The audit reserves a 16 mm round holder footprint at the hole.')
 
 
 def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
@@ -100,14 +101,14 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
 
     baseplate = layout.baseplate(base_dx, base_dy, base_dz, x=x, y=y, angle=angle, gap=gap,
                                  drill=False, mount_holes=mount_holes,
-                                 name='TA plate V9.12 14 x 11 in')
+                                 name='TA plate V9.13 compact single-output')
     plate = doc.getObject(baseplate.active_baseplate)
     info = {'mode': 'ta', 'plate': plate, 'roots': {}, 'paths': [], 'arms': [],
             'reservations': [], 'extra_cuts': [], 'geometry_assertions': [], 'alternate': False,
             'service_regions': [], 'output_optical_routes': [], 'bonded_output_pbs': [],
             'requirements': {'mirror_roles': [], 'spherical_groups': []},
             'isolator': None, 'cell': None,
-            'layout_status': 'V9.12 single-output; see saved audit report for validation.',
+            'layout_status': 'V9.13 compact single-output with four conditioning stations; see saved audit report.',
             'optical_reference_model': {'kind': 'single_output_no_aom', 'output_lane': OUTPUT_LANE},
             'mount_holes_mm': [[(hx+.5)*layout.inch, (hy+.5)*layout.inch] for hx, hy in mount_holes]}
     info['table_mount_pattern'] = {'pitch_mm': layout.inch, 'right_lower_edge_offset_mm': layout.inch,
@@ -215,21 +216,21 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
     # =========================================================================
     # The TA emits +x; its thick cable points +y through the upper long edge.
     ta = put('TA', optomech.TA_butterfly_on_adapter, *TA_XY, 0)
-    supply = [TA_XY, TA_FOLD1_XY, TA_FOLD2_XY, STATIONS_XY[0]]
-    bend('TA steering fold 1', supply[0], supply[1], supply[2])
-    bend('TA steering fold 2', supply[1], supply[2], supply[3])
+    supply = [TA_XY, TA_HWP_XY, TA_FOLD1_XY, TA_FOLD2_XY, COMMON_FOLD1_XY, QWP_XY, STATIONS_XY[0]]
+    bend('TA steering fold 1', TA_XY, TA_FOLD1_XY, TA_FOLD2_XY)
+    bend('TA steering fold 2', TA_FOLD1_XY, TA_FOLD2_XY, ISO_XY)
     wp('TA output HWP', *TA_HWP_XY, 0)
     isolator = put('Hana long isolator', optomech.isolator_850_long_pocket, *ISO_XY, 0)
     info['extra_cuts'].append(isolator)
-    wp('TA output QWP', *QWP_XY, 0)
+    wp('TA output QWP', *QWP_XY, 90)
 
     # =========================================================================
-    # 2. Six bare conditioning stations (holders and optics not yet selected)
+    # 2. Four bare conditioning stations (holders and optics not yet selected)
     # =========================================================================
-    lane_stations = [hole('Common station 8-32 '+str(i+1), *STATIONS_XY[i], STATION_NOTE % (i+1))
-                     for i in range(3)]
-    sphere_stations = [hole('Common station 8-32 '+str(i+1), *STATIONS_XY[i], STATION_NOTE % (i+1))
-                       for i in range(3, 6)]
+    lane_stations = [hole('Common station 8-32 '+str(STATION_IDS[i]), *STATIONS_XY[i], STATION_NOTE % STATION_IDS[i])
+                     for i in range(2)]
+    sphere_stations = [hole('Common station 8-32 '+str(STATION_IDS[i]), *STATIONS_XY[i], STATION_NOTE % STATION_IDS[i])
+                       for i in range(2, 4)]
 
     # =========================================================================
     # 3. Common conditioning folds, complete cell, and two output folds
@@ -237,12 +238,10 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
     output_xy = {key: (COMMON_FOLD4_XY[0]-distance, COMMON_FOLD4_XY[1])
                  for key, distance in OUT.items()}
     output_xy['lens1'] = OUTPUT_L1_XY
-    route = [STATIONS_XY[2], COMMON_FOLD1_XY, COMMON_FOLD2_XY,
-             COMMON_FOLD3_XY, output_xy['lens1'], COMMON_FOLD4_XY, output_xy['lens2']]
-    fold1 = bend('Common post-isolator fold 1', route[0], route[1], route[2])
-    fold2 = bend('Common post-isolator fold 2', route[1], route[2], route[3])
-    fold3 = bend('Common post-isolator fold 3', route[2], route[3], route[4])
-    fold4 = bend('Common post-isolator fold 4', route[4], route[5], route[6])
+    fold1 = bend('Common post-isolator fold 1', ISO_XY, COMMON_FOLD1_XY, QWP_XY)
+    fold2 = bend('Common post-isolator fold 2', STATIONS_XY[0], COMMON_FOLD2_XY, STATIONS_XY[1])
+    fold3 = bend('Common post-isolator fold 3', CELL_XY, COMMON_FOLD3_XY, output_xy['lens1'])
+    fold4 = bend('Common post-isolator fold 4', output_xy['lens1'], COMMON_FOLD4_XY, output_xy['lens2'])
 
     # Exactly the lattice V9.7 lower half, lid, covers, glass and sliding seat.
     cell = optomech.place_sliding_cell(baseplate, *CELL_XY, angle=0, slide=cell_slide)
@@ -256,7 +255,7 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
     # =========================================================================
     # 4. Folded telescope followed by the leftward HWP, bonded PBS, KA05T
     # =========================================================================
-    l1 = lens(OUTPUT_LANE+' first LA1289-B', 'LA1289-B', *output_xy['lens1'], 270)
+    l1 = lens(OUTPUT_LANE+' first LA1289-B', 'LA1289-B', *output_xy['lens1'], 90)
     l2 = lens(OUTPUT_LANE+' second LA1540-B', 'LA1540-B', *output_xy['lens2'], 0)
     output_hwp = wp(OUTPUT_LANE+' HWP', *output_xy['hwp'], 180)
     rotating = put(OUTPUT_LANE+' bonded-PBS RSP05', optomech.rotation_stage_rsp05_bonded_cube,
@@ -292,13 +291,12 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
     # =========================================================================
     path('TA supply', supply, RED, 2.5, UPSTREAM)
     path('Common cylindrical conditioning provision',
-         [STATIONS_XY[0], STATIONS_XY[1], STATIONS_XY[2], COMMON_FOLD1_XY,
-          STATIONS_XY[3], COMMON_FOLD2_XY, STATIONS_XY[4]],
-         RED, [2.5, .9, .9, .9, .9, .9, .9],
-         'Stations 1-4 are bare 8-32 holes; optics unselected. The envelope is the intended '
+         [STATIONS_XY[0], COMMON_FOLD2_XY, STATIONS_XY[1], STATIONS_XY[2]],
+         RED, [2.5, .9, .9, .9],
+         'Two cylindrical stations are bare 8-32 holes; optics unselected. The envelope is the intended '
          'conditioned beam.')
     path('Common spherical telescope',
-         [STATIONS_XY[4], STATIONS_XY[5], CELL_XY],
+         [STATIONS_XY[2], STATIONS_XY[3], CELL_XY],
          RED, [.9, .6, .6],
          'Stations 5/6 are bare 8-32 holes; optics unselected. ' + DOWNSTREAM)
     # Preserve the nominal linear envelope from L2 (0.035 mm) to the fiber
@@ -316,16 +314,21 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
     # =========================================================================
     # 6. Bookkeeping consumed by the audit scripts (no geometry below this line)
     # =========================================================================
-    beam_dir = {1: (-1., 0.), 2: (-1., 0.), 3: (-1., 0.),
-                4: (0., -1.), 5: (1., 0.), 6: (1., 0.)}
+    beam_dir = {1: (0., -1.), 2: (1., 0.), 3: (1., 0.), 4: (1., 0.)}
     info['requirements']['mount_only_cylindrical_holes'] = [o.Name for o in lane_stations]
     info['requirements']['provisional_bare_mount_envelopes'] = [
         {'object': o.Name, 'center_xy_mm': [o.BasePlacement.Base.x, o.BasePlacement.Base.y],
-         'diameter_mm': 10.0, 'beam_direction_xy': list(board_direction(*beam_dir[i+1]))}
+         'diameter_mm': 16.0, 'beam_direction_xy': list(board_direction(*beam_dir[i+1]))}
         for i, o in enumerate([*lane_stations, *sphere_stations])]
     info['requirements']['spherical_groups'].append(
         {'name': 'common', 'active_lenses': [], 'spare_holes': [o.Name for o in sphere_stations],
-         'stations_only': True, 'spare_required': 3})
+          'stations_only': True, 'spare_required': 2})
+    info['requirements']['conditioning_stations'] = {
+        'schema': 'conditioning_stations/1',
+        'cylindrical_holes': [o.Name for o in lane_stations],
+        'spherical_holes': [o.Name for o in sphere_stations],
+        'expected_counts': {'cylindrical': 2, 'spherical': 2, 'total': 4},
+        'round_envelope_diameter_mm': 16., 'holders_unselected': True}
 
     info['requirements']['spherical_groups'].append(
         {'name': OUTPUT_LANE, 'active_lenses': [l1.Name, l2.Name],
@@ -375,28 +378,19 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
     info['routes_without_iris'] = [OUTPUT_LANE]
     info['fiber_clearance'] = {'rear_offsets_mm': [REAR_CLAMP_OFFSET]}
 
-    def along_beam(a, b, corner):
-        return abs(corner[0]-a[0])+abs(corner[1]-a[1])+abs(b[0]-corner[0])+abs(b[1]-corner[1])
-
-    station_4 = STATIONS_XY[3]
     info['geometry_assertions'].extend([
-        {'name': 'Stations 1-2 pitch', 'measured': STATIONS_XY[0][0]-STATIONS_XY[1][0],
-         'expected': 45., 'tolerance': 1e-9},
-        {'name': 'Stations 2-3 pitch', 'measured': STATIONS_XY[1][0]-STATIONS_XY[2][0],
-         'expected': 45., 'tolerance': 1e-9},
-        {'name': 'Station 4->5 along beam via fold 2',
-         'measured': along_beam(station_4, STATIONS_XY[4], COMMON_FOLD2_XY),
-         'expected': 60., 'tolerance': 1e-9},
-        {'name': 'Station 4->6 along beam via fold 2',
-         'measured': along_beam(station_4, STATIONS_XY[5], COMMON_FOLD2_XY),
-         'expected': 100., 'tolerance': 1e-9},
+        {'name': 'Stations 1-2 propagation through fold',
+         'measured': math.dist(STATIONS_XY[0], COMMON_FOLD2_XY)+math.dist(COMMON_FOLD2_XY, STATIONS_XY[1]),
+         'expected': CYLINDRICAL_PITCH, 'tolerance': 1e-9},
+        {'name': 'Spherical stations 5-6 pitch', 'measured': STATIONS_XY[3][0]-STATIONS_XY[2][0],
+         'expected': 40., 'tolerance': 1e-9},
         {'name': 'Single output has two steering mirrors',
          'measured': sum(e['type'] == 'mirror' for e in info['output_optical_routes'][0]['events']),
          'expected': 2, 'tolerance': 0.},
         {'name': 'Single KA05T rear-hole axis to left plate edge (mm)',
          'measured': output_xy['port'][0]-REAR_CLAMP_OFFSET-gap,
-         'expected': 52.007652, 'tolerance': 1e-6}])
-    assert_distance('Cell -> first output fold', CELL_XY, COMMON_FOLD3_XY, 86.)
+         'expected': 53.007652, 'tolerance': 1e-6}])
+    assert_distance('Cell -> first output fold', CELL_XY, COMMON_FOLD3_XY, 85.)
     assert_distance('Output fold separation', COMMON_FOLD3_XY, COMMON_FOLD4_XY, 47.)
 
     # ---- cut the plate once every element and machining volume is in place ----
@@ -406,7 +400,7 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
     plate.touch()
     doc.recompute()
     info['plate_size_mm'] = [base_dx, base_dy, base_dz]
-    doc.Label = 'TA board - V9.12 single-output'
+    doc.Label = 'TA board - V9.13 compact single-output'
     return info
 
 

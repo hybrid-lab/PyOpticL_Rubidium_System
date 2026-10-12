@@ -9,7 +9,7 @@ Example::
     python tools/render_ta_documents.py --report TA_validation.json \
         --holes TA_holes.json --edges TA_plate_edges.json \
         --output-dir Production/TABoardV9 --stem TA_Board_V9 \
-        --step-name TA_Board_V9_baseplate_14x16p5in.step --title "TA board V9.11"
+        --step-name TA_Board_V9_baseplate_11p625x11in.step --title "TA board V9.13"
 
 Inputs follow board_tools.inspect_board and the run_split2.py hole/edge dumps.
 Dimensions, hole positions, thread types and quantities are read from those
@@ -199,7 +199,12 @@ def build_bom(report, holes, title, step_name, source_name, sheet_name):
             notes.append(f"{tail_holes} bare 8-32 taps retain the fiber tail-clamp hole pairs. They are baseplate machining; the tail clamps are not modelled parts.")
         other_bare = classes["BareTappedHole"] - tail_holes
         if other_bare:
-            notes.append(f"{other_bare} bare conditioning stations are drilled provisions. No holder or optic is installed there.")
+            conditioning = (report.get("conditioning_station_audit") or {}).get("declaration") or {}
+            counts = conditioning.get("expected_counts") or {}
+            if counts.get("total") == other_bare and counts.get("cylindrical") and counts.get("spherical"):
+                notes.append(f"{other_bare} bare conditioning stations provide {counts['cylindrical']} cylindrical-lens and {counts['spherical']} spherical-lens mounting positions. Holders and optics remain unselected and are not installed or counted in this BOM.")
+            else:
+                notes.append(f"{other_bare} bare conditioning stations are drilled provisions. No holder or optic is installed there.")
     if classes["fiberport_mount_km05T"]:
         notes.append("KM05T mounts are counted once at each fiber assembly root; their mirror-mount child is not counted again. The lip adapters and optical subparts are listed separately.")
     if report.get("mode") == "splitting":
@@ -213,8 +218,10 @@ def build_bom(report, holes, title, step_name, source_name, sheet_name):
         notes.append("Optical reference: AOM RF off, straight-through zero order. RF-on first-order propagation, order rejection and fiber-coupling performance are not evaluated for this layout.")
     if classes["RSP05CubeAdhesive"]:
         notes.append("The bonded PBS cubes are modelled and counted once above. Their modelled corner adhesive pads describe the assumed bond geometry and are not separate procurement items. Adhesive selection, bond strength and coating compatibility require assembly engineering.")
-    if report.get("single_output_design"):
+    if report.get("single_output_design") or reference.get("kind") == "single_output_no_aom":
         notes.append("The TA has one direct fiber output after the rubidium cell: mirror, first lens, mirror, second lens, HWP, bonded rotating PBS and KA05T fiber port. The folded distance between the two lenses is 45.319348 mm.")
+        if (report.get("conditioning_station_audit") or {}).get("declaration", {}).get("schema") == "conditioning_stations/1":
+            notes.append("The upstream HWP is on the first horizontal TA output leg, before the first steering mirror. The QWP is on the left vertical leg, after the isolator and before the conditioning stations.")
     if classes["CellPocketMachining"]:
         notes.append("The reserved cell pocket is machining only. No cell enclosure is included in the installed component counts.")
     if classes["SlidingCellEnclosure"]:

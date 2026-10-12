@@ -154,6 +154,26 @@ def export_board(doc, info, report, output_directory, fcstd_directory=None, *,
                 pbs_paths.get('status') != 'not_applicable_single_transmitted_output' or
                 pbs_paths.get('passed') is not None):
             raise ValueError('Single-output TA needs its passing actual-geometry audit and explicit no-AOM screening scope')
+    bare_stations = [o for o in doc.Objects
+                     if type(getattr(o, 'Proxy', None)).__name__ == 'BareTappedHole'
+                     and getattr(o, 'Baseplate', plate) == plate]
+    if (info.get('mode') == 'ta' and
+            (len(bare_stations) == 4 or info.get('requirements', {}).get('conditioning_stations') or
+             'conditioning_station_audit' in report)):
+        import conditioning_station_audit
+        conditioning_station_audit.apply(report, doc, info)
+        if report['conditioning_station_audit'].get('passed') is not True:
+            raise ValueError('Four conditioning stations require their passing current native geometry/machining audit')
+    current_waveplates = [o for o in doc.Objects
+                         if type(getattr(o, 'Proxy', None)).__name__ == 'waveplate'
+                         and getattr(o, 'Baseplate', plate) == plate]
+    if (info.get('mode') == 'splitting' and
+            (info.get('pre_aom_waveplates_required') or info.get('pre_aom_waveplates') or
+             'pre_aom_waveplate_audit' in report or len(current_waveplates) >= 14)):
+        import pre_aom_waveplate_audit
+        pre_aom_waveplate_audit.apply(report, doc, info, source_module=board_source)
+        if report['pre_aom_waveplate_audit'].get('passed') is not True:
+            raise ValueError('Seven AOM entrance waveplates require their current placement and independent clearance audits')
     if info.get('mode') == 'ta' and report.get('table_envelope', {}).get('passed') is not True:
         raise ValueError('TA plate needs a passing table/cable envelope audit')
     if info.get('mode') == 'splitting' and report.get('installation_envelope', {}).get('passed') is not True:
@@ -211,6 +231,8 @@ def export_board(doc, info, report, output_directory, fcstd_directory=None, *,
                           ('bonded_cube_audit', 'bonded_cube_audit.py'),
                           ('zero_order_reference_model', 'zero_order_reference_audit.py'),
                           ('single_output_audit', 'single_output_audit.py'),
+                          ('conditioning_station_audit', 'conditioning_station_audit.py'),
+                          ('pre_aom_waveplate_audit', 'pre_aom_waveplate_audit.py'),
                           ('table_mount_grid', 'table_mount_audit.py'),
                           ('installation_envelope', 'splitting_table_envelope_audit.py')):
         if key in report:
@@ -219,7 +241,7 @@ def export_board(doc, info, report, output_directory, fcstd_directory=None, *,
                                    for name, path in source_files.items()}
     report['freecad_version'] = list(App.Version())
     for key in ('fiber_tail_pairs', 'lane_geometry', 'beam_crossings', 'bonded_output_pbs',
-                'single_output_design'):
+                'single_output_design', 'pre_aom_waveplates'):
         if key in info:
             report[key] = info[key]
     for name, data in ((stem+'_validation.json', report), (stem+'_holes.json', hole_census(plate)),
