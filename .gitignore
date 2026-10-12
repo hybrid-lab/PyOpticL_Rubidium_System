@@ -3,3 +3,7 @@
 # macOS system files
 .DS_Store
 **/.DS_Store
+
+# Project-local Python environment
+.venv/
+__pycache__/
