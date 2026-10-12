@@ -580,6 +580,23 @@ sizes, tolerances, material and finish are left to the shop):
 | TA adapter (`stl/TA_adapter.stl`) | `Production/Adapters/TA_adapter_TAP_or_NOT.pdf` | 4 × M2.5 × 0.45 (board screws) | 4 × 8-32 clearance (to the plate taps) |
 | AOM adapter (`stl/aom_adapter.stl`) | `Production/Adapters/AOM_adapter_TAP_or_NOT.pdf` | 2 × M4 × 0.7 | 4 × clearance, in a row |
 
+The standalone TA adapter matching the **current TA V9.11 and lattice V9.7
+board models** is
+[`TA_adapter_board_model.step`](Production/Adapters/Stepfile/TA_adapter_board_model.step).
+Use it with `Production/Adapters/TA_adapter_TAP_or_NOT.pdf`. Its analytic
+100 × 108 × 11.3 mm slab and eight through holes were recovered from the
+pre-`c7e6eb8` STEP geometry and checked against the actual placed adapter
+meshes. The four clearance holes are analytic Ø4.50 mm circles; the sheet's
+Ø4.48 label is the tessellated STL measurement. The separate existing
+`Production/Adapters/Stepfile/TA_adapter.step` has different hole groups and
+counterbores and does **not** match these board models or this tapping sheet.
+Neither board nor its component meshes were changed for this export.
+The actual TA-body mesh has short mounting slots around the four M2.5 axes;
+the model leaves at least 0.066 mm radial clearance for a Ø2.5 mm screw.
+The adapter's four outer holes also align with the holes in both machined
+baseplate solids. Checks and source hashes are recorded in
+[`TA_adapter_board_model_validation.json`](Production/Adapters/TA_adapter_board_model_validation.json).
+
 The final machined-solid inventories contain 59 hole axes on TA V9.11 and
 89 on the RF-off Splitting board. Splitting has eight more tapped holes than
 the preceding KM05T export, one for each added output steering mirror.

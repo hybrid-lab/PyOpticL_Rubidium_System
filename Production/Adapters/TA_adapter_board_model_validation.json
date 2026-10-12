@@ -1,0 +1,707 @@
+{
+  "step": "Production/Adapters/Stepfile/TA_adapter_board_model.step",
+  "board_geometry_changed": false,
+  "valid": true,
+  "closed": true,
+  "solids": 1,
+  "bbox_mm": [
+    -79.79996578419,
+    -59.9995136767,
+    -24.30000190734,
+    20.200034215808003,
+    48.000487589896004,
+    -13.00000190734
+  ],
+  "volume_mm3": 121168.20314640363,
+  "faces": 14,
+  "surface_types": {
+    "Plane": 6,
+    "Cylinder": 8
+  },
+  "holes": [
+    {
+      "x_mm": -37.2,
+      "y_mm": 15.875,
+      "diameter_mm": 2.0755
+    },
+    {
+      "x_mm": -37.2,
+      "y_mm": -15.875,
+      "diameter_mm": 2.0755
+    },
+    {
+      "x_mm": 13.6,
+      "y_mm": 15.875,
+      "diameter_mm": 2.0755
+    },
+    {
+      "x_mm": 13.6,
+      "y_mm": -15.875,
+      "diameter_mm": 2.0755
+    },
+    {
+      "x_mm": -65.9999999996863,
+      "y_mm": 37.5000000008338,
+      "diameter_mm": 4.5
+    },
+    {
+      "x_mm": 9.00000111790078,
+      "y_mm": 37.5000011153899,
+      "diameter_mm": 4.50000000000002
+    },
+    {
+      "x_mm": -65.9999999996863,
+      "y_mm": -37.5000000021971,
+      "diameter_mm": 4.5
+    },
+    {
+      "x_mm": 9.00000111790078,
+      "y_mm": -37.5000000021971,
+      "diameter_mm": 4.5
+    }
+  ],
+  "mesh_vertices_checked": 488,
+  "mesh_vertex_max_distance_mm": 2.05447482699352e-06,
+  "historical_step_to_exported": {
+    "samples": 1690,
+    "max_mm": 9.487799753119071e-12
+  },
+  "exported_to_historical_step": {
+    "samples": 1690,
+    "max_mm": 9.487799753119071e-12
+  },
+  "roundtrip_boolean_valid": true,
+  "roundtrip_difference_volume_mm3": 0.0,
+  "historical_step_volume_delta_mm3": 5.951733328402042e-09,
+  "date": "2026-10-12",
+  "board_source_commit": "ef7499bdeee59a3267c4774b6edbaba4291be1ab",
+  "analytic_source": "f295bc5931fc91f2c870ad89c938c49368fcb0f3:Production/Adapters/Stepfile/TA_adapter.step",
+  "method": "Recover the historical slab extents and eight analytic cylinder axes/radii; rebuild a clean native solid; validate against both board meshes and the historical analytic surfaces.",
+  "source_files": {
+    "stl/TA_adapter.stl": "0860d5c9fc0decf0442211ea07f5264dcbbcf4f2e39c4c0a3ecce7dd346afb29",
+    "stl/TAboard.stl": "ef03f910c3705c15477378388aae8436263d2e45ba7c1b3ac5e26b7da9025688",
+    "stl/aom_adapter.stl": "bbdd79ad8c17b7970d37d62ec9f57e825847c8e588ffdd1218e2f52e9527e876",
+    "Production/Adapters/TA_adapter_TAP_or_NOT.png": "0976a58c0ca664601293079c6c43ec5434ee6f7258b293dcd2e95a4ab77a5025",
+    "Production/Adapters/Stepfile/TA_adapter_board_model.step": "fcefda1448e87de83f60869d50affe07260f75d727a20bcafb7336a9ca89bbc2"
+  },
+  "board_adapters": {
+    "Splitting_Board_V2": {
+      "label": "Splitting Board V2 - 24 x 14 in",
+      "adapters": [
+        {
+          "name": "AOM_Adapter",
+          "label": "AOM Adapter",
+          "kind": "aom_adapter",
+          "geometry": {
+            "vertices": 384,
+            "facets": 788,
+            "bbox": [
+              -28.05095863342285,
+              -3.0,
+              5.0,
+              28.0,
+              30.969999313354492,
+              11.0
+            ],
+            "volume": 9308.1689453125,
+            "closed": true,
+            "geometry_sha256": "6973cf22ab63b15102d57236213db59113f40e33681f80aea574beeccbb8bf08"
+          }
+        },
+        {
+          "name": "AOM_Adapter001",
+          "label": "AOM Adapter001",
+          "kind": "aom_adapter",
+          "geometry": {
+            "vertices": 384,
+            "facets": 788,
+            "bbox": [
+              -28.05095863342285,
+              -3.0,
+              5.0,
+              28.0,
+              30.969999313354492,
+              11.0
+            ],
+            "volume": 9308.1689453125,
+            "closed": true,
+            "geometry_sha256": "6973cf22ab63b15102d57236213db59113f40e33681f80aea574beeccbb8bf08"
+          }
+        },
+        {
+          "name": "AOM_Adapter002",
+          "label": "AOM Adapter002",
+          "kind": "aom_adapter",
+          "geometry": {
+            "vertices": 384,
+            "facets": 788,
+            "bbox": [
+              -28.05095863342285,
+              -3.0,
+              5.0,
+              28.0,
+              30.969999313354492,
+              11.0
+            ],
+            "volume": 9308.1689453125,
+            "closed": true,
+            "geometry_sha256": "6973cf22ab63b15102d57236213db59113f40e33681f80aea574beeccbb8bf08"
+          }
+        },
+        {
+          "name": "AOM_Adapter003",
+          "label": "AOM Adapter003",
+          "kind": "aom_adapter",
+          "geometry": {
+            "vertices": 384,
+            "facets": 788,
+            "bbox": [
+              -28.05095863342285,
+              -3.0,
+              5.0,
+              28.0,
+              30.969999313354492,
+              11.0
+            ],
+            "volume": 9308.1689453125,
+            "closed": true,
+            "geometry_sha256": "6973cf22ab63b15102d57236213db59113f40e33681f80aea574beeccbb8bf08"
+          }
+        },
+        {
+          "name": "AOM_Adapter004",
+          "label": "AOM Adapter004",
+          "kind": "aom_adapter",
+          "geometry": {
+            "vertices": 384,
+            "facets": 788,
+            "bbox": [
+              -28.05095863342285,
+              -3.0,
+              5.0,
+              28.0,
+              30.969999313354492,
+              11.0
+            ],
+            "volume": 9308.1689453125,
+            "closed": true,
+            "geometry_sha256": "6973cf22ab63b15102d57236213db59113f40e33681f80aea574beeccbb8bf08"
+          }
+        },
+        {
+          "name": "AOM_Adapter005",
+          "label": "AOM Adapter005",
+          "kind": "aom_adapter",
+          "geometry": {
+            "vertices": 384,
+            "facets": 788,
+            "bbox": [
+              -28.05095863342285,
+              -3.0,
+              5.0,
+              28.0,
+              30.969999313354492,
+              11.0
+            ],
+            "volume": 9308.1689453125,
+            "closed": true,
+            "geometry_sha256": "6973cf22ab63b15102d57236213db59113f40e33681f80aea574beeccbb8bf08"
+          }
+        },
+        {
+          "name": "AOM_Adapter006",
+          "label": "AOM Adapter006",
+          "kind": "aom_adapter",
+          "geometry": {
+            "vertices": 384,
+            "facets": 788,
+            "bbox": [
+              -28.05095863342285,
+              -3.0,
+              5.0,
+              28.0,
+              30.969999313354492,
+              11.0
+            ],
+            "volume": 9308.1689453125,
+            "closed": true,
+            "geometry_sha256": "6973cf22ab63b15102d57236213db59113f40e33681f80aea574beeccbb8bf08"
+          }
+        }
+      ]
+    },
+    "TA_Board_V9": {
+      "label": "TA Board V9.11 - 14 x 16.5 in",
+      "adapters": [
+        {
+          "name": "TA_adapter",
+          "label": "TA adapter",
+          "kind": "TA_adapter",
+          "geometry": {
+            "vertices": 488,
+            "facets": 1004,
+            "bbox": [
+              -79.79996490478516,
+              -59.999515533447266,
+              -24.30000114440918,
+              20.200035095214844,
+              48.00048828125,
+              -13.000001907348633
+            ],
+            "volume": 121178.0546875,
+            "closed": true,
+            "geometry_sha256": "6f947186fca9ab3bbce3f69b347cd4013e3731a121d0c715758f35cb42b6ab32"
+          }
+        },
+        {
+          "name": "AOM_Adapter",
+          "label": "AOM Adapter",
+          "kind": "aom_adapter",
+          "geometry": {
+            "vertices": 384,
+            "facets": 788,
+            "bbox": [
+              -28.05095863342285,
+              -3.0,
+              5.0,
+              28.0,
+              30.969999313354492,
+              11.0
+            ],
+            "volume": 9308.1689453125,
+            "closed": true,
+            "geometry_sha256": "6973cf22ab63b15102d57236213db59113f40e33681f80aea574beeccbb8bf08"
+          }
+        }
+      ]
+    },
+    "Lattice_V9_7_single": {
+      "label": "Lattice Board V9.7 - 24 x 15 in",
+      "adapters": [
+        {
+          "name": "TA_adapter",
+          "label": "TA adapter",
+          "kind": "TA_adapter",
+          "geometry": {
+            "vertices": 488,
+            "facets": 1004,
+            "bbox": [
+              -79.79996490478516,
+              -59.999515533447266,
+              -24.30000114440918,
+              20.200035095214844,
+              48.00048828125,
+              -13.000001907348633
+            ],
+            "volume": 121178.0546875,
+            "closed": true,
+            "geometry_sha256": "6f947186fca9ab3bbce3f69b347cd4013e3731a121d0c715758f35cb42b6ab32"
+          }
+        },
+        {
+          "name": "AOM_Adapter",
+          "label": "AOM Adapter",
+          "kind": "aom_adapter",
+          "geometry": {
+            "vertices": 384,
+            "facets": 788,
+            "bbox": [
+              -28.05095863342285,
+              -3.0,
+              5.0,
+              28.0,
+              30.969999313354492,
+              11.0
+            ],
+            "volume": 9308.1689453125,
+            "closed": true,
+            "geometry_sha256": "6973cf22ab63b15102d57236213db59113f40e33681f80aea574beeccbb8bf08"
+          }
+        },
+        {
+          "name": "AOM_Adapter001",
+          "label": "AOM Adapter001",
+          "kind": "aom_adapter",
+          "geometry": {
+            "vertices": 384,
+            "facets": 788,
+            "bbox": [
+              -28.05095863342285,
+              -3.0,
+              5.0,
+              28.0,
+              30.969999313354492,
+              11.0
+            ],
+            "volume": 9308.1689453125,
+            "closed": true,
+            "geometry_sha256": "6973cf22ab63b15102d57236213db59113f40e33681f80aea574beeccbb8bf08"
+          }
+        }
+      ]
+    }
+  },
+  "integral_aom_seats": [
+    {
+      "document": "Splitting_Board_V2",
+      "name": "A_AOMO_3100_125_integral_seat",
+      "local_bbox": [
+        -29.17894973754883,
+        -34.00000000000002,
+        -94.5,
+        60.36999931335452,
+        28.97811508178711,
+        56.57811737060547
+      ],
+      "volume": 274690.9274227724,
+      "difference_volume_mm3": 0
+    },
+    {
+      "document": "Splitting_Board_V2",
+      "name": "B1_AOMO_3100_125_integral_seat",
+      "local_bbox": [
+        -29.178949737548816,
+        -34.000000000000014,
+        -94.49999999999999,
+        60.36999931335453,
+        28.978115081787113,
+        56.57811737060548
+      ],
+      "volume": 274690.92742277245,
+      "difference_volume_mm3": 0.0
+    },
+    {
+      "document": "Splitting_Board_V2",
+      "name": "B2_AOMO_3100_125_integral_seat",
+      "local_bbox": [
+        -29.17894973754881,
+        -34.0,
+        -94.5,
+        60.36999931335452,
+        28.978115081787116,
+        56.57811737060547
+      ],
+      "volume": 274690.9274227724,
+      "difference_volume_mm3": 0.0
+    },
+    {
+      "document": "Splitting_Board_V2",
+      "name": "C1_AOMO_3100_125_integral_seat",
+      "local_bbox": [
+        -29.178949737548862,
+        -34.0,
+        -94.5,
+        60.36999931335447,
+        28.97811508178711,
+        56.57811737060547
+      ],
+      "volume": 274690.92742277234,
+      "difference_volume_mm3": 0.0
+    },
+    {
+      "document": "Splitting_Board_V2",
+      "name": "C2_AOMO_3100_125_integral_seat",
+      "local_bbox": [
+        -29.178949737548866,
+        -34.0,
+        -94.5,
+        60.36999931335448,
+        28.978115081787116,
+        56.57811737060547
+      ],
+      "volume": 274690.9274227724,
+      "difference_volume_mm3": 0.0
+    },
+    {
+      "document": "Splitting_Board_V2",
+      "name": "C3_AOMO_3100_125_integral_seat",
+      "local_bbox": [
+        -29.178949737548862,
+        -34.0,
+        -94.5,
+        60.36999931335447,
+        28.97811508178711,
+        56.57811737060547
+      ],
+      "volume": 274690.92742277234,
+      "difference_volume_mm3": 0.0
+    },
+    {
+      "document": "Splitting_Board_V2",
+      "name": "C4_AOMO_3100_125_integral_seat",
+      "local_bbox": [
+        -29.178949737548866,
+        -34.0,
+        -94.5,
+        60.36999931335448,
+        28.978115081787116,
+        56.57811737060547
+      ],
+      "volume": 274690.9274227724,
+      "difference_volume_mm3": 0.0
+    },
+    {
+      "document": "TA_Board_V9",
+      "name": "TA_AOMO_3100_125_integral_seat",
+      "local_bbox": [
+        -29.178949737548834,
+        -34.0,
+        -94.5,
+        60.3699993133545,
+        28.97811508178711,
+        56.57811737060547
+      ],
+      "volume": 274690.9274227724,
+      "difference_volume_mm3": 0.0
+    },
+    {
+      "document": "Lattice_V9_7_single",
+      "name": "DP1_AOMO_3100_125_integral_seat",
+      "local_bbox": [
+        -29.178949737548862,
+        -34.0,
+        -94.5,
+        60.36999931335448,
+        28.97811508178711,
+        56.57811737060547
+      ],
+      "volume": 274690.92742277234,
+      "difference_volume_mm3": 0.0
+    },
+    {
+      "document": "Lattice_V9_7_single",
+      "name": "DP2_AOMO_3100_125_integral_seat",
+      "local_bbox": [
+        -29.178949737548862,
+        -34.0,
+        -94.5,
+        60.36999931335448,
+        28.97811508178711,
+        56.57811737060547
+      ],
+      "volume": 274690.92742277234,
+      "difference_volume_mm3": 0.0
+    }
+  ],
+  "plate_hole_alignment": {
+    "TA_Board_V9": {
+      "mount_holes": [
+        {
+          "adapter_hole_xy": [
+            -66,
+            -37.5
+          ],
+          "plate_holes": [
+            {
+              "diameter_mm": 3.4544,
+              "center_xy_mm": [
+                -66.0,
+                -37.5
+              ],
+              "z_min": -38.099999999999994,
+              "z_max": -24.30000114440918
+            }
+          ]
+        },
+        {
+          "adapter_hole_xy": [
+            -66,
+            37.5
+          ],
+          "plate_holes": [
+            {
+              "diameter_mm": 3.4544,
+              "center_xy_mm": [
+                -66.0,
+                37.5
+              ],
+              "z_min": -38.099999999999994,
+              "z_max": -24.30000114440918
+            }
+          ]
+        },
+        {
+          "adapter_hole_xy": [
+            9,
+            -37.5
+          ],
+          "plate_holes": [
+            {
+              "diameter_mm": 3.4544,
+              "center_xy_mm": [
+                9.0,
+                -37.5
+              ],
+              "z_min": -38.099999999999994,
+              "z_max": -24.30000114440918
+            }
+          ]
+        },
+        {
+          "adapter_hole_xy": [
+            9,
+            37.5
+          ],
+          "plate_holes": [
+            {
+              "diameter_mm": 3.4544,
+              "center_xy_mm": [
+                9.0,
+                37.5
+              ],
+              "z_min": -38.099999999999994,
+              "z_max": -24.30000114440918
+            }
+          ]
+        }
+      ],
+      "ta_bottom_z": -13.000001907348633,
+      "adapter_top_z": -13.000001907348633
+    },
+    "Lattice_V9_7_single": {
+      "mount_holes": [
+        {
+          "adapter_hole_xy": [
+            -66,
+            -37.5
+          ],
+          "plate_holes": [
+            {
+              "diameter_mm": 3.4544,
+              "center_xy_mm": [
+                -66.0,
+                -37.5
+              ],
+              "z_min": -38.099999999999994,
+              "z_max": -24.30000114440918
+            }
+          ]
+        },
+        {
+          "adapter_hole_xy": [
+            -66,
+            37.5
+          ],
+          "plate_holes": [
+            {
+              "diameter_mm": 3.4544,
+              "center_xy_mm": [
+                -66.0,
+                37.5
+              ],
+              "z_min": -38.099999999999994,
+              "z_max": -24.30000114440918
+            }
+          ]
+        },
+        {
+          "adapter_hole_xy": [
+            9,
+            -37.5
+          ],
+          "plate_holes": [
+            {
+              "diameter_mm": 3.4544,
+              "center_xy_mm": [
+                9.0,
+                -37.5
+              ],
+              "z_min": -38.099999999999994,
+              "z_max": -24.30000114440918
+            }
+          ]
+        },
+        {
+          "adapter_hole_xy": [
+            9,
+            37.5
+          ],
+          "plate_holes": [
+            {
+              "diameter_mm": 3.4544,
+              "center_xy_mm": [
+                9.0,
+                37.5
+              ],
+              "z_min": -38.099999999999994,
+              "z_max": -24.30000114440918
+            }
+          ]
+        }
+      ],
+      "ta_bottom_z": -13.000001907348633,
+      "adapter_top_z": -13.000001907348633
+    }
+  },
+  "ta_body_slot_check": {
+    "method": "Independent inspection of the actual TAboard.stl after its (90,0,0) import rotation. Verify 32 wall triangles and 16 unique XY boundary vertices per slot, six closed mesh cross-sections, and point-to-boundary distance at the adapter screw axes.",
+    "adapter_axes_xy_mm": [
+      [
+        -37.2,
+        15.875
+      ],
+      [
+        -37.2,
+        -15.875
+      ],
+      [
+        13.6,
+        15.875
+      ],
+      [
+        13.6,
+        -15.875
+      ]
+    ],
+    "other_slot_end_centres_xy_mm": [
+      [
+        -36.8,
+        15.625
+      ],
+      [
+        -36.8,
+        -15.625
+      ],
+      [
+        13.2,
+        15.625
+      ],
+      [
+        13.2,
+        -15.625
+      ]
+    ],
+    "arc_radius_mm": 1.35,
+    "max_arc_fit_residual_mm": 2.36e-06,
+    "wall_z_range_mm": [
+      -13.0000019073,
+      -8.9099979401
+    ],
+    "sections_checked_z_mm": [
+      -12.999,
+      -12.9,
+      -12,
+      -10,
+      -8.92,
+      -8.9101
+    ],
+    "all_sections_closed_and_axes_inside": true,
+    "minimum_boundary_distance_per_slot_mm": [
+      1.316152292,
+      1.316151954,
+      1.316151958,
+      1.316151958
+    ],
+    "screw_diameter_mm": 2.5,
+    "minimum_radial_clearance_mm": 0.066151954,
+    "scope": "CAD geometry; the M2.5 thread specification applies to the adapter, not to the TA body slots."
+  },
+  "drawing_check": {
+    "file": "Production/Adapters/TA_adapter_TAP_or_NOT.png",
+    "hole_axes_and_thread_assignments_match": true,
+    "tap_holes": "4 x M2.5 x 0.45 in the adapter; analytic pilot diameter 2.0755 mm (sheet 2.08).",
+    "clearance_holes": "4 x 8-32 clearance through the adapter, aligned with the actual baseplate 3.4544 mm tapping bores.",
+    "diameter_note": "The sheet reports 4.48 mm from the tessellated STL; the analytic clearance circles are diameter 4.50 mm.",
+    "different_step_retained": "Production/Adapters/Stepfile/TA_adapter.step has other hole groups/counterbores and does not match this drawing or the current board meshes."
+  }
+}
