@@ -211,8 +211,10 @@ def build_bom(report, holes, title, step_name, source_name, sheet_name):
             finite(reference.get("diffraction_angle_deg")) and
             abs(reference["diffraction_angle_deg"]) <= 1.e-10):
         notes.append("Optical reference: AOM RF off, straight-through zero order. RF-on first-order propagation, order rejection and fiber-coupling performance are not evaluated for this layout.")
-        if classes["RSP05CubeAdhesive"]:
-            notes.append("The bonded PBS cubes are modelled and counted once above. Their modelled corner adhesive pads describe the assumed bond geometry and are not separate procurement items. Adhesive selection, bond strength and coating compatibility require assembly engineering.")
+    if classes["RSP05CubeAdhesive"]:
+        notes.append("The bonded PBS cubes are modelled and counted once above. Their modelled corner adhesive pads describe the assumed bond geometry and are not separate procurement items. Adhesive selection, bond strength and coating compatibility require assembly engineering.")
+    if report.get("single_output_design"):
+        notes.append("The TA has one direct fiber output after the rubidium cell: mirror, first lens, mirror, second lens, HWP, bonded rotating PBS and KA05T fiber port. The folded distance between the two lenses is 45.319348 mm.")
     if classes["CellPocketMachining"]:
         notes.append("The reserved cell pocket is machining only. No cell enclosure is included in the installed component counts.")
     if classes["SlidingCellEnclosure"]:
@@ -361,6 +363,7 @@ def render_tapping(report, holes, edges, plate, args):
     for hole in taps:
         ax.add_patch(Circle((hole["x"], hole["y"]), ring, fill=False, ec=red, lw=1.05, zorder=5, clip_on=False))
     bolt_centres = report.get("mount_holes_mm", [])
+    callouts = []
     for hole in plain:
         x, y = hole["x"], hole["y"]
         if bolt_centres:
@@ -373,13 +376,29 @@ def render_tapping(report, holes, edges, plate, args):
         ax.plot([x-d, x+d], [y-d, y+d], color=blue, lw=1.8, zorder=8, clip_on=False)
         ax.plot([x-d, x+d], [y+d, y-d], color=blue, lw=1.8, zorder=8, clip_on=False)
         sx, sy = (1 if x < (x0+x1)/2 else -1), (1 if y < (y0+y1)/2 else -1)
-        ax.annotate(f"DO NOT TAP\nX {x:.2f}  Y {y:.2f}", xy=(x,y),
+        annotation = ax.annotate(f"DO NOT TAP\nX {x:.2f}  Y {y:.2f}", xy=(x,y),
                     xytext=(x+sx*.12*width, y+sy*.09*height), color=blue,
                     fontsize=8.5, weight="bold", ha="left" if sx>0 else "right",
                     va="bottom" if sy>0 else "top", zorder=10,
                     arrowprops={"arrowstyle":"-|>", "color":blue, "lw":1.3,
                                 "shrinkA":0, "shrinkB":12},
                     bbox={"boxstyle":"round,pad=0.3", "fc":"white", "ec":blue, "lw":1})
+        callouts.append(annotation)
+    # Nearby top bolts can send both labels into the same central space.
+    # Stagger text boxes using their rendered bounds, leaving hole positions
+    # and leader endpoints unchanged.
+    placed_boxes = []
+    for annotation in callouts:
+        for _ in range(len(callouts)+1):
+            fig.canvas.draw()
+            box = annotation.get_bbox_patch().get_window_extent(fig.canvas.get_renderer()).expanded(1.08, 1.15)
+            if not any(box.overlaps(previous) for previous in placed_boxes):
+                placed_boxes.append(box)
+                break
+            tx, ty = annotation.get_position()
+            annotation.set_position((tx, ty-12./scale))
+        else:
+            raise ValueError("Could not separate platform-hole coordinate callouts")
     for value in range(math.ceil(x0/50)*50, math.floor(x1/50)*50+1, 50):
         ax.plot([value,value], [y0,y0-4/scale], color=ink, lw=.5, clip_on=False)
         ax.text(value,y0-6/scale,str(value),fontsize=7,ha="center",va="top",clip_on=False)

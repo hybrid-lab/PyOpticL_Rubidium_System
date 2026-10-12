@@ -1,11 +1,13 @@
 """Read-only TA board + hardware + cable fit in a 15 x 28 inch table area.
 
-``audit(doc, info)`` reports actual placed geometry in the plate's local frame.
-The cable exits the +Y short edge; a full four inches is reserved BEYOND the
-nominal plate edge even when the modeled connector starts inside that edge.
-The resulting translation proves a free-placement rectangular fit only. Table
-thread-grid alignment and mechanical support of overhanging mounts are not
-inferred from this envelope calculation.
+``audit(doc, info, board_report=None)`` reports actual placed geometry in the
+plate's local frame. Legacy TA boards use a 15 x 28 inch free-placement fit.
+Explicit ``single_output_design`` boards use a 28 x 15 inch table, a +Y long
+edge cable exit, and the confirmed one-inch table grid. Their actual machined
+plate, hardware and services must all fit at one grid-aligned translation;
+the empty nominal edge inset is not physical stock. Both modes reserve a full
+four inches BEYOND the nominal +Y edge. New single-output boards also require
+the completed engineering report to include the real fiber service envelopes.
 """
 import math
 
@@ -107,29 +109,74 @@ def _overhang(bounds, perimeter):
             'top': max(0., bounds[3]-perimeter[3])}
 
 
-def audit(doc, info):
-    """JSON-safe extent evidence; ``passed`` is a dimensional fit, not mounting certification."""
+def _grid_translations(centers, occupied, table_size, pitch=INCH, edge_offset=INCH):
+    """Enumerate every translation satisfying containment and the real hole field.
+
+    The first table row/column is one inch from each edge. Plate holes are
+    already verified against the drilled BREP before this solver is called.
+    No nominal outline enters the containment intervals.
+    """
+    if len(centers) != 4:
+        raise ValueError('Exactly four verified fixing-hole centres are required')
+    axis_candidates = []
+    for axis in range(2):
+        low, high = -occupied[axis], table_size[axis]-occupied[axis+2]
+        phase = edge_offset-centers[0][axis]
+        first = math.ceil((low-phase-_TOL)/pitch)
+        last = math.floor((high-phase+_TOL)/pitch)
+        values = []
+        for index in range(first, last+1):
+            translation = phase+index*pitch
+            valid = True
+            for center in centers:
+                coordinate = center[axis]+translation
+                grid = (coordinate-edge_offset)/pitch
+                if (abs(grid-round(grid))*pitch > _TOL or
+                        coordinate < edge_offset-_TOL or
+                        coordinate > table_size[axis]-edge_offset+_TOL):
+                    valid = False
+                    break
+            if valid:
+                values.append(translation)
+        axis_candidates.append(values)
+    candidates = [[x, y] for x in axis_candidates[0] for y in axis_candidates[1]]
+    ideal = [(table_size[i]-occupied[i+2]-occupied[i])/2 for i in range(2)]
+    candidates.sort(key=lambda point: (sum((point[i]-ideal[i])**2 for i in range(2)), point))
+    return candidates
+
+
+def _translated(bounds, translation):
+    return [bounds[i]+translation[i % 2] for i in range(4)]
+
+
+def audit(doc, info, board_report=None):
+    """JSON-safe geometry and fit evidence; body support/strength remains separate."""
     import FreeCAD as App
 
-    table_width, table_length = 15*INCH, 28*INCH
+    single = bool(info.get('single_output_design'))
+    table_width, table_length = (28*INCH, 15*INCH) if single else (15*INCH, 28*INCH)
+    board_limit = [14*INCH, 11*INCH] if single else [14*INCH, 24*INCH]
+    exit_edge = '+Y long edge' if single else '+Y short edge'
     cable_length, rf_minimum = 4*INCH, 1.5*INCH
     report = {'schema': 'table_envelope_audit/1', 'document': doc.Name,
-              'coordinate_frame': 'Plate-local XY; board short edge is along X, cable exits +Y.',
+              'coordinate_frame': 'Plate-local XY; cable exits the '+exit_edge+'.',
               'table_size_mm': [table_width, table_length],
               'table_bounds_xy_mm': [0., 0., table_width, table_length],
-              'board_limit_mm': [14*INCH, 24*INCH],
+              'board_limit_mm': board_limit,
               'required_cable_beyond_plate_edge_mm': cable_length,
               'required_rf_elbow_length_mm': rf_minimum,
               'physical_objects': [], 'service_regions': [], 'overhangs': [],
               'body_overhangs': [], 'knob_overhangs': [], 'small_overhangs': [],
               'excluded_objects': [], 'errors': [], 'assumptions': [
                   'Every modeled hardware vertex is included at every height, including adjustment knobs and below-plate adapters.',
-                  'The full nominal plate rectangle is reserved; the machined edge gap does not reduce allocated table area.',
+                  ('Only the finished machined plate is physical stock; its empty nominal edge inset is not a containment constraint.' if single else
+                   'The full nominal plate rectangle is reserved; the machined edge gap does not reduce allocated table area.'),
                   'The TA cable is a conservative 96.25 mm full-width service envelope; actual plug and bend dimensions remain unverified.',
                   'A separate four-inch cable envelope begins at the nominal +Y plate edge, even if the connector is inset.',
                   'All declared service regions are included in the occupied rectangle; their obstruction checks remain the service-clearance audit.',
                   'Overhanging physical bodies are reported, not silently clipped. Their mount holes and support need separate mechanical checks.',
-                  'The suggested translation allows continuous free placement; matching the table thread grid is unverified.'],
+                  ('The selected translation must align all four real fixing holes with a 25.4 mm grid whose outermost row is 25.4 mm from each table edge.' if single else
+                   'The suggested translation allows continuous free placement; matching the table thread grid is unverified.')],
               'mounting_grid_alignment': {'status': 'unverified',
                                          'reason': 'No absolute table-hole origin or permissible board translation grid was supplied.'},
               'passed': False}
@@ -140,6 +187,18 @@ def audit(doc, info):
         return bool(condition)
 
     try:
+        if single:
+            design = info['single_output_design']
+            if not isinstance(design, dict) or design.get('kind') != 'ta_single_output':
+                raise ValueError('Explicit ta_single_output design metadata is required')
+            check(design.get('expected_aom_count') == 0,
+                  'Single-output metadata must explicitly declare zero AOMs')
+            check(all(abs(a-b) <= _TOL for a, b in zip(_pair(design.get('table_size_mm', [])), [table_width, table_length]))
+                  and all(abs(a-b) <= _TOL for a, b in zip(_pair(design.get('board_limit_mm', [])), board_limit))
+                  and abs(_number(design.get('table_edge_hole_offset_mm', 0))-INCH) <= _TOL
+                  and design.get('cable_exit') == '+Y_long_edge',
+                  'Single-output table dimensions, edge phase or cable-exit metadata disagree with the confirmed specification')
+            report['design_mode'] = 'ta_single_output_absolute_grid'
         plate = _resolve(doc, info['plate'])
         if plate is None or not hasattr(plate, 'Placement'):
             raise ValueError('Plate reference is missing')
@@ -150,15 +209,18 @@ def audit(doc, info):
         nominal = [ox, oy, ox+dx, oy+dy]
         report['nominal_plate_bounds_xy_mm'] = nominal
         report['nominal_plate_size_mm'] = [dx, dy, _number(plate.dz)]
-        check(0 < dx <= 14*INCH+_TOL and 0 < dy <= 24*INCH+_TOL and dx <= dy+_TOL,
-              'Board exceeds 14 x 24 inches or +Y is not its short-edge exit', actual_size_mm=[dx, dy])
+        check(0 < dx <= board_limit[0]+_TOL and 0 < dy <= board_limit[1]+_TOL
+              and (dy <= dx+_TOL if single else dx <= dy+_TOL),
+              'Board exceeds its size/orientation limit for the '+exit_edge,
+              actual_size_mm=[dx, dy], limit_mm=board_limit)
         plate_geometry = _geometry_bbox(plate, inverse)
         if plate_geometry is None or not plate.Shape.isValid():
             raise ValueError('Valid physical plate geometry is required')
         plate_bounds = [plate_geometry['xyz_bounds_mm'][i] for i in (0, 1, 3, 4)]
         report['actual_plate_bounds_xy_mm'] = plate_bounds
-        contributions = [{'name': 'Nominal plate allocation', 'kind': 'nominal_plate', 'bounds_xy_mm': nominal},
-                         {'name': plate.Name, 'kind': 'physical_plate', 'bounds_xy_mm': plate_bounds}]
+        contributions = [{'name': plate.Name, 'kind': 'physical_plate', 'bounds_xy_mm': plate_bounds}]
+        if not single:
+            contributions.insert(0, {'name': 'Nominal plate allocation', 'kind': 'nominal_plate', 'bounds_xy_mm': nominal})
         roots = []
         for label, value in info.get('roots', {}).items():
             obj = _resolve(doc, value)
@@ -212,7 +274,7 @@ def audit(doc, info):
                 check(False, repr(exc), object=obj.Name)
         check(bool(report['physical_objects']), 'No physical hardware was checked')
         hardware_boxes = [entry['bounds_xy_mm'] for entry in report['physical_objects']]
-        report['plate_and_hardware_bounds_xy_mm'] = _union([nominal, plate_bounds]+hardware_boxes)
+        report['plate_and_hardware_bounds_xy_mm'] = _union(([plate_bounds] if single else [nominal, plate_bounds])+hardware_boxes)
         report['hardware_only_bounds_xy_mm'] = _union(hardware_boxes) if hardware_boxes else None
 
         services = []
@@ -248,7 +310,7 @@ def audit(doc, info):
         for cable, owner in cables:
             check(owner.Name in ta_roots, 'TA cable owner is not the real TA root', owner=owner.Name)
             check(abs(cable['direction_xy'][0]) <= _TOL and abs(cable['direction_xy'][1]-1) <= _TOL,
-                  'TA cable must exit the +Y short edge', actual_direction=cable['direction_xy'])
+                  'TA cable must exit the '+exit_edge, actual_direction=cable['direction_xy'])
             check(cable['length_mm'] >= cable_length-_TOL and cable['width_mm'] >= 96.25-_TOL,
                   'TA cable reservation is smaller than 101.6 x 96.25 mm', region=cable['name'])
             placement = inverse.multiply(owner.Placement)
@@ -260,7 +322,7 @@ def audit(doc, info):
                   expected_origin_xy_mm=[expected_origin.x, expected_origin.y])
             check(abs(expected_direction.x) <= _TOL and abs(expected_direction.y-1) <= _TOL
                   and abs(expected_direction.z) <= _TOL,
-                  'Actual TA connector side is not facing the +Y short edge')
+                  'Actual TA connector side is not facing the '+exit_edge)
             extension_origin = [cable['origin_xy_mm'][0], nominal[3]]
             extension = _rectangle(extension_origin, [0., 1.], cable_length, max(96.25, cable['width_mm']))
             report['conservative_cable_beyond_edge'] = {
@@ -271,8 +333,19 @@ def audit(doc, info):
                                   'kind': 'conservative_cable_extension', 'bounds_xy_mm': _xy_bbox(extension)})
 
         aom_roots = {obj.Name for obj in roots if _kind(obj) == 'AOMO_3100_125'}
+        actual_aoms = {obj.Name for obj in doc.Objects if _kind(obj) == 'AOMO_3100_125'
+                       and _plate_link(obj) in (None, plate)}
         rf = [(entry, owner) for entry, owner in services if entry['kind'] == 'aom_sma']
-        check(bool(aom_roots), 'No physical AOM root found for RF elbow check')
+        if single:
+            check(not actual_aoms and not aom_roots and not rf,
+                  'Single-output TA must contain no physical AOM, AOM root or RF region',
+                  actual_aom_objects=sorted(actual_aoms), declared_aom_roots=sorted(aom_roots),
+                  rf_regions=[entry['name'] for entry, _ in rf])
+            report['rf_requirement'] = {'status': 'not_applicable' if not actual_aoms and not aom_roots and not rf else 'failed',
+                                        'reason': 'Actual placed hardware inventory, root inventory and RF-region inventory all contain zero AOMs.',
+                                        'actual_aom_objects': sorted(actual_aoms), 'declared_aom_roots': sorted(aom_roots)}
+        else:
+            check(bool(aom_roots), 'No physical AOM root found for RF elbow check')
         check({owner.Name for _, owner in rf} == aom_roots and len(rf) == len(aom_roots),
               'Each AOM needs exactly one RF elbow service region', aom_roots=sorted(aom_roots))
         report['rf_elbow_checks'] = []
@@ -282,6 +355,35 @@ def audit(doc, info):
             report['rf_elbow_checks'].append({'owner': owner.Name, 'name': region['name'],
                                                'length_mm': region['length_mm'], 'required_mm': rf_minimum,
                                                'passed': passed})
+
+        if single:
+            if not board_report or board_report.get('document') != doc.Name:
+                raise ValueError('Single-output fit requires the current full board report for fiber services')
+            fiber_report = board_report.get('fiber_clearance', {})
+            fibers = fiber_report.get('fibers', [])
+            actual_fibers = {obj.Name: obj for obj in doc.Objects
+                             if _kind(obj).startswith('fiberport_mount')
+                             and (_plate_link(obj) == plate or obj.Name in root_names)}
+            if (fiber_report.get('passed') is not True or len(actual_fibers) != 1 or
+                    len(fibers) != 1 or {f.get('object') for f in fibers} != set(actual_fibers)):
+                raise ValueError('Exactly one real fiber head and its passing clearance result are required')
+            report['fiber_service_regions'] = []
+            for fiber in fibers:
+                head = actual_fibers[fiber['object']]
+                origin = _pair(fiber['origin_xy_mm'])
+                if math.hypot(origin[0]-head.Placement.Base.x, origin[1]-head.Placement.Base.y) > _TOL:
+                    raise ValueError('Fiber service report is stale: '+head.Name)
+                for key in ('clamp_reserved_span_xy_mm', 'corridor_xy_mm'):
+                    points = [_pair(point) for point in fiber[key]]
+                    if len(points) < 3:
+                        raise ValueError('Fiber service polygon has fewer than three corners')
+                    local = [inverse.multVec(App.Vector(x, y, plate.Placement.Base.z)) for x, y in points]
+                    corners = [[point.x, point.y] for point in local]
+                    bounds = _xy_bbox(corners)
+                    entry = {'name': head.Name+' '+key, 'kind': 'fiber_service',
+                             'bounds_xy_mm': bounds, 'corners_xy_mm': corners}
+                    contributions.append(entry)
+                    report['fiber_service_regions'].append(entry)
 
         occupied = _union([item['bounds_xy_mm'] for item in contributions])
         span = [occupied[2]-occupied[0], occupied[3]-occupied[1]]
@@ -303,11 +405,70 @@ def audit(doc, info):
                        'limiting_objects': {side: [item['name'] for item in contributions
                                                    if abs(item['bounds_xy_mm'][index]-occupied[index]) < _TOL]
                                             for side, index in (('left', 0), ('bottom', 1), ('right', 2), ('top', 3))}})
+        if single:
+            import table_mount_audit
+
+            mount_report = table_mount_audit.audit(doc, info)
+            report['actual_mount_hole_audit'] = mount_report
+            check(mount_report.get('passed') is True,
+                  'Actual platform holes failed the machined-solid check',
+                  details=mount_report.get('errors', []))
+            centers = [hole['center_xy_mm'] for hole in mount_report.get('holes', [])]
+            table_size = [table_width, table_length]
+            candidates = (_grid_translations(centers, occupied, table_size)
+                          if mount_report.get('passed') is True else [])
+            grid = {'status': 'failed', 'passed': False, 'pitch_mm': INCH,
+                    'outermost_hole_offset_from_table_edge_mm': INCH,
+                    'table_size_mm': table_size,
+                    'feasible_translation_intervals_xy_mm': [[-occupied[i], table_size[i]-occupied[i+2]]
+                                                             for i in range(2)],
+                    'candidate_count': len(candidates), 'candidate_translations_xy_mm': candidates,
+                    'nominal_outline_used_for_containment': False,
+                    'allowed_hardware_or_service_overhang_mm': 0.,
+                    'reason': 'No translation contains all physical geometry/services and aligns all four drilled holes.'}
+            check(bool(candidates), 'No fully contained installation on the confirmed one-inch table grid',
+                  occupied_bounds_xy_mm=occupied, machined_plate_bounds_xy_mm=plate_bounds,
+                  actual_fixing_centers_xy_mm=centers)
+            if candidates:
+                translation = candidates[0]
+                translated_occupied = _translated(occupied, translation)
+                translated_plate = _translated(plate_bounds, translation)
+                table_bounds = [0., 0., table_width, table_length]
+                outside = _overhang(translated_occupied, table_bounds)
+                fully_contained = max(outside.values()) <= _TOL
+                holes = []
+                for source in mount_report['holes']:
+                    q = [source['center_xy_mm'][i]+translation[i] for i in range(2)]
+                    indices = [round(value/INCH) for value in q]
+                    residual = max(abs(value-index*INCH) for value, index in zip(q, indices))
+                    holes.append({'object': source['object'], 'center_in_board_xy_mm': source['center_xy_mm'],
+                                  'center_on_table_xy_mm': q, 'integer_grid_indices_from_table_edge': indices,
+                                  'grid_residual_mm': residual})
+                grid.update(status='verified', passed=fully_contained,
+                            reason='All four actual drilled holes align with the confirmed table grid, with complete physical/service containment.',
+                            translation_xy_mm=translation, holes=holes,
+                            actual_plate_bounds_on_table_xy_mm=translated_plate,
+                            actual_hardware_bounds_on_table_xy_mm=_translated(report['hardware_only_bounds_xy_mm'], translation),
+                            occupied_bounds_on_table_xy_mm=translated_occupied,
+                            actual_plate_fully_inside_table=max(_overhang(translated_plate, table_bounds).values()) <= _TOL,
+                            hardware_and_services_fully_inside_table=fully_contained,
+                            beyond_table_mm=outside,
+                            minimum_table_edge_margin_mm=min(translated_occupied[0], translated_occupied[1],
+                                                             table_width-translated_occupied[2], table_length-translated_occupied[3]))
+                report.update(translation_xy_mm=translation,
+                              translated_occupied_bounds_xy_mm=translated_occupied,
+                              table_bounds_in_board_frame_xy_mm=[-translation[0], -translation[1],
+                                                                 table_width-translation[0], table_length-translation[1]])
+                check(fully_contained, 'Selected grid installation has a physical/service overhang', beyond_table_mm=outside)
+            report['mounting_grid_alignment'] = grid
+            report['grid_installation'] = grid
         report['support_review_required'] = bool(report['body_overhangs'])
         report['overhang_policy'] = 'All overhangs count toward table fit. Body support is reported separately and is not certified by passed.'
     except Exception as exc:
         check(False, repr(exc))
     report['failure_counts'] = {'errors': len(report['errors'])}
     report['passed'] = not report['errors']
-    report['status'] = 'fits_with_continuous_translation_grid_alignment_unverified' if report['passed'] else 'failed_or_unresolved'
+    report['status'] = (('fits_on_confirmed_table_grid_with_complete_containment' if single else
+                         'fits_with_continuous_translation_grid_alignment_unverified')
+                        if report['passed'] else 'failed_or_unresolved')
     return report

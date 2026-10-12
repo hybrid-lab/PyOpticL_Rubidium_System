@@ -123,6 +123,8 @@ def short_label(obj):
         match = re.search(r"Output\s+(\d+)\b.*\(([^)]+)\)", label)
         if match:
             return f"Out {match[1]} ({match[2]})"
+        if label.startswith("Post-cell output"):
+            return "Output fiber"
         return "AOM fiber" if "AOM branch" in label else "Direct fiber"
     return None
 
@@ -155,6 +157,8 @@ def render(report, output, title=None, table=False):
         installation = report.get("installation_envelope", {})
         if installation.get("schema") == "splitting_table_envelope/1":
             audit = installation
+    if not grid_installation:
+        grid_installation = audit.get("grid_installation", {})
     extension = audit.get("conservative_cable_beyond_edge", {})
     table_bounds = audit.get("table_bounds_in_board_frame_xy_mm")
     occupied = audit.get("occupied_bounds_xy_mm")
@@ -167,7 +171,7 @@ def render(report, output, title=None, table=False):
         width, height = audit["table_size_mm"]
         table_bounds = [-tx, -ty, width-tx, height-ty]
     if table and grid_installation.get("passed") is True:
-        table_bounds = grid_installation["table_bounds_in_board_frame_xy_mm"]
+        table_bounds = grid_installation.get("table_bounds_in_board_frame_xy_mm", table_bounds)
 
     hardware = []
     extent_points = rectangle_points(plate_bounds)
@@ -219,7 +223,8 @@ def render(report, output, title=None, table=False):
         tb = table_bounds
         ax.add_patch(Rectangle((tb[0], tb[1]), tb[2]-tb[0], tb[3]-tb[1], facecolor="#f5f7fa",
                                edgecolor="#52647b", linewidth=2., zorder=0))
-        ax.text((tb[0]+tb[2])/2, tb[3]+7., "15 × 28 in table", ha="center", va="bottom", fontsize=10, color="#52647b")
+        table_label = f"{(tb[2]-tb[0])/25.4:g} × {(tb[3]-tb[1])/25.4:g} in table"
+        ax.text((tb[0]+tb[2])/2, tb[3]+7., table_label, ha="center", va="bottom", fontsize=10, color="#52647b")
     b = plate_bounds
     ax.add_patch(Rectangle((b[0], b[1]), b[2]-b[0], b[3]-b[1], facecolor="#fafbfb",
                            edgecolor="#303b47", linewidth=1.7, zorder=1))
@@ -330,10 +335,15 @@ def render(report, output, title=None, table=False):
             audit_text.append("Table placement is a centred reference only; no saved table-envelope audit.")
     if grid_installation.get("passed") is True:
         tx, ty = grid_installation["translation_xy_mm"]
-        audit_text.append(f"Table grid aligned: translate board by (+{tx:g}, +{ty:g}) mm. First holes are 25.4 mm from table edges.")
-        audit_text.append("All four bolts align; the machined plate is fully supported.")
-        overhang = grid_installation["maximum_top_overhang_mm"]
-        audit_text.append(f"User-approved top overhang: {overhang:.2f} mm (hardware and RF reservations).")
+        audit_text.append(f"Table grid aligned: translate board by ({tx:+g}, {ty:+g}) mm. First holes are 25.4 mm from table edges.")
+        if grid_installation.get("hardware_and_services_fully_inside_table") is True:
+            audit_text.append("All four bolts align. Finished plate, hardware, full 4 in cable and service reservations are inside the table.")
+            if audit.get("rf_requirement", {}).get("status") == "not_applicable":
+                audit_text.append("RF clearance: N/A; no AOM is installed.")
+        else:
+            audit_text.append("All four bolts align; the machined plate is fully supported.")
+            overhang = grid_installation["maximum_top_overhang_mm"]
+            audit_text.append(f"User-approved top overhang: {overhang:.2f} mm (hardware and RF reservations).")
     elif mount_grid.get("passed") is True:
         audit_text.append("Relative 1 in fixing-hole grid verified; absolute table-edge phase unspecified.")
     elif table:

@@ -134,11 +134,31 @@ def export_board(doc, info, report, output_directory, fcstd_directory=None, *,
                 output_optics.get('status') != 'not_applicable_rf_off_zero_order_reference' or
                 output_optics.get('nominal_feasible') is not None):
             raise ValueError('RF-off zero-order geometry needs its passing model audit and explicit inapplicable RF-on screening')
+    actual_aoms = [o for o in doc.Objects
+                   if type(getattr(o, 'Proxy', None)).__name__ == 'AOMO_3100_125'
+                   and getattr(o, 'Baseplate', plate) == plate]
+    requires_single_output = (info.get('mode') == 'ta' and
+                              (not actual_aoms or reference.get('kind') == 'single_output_no_aom' or
+                               'single_output_design' in info or 'single_output_audit' in report))
+    if requires_single_output:
+        import single_output_audit
+        # Recheck current real geometry: a saved PASS alone cannot authorize
+        # dropping an inapplicable AOM calculation from a changed document.
+        single_output_audit.apply(report, doc, info)
+        single = report['single_output_audit']
+        output_optics = report.get('engineering', {}).get('output_optics', {})
+        pbs_paths = report.get('engineering', {}).get('pbs_paths', {})
+        if (single.get('passed') is not True or single.get('declaration') != reference or
+                output_optics.get('status') != 'not_applicable_no_aom' or
+                output_optics.get('nominal_feasible') is not None or
+                pbs_paths.get('status') != 'not_applicable_single_transmitted_output' or
+                pbs_paths.get('passed') is not None):
+            raise ValueError('Single-output TA needs its passing actual-geometry audit and explicit no-AOM screening scope')
     if info.get('mode') == 'ta' and report.get('table_envelope', {}).get('passed') is not True:
         raise ValueError('TA plate needs a passing table/cable envelope audit')
     if info.get('mode') == 'splitting' and report.get('installation_envelope', {}).get('passed') is not True:
         raise ValueError('Splitting plate needs a passing hardware/service table envelope audit')
-    require_mount_grid = (info.get('mode') == 'splitting' or
+    require_mount_grid = (info.get('mode') in ('ta', 'splitting') or
                           'table_mount_grid' in report or 'table_mount_pattern' in info)
     if require_mount_grid:
         pattern = info.get('table_mount_pattern')
@@ -190,6 +210,7 @@ def export_board(doc, info, report, output_directory, fcstd_directory=None, *,
                           ('mesh_candidate_refinement', 'refine_mesh_candidates.py'),
                           ('bonded_cube_audit', 'bonded_cube_audit.py'),
                           ('zero_order_reference_model', 'zero_order_reference_audit.py'),
+                          ('single_output_audit', 'single_output_audit.py'),
                           ('table_mount_grid', 'table_mount_audit.py'),
                           ('installation_envelope', 'splitting_table_envelope_audit.py')):
         if key in report:
@@ -197,13 +218,14 @@ def export_board(doc, info, report, output_directory, fcstd_directory=None, *,
     report['source_provenance'] = {name: hashlib.sha256(path.read_bytes()).hexdigest()
                                    for name, path in source_files.items()}
     report['freecad_version'] = list(App.Version())
-    for key in ('fiber_tail_pairs', 'lane_geometry', 'beam_crossings', 'bonded_output_pbs'):
+    for key in ('fiber_tail_pairs', 'lane_geometry', 'beam_crossings', 'bonded_output_pbs',
+                'single_output_design'):
         if key in info:
             report[key] = info[key]
     for name, data in ((stem+'_validation.json', report), (stem+'_holes.json', hole_census(plate)),
                        (stem+'_plate_edges.json', plate_edges(plate))):
         (output/name).write_text(json.dumps(data, indent=2, default=str)+'\n', encoding='utf-8', newline='\n')
-    view = Gui.activeDocument().activeView()
+    view = Gui.getDocument(doc.Name).activeView()
     view.setCameraType('Orthographic')
     # Set orientations directly: animated presets can save an intermediate
     # frame when a reopened document starts from its stored 3D camera.

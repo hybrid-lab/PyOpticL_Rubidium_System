@@ -198,9 +198,16 @@ def apply(report, doc, info, expected_count=4):
                     any(abs(a-float(b)) > _TOL for a, b in zip(actual_bounds, current['bbox']))):
                 raise ValueError('Report cube geometry is stale or missing: '+cube.Name)
             lanes = [a for a in info.get('arms', []) if a.get('lane') == entry['lane']]
-            if len(lanes) != 1:
-                raise ValueError('Missing unique own-lane registration for '+cube.Name)
-            path_name = lanes[0]['beam_path']
+            explicit_path = entry.get('beam_path')
+            if explicit_path is not None:
+                if (not isinstance(explicit_path, str) or not explicit_path or len(lanes) > 1 or
+                        (lanes and lanes[0].get('beam_path') != explicit_path)):
+                    raise ValueError('Conflicting explicit own-lane registration for '+cube.Name)
+                path_name = explicit_path
+            else:
+                if len(lanes) != 1:
+                    raise ValueError('Missing unique own-lane registration for '+cube.Name)
+                path_name = lanes[0]['beam_path']
             path, old_path = paths.get(path_name), report_paths.get(path_name)
             if (not path or not old_path or len(path['points']) != len(old_path['points']) or
                     not all(_near(a, b) for a, b in zip(path['points'], old_path['points'])) or
