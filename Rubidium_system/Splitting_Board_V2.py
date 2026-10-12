@@ -3,7 +3,7 @@
 Beam tree (every split is HWP -> PBS; no beam crosses another beam, no beam passes over or under
 another element's hardware):
 
-    input KA05T -> A:  M1 (the input head is the second steering element), AOM (+1 order), iris
+    input KM05T -> A:  M1 (the input head is the second steering element), AOM (+1 order), iris
                        (stops the 0 order), HWP, PBS
         A PBS transmitted -> B1: M1, M2, AOM, iris, HWP, PBS
             B1 transmitted -> C1: FR (extra 45 deg fold), M1, M2, AOM, HWP, rotating-PBS RSP05, iris -> OUT
@@ -16,7 +16,7 @@ Geometry:
 * Every mirror works at 45 deg incidence (90 deg folds). Only the mirror in front of each AOM
   (A: M1, others: M2) turns by 90 deg -+ 2*theta_B = 1.0845 deg: the leg into the AOM is pre-tilted
   (795 nm, 100 MHz, TeO2 4.2 mm/us) so the +1 order leaves every AOM exactly along a board axis.
-* All four output lanes run along +x and end in a KA05T on the right short edge (tail clamps within
+* All four output lanes run along +x and end in a KM05T on the right short edge (tail clamps within
   0.5 mm of the edge). The two siblings of a PBS always leave perpendicular to each other, so
   one output of each pair needs one extra 45 deg fold (FR) in its feed: C1 and C4 have three mirrors
   in front of their AOM (FR, M1, M2), all other lanes two (A: one plus the input head).
@@ -26,8 +26,11 @@ Geometry:
 * AOMO 3100-125 on KM100PM with the lattice V9 integral seat. Orientation D: KM100PM downstream,
   RF connector on the left of the beam; U: KM100PM upstream, RF on the right. The M2 -> AOM leg is at
   least 26 mm (D) / 79 mm (U).
-* KA05T fiber ports with the 76 mm rear tail-clamp hole pair. Mirrors M05 + HKTS thumbscrews, HWPs
-  RSP05, PBS cube_mount_halfinch, irises IDA12.
+* KM05T fiber ports on the unchanged Surface_Adapter_fiberport_lip. Each adapter uses its two
+  mounting taps; its optional Y-shape and rear-hole patterns are disabled. Two board-level
+  BareTappedHole features retain the original 76 mm rear tail-clamp pair at each head. The lens
+  tube, lens adapter, fiber adapter and optical reference are unchanged from the KA05T assembly.
+  Mirrors M05 + HKTS thumbscrews, HWPs RSP05, PBS cube_mount_halfinch, irises IDA12.
 * Reserved free space (checked by the audits): 40 x 20 mm RF elbow at every AOM connector face, 28 mm
   front access at every output head (15 mm at the input head), 20 x 40 mm tail-clamp span and a
   straight 20 mm fiber corridor to the plate edge.
@@ -65,8 +68,9 @@ BOLT_ROWS_APART_IN = 7        # two bolts per short side, centred on that edge
 BOLT_COLUMNS_APART_IN = 22
 
 # ---- optics geometry -------------------------------------------------------------------
-LENS_TUBE_FRONT = 18.798         # KA05T lens-tube front ahead of the mount origin
-REAR_CLAMP_OFFSET = 76.          # rear tail-clamp hole pair behind every KA05T
+LENS_TUBE_FRONT = 18.798         # common KM05T/KA05T lens-tube front ahead of the mount origin
+REAR_CLAMP_OFFSET = 76.          # retained rear tail-clamp hole pair behind every fiber root
+REAR_CLAMP_HOLE_SPACING = 18.328
 IRIS_L = 81.                     # AOM centre -> iris (A, B lanes); minimum AOM -> iris path (C lanes)
 HWP_D = 98.                      # AOM centre -> HWP (A, B)
 PBS_D = 121.                     # AOM centre -> PBS (A, B)
@@ -238,6 +242,7 @@ def build(x=0, y=0, angle=0, drill=True):
     info = {'mode': 'splitting', 'plate': plate, 'roots': {}, 'paths': [], 'arms': [],
             'reservations': [], 'extra_cuts': [], 'geometry_assertions': [],
             'alternate': False, 'service_regions': [], 'output_optical_routes': [],
+            'fiber_tail_pairs': [],
             'requirements': {'mirror_roles': [], 'spherical_groups': []},
             'isolator': None, 'cell': None,
             'plate_size_mm': [base_dx, base_dy, base_dz],
@@ -248,6 +253,45 @@ def build(x=0, y=0, angle=0, drill=True):
     def put(name, cls, px, py, pangle=0, **kw):
         obj = baseplate.place_element(name, cls, x=px, y=py, angle=pangle, **kw)
         info['roots'][name] = obj
+        return obj
+
+    def fiber(name, px, py, pangle):
+        # Use the repository's KM05T and lip-adapter geometry without changing
+        # the optical origin. "mount_only" keeps the two adapter attachment
+        # taps and omits the optional Y-shape pattern; all optional rear pairs
+        # are off because their 52.7/72.7/82.7 mm offsets are not this board's
+        # existing 76 mm clamp position.
+        obj = put(name, optomech.fiberport_mount_km05T, px, py, pangle,
+                  hole_config='mount_only', mount_args={'thumbscrews': True},
+                  adapter_args={'rear_pair_43': False, 'rear_pair_63': False, 'rear_pair_73': False})
+        obj.addProperty('App::PropertyLength', 'RearHoleXOffset', 'Tail clamp').RearHoleXOffset = REAR_CLAMP_OFFSET
+        obj.addProperty('App::PropertyLength', 'RearHoleYSpacing', 'Tail clamp').RearHoleYSpacing = REAR_CLAMP_HOLE_SPACING
+        obj.addProperty('App::PropertyStringList', 'RearHoleNames', 'Tail clamp')
+        direction = _u(pangle)
+        sideways = (-direction[1], direction[0])
+        rear = _add((px, py), direction, -REAR_CLAMP_OFFSET)
+        holes, positions = [], []
+        for sign in (-1, 1):
+            position = _add(rear, sideways, sign*REAR_CLAMP_HOLE_SPACING/2)
+            hole = put(name + ' rear clamp tap %+d' % sign, optomech.BareTappedHole, *position)
+            hole.Purpose = 'Retained 8-32 tail-clamp pair, 76 mm behind the KM05T optical mount origin.'
+            hole.addProperty('App::PropertyLink', 'Owner', 'Tail clamp').Owner = obj
+            hole.addProperty('App::PropertyString', 'CutKind', 'Tail clamp').CutKind = 'fiber-tail-hole'
+            hole.addProperty('App::PropertyLength', 'RearOffset', 'Tail clamp').RearOffset = REAR_CLAMP_OFFSET
+            hole.addProperty('App::PropertyInteger', 'RearSide', 'Tail clamp').RearSide = sign
+            info['extra_cuts'].append(hole)
+            info['reservations'].append({'object': hole.Name, 'reason': hole.Purpose})
+            holes.append(hole)
+            positions.append(list(position))
+        # Store names rather than links: each hole already links to its Owner,
+        # so back-links here would introduce a FreeCAD dependency cycle.
+        obj.RearHoleNames = [hole.Name for hole in holes]
+        info['fiber_tail_pairs'].append({'owner': obj.Name, 'class': 'fiberport_mount_km05T',
+                                         'holes': [hole.Name for hole in holes],
+                                         'rear_offset_mm': REAR_CLAMP_OFFSET,
+                                         'hole_spacing_mm': REAR_CLAMP_HOLE_SPACING,
+                                         'hole_centres_board_xy_mm': positions,
+                                         'adapter_hole_config': 'mount_only'})
         return obj
 
     def fold_angle(a, p, b):
@@ -282,8 +326,7 @@ def build(x=0, y=0, angle=0, drill=True):
             'assumptions': [note] if note else []})
 
     geo = lane_geometry()
-    inport = put('Input KA05T', optomech.fiberport_mount_KA05T_holes, INPUT_XY[0], INPUT_XY[1], INPUT_DIR,
-                 rear_hole_x_offset=REAR_CLAMP_OFFSET, mount_args={'thumbscrews': True})
+    inport = fiber('Input KM05T', INPUT_XY[0], INPUT_XY[1], INPUT_DIR)
     ports, aoms = {}, {}
     for k, name in enumerate(ORDER):
         q, g = LANES[name], geo[name]
@@ -311,12 +354,12 @@ def build(x=0, y=0, angle=0, drill=True):
             dl = _u(g['lane_dir'])
             rot = put(name + ' rotating-PBS RSP05', optomech.rotation_stage_rsp05,
                       g['rot'][0] - 0.5*dl[0], g['rot'][1] - 0.5*dl[1], g['lane_dir'])
+            rot.addProperty('App::PropertyLength', 'OpticalPlaneOffset', 'Optical reference').OpticalPlaneOffset = 0.5
             rot.addProperty('App::PropertyString', 'Purpose').Purpose = (
                 'Empty RSP05: user bonds a PBS to the rotating front face; no PBS or waveplate modeled.')
             put(name + ' iris', optomech.pinhole_ida12, g['iris'][0], g['iris'][1], g['iris_angle'])
-            ports[name] = put('Output %d KA05T (%s)' % (out_no, name), optomech.fiberport_mount_KA05T_holes,
-                              g['port'][0], g['port'][1], (g['lane_dir'] + 180) % 360,
-                              rear_hole_x_offset=REAR_CLAMP_OFFSET, mount_args={'thumbscrews': True})
+            ports[name] = fiber('Output %d KM05T (%s)' % (out_no, name),
+                                g['port'][0], g['port'][1], (g['lane_dir'] + 180) % 360)
         else:
             put(name + ' iris', optomech.pinhole_ida12, g['iris'][0], g['iris'][1], g['iris_angle'])
             put(name + ' HWP', optomech.waveplate, g['hwp'][0], g['hwp'][1], g['lane_dir'],
@@ -336,7 +379,7 @@ def build(x=0, y=0, angle=0, drill=True):
             events += [{'type': 'hwp', 'name': name + ' HWP', 'xy': g['hwp']},
                        {'type': 'rotation_mount', 'name': name + ' rotating-PBS RSP05', 'xy': g['rot']},
                        {'type': 'iris', 'name': name + ' iris', 'xy': g['iris']},
-                       {'type': 'fiber', 'name': name + ' output KA05T', 'xy': g['front']}]
+                       {'type': 'fiber', 'name': name + ' output KM05T', 'xy': g['front']}]
         else:
             events += [{'type': 'iris', 'name': name + ' iris', 'xy': g['iris']},
                        {'type': 'hwp', 'name': name + ' HWP', 'xy': g['hwp']},
@@ -351,7 +394,7 @@ def build(x=0, y=0, angle=0, drill=True):
         d = _u(g['lane_dir'] + 180)
         service(port.Label + ' front access', 'fiber_front', port, g['front'], d, OUTPUT_FRONT_ACCESS, 20.,
                 allowed=[name + ' lane'], note='20 mm full front access width; 28 mm axial access.')
-    service('Input KA05T front access', 'fiber_front', inport,
+    service('Input KM05T front access', 'fiber_front', inport,
             _add(INPUT_XY, _u(INPUT_DIR), LENS_TUBE_FRONT), _u(INPUT_DIR), INPUT_FRONT_ACCESS, 20.,
             allowed=['A lane'], note='20 mm full front access width; 15 mm axial access (input head).')
     info['service_clearance'] = {'min_length_mm': {'fiber_front': INPUT_FRONT_ACCESS, 'aom_sma': 40.}}

@@ -1,4 +1,4 @@
-"""Make the TA production BOM and TAP_or_NOT sheet from one CAD export.
+"""Make a production-board BOM and TAP_or_NOT sheet from one CAD export.
 
 Run with the project-local Python environment (Python >= 3.10, matplotlib).
 The BOM uses the bundled Codex Node.js runtime and @oai/artifact-tool. Override
@@ -31,6 +31,7 @@ import tempfile
 ADAPTERS = {
     "surface_adapter_rotation_stage_lip": "Surface_Adapter_rsp05_lip.step",
     "surface_adapter_isolator_lip": "Surface_Adapter_isolator_lip.step",
+    "surface_adapter_fiberport_lip": "Surface_Adapter_fiberport_lip.step",
     "TA_adapter": "TA_adapter.step",
     "aom_adapter": "AOM_Adapter.step (upper adapter; lower seat is integral)",
     "shutter_adapter": "Shutter_Adapter.step",
@@ -46,6 +47,7 @@ ELEMENTS = {
     "rotation_stage_rsp05": "RSP05 rotation mount",
     "cube_splitter": "PBS cube 12.7 mm",
     "fiberport_mount_KA05T_holes": "KA05T fiber port mount",
+    "fiberport_mount_km05T": "KM05T fiber port mount",
     "fiber_adapter_sm05fca2": "SM05FCA2 fiber adapter",
     "lens_tube_sm05l05": "SM05L05 lens tube",
     "lens_adapter_s05tm09": "S05TM09 lens adapter",
@@ -67,7 +69,8 @@ ELEMENTS = {
 # Already counted as an assembly, or machining/nominal-axis geometry, not a part.
 NON_BOM_CLASSES = {
     "baseplate", "IntegralAOMBaseplate", "IntegralAOMSeat", "BareTappedHole",
-    "CellPocketMachining", "SlidingCellSeat", "mirror_mount_KA05T", "beam_path", "beam_path_manual",
+    "CellPocketMachining", "SlidingCellSeat", "mirror_mount_KA05T", "mirror_mount_km05T",
+    "beam_path", "beam_path_manual",
 }
 
 
@@ -147,6 +150,8 @@ def build_bom(report, holes, title, step_name, source_name, sheet_name):
         elif cls == "circular_lens":
             parts = [p for p in obj.get("part_numbers", []) if p]
             elements["Lens " + (parts[0] if parts else label)] += 1
+        elif cls == "mounted_lens_c220tmda" and report.get("mode") == "splitting":
+            elements["Fiber collimation lens, f ~4.5 mm (CAD envelope: C220TMD-A)"] += 1
         elif cls in ELEMENTS:
             elements[ELEMENTS[cls]] += 1
         else:
@@ -154,7 +159,7 @@ def build_bom(report, holes, title, step_name, source_name, sheet_name):
     if unknown:
         raise ValueError(f"Unmapped physical classes in BOM; review before publishing: {dict(unknown)}")
     empty_pbs = sum(o.get("class") == "rotation_stage_rsp05" and
-                    "empty" in o.get("label", "").lower() and
+                    any(word in o.get("label", "").lower() for word in ("empty", "rotating")) and
                     "pbs" in o.get("label", "").lower() for o in objects)
     if empty_pbs:
         elements["PBS cube bonded to empty output RSP05 (not modelled)"] += empty_pbs
@@ -184,7 +189,17 @@ def build_bom(report, holes, title, step_name, source_name, sheet_name):
     if classes["TA_butterfly_on_adapter"]:
         notes.append("The TA butterfly package mounts to the TA adapter. Its small adapter threads are not baseplate taps.")
     if classes["BareTappedHole"]:
-        notes.append(f"{classes['BareTappedHole']} bare conditioning stations are drilled provisions. No holder or optic is installed there.")
+        tail_holes = sum(o.get("class") == "BareTappedHole" and
+                         "rear clamp tap" in o.get("label", "").lower() for o in objects)
+        if tail_holes:
+            notes.append(f"{tail_holes} bare 8-32 taps retain the fiber tail-clamp hole pairs. They are baseplate machining; the tail clamps are not modelled parts.")
+        other_bare = classes["BareTappedHole"] - tail_holes
+        if other_bare:
+            notes.append(f"{other_bare} bare conditioning stations are drilled provisions. No holder or optic is installed there.")
+    if classes["fiberport_mount_km05T"]:
+        notes.append("KM05T mounts are counted once at each fiber assembly root; their mirror-mount child is not counted again. The lip adapters and optical subparts are listed separately.")
+    if report.get("mode") == "splitting":
+        notes.append("The splitting-board optical model assumes an f ~4.5 mm fiber collimation lens in each head. C220TMD-A is the retained CAD envelope, not the specified optical prescription. Confirm the actual lens and beam size before operation.")
     if classes["CellPocketMachining"]:
         notes.append("The reserved cell pocket is machining only. No cell enclosure is included in the installed component counts.")
     if classes["SlidingCellEnclosure"]:
@@ -194,7 +209,7 @@ def build_bom(report, holes, title, step_name, source_name, sheet_name):
     if empty_pbs:
         notes.append(f"The {empty_pbs} empty output RSP05 mounts each require one bonded PBS cube, listed separately because it is not modelled.")
     if classes["thumbscrew_hkts_5_64"]:
-        notes.append("HKTS-5/64 adjusters are included with M05 / KA05T assemblies when purchased as kits; do not order them twice.")
+        notes.append("HKTS-5/64 adjusters are modelled separately. If supplied with the selected M05 or fiber-mount kit, do not order them twice.")
     note_rows = []
     for i, note in enumerate(notes, 1):
         note_rows.append(len(rows) + 1)
@@ -256,7 +271,7 @@ def render_bom(data, target, node, node_modules, work_dir, preview_dir):
     if not node.is_file() or not node_modules.is_dir():
         raise FileNotFoundError("Supply the bundled Node executable and node_modules with --node and --node-modules")
     work_dir.mkdir(parents=True, exist_ok=True)
-    with tempfile.TemporaryDirectory(prefix="ta-bom-", dir=work_dir) as scratch_name:
+    with tempfile.TemporaryDirectory(prefix="board-bom-", dir=work_dir) as scratch_name:
         scratch = Path(scratch_name).resolve()
         if not scratch.is_relative_to(work_dir.resolve()):
             raise ValueError("Temporary directory escaped the chosen work directory")

@@ -36,12 +36,12 @@ _AXIAL_BODIES = {
     'SlidingCellEnclosure',
 }
 _CELL_PARTS = {'SlidingCellEnclosure', 'SlidingCellLid', 'SlidingCellCover', 'SlidingCellGlass'}
-_FIBER_ROOTS = {'fiberport_mount_KA05T_holes', 'fiberport_mount_KA05T'}
+_FIBER_ROOTS = {'fiberport_mount_KA05T_holes', 'fiberport_mount_KA05T', 'fiberport_mount_km05T'}
 _KM_BODIES = {'prism_mount_km100pm', 'prism_mount_km100pm_bridged'}
 _APERTURE_PARTS = {
     'lens_holder_l05g', 'lens_holder_l05g_no_pin_slots',
     'rotation_stage_rsp05', 'cube_mount_halfinch',
-    'mirror_mount_M05', 'mirror_mount_KA05T', 'mirror_mount_KA05TB',
+    'mirror_mount_M05', 'mirror_mount_KA05T', 'mirror_mount_KA05TB', 'mirror_mount_km05T',
     'fiber_adapter_sm05fca2', 'lens_tube_sm05l05', 'lens_adapter_s05tm09',
 }
 _MACHINING = {
@@ -303,6 +303,13 @@ def _center_and_axis(root):
     center = placement.Base
     if _kind(root) in _FIBER_ROOTS:
         center = center + direction*18.798
+    elif _kind(root) == 'rotation_stage_rsp05' and hasattr(root, 'OpticalPlaneOffset'):
+        # Splitting mounts sit 0.5 mm behind the declared bonded-optic plane,
+        # matching the offset of an RSP05 child of a waveplate.
+        offset = float(root.OpticalPlaneOffset.Value)
+        if abs(offset-0.5) > _EPS:
+            raise ValueError('Unknown standalone RSP05 optical-plane offset')
+        center = center + direction*offset
     elif _kind(root) == 'AOMO_3100_125':
         # integrate_aom moves the assembly by +(.030 y, .115 z). The bore
         # center is still at local (0, -.030, -.115), not at Placement.Base.
@@ -480,7 +487,7 @@ def audit(doc, info):
         'A segment uses the maximum of its endpoint radii, conservatively enclosing a taper.',
         'Separately modeled thumbscrews, knobs and adjusters are checked at every Z, including their own optical route.',
         'Known aperture exceptions do not certify aperture size, mirror incidence, crystal transmission, or unmodeled hardware.',
-        'KA05T optical entry face is local +X 18.798 mm from its assembly placement, as in this branch.',
+            'KA05T and KM05T fiber optical entry faces are local +X 18.798 mm from their assembly placement, as in this branch.',
         'AOMO optical center includes its MeshApertureLocal offset (0,-0.030,-0.115 mm).',
         'Sliding-cell body/lid exceptions apply only to the intended seat-axis ray; the selected slide must remain inside its bore.',
     ])

@@ -1,4 +1,4 @@
-"""TA baseplate V9.8 - 14 x 17.5 in, the seed board for the 795 nm lattice light.
+"""TA baseplate V9.9 - 14 x 21.5 in, with the TA cable at a short edge.
 
 Beam order, read top to bottom in example_baseplate():
 
@@ -8,14 +8,14 @@ Beam order, read top to bottom in example_baseplate():
        -> power-division HWP -> main PBS
             transmitted -> AOM (integral seat) -> SR475 shutter -> fold 5
                            -> L1, L2, HWP, rotating PBS, iris, KA05T
-            reflected   -> one steering fold down the right edge
+            reflected   -> one steering fold left across the middle
                            -> L1, L2, HWP, rotating PBS, KA05T (no iris)
 
-The isolator and conditioning lanes move left; their optical ordering and
-specified conditioning pitches are preserved. Both output telescopes retain
-their spacings. The AOM output runs left along the bottom; the direct output
-runs down the right edge with one fold. The shutter-to-fold run leaves room
-for the RF elbow above the common-path mirror. Coordinates are in board frame.
+The TA emits right and its thick cable exits the upper short edge. The common
+conditioning train runs left, down, then right through the sliding cell.
+The AOM output runs down the left edge; the direct output runs left above it.
+All optical segments remain orthogonal, and the conditioning and telescope
+spacings are preserved. Coordinates are in the board frame.
 
 Positions are millimetres; z = 0 is the 12.7 mm optical
 axis. See Production/TABoardV9/ for the renders and the audit report.
@@ -32,12 +32,12 @@ from PyOpticL import layout, optomech
 
 # baseplate constants
 base_dx = 14*layout.inch
-base_dy = 17.5*layout.inch
+base_dy = 21.5*layout.inch
 base_dz = layout.inch
 gap = layout.inch/8
 
 # Table mount grid indices: hole centres are (index + 0.5) inches.
-mount_holes = [(1, 0), (13, 0), (8, 16), (13, 16)]
+mount_holes = [(0, 1), (13, 0), (0, 20), (9, 20)]
 
 
 def board_xy(px, py):
@@ -48,34 +48,28 @@ def board_xy(px, py):
 def board_direction(dx, dy):
     return dx, dy
 
-# --- common path (lattice component order and conditioning pitches) ----------
-TOP_RUN_Y = 394.
-TA_XY = (55., 196.)
-LANE_X = 125.
-CELL_X = 191.
-TA_HWP_Y = 371.
-ISO_Y = 301.
-QWP_Y = 237.
-LOWER_RUN_Y = 98.
-STATION_LANE_Y = (216., 171., 126.)
-STATION_4_DX = 22.
-STATION_5_Y = 114.
-STATION_6_Y = 154.
-CELL_Y = 255.
-FOLD3_Y = 352.4
+# --- common path: lattice ordering and conditioning pitches -----------------
+TA_XY = (105., 491.)
+TA_FOLD1_XY = (327., 491.)
+TA_FOLD2_XY = (327., 418.)
+TA_HWP_XY = (305., 418.)
+ISO_XY = (235., 418.)
+QWP_XY = (171., 418.)
+STATIONS_XY = ((150., 418.), (105., 418.), (60., 418.),
+               (32., 396.), (48., 352.), (88., 352.))
+COMMON_FOLD1_XY = (32., 418.)
+COMMON_FOLD2_XY = (32., 352.)
+CELL_XY = (189., 352.)
+COMMON_FOLD3_XY = (327., 352.)
+COMMON_FOLD4_XY = (327., 250.)
+POWER_HWP_XY = (312., 250.)
+PBS_XY = (280.6, 250.)
 
-# --- the column and the two output rows --------------------------------------
-# The 40 mm RF elbow lies between conditioning stations 5 and 6. The output
-# lane clears the common-path knobs in XY, regardless of knob height.
-# The direct fiber tail has a full 60 x 20 mm clamp region.
-COLUMN_X = 266.5
-COLUMN_HWP_Y = FOLD3_Y - 25.
-PBS_Y = COLUMN_HWP_Y - 31.4
-AOM_Y = 134.
-SHUTTER_Y = AOM_Y - 40.67
-AOM_ROW_Y = 50.
-REFLECT_FOLD_X = 321.5
-REFLECT_ROW_Y = PBS_Y
+# --- the two output branches ------------------------------------------------
+AOM_XY = (213.6, 250.)
+SHUTTER_XY = (116.6, 250.)
+AOM_FOLD_XY = (40., 250.)
+DIRECT_FOLD_XY = (280.6, 305.5)
 
 # output-chain offsets from each row's fold mirror (the lattice DP-output chain)
 OUT = {'lens1': 14., 'lens2': 14.+45.319348, 'hwp': 72., 'rot': 94., 'iris': 125.,
@@ -85,7 +79,7 @@ OUT = {'lens1': 14., 'lens2': 14.+45.319348, 'hwp': 72., 'rot': 94., 'iris': 125
 OUT_NO_IRIS = {'lens1': 14., 'lens2': 14.+45.319348, 'hwp': 72., 'rot': 94.,
                'fiber_face': 144., 'port': 144.+18.798}
 REAR_CLAMP_OFFSET = 54.              # direct head: clear the shutter and bottom fold
-AOM_REAR_CLAMP_OFFSET = 64.          # full 60 x 20 envelope remains on the plate
+AOM_REAR_CLAMP_OFFSET = 46.          # full 60 x 20 envelope remains on the plate
 
 LENSES = {
     'LA1289-B': (29.9, 3.2, 1.8, 30.2466184),
@@ -109,14 +103,14 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
 
     baseplate = layout.baseplate(base_dx, base_dy, base_dz, x=x, y=y, angle=angle, gap=gap,
                                  drill=False, mount_holes=mount_holes,
-                                 name='TA plate V9.8 compact 14 x 17.5 in')
+                                 name='TA plate V9.9 14 x 21.5 in')
     plate = doc.getObject(baseplate.active_baseplate)
     info = {'mode': 'ta', 'plate': plate, 'roots': {}, 'paths': [], 'arms': [],
             'reservations': [], 'extra_cuts': [], 'geometry_assertions': [], 'alternate': False,
             'service_regions': [], 'output_optical_routes': [],
             'requirements': {'mirror_roles': [], 'spherical_groups': []},
             'isolator': None, 'cell': None,
-            'layout_status': 'V9.8 compact TA board; see the saved audit report for results.',
+            'layout_status': 'V9.9 short-edge cable layout; see the saved audit report for results.',
             'mount_holes_mm': [[(hx+.5)*layout.inch, (hy+.5)*layout.inch] for hx, hy in mount_holes]}
 
     # ---- placement helpers, so every optic below is a single readable line ----
@@ -213,39 +207,36 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
     # =========================================================================
     # 1. TA, the two steering folds and the isolator lane
     # =========================================================================
-    # The TA emits +y with its thick cable on the -x side, off the plate, as on
-    # the lattice board; the U is therefore traversed up, right, then down.
-    ta = put('TA', optomech.TA_butterfly_on_adapter, TA_XY[0], TA_XY[1], 90)
-    supply = [TA_XY, (TA_XY[0], TOP_RUN_Y), (LANE_X, TOP_RUN_Y), (LANE_X, STATION_LANE_Y[0])]
+    # The TA emits +x; its thick cable points +y through the upper short edge.
+    ta = put('TA', optomech.TA_butterfly_on_adapter, *TA_XY, 0)
+    supply = [TA_XY, TA_FOLD1_XY, TA_FOLD2_XY, STATIONS_XY[0]]
     bend('TA steering fold 1', supply[0], supply[1], supply[2])
     bend('TA steering fold 2', supply[1], supply[2], supply[3])
-    wp('TA output HWP', LANE_X, TA_HWP_Y, 90)
-    isolator = put('Hana long isolator', optomech.isolator_850_long_pocket, LANE_X, ISO_Y, 90)
+    wp('TA output HWP', *TA_HWP_XY, 0)
+    isolator = put('Hana long isolator', optomech.isolator_850_long_pocket, *ISO_XY, 0)
     info['extra_cuts'].append(isolator)
-    wp('TA output QWP', LANE_X, QWP_Y, 90)
+    wp('TA output QWP', *QWP_XY, 0)
 
     # =========================================================================
     # 2. Six bare conditioning stations (holders and optics not yet selected)
     # =========================================================================
-    lane_stations = [hole('Common station 8-32 1', LANE_X, STATION_LANE_Y[0], STATION_NOTE % 1),
-                     hole('Common station 8-32 2', LANE_X, STATION_LANE_Y[1], STATION_NOTE % 2),
-                     hole('Common station 8-32 3', LANE_X, STATION_LANE_Y[2], STATION_NOTE % 3)]
-    sphere_stations = [hole('Common station 8-32 4', LANE_X+STATION_4_DX, LOWER_RUN_Y, STATION_NOTE % 4),
-                       hole('Common station 8-32 5', CELL_X, STATION_5_Y, STATION_NOTE % 5),
-                       hole('Common station 8-32 6', CELL_X, STATION_6_Y, STATION_NOTE % 6)]
+    lane_stations = [hole('Common station 8-32 '+str(i+1), *STATIONS_XY[i], STATION_NOTE % (i+1))
+                     for i in range(3)]
+    sphere_stations = [hole('Common station 8-32 '+str(i+1), *STATIONS_XY[i], STATION_NOTE % (i+1))
+                       for i in range(3, 6)]
 
     # =========================================================================
     # 3. Folds 1-4, the cell seat, and up the column to the power PBS
     # =========================================================================
-    route = [(LANE_X, STATION_LANE_Y[-1]), (LANE_X, LOWER_RUN_Y), (CELL_X, LOWER_RUN_Y),
-             (CELL_X, FOLD3_Y), (COLUMN_X, FOLD3_Y), (COLUMN_X, COLUMN_HWP_Y)]
+    route = [STATIONS_XY[2], COMMON_FOLD1_XY, COMMON_FOLD2_XY,
+             COMMON_FOLD3_XY, COMMON_FOLD4_XY, POWER_HWP_XY]
     fold1 = bend('Common post-isolator fold 1', route[0], route[1], route[2])
     fold2 = bend('Common post-isolator fold 2', route[1], route[2], route[3])
     fold3 = bend('Common post-isolator fold 3', route[2], route[3], route[4])
     fold4 = bend('Common post-isolator fold 4', route[3], route[4], route[5])
 
     # Exactly the lattice V9.7 lower half, lid, covers, glass and sliding seat.
-    cell = optomech.place_sliding_cell(baseplate, CELL_X, CELL_Y, angle=90, slide=cell_slide)
+    cell = optomech.place_sliding_cell(baseplate, *CELL_XY, angle=0, slide=cell_slide)
     info['cell'] = dict(cell)
     info['roots']['Rb cell seat (V9.7 pocket + 2 slot taps)'] = cell['root']
     info['roots']['Rb cell enclosure (V9.7 lower half, lid, covers, cell)'] = cell['cell']
@@ -253,40 +244,39 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
     info['isolator'] = {'source': 'hana-branch original isolator_850',
                         'main_pocket_mm': [113.5, 25., 5.]}
 
-    wp('Main power division HWP', COLUMN_X, COLUMN_HWP_Y, -90)
-    # beam travels -y into the cube, reflected toward +x; mount across the beam
-    main_pbs = put('Main power PBS', optomech.cube_splitter, COLUMN_X, PBS_Y, -90,
-                   invert=False, mount_type=optomech.cube_mount_halfinch)
+    wp('Main power division HWP', *POWER_HWP_XY, 180)
+    # Incoming -x; inversion makes the reflected branch point +y.
+    main_pbs = put('Main power PBS', optomech.cube_splitter, *PBS_XY, 180,
+                   invert=True, mount_type=optomech.cube_mount_halfinch)
     info['roots']['Main power PBS'] = main_pbs
 
     # =========================================================================
     # 4. Transmitted arm: AOM, shutter, fold 5 down to the output row
     # =========================================================================
-    # In the column the AOM is turned so its RF SMB connector faces -x, toward
-    # the cell lane, where 40 mm is reserved for the L-shaped elbow.
-    aom = put('TA AOMO 3100-125', optomech.AOMO_3100_125, COLUMN_X, AOM_Y, -90,
+    # The beam travels -x, with the KM100PM downstream and RF elbow toward -y.
+    aom = put('TA AOMO 3100-125', optomech.AOMO_3100_125, *AOM_XY, 0,
               forward_direction=-1, backward_direction=1, diffraction_angle=0,
               surface_adapter_args={'adapter_height': 5})
     seat = optomech.integrate_aom(baseplate, aom)
     info['extra_cuts'].append(seat)
-    put('SRS SR475 shutter', optomech.shutter_sr475, COLUMN_X, SHUTTER_Y, 90)
-    fold5 = bend('AOM branch output steering mirror', (COLUMN_X, SHUTTER_Y), (COLUMN_X, AOM_ROW_Y),
-                 (COLUMN_X-OUT['lens1'], AOM_ROW_Y))
+    put('SRS SR475 shutter', optomech.shutter_sr475, *SHUTTER_XY, 0)
+    fold5 = bend('AOM branch output steering mirror', SHUTTER_XY, AOM_FOLD_XY,
+                 (AOM_FOLD_XY[0], AOM_FOLD_XY[1]-OUT['lens1']))
 
     # =========================================================================
-    # 5. Reflected arm: one fold down the right edge
+    # 5. Reflected arm: one fold left above the AOM row
     # =========================================================================
-    # The direct fiber exits at the bottom; the AOM fiber exits to the left.
-    fold6 = bend('Reflected branch fold 6', (COLUMN_X, PBS_Y), (REFLECT_FOLD_X, PBS_Y),
-                 (REFLECT_FOLD_X, PBS_Y-OUT_NO_IRIS['lens1']))
+    # The direct fiber exits at the left; the AOM fiber exits at the bottom.
+    fold6 = bend('Reflected branch fold 6', PBS_XY, DIRECT_FOLD_XY,
+                 (DIRECT_FOLD_XY[0]-OUT_NO_IRIS['lens1'], DIRECT_FOLD_XY[1]))
 
     # =========================================================================
     # 6. The two output chains (the lattice DP-output geometry)
     # =========================================================================
     rows = []
     for tag, x0, row_y, with_iris, theta in (
-            ('AOM branch', COLUMN_X, AOM_ROW_Y, True, 180),
-            ('Reflected branch', REFLECT_FOLD_X, REFLECT_ROW_Y, False, -90)):
+            ('AOM branch', *AOM_FOLD_XY, True, -90),
+            ('Reflected branch', *DIRECT_FOLD_XY, False, 180)):
         O = OUT if with_iris else OUT_NO_IRIS
         ux, uy = round(math.cos(math.radians(theta))), round(math.sin(math.radians(theta)))
         def at(key):
@@ -308,31 +298,32 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
     # =========================================================================
     path('TA supply', supply, RED, 2.5, UPSTREAM)
     path('Common cylindrical conditioning provision',
-         [(LANE_X, STATION_LANE_Y[0]), (LANE_X, STATION_LANE_Y[1]), (LANE_X, STATION_LANE_Y[2]),
-          (LANE_X, LOWER_RUN_Y), (LANE_X+STATION_4_DX, LOWER_RUN_Y), (CELL_X, LOWER_RUN_Y),
-          (CELL_X, STATION_5_Y)], RED, [2.5, .9, .9, .9, .9, .9, .9],
+         [STATIONS_XY[0], STATIONS_XY[1], STATIONS_XY[2], COMMON_FOLD1_XY,
+          STATIONS_XY[3], COMMON_FOLD2_XY, STATIONS_XY[4]],
+         RED, [2.5, .9, .9, .9, .9, .9, .9],
          'Stations 1-4 are bare 8-32 holes; optics unselected. The envelope is the intended '
          'conditioned beam.')
     path('Common spherical telescope',
-         [(CELL_X, STATION_5_Y), (CELL_X, STATION_6_Y), (CELL_X, CELL_Y), (CELL_X, FOLD3_Y),
-          (COLUMN_X, FOLD3_Y), (COLUMN_X, COLUMN_HWP_Y), (COLUMN_X, PBS_Y)],
+         [STATIONS_XY[4], STATIONS_XY[5], CELL_XY, COMMON_FOLD3_XY,
+          COMMON_FOLD4_XY, POWER_HWP_XY, PBS_XY],
          RED, [.9, .6, .6, .6, .6, .6, .6],
          'Stations 5/6 are bare 8-32 holes; optics unselected. ' + DOWNSTREAM)
     path('AOM branch',
-         [(COLUMN_X, PBS_Y), (COLUMN_X, AOM_Y), (COLUMN_X, SHUTTER_Y), (COLUMN_X, AOM_ROW_Y),
+         [PBS_XY, AOM_XY, SHUTTER_XY, AOM_FOLD_XY,
           rows[0]['xy']['lens1'], rows[0]['xy']['lens2'], rows[0]['xy']['fiber_face']],
          BLUE, [.6, .6, .6, .6, .6, .035, .6],
          'Single-pass AOM; the first order is modeled straight (RF deflection ~1 deg absorbed '
          'by fold 5). ' + DOWNSTREAM)
     path('Reflected branch',
-         [(COLUMN_X, PBS_Y), (REFLECT_FOLD_X, PBS_Y), rows[1]['xy']['lens1'],
+         [PBS_XY, DIRECT_FOLD_XY, rows[1]['xy']['lens1'],
           rows[1]['xy']['lens2'], rows[1]['xy']['fiber_face']],
          GREEN, [.6, .6, .6, .035, .6], DOWNSTREAM)
 
     # =========================================================================
     # 8. Bookkeeping consumed by the audit scripts (no geometry below this line)
     # =========================================================================
-    beam_dir = {1: (0., -1.), 2: (0., -1.), 3: (0., -1.), 4: (1., 0.), 5: (0., 1.), 6: (0., 1.)}
+    beam_dir = {1: (-1., 0.), 2: (-1., 0.), 3: (-1., 0.),
+                4: (0., -1.), 5: (1., 0.), 6: (1., 0.)}
     info['requirements']['mount_only_cylindrical_holes'] = [o.Name for o in lane_stations]
     info['requirements']['provisional_bare_mount_envelopes'] = [
         {'object': o.Name, 'center_xy_mm': [o.BasePlacement.Base.x, o.BasePlacement.Base.y],
@@ -348,11 +339,11 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
             {'name': tag+' output', 'active_lenses': [row['l1'].Name, row['l2'].Name],
              'spare_holes': [], 'spare_required': 0})
         if row['with_iris']:
-            events = [{'type': 'aom', 'name': 'AOM (single pass)', 'xy': (COLUMN_X, AOM_Y)},
-                      {'type': 'mirror', 'name': fold5.Label, 'xy': (COLUMN_X, AOM_ROW_Y)}]
+            events = [{'type': 'aom', 'name': 'AOM (single pass)', 'xy': AOM_XY},
+                      {'type': 'mirror', 'name': fold5.Label, 'xy': AOM_FOLD_XY}]
         else:
-            events = [{'type': 'pbs', 'name': main_pbs.Label, 'xy': (COLUMN_X, PBS_Y)},
-                      {'type': 'mirror', 'name': fold6.Label, 'xy': (REFLECT_FOLD_X, PBS_Y)}]
+            events = [{'type': 'pbs', 'name': main_pbs.Label, 'xy': PBS_XY},
+                      {'type': 'mirror', 'name': fold6.Label, 'xy': DIRECT_FOLD_XY}]
         events += [{'type': 'lens', 'name': row['l1'].Label, 'xy': row['xy']['lens1'], 'focal_mm': 30.2466184},
                    {'type': 'lens', 'name': row['l2'].Label, 'xy': row['xy']['lens2'], 'focal_mm': 15.0727296},
                    {'type': 'hwp', 'name': tag+' output HWP', 'xy': row['xy']['hwp']},
@@ -372,18 +363,21 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
             assert_distance(tag+': iris -> fiber face (>= 40 required)', row['xy']['iris'],
                             row['xy']['fiber_face'], 42.35)
         # front access in front of each head, as on the lattice heads
-        # In design coordinates the fronts face +x (AOM) and +y (direct).
-        design_direction = (1., 0.) if row['with_iris'] else (0., 1.)
+        # In board coordinates the fronts face +y (AOM) and +x (direct).
+        design_direction = (0., 1.) if row['with_iris'] else (1., 0.)
         service(row['head'].Label+' front access', 'fiber_front', row['head'],
                 row['xy']['fiber_face'], design_direction, 40., 20.,
                 allowed=[tag], assumptions=['20 mm full front access width; 40 mm axial access.'])
 
-    service('TA thick left cable', 'ta_cable', ta, (4.844387, 166.075), (-1., 0.), 101.6, 96.25,
+    cable_origin = ta.BasePlacement.multVec(App.Vector(-29.925, 50.155613, 0))
+    cable_direction = ta.BasePlacement.Rotation.multVec(App.Vector(0, 1, 0))
+    service('TA thick short-edge cable', 'ta_cable', ta,
+            (cable_origin.x, cable_origin.y), (cable_direction.x, cable_direction.y), 101.6, 96.25,
             assumptions=['Conservative TA full body-width cable projection; connector dimensions '
-                         'unverified. The 101.6 mm corridor extends beyond the plate left edge.'])
+                         'unverified. The 101.6 mm corridor extends beyond the upper short edge.'])
     # the RF SMB elbow: 40 mm outward from the connector face, which is the
     # body face away from the beam (33.02 mm from the axis on the mount side)
-    service(aom.Label+' RF elbow', 'aom_sma', aom, (COLUMN_X-33.02, AOM_Y), (-1., 0.), 40., 20.,
+    service(aom.Label+' RF elbow', 'aom_sma', aom, (AOM_XY[0], AOM_XY[1]-33.02), (0., -1.), 40., 20.,
             assumptions=['Connector on the AOM face away from the beam (unverified STL box); '
                          '40 mm of free space for the L-shaped SMB elbow; cable taped down afterwards.'])
     info.setdefault('service_clearance', {}).setdefault('min_length_mm', {})['aom_sma'] = 40.
@@ -403,32 +397,32 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
     def along_beam(a, b, corner):
         return abs(corner[0]-a[0])+abs(corner[1]-a[1])+abs(b[0]-corner[0])+abs(b[1]-corner[1])
 
-    station_4 = (LANE_X+STATION_4_DX, LOWER_RUN_Y)
+    station_4 = STATIONS_XY[3]
     info['geometry_assertions'].extend([
-        {'name': 'Stations 1-2 pitch', 'measured': STATION_LANE_Y[0]-STATION_LANE_Y[1],
+        {'name': 'Stations 1-2 pitch', 'measured': STATIONS_XY[0][0]-STATIONS_XY[1][0],
          'expected': 45., 'tolerance': 1e-9},
-        {'name': 'Stations 2-3 pitch', 'measured': STATION_LANE_Y[1]-STATION_LANE_Y[2],
+        {'name': 'Stations 2-3 pitch', 'measured': STATIONS_XY[1][0]-STATIONS_XY[2][0],
          'expected': 45., 'tolerance': 1e-9},
         {'name': 'Station 4->5 along beam via fold 2',
-         'measured': along_beam(station_4, (CELL_X, STATION_5_Y), (CELL_X, LOWER_RUN_Y)),
+         'measured': along_beam(station_4, STATIONS_XY[4], COMMON_FOLD2_XY),
          'expected': 60., 'tolerance': 1e-9},
         {'name': 'Station 4->6 along beam via fold 2',
-         'measured': along_beam(station_4, (CELL_X, STATION_6_Y), (CELL_X, LOWER_RUN_Y)),
+         'measured': along_beam(station_4, STATIONS_XY[5], COMMON_FOLD2_XY),
          'expected': 100., 'tolerance': 1e-9},
         {'name': 'Direct branch has one steering mirror',
          'measured': sum(e['type'] == 'mirror' for e in info['output_optical_routes'][1]['events']),
          'expected': 1, 'tolerance': 0.},
-        {'name': 'Reflected KA05T rear-hole axis to bottom plate edge (mm)',
-         'measured': PBS_Y-OUT_NO_IRIS['port']-REAR_CLAMP_OFFSET-gap,
-         'expected': 76.027, 'tolerance': 0.1},
-        {'name': 'AOM-branch KA05T rear holes inside plate (margin mm)',
-         'measured': COLUMN_X-OUT['port']-AOM_REAR_CLAMP_OFFSET-gap,
-         'expected': 13.175, 'tolerance': 0.1},
+        {'name': 'Reflected KA05T rear-hole axis to left plate edge (mm)',
+         'measured': DIRECT_FOLD_XY[0]-OUT_NO_IRIS['port']-REAR_CLAMP_OFFSET-gap,
+         'expected': 60.627, 'tolerance': 0.1},
+        {'name': 'AOM-branch KA05T rear-hole axis to bottom plate edge (mm)',
+         'measured': AOM_FOLD_XY[1]-OUT['port']-AOM_REAR_CLAMP_OFFSET-gap,
+         'expected': 14.675, 'tolerance': 0.1},
         {'name': 'RF elbow space beyond connector face (mm)', 'measured': 40.,
          'expected': 40., 'tolerance': 0.}])
-    assert_distance('HWP -> PBS (lattice 31.4)', (COLUMN_X, COLUMN_HWP_Y), main_pbs, 31.4)
-    assert_distance('PBS -> AOM (nominal axis)', main_pbs, (COLUMN_X, AOM_Y), PBS_Y-AOM_Y)
-    assert_distance('Cell -> fold 3', (CELL_X, CELL_Y), (CELL_X, FOLD3_Y), FOLD3_Y-CELL_Y)
+    assert_distance('HWP -> PBS (lattice 31.4)', POWER_HWP_XY, main_pbs, 31.4)
+    assert_distance('PBS -> AOM (nominal axis)', main_pbs, AOM_XY, 67.)
+    assert_distance('Cell -> fold 3', CELL_XY, COMMON_FOLD3_XY, 138.)
 
     # ---- cut the plate once every element and machining volume is in place ----
     doc.recompute()
@@ -437,7 +431,7 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
     plate.touch()
     doc.recompute()
     info['plate_size_mm'] = [base_dx, base_dy, base_dz]
-    doc.Label = 'TA board - V9.8 compact'
+    doc.Label = 'TA board - V9.9 short-edge cable'
     return info
 
 

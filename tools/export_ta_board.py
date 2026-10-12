@@ -1,12 +1,16 @@
-"""Export the current TA model in FreeCAD (not a system-Python script).
+"""Export a production board in FreeCAD (not a system-Python script).
 
 Call export_board(doc, info, full_audit_report, output_directory, fcstd_directory).
-The caller builds Rubidium_system/TA_Baseplate_V9.py with this repository's
-optomech.py installed as PyOpticL.optomech. The report is the existing V9
-board_tools.inspect_board result, augmented by ta_projection_audit.audit.
+The defaults export Rubidium_system/TA_Baseplate_V9.py. For another board,
+provide stem and source_module; the latter accepts a loaded module, a dotted
+repository module name, or a source-file path. The caller must build that source
+with this repository's optomech.py installed as PyOpticL.optomech. The report is
+the existing V9 board_tools.inspect_board result augmented by the projection
+audit, and by km05t_audit for any KM05T fiber heads.
 """
 import collections
 import hashlib
+import importlib
 import json
 import math
 from pathlib import Path
@@ -73,29 +77,59 @@ def plate_edges(plate):
                 top_z=box.ZMax, levels=levels)
 
 
-def export_board(doc, info, report, output_directory, fcstd_directory=None):
+def _source_path(repo, source_module):
+    if hasattr(source_module, '__file__'):
+        path = Path(source_module.__file__)
+    elif isinstance(source_module, Path) or str(source_module).endswith('.py'):
+        path = Path(source_module)
+    else:
+        path = Path(*str(source_module).split('.')).with_suffix('.py')
+    path = (path if path.is_absolute() else repo/path).resolve()
+    if not path.is_file():
+        raise FileNotFoundError('Board source for provenance does not exist: '+str(path))
+    return path
+
+
+def export_board(doc, info, report, output_directory, fcstd_directory=None, *,
+                 stem='TA_Board_V9', source_module='Rubidium_system.TA_Baseplate_V9'):
     from PyOpticL import optomech, layout
     import ta_projection_audit
+    if not stem or Path(stem).name != stem or any(c in stem for c in '/\\'):
+        raise ValueError('stem must be a filename without directory components')
+    repo = Path(__file__).resolve().parents[1]
+    board_source = _source_path(repo, source_module)
     output = Path(output_directory)
     (output/'StepFile').mkdir(parents=True, exist_ok=True)
     plate = info['plate']
     doc.recompute()
     if not plate.Shape.isValid() or len(plate.Shape.Solids) != 1:
         raise ValueError('Expected one valid machined plate solid')
-    if not report['projection_audit']['mechanical_projection_passed']:
+    projection = report['projection_audit']
+    if not projection['mechanical_projection_passed']:
         raise ValueError('Resolve projection audit failures before export')
     # V9.7 end covers are deliberately reused without changing their geometry.
     # Preserve their explicit optical block in the delivered report; mechanical
     # export is not a claim that these unfinished covers transmit the beam.
-    report['optical_path_readiness'] = report['projection_audit']['optical_path_readiness']
-    report['required_follow_up'] = report['projection_audit']['required_follow_up']
+    has_covers = any(o.get('class') == 'SlidingCellCover' for o in report['objects'])
+    if has_covers and any(key not in projection for key in ('optical_path_readiness', 'required_follow_up')):
+        raise ValueError('Cell-cover optical status and required follow-up must be explicit')
+    report['optical_path_readiness'] = projection.get(
+        'optical_path_readiness', 'not_certified_by_a_mechanical_projection_audit')
+    report['required_follow_up'] = projection.get('required_follow_up', [])
+    has_km05t = any(o.get('class') == 'fiberport_mount_km05T' for o in report['objects'])
+    km05t_report = report.get('km05t_audit')
+    if has_km05t and not km05t_report:
+        raise ValueError('KM05T heads require their explicit mounting and service audit')
+    if km05t_report is not None and km05t_report.get('passed') is not True:
+        raise ValueError('Resolve KM05T mounting/service audit failures before export')
+    if info.get('mode') == 'ta' and report.get('table_envelope', {}).get('passed') is not True:
+        raise ValueError('TA plate needs a passing table/cable envelope audit')
     issues = {key: value for key, value in report['summary_counts'].items()
               if value and key not in ('outside_plate_xy', 'bbox_overlap_candidates', 'unrelated_beam_proximity')}
     if issues:
         raise ValueError('Resolve engineering audit failures before export: '+repr(issues))
     if any(any('Invalid' in state or 'Error' in state for state in obj.State) for obj in doc.Objects):
         raise ValueError('Document contains an invalid/error object')
-    stem = 'TA_Board_V9'
     size = info['plate_size_mm']
     inches = [format(d/25.4, 'g').replace('.', 'p') for d in size[:2]]
     step_name = stem+'_baseplate_'+'x'.join(inches)+'in.step'
@@ -112,16 +146,30 @@ def export_board(doc, info, report, output_directory, fcstd_directory=None):
     report['step_round_trip'] = dict(file='StepFile/'+step_name, valid=check.isValid(),
                                     solids=len(check.Solids), volume_ratio=ratio,
                                     actual_dimensions_mm=[check.BoundBox.XLength, check.BoundBox.YLength, check.BoundBox.ZLength])
-    repo = Path(__file__).resolve().parents[1]
+    board_key = (board_source.relative_to(repo).as_posix() if board_source.is_relative_to(repo)
+                 else str(board_source)+' (external board source)')
     source_files = {'optomech.py': Path(optomech.__file__),
                     'PyOpticL/layout.py (external runtime)': Path(layout.__file__),
-                    'Rubidium_system/TA_Baseplate_V9.py': repo/'Rubidium_system/TA_Baseplate_V9.py',
+                    board_key: board_source,
                     'tools/ta_projection_audit.py': Path(ta_projection_audit.__file__),
                     'tools/export_ta_board.py': Path(__file__),
+                    'tools/render_ta_documents.py': repo/'tools/render_ta_documents.py',
                     'tools/test_ta_projection.py': repo/'tools/test_ta_projection.py'}
+    if km05t_report is not None:
+        km05t_source = Path(importlib.import_module('km05t_audit').__file__).resolve()
+        key = (km05t_source.relative_to(repo).as_posix() if km05t_source.is_relative_to(repo)
+               else str(km05t_source)+' (external audit runtime)')
+        source_files[key] = km05t_source
+    for key, filename in (('table_envelope', 'table_envelope_audit.py'),
+                          ('mesh_candidate_refinement', 'refine_mesh_candidates.py')):
+        if key in report:
+            source_files['tools/'+filename] = repo/'tools'/filename
     report['source_provenance'] = {name: hashlib.sha256(path.read_bytes()).hexdigest()
                                    for name, path in source_files.items()}
     report['freecad_version'] = list(App.Version())
+    for key in ('fiber_tail_pairs', 'lane_geometry', 'beam_crossings'):
+        if key in info:
+            report[key] = info[key]
     for name, data in ((stem+'_validation.json', report), (stem+'_holes.json', hole_census(plate)),
                        (stem+'_plate_edges.json', plate_edges(plate))):
         (output/name).write_text(json.dumps(data, indent=2, default=str)+'\n', encoding='utf-8', newline='\n')

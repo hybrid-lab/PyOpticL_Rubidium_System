@@ -4533,6 +4533,9 @@ class surface_adapter_fiberport_lip:
                 part = part.fuse(_custom_cylinder(dia=bolt_8_32['tap_dia'], dz=drill_depth,
                                                 x=x_coord, y=y_coord, z=14.7))
                 
+        elif obj.HoleConfig == "mount_only":
+            # Keep the two adapter attachment taps; tail clamps are placed by the board.
+            pass
         else:
             for i in [1, 2]:
                 part = part.fuse(_custom_cylinder(dia=bolt_8_32['tap_dia'], dz=drill_depth,
