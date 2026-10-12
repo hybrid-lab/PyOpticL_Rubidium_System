@@ -145,6 +145,11 @@ lip adapters, two output steering mirrors per final lane, and four modelled
 12.7 mm PBS cubes bonded to their rotating stages. It is an **AOM RF-off,
 zero-order reference layout**: every beam leg follows a board axis, and all
 23 mirrors have 45° incidence. The RF-on first-order paths are not validated.
+The subsequent Splitting mounting update moves only its four platform-fixing
+holes onto a relative 1 in grid; its plate size, optical parts and placements
+remain unchanged. With the confirmed 25.4 mm platform-edge hole offset, all
+four bolts align after a (+53.975, +22.225) mm board-frame translation. The
+user has accepted the resulting maximum 5.451278 mm hardware/RF overhang.
 
 | Board | Script | Size | Production folder |
 |---|---|---|---|
@@ -271,7 +276,10 @@ archives the older RF-on optical calculation as inapplicable to this reference
 model; mechanical, aperture and projection checks remain active. It does not
 claim RF-on first-order feasibility. `tools/splitting_table_envelope_audit.py`
 checks the physical assembly and its service reservations against a 28 × 15 in
-platform by continuous translation; mounting-grid alignment is a separate check.
+platform by continuous translation. `tools/table_mount_audit.py` separately
+checks the four fixing holes against the machined plate and their relative
+1 in grid. The saved `table_grid_installation` then records the confirmed
+25.4 mm platform-edge hole offset, aligned installation and approved overhang.
 
 **Unchanged:** the inherited `stl/` meshes, including the existing KM05T and
 fiberport lip-adapter meshes; every other script in `Rubidium_system/`; and
@@ -497,13 +505,45 @@ order here and does not reject it.
 AOMs A, B1, B2, C2 and C4 are in orientation D (KM100PM downstream); C1 and
 C3 are in U. Each AOM retains its 40 × 20 mm RF-elbow reservation, exceeding
 the 1.5 in (38.1 mm) axial requirement. The four output tail clamps end at
-the right plate edge. Table bolts: two per
-short side, 7 in apart and centred on the short edge, the two columns 22 in
-apart — STEP-file coordinates (13.41, 88.90), (13.41, 266.70), (572.21, 88.90),
-(572.21, 266.70). The original V2 layout was found with a 2-D footprint model
+the right plate edge. The four table bolts now use the staggered relative
+1 in grid below, replacing the original centred pairs spaced 7 in apart.
+The original V2 layout was found with a 2-D footprint model
 of its then-current parts (their FreeCAD bounding boxes) and a sequential-LP
 compactor, then built and audited in FreeCAD. (V2 is the second layout of this board; the first one
 had crossing beams and outputs on three edges and was not published.)
+
+**Splitting table bolts (2026-10-12 mounting update).** Only the four
+1/4-20 platform-fixing clearance holes and their counterbores move. The
+24 × 14 in plate, all optical parts and placements, component taps and
+fiber-tail clamp holes remain unchanged. The lower-right fixing-hole centre is
+25.4 mm from both the **actual machined right and lower edges**. Those edges
+are inset 3.175 mm from the nominal outline; the nominal X/Y = 0 lines are not
+the edge datum. Coordinates below use the script's board frame, in millimetres.
+
+| Fixing hole | Centre (mm) | Offset from lower-right anchor (in) |
+|---|---|---|
+| Lower-right anchor | (581.025, 28.575) | (0, 0) |
+| Lower-left | (22.225, 79.375) | (−22, 2) |
+| Upper-left | (22.225, 333.375) | (−22, 12) |
+| Upper-right | (581.025, 282.575) | (0, 10) |
+
+This pattern is defined by `TABLE_MOUNT_ANCHOR_MM` and
+`TABLE_MOUNT_OFFSETS_IN` in `Splitting_Board_V2.py`. Every relative X and Y
+separation is an integer multiple of 25.4 mm. The user confirmed that the
+28 × 15 in platform's outermost holes are 25.4 mm from its edges. Translating
+the board frame by **(+53.975, +22.225) mm** places the four holes at table
+coordinates (635, 50.8), (76.2, 101.6), (76.2, 355.6), and (635, 304.8) mm:
+all four align with the 1 in grid. The actual machined plate lies fully within
+the platform. Its hardware and RF reservations extend beyond the upper edge;
+the maximum is **5.4512777506515 mm**, at `Lower_Thumbscrew023`, and the user
+explicitly accepted retaining this layout with that overhang. The B2 and C4
+RF reservations extend 4.566 and 5.3155 mm beyond the upper edge, respectively.
+The machining inventory remains 85 tapped plus four clearance holes.
+
+The lower-right counterbore clears the actual hardware and the fiber-tail
+clamp taps, but the C1 / Output 4 fiber-tail corridor passes above it.
+Fasten the plate to the platform before installing that tail clamp and
+routing its fiber; remove the fiber and clamp before undoing the plate bolt.
 
 All five heads use the existing `fiberport_mount_km05T` assembly and the
 unchanged [Surface_Adapter_fiberport_lip.step](Production/Adapters/Stepfile/Surface_Adapter_fiberport_lip.step).
@@ -680,9 +720,15 @@ zero-order reference pass does not establish RF-on optical performance.
 Ten conservative edge-overhang entries are retained: eight knobs and the
 two C1 mirror bodies described above. The occupied assembly and service
 envelope is 609.6 × 379.354756 mm (24 × 14.935227 in). It fits the 28 × 15 in
-platform by continuous translation, leaving 101.6 mm in length and only
-1.645244 mm in total width. Table-hole grid alignment, outside-plate fiber
-routing and overhang strength are not certified by this envelope check.
+platform under continuous translation, leaving 101.6 mm in length and only
+1.645244 mm in total width. The selected grid-aligned installation instead
+uses the confirmed (+53.975, +22.225) mm translation: all four fixing holes
+align and the machined plate stays inside, while the uppermost actual knob
+extends 5.451278 mm beyond the platform. The user accepts this hardware/RF
+overhang. It is recorded separately in `table_grid_installation`; the earlier
+free-translation envelope pass is not a claim that this selected installation
+contains every protrusion. Outside-plate fiber routing and overhang strength
+are not certified by the envelope check.
 
 The saved FCStd reopens with 244 objects, unchanged placements and object
 names, no object error states, and a valid single-solid plate with unchanged
@@ -715,6 +761,21 @@ local development tooling. The TA projection, export and document-generation
 helpers and the Splitting KM05T audit are included in `tools/`.
 
 ## Change log
+
+**Splitting V2 (2026-10-12, platform-fixing holes only)** — relocates the four
+fixing holes onto the relative 1 in pattern listed above. The lower-right
+anchor is exactly 25.4 mm from the finished right and lower plate edges,
+including the standard 3.175 mm outline inset. Plate dimensions, all optical
+components and placements, and every component and tail-clamp tap stay as in
+the preceding revision. The hole count remains 85 tapped + 4 clearance. With
+the confirmed 25.4 mm table-edge hole offset, the (+53.975, +22.225) mm
+translation aligns all four bolts on the 28 × 15 in platform. The plate is
+fully inside; the user accepts the maximum 5.451278 mm top hardware/RF
+overhang. Splitting's lower-right plate bolt must be installed before
+the C1 / Output 4 tail clamp and fiber, with the sequence reversed for removal.
+
+The entries below describe earlier revisions; their statements about retained
+table bolts or unverified relative spacing describe those historical states.
 
 **Splitting board V2 (2026-10-12, RF-off reference and output steering)** —
 adds two steering mirrors to each of the four output lanes, bringing the total

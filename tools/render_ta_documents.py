@@ -32,7 +32,7 @@ ADAPTERS = {
     "surface_adapter_rotation_stage_lip": "Surface_Adapter_rsp05_lip.step",
     "surface_adapter_isolator_lip": "Surface_Adapter_isolator_lip.step",
     "surface_adapter_fiberport_lip": "Surface_Adapter_fiberport_lip.step",
-    "TA_adapter": "TA_adapter.step",
+    "TA_adapter": "TA_adapter_board_model.step",
     "aom_adapter": "AOM_Adapter.step (upper adapter; lower seat is integral)",
     "shutter_adapter": "Shutter_Adapter.step",
     "cube_mount_halfinch": "Cube_Mount_Halfinch.step",

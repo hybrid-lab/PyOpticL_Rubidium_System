@@ -1,5 +1,5 @@
 {
-  "document": "Splitting_Board_V4",
+  "document": "Splitting_Board_V2",
   "mode": "splitting",
   "layout_status": "Splitting Board V2 (1 -> 2 -> 4, seven single-pass AOMs, outputs on one short edge, no beam crossings); not machined.",
   "plate_size_mm": [
@@ -9,7 +9,7 @@
   ],
   "plate_valid": true,
   "plate_solid_count": 1,
-  "plate_volume_mm3": 4682528.812469997,
+  "plate_volume_mm3": 4682528.812469993,
   "objects": [
     {
       "name": "Splitting_plate_24_x_14_in",
@@ -35,69 +35,69 @@
       "class": "IntegralAOMBaseplate"
     },
     {
-      "name": "Mount_Hole__0__3_",
-      "label": "Mount Hole (0, 3)",
+      "name": "Mount_Hole__22__0_",
+      "label": "Mount Hole (22, 0)",
       "type": "Part::FeaturePython",
       "state": [
         "Up-to-date"
       ],
       "bbox": [
-        8.5087616,
-        84.01370139381221,
+        576.125,
+        23.688701393812217,
         -38.099999999999994,
-        18.3087616,
-        93.78629860618777,
+        585.925,
+        33.46129860618778,
         -14.699999999999996
       ],
       "position": [
-        13.4087616,
-        88.89999999999999,
+        581.025,
+        28.575,
         0.0
       ],
       "valid": true,
       "class": "baseplate_mount"
     },
     {
-      "name": "Mount_Hole__0__10_",
-      "label": "Mount Hole (0, 10)",
+      "name": "Mount_Hole__0__2_",
+      "label": "Mount Hole (0, 2)",
       "type": "Part::FeaturePython",
       "state": [
         "Up-to-date"
       ],
       "bbox": [
-        8.5087616,
-        261.8137013938122,
+        17.324999999999996,
+        74.48870139381222,
         -38.099999999999994,
-        18.3087616,
-        271.58629860618777,
+        27.125,
+        84.26129860618778,
         -14.699999999999996
       ],
       "position": [
-        13.4087616,
-        266.7,
+        22.224999999999998,
+        79.375,
         0.0
       ],
       "valid": true,
       "class": "baseplate_mount"
     },
     {
-      "name": "Mount_Hole__22__3_",
-      "label": "Mount Hole (22, 3)",
+      "name": "Mount_Hole__0__12_",
+      "label": "Mount Hole (0, 12)",
       "type": "Part::FeaturePython",
       "state": [
         "Up-to-date"
       ],
       "bbox": [
-        567.3087616,
-        84.01370139381221,
+        17.324999999999996,
+        328.4887013938122,
         -38.099999999999994,
-        577.1087616,
-        93.78629860618777,
+        27.125,
+        338.2612986061878,
         -14.699999999999996
       ],
       "position": [
-        572.2087616,
-        88.89999999999999,
+        22.224999999999998,
+        333.375,
         0.0
       ],
       "valid": true,
@@ -111,16 +111,16 @@
         "Up-to-date"
       ],
       "bbox": [
-        567.3087616,
-        261.8137013938122,
+        576.125,
+        277.6887013938122,
         -38.099999999999994,
-        577.1087616,
-        271.58629860618777,
+        585.925,
+        287.46129860618777,
         -14.699999999999996
       ],
       "position": [
-        572.2087616,
-        266.7,
+        581.025,
+        282.575,
         0.0
       ],
       "valid": true,
@@ -7410,42 +7410,24 @@
       "measured": 0,
       "expected": 0,
       "tolerance": 0.0
-    },
-    {
-      "name": "Table bolts: columns 22 in apart",
-      "measured": 558.8,
-      "expected": 558.8,
-      "tolerance": 1e-06
-    },
-    {
-      "name": "Table bolts: rows 7 in apart (<= 10 in)",
-      "measured": 177.79999999999998,
-      "expected": 177.79999999999998,
-      "tolerance": 1e-06
-    },
-    {
-      "name": "Table bolts centred on the short edge (offset mm)",
-      "measured": 2.842170943040401e-14,
-      "expected": 0.0,
-      "tolerance": 1e-06
     }
   ],
   "mount_holes_mm": [
     [
-      13.4087616,
-      88.89999999999999
+      581.025,
+      28.575
     ],
     [
-      13.4087616,
-      266.7
+      22.224999999999998,
+      79.375
     ],
     [
-      572.2087616,
-      88.89999999999999
+      22.224999999999998,
+      333.375
     ],
     [
-      572.2087616,
-      266.7
+      581.025,
+      282.575
     ]
   ],
   "restore_info": {
@@ -8297,24 +8279,6 @@
         "measured": 0,
         "expected": 0,
         "tolerance": 0.0
-      },
-      {
-        "name": "Table bolts: columns 22 in apart",
-        "measured": 558.8,
-        "expected": 558.8,
-        "tolerance": 1e-06
-      },
-      {
-        "name": "Table bolts: rows 7 in apart (<= 10 in)",
-        "measured": 177.79999999999998,
-        "expected": 177.79999999999998,
-        "tolerance": 1e-06
-      },
-      {
-        "name": "Table bolts centred on the short edge (offset mm)",
-        "measured": 2.842170943040401e-14,
-        "expected": 0.0,
-        "tolerance": 1e-06
       }
     ],
     "fiber_tail_pairs": [
@@ -8427,7 +8391,7 @@
   },
   "engineering": {
     "scope": "Nominal CAD engineering checks, not a physical no-obstruction certification",
-    "document": "Splitting_Board_V4",
+    "document": "Splitting_Board_V2",
     "mode": "splitting",
     "assembly_contacts_checked": true,
     "units": "mm",
@@ -8761,7 +8725,7 @@
           6118
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.563
+        "elapsed_seconds": 1.015
       },
       {
         "a": "Upper_Thumbscrew001",
@@ -8799,7 +8763,7 @@
           }
         ],
         "tested_triangle_pairs": 4716,
-        "elapsed_seconds": 0.266
+        "elapsed_seconds": 0.875
       },
       {
         "a": "Lower_Thumbscrew001",
@@ -8837,7 +8801,7 @@
           }
         ],
         "tested_triangle_pairs": 326,
-        "elapsed_seconds": 3.562,
+        "elapsed_seconds": 10.375,
         "refinement_evidence_index": 0,
         "xy_separation_lower_bound_mm": 4.045091473975916
       },
@@ -8877,7 +8841,7 @@
           }
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.078
+        "elapsed_seconds": 0.312
       },
       {
         "a": "Mount014",
@@ -8915,7 +8879,7 @@
           }
         ],
         "tested_triangle_pairs": 4,
-        "elapsed_seconds": 7.375
+        "elapsed_seconds": 20.172
       },
       {
         "a": "Mount014",
@@ -8977,7 +8941,7 @@
           }
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.047
+        "elapsed_seconds": 0.172
       },
       {
         "a": "Upper_Thumbscrew008",
@@ -9001,7 +8965,7 @@
           117278
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.125
+        "elapsed_seconds": 0.406
       },
       {
         "a": "Lower_Thumbscrew008",
@@ -9025,7 +8989,7 @@
           319128
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.0
+        "elapsed_seconds": 0.015
       },
       {
         "a": "C1_AOMO_3100_125",
@@ -9063,7 +9027,7 @@
           }
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.062
+        "elapsed_seconds": 0.157
       },
       {
         "a": "Surface_Adapter004",
@@ -9101,7 +9065,7 @@
           }
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.078
+        "elapsed_seconds": 0.266
       },
       {
         "a": "Mount_KM100PM004",
@@ -9149,7 +9113,7 @@
           6118
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.344
+        "elapsed_seconds": 1.078
       },
       {
         "a": "Upper_Thumbscrew015",
@@ -9173,7 +9137,7 @@
           319128
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.375
+        "elapsed_seconds": 1.063
       },
       {
         "a": "C3_M1",
@@ -9197,7 +9161,7 @@
           6118
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.0
+        "elapsed_seconds": 0.016
       },
       {
         "a": "Mount025",
@@ -9235,7 +9199,7 @@
           }
         ],
         "tested_triangle_pairs": 139,
-        "elapsed_seconds": 7.36,
+        "elapsed_seconds": 18.625,
         "refinement_evidence_index": 1,
         "xy_separation_lower_bound_mm": 5.206171036794287
       },
@@ -9275,7 +9239,7 @@
           }
         ],
         "tested_triangle_pairs": 125,
-        "elapsed_seconds": 0.094
+        "elapsed_seconds": 0.218
       },
       {
         "a": "Upper_Thumbscrew017",
@@ -9299,7 +9263,7 @@
           500
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.015
+        "elapsed_seconds": 0.016
       },
       {
         "a": "Upper_Thumbscrew017",
@@ -9337,7 +9301,7 @@
           }
         ],
         "tested_triangle_pairs": 125,
-        "elapsed_seconds": 0.11
+        "elapsed_seconds": 0.25
       },
       {
         "a": "Mount_KM100PM006",
@@ -9361,7 +9325,7 @@
           319128
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.703
+        "elapsed_seconds": 1.235
       }
     ],
     "confirmed_mesh_contacts": [],
@@ -9992,28 +9956,28 @@
     "intentional_blocker_intersections": [],
     "platform_fasteners": [
       {
-        "object": "Mount_Hole__0__3_",
+        "object": "Mount_Hole__22__0_",
         "position": [
-          13.408762,
-          88.9,
+          581.025,
+          28.575,
           0.0
         ],
         "status": "Original CAD fastener volume included in assembly collision checks"
       },
       {
-        "object": "Mount_Hole__0__10_",
+        "object": "Mount_Hole__0__2_",
         "position": [
-          13.408762,
-          266.7,
+          22.225,
+          79.375,
           0.0
         ],
         "status": "Original CAD fastener volume included in assembly collision checks"
       },
       {
-        "object": "Mount_Hole__22__3_",
+        "object": "Mount_Hole__0__12_",
         "position": [
-          572.208762,
-          88.9,
+          22.225,
+          333.375,
           0.0
         ],
         "status": "Original CAD fastener volume included in assembly collision checks"
@@ -10021,8 +9985,8 @@
       {
         "object": "Mount_Hole__22__10_",
         "position": [
-          572.208762,
-          266.7,
+          581.025,
+          282.575,
           0.0
         ],
         "status": "Original CAD fastener volume included in assembly collision checks"
@@ -10030,19 +9994,19 @@
     ],
     "drill_cut_checks": [
       {
-        "object": "Mount_Hole__0__3_",
+        "object": "Mount_Hole__22__0_",
         "cut_inside_plate_envelope_mm3": 2130.756887,
         "residual_plate_in_cut_mm3": 0.0,
         "status": "cut_removed_from_plate"
       },
       {
-        "object": "Mount_Hole__0__10_",
+        "object": "Mount_Hole__0__2_",
         "cut_inside_plate_envelope_mm3": 2130.756887,
         "residual_plate_in_cut_mm3": 0.0,
         "status": "cut_removed_from_plate"
       },
       {
-        "object": "Mount_Hole__22__3_",
+        "object": "Mount_Hole__0__12_",
         "cut_inside_plate_envelope_mm3": 2130.756887,
         "residual_plate_in_cut_mm3": 0.0,
         "status": "cut_removed_from_plate"
@@ -12897,27 +12861,6 @@
         "expected": 0,
         "tolerance": 0.0,
         "status": "pass"
-      },
-      {
-        "name": "Table bolts: columns 22 in apart",
-        "measured": 558.8,
-        "expected": 558.8,
-        "tolerance": 1e-06,
-        "status": "pass"
-      },
-      {
-        "name": "Table bolts: rows 7 in apart (<= 10 in)",
-        "measured": 177.79999999999998,
-        "expected": 177.79999999999998,
-        "tolerance": 1e-06,
-        "status": "pass"
-      },
-      {
-        "name": "Table bolts centred on the short edge (offset mm)",
-        "measured": 2.842170943040401e-14,
-        "expected": 0.0,
-        "tolerance": 1e-06,
-        "status": "pass"
       }
     ],
     "aom_aperture_checks": [
@@ -14317,7 +14260,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 3,
         "screened_samples": 97195,
-        "elapsed_seconds": 0.687
+        "elapsed_seconds": 1.891
       },
       {
         "arm": 1,
@@ -14335,7 +14278,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 0,
         "screened_samples": 0,
-        "elapsed_seconds": 0.0
+        "elapsed_seconds": 0.015
       },
       {
         "arm": 2,
@@ -14358,7 +14301,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 3,
         "screened_samples": 97195,
-        "elapsed_seconds": 0.719
+        "elapsed_seconds": 1.953
       },
       {
         "arm": 2,
@@ -14376,7 +14319,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 0,
         "screened_samples": 0,
-        "elapsed_seconds": 0.0
+        "elapsed_seconds": 0.016
       },
       {
         "arm": 3,
@@ -14399,7 +14342,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 3,
         "screened_samples": 97195,
-        "elapsed_seconds": 0.609
+        "elapsed_seconds": 1.875
       },
       {
         "arm": 3,
@@ -14440,7 +14383,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 3,
         "screened_samples": 97195,
-        "elapsed_seconds": 0.579
+        "elapsed_seconds": 1.734
       },
       {
         "arm": 4,
@@ -14481,7 +14424,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 3,
         "screened_samples": 97195,
-        "elapsed_seconds": 0.671
+        "elapsed_seconds": 1.719
       },
       {
         "arm": 5,
@@ -14522,7 +14465,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 3,
         "screened_samples": 97195,
-        "elapsed_seconds": 0.704
+        "elapsed_seconds": 1.688
       },
       {
         "arm": 6,
@@ -14540,7 +14483,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 0,
         "screened_samples": 0,
-        "elapsed_seconds": 0.0
+        "elapsed_seconds": 0.015
       },
       {
         "arm": 7,
@@ -14563,7 +14506,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 3,
         "screened_samples": 97195,
-        "elapsed_seconds": 0.64
+        "elapsed_seconds": 1.672
       },
       {
         "arm": 7,
@@ -14826,7 +14769,7 @@
     },
     "pbs_paths": {
       "scope": "Nominal PBS T/R paths and actual CAD cue orientation; no polarization or physical transmission certification",
-      "document": "Splitting_Board_V4",
+      "document": "Splitting_Board_V2",
       "mode": "splitting",
       "formula": "a_norm = yaw + 180 + Proxy.reflection_angle; R = 2*a_norm - incoming - 180; T = incoming (degrees)",
       "cad_cue_formula": "Diagonal slot tangent = yaw - Proxy.reflection_angle, from original cube_splitter.execute",
@@ -15195,7 +15138,7 @@
     "result": "Issues or unresolved candidates recorded; review evidence and stated exclusions"
   },
   "fiber_clearance": {
-    "document": "Splitting_Board_V4",
+    "document": "Splitting_Board_V2",
     "mode": "splitting",
     "assumptions": {
       "clamp_length_mm": 10.0,
@@ -15733,7 +15676,7 @@
     }
   },
   "service_clearance": {
-    "document": "Splitting_Board_V4",
+    "document": "Splitting_Board_V2",
     "mode": "splitting",
     "settings": {
       "tessellation_deflection_mm": 0.04,
@@ -16397,7 +16340,7 @@
     }
   },
   "hole_clearance": {
-    "document": "Splitting_Board_V4",
+    "document": "Splitting_Board_V2",
     "mode": "splitting",
     "plate_drilled": true,
     "plate_top_z_mm": -12.7,
@@ -16406,14 +16349,14 @@
     "holes": [
       {
         "kind": "platform",
-        "label": "Mount Hole (0, 3)",
+        "label": "Mount Hole (22, 0)",
         "center_xy_mm": [
-          13.408762,
-          88.9
+          581.025,
+          28.575
         ],
         "reserved_radius_mm": 9.14375,
-        "owner": "Mount_Hole__0__3_",
-        "source": "Mount_Hole__0__3_",
+        "owner": "Mount_Hole__22__0_",
+        "source": "Mount_Hole__22__0_",
         "metadata": {
           "nominal_washer_diameter_mm": 14.2875
         },
@@ -16421,14 +16364,14 @@
       },
       {
         "kind": "platform",
-        "label": "Mount Hole (0, 10)",
+        "label": "Mount Hole (0, 2)",
         "center_xy_mm": [
-          13.408762,
-          266.7
+          22.225,
+          79.375
         ],
         "reserved_radius_mm": 9.14375,
-        "owner": "Mount_Hole__0__10_",
-        "source": "Mount_Hole__0__10_",
+        "owner": "Mount_Hole__0__2_",
+        "source": "Mount_Hole__0__2_",
         "metadata": {
           "nominal_washer_diameter_mm": 14.2875
         },
@@ -16436,14 +16379,14 @@
       },
       {
         "kind": "platform",
-        "label": "Mount Hole (22, 3)",
+        "label": "Mount Hole (0, 12)",
         "center_xy_mm": [
-          572.208762,
-          88.9
+          22.225,
+          333.375
         ],
         "reserved_radius_mm": 9.14375,
-        "owner": "Mount_Hole__22__3_",
-        "source": "Mount_Hole__22__3_",
+        "owner": "Mount_Hole__0__12_",
+        "source": "Mount_Hole__0__12_",
         "metadata": {
           "nominal_washer_diameter_mm": 14.2875
         },
@@ -16453,8 +16396,8 @@
         "kind": "platform",
         "label": "Mount Hole (22, 10)",
         "center_xy_mm": [
-          572.208762,
-          266.7
+          581.025,
+          282.575
         ],
         "reserved_radius_mm": 9.14375,
         "owner": "Mount_Hole__22__10_",
@@ -18915,7 +18858,7 @@
   },
   "pbs_path_check": {
     "scope": "Nominal PBS T/R paths and actual CAD cue orientation; no polarization or physical transmission certification",
-    "document": "Splitting_Board_V4",
+    "document": "Splitting_Board_V2",
     "mode": "splitting",
     "formula": "a_norm = yaw + 180 + Proxy.reflection_angle; R = 2*a_norm - incoming - 180; T = incoming (degrees)",
     "cad_cue_formula": "Diagonal slot tangent = yaw - Proxy.reflection_angle, from original cube_splitter.execute",
@@ -19203,7 +19146,7 @@
   },
   "fiber_installation": {
     "schema": "km05t_installation_audit/1",
-    "document": "Splitting_Board_V4",
+    "document": "Splitting_Board_V2",
     "expected_counts": {
       "roots": 5,
       "physical_heads": 5,
@@ -19675,7 +19618,7 @@
         ],
         "plate_cylindrical_faces": [
           {
-            "face": 752,
+            "face": 750,
             "center_xy_mm": [
               595.9148874122972,
               155.664
@@ -19765,7 +19708,7 @@
         ],
         "plate_cylindrical_faces": [
           {
-            "face": 751,
+            "face": 752,
             "center_xy_mm": [
               595.9150781884387,
               216.164
@@ -19810,7 +19753,7 @@
         ],
         "plate_cylindrical_faces": [
           {
-            "face": 750,
+            "face": 751,
             "center_xy_mm": [
               595.9150781884387,
               197.836
@@ -22742,9 +22685,9 @@
           "C1_rotating_PBS_RSP05",
           "Surface_Adapter004",
           "Mount_Hole__22__10_",
-          "Mount_Hole__22__3_",
-          "Mount_Hole__0__10_",
-          "Mount_Hole__0__3_",
+          "Mount_Hole__0__12_",
+          "Mount_Hole__0__2_",
+          "Mount_Hole__22__0_",
           "Splitting_plate_24_x_14_in",
           "surface_adapter004",
           "Lens004",
@@ -22957,9 +22900,9 @@
           "C1_rotating_PBS_RSP05",
           "Surface_Adapter004",
           "Mount_Hole__22__10_",
-          "Mount_Hole__22__3_",
-          "Mount_Hole__0__10_",
-          "Mount_Hole__0__3_",
+          "Mount_Hole__0__12_",
+          "Mount_Hole__0__2_",
+          "Mount_Hole__22__0_",
           "Splitting_plate_24_x_14_in",
           "surface_adapter004",
           "Lens004",
@@ -23301,9 +23244,9 @@
           "C2_rotating_PBS_RSP05",
           "Surface_Adapter006",
           "Mount_Hole__22__10_",
-          "Mount_Hole__22__3_",
-          "Mount_Hole__0__10_",
-          "Mount_Hole__0__3_",
+          "Mount_Hole__0__12_",
+          "Mount_Hole__0__2_",
+          "Mount_Hole__22__0_",
           "Splitting_plate_24_x_14_in",
           "surface_adapter004",
           "Lens004",
@@ -23516,9 +23459,9 @@
           "C2_rotating_PBS_RSP05",
           "Surface_Adapter006",
           "Mount_Hole__22__10_",
-          "Mount_Hole__22__3_",
-          "Mount_Hole__0__10_",
-          "Mount_Hole__0__3_",
+          "Mount_Hole__0__12_",
+          "Mount_Hole__0__2_",
+          "Mount_Hole__22__0_",
           "Splitting_plate_24_x_14_in",
           "surface_adapter004",
           "Lens004",
@@ -23860,9 +23803,9 @@
           "C3_rotating_PBS_RSP05",
           "Surface_Adapter008",
           "Mount_Hole__22__10_",
-          "Mount_Hole__22__3_",
-          "Mount_Hole__0__10_",
-          "Mount_Hole__0__3_",
+          "Mount_Hole__0__12_",
+          "Mount_Hole__0__2_",
+          "Mount_Hole__22__0_",
           "Splitting_plate_24_x_14_in",
           "surface_adapter004",
           "Lens004",
@@ -24075,9 +24018,9 @@
           "C3_rotating_PBS_RSP05",
           "Surface_Adapter008",
           "Mount_Hole__22__10_",
-          "Mount_Hole__22__3_",
-          "Mount_Hole__0__10_",
-          "Mount_Hole__0__3_",
+          "Mount_Hole__0__12_",
+          "Mount_Hole__0__2_",
+          "Mount_Hole__22__0_",
           "Splitting_plate_24_x_14_in",
           "surface_adapter004",
           "Lens004",
@@ -24419,9 +24362,9 @@
           "C4_rotating_PBS_RSP05",
           "Surface_Adapter010",
           "Mount_Hole__22__10_",
-          "Mount_Hole__22__3_",
-          "Mount_Hole__0__10_",
-          "Mount_Hole__0__3_",
+          "Mount_Hole__0__12_",
+          "Mount_Hole__0__2_",
+          "Mount_Hole__22__0_",
           "Splitting_plate_24_x_14_in",
           "surface_adapter004",
           "Lens004",
@@ -24634,9 +24577,9 @@
           "C4_rotating_PBS_RSP05",
           "Surface_Adapter010",
           "Mount_Hole__22__10_",
-          "Mount_Hole__22__3_",
-          "Mount_Hole__0__10_",
-          "Mount_Hole__0__3_",
+          "Mount_Hole__0__12_",
+          "Mount_Hole__0__2_",
+          "Mount_Hole__22__0_",
           "Splitting_plate_24_x_14_in",
           "surface_adapter004",
           "Lens004",
@@ -30703,7 +30646,7 @@
           6118
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.563
+        "elapsed_seconds": 1.015
       },
       {
         "a": "Upper_Thumbscrew001",
@@ -30741,7 +30684,7 @@
           }
         ],
         "tested_triangle_pairs": 4716,
-        "elapsed_seconds": 0.266
+        "elapsed_seconds": 0.875
       },
       {
         "a": "Lower_Thumbscrew001",
@@ -30779,7 +30722,7 @@
           }
         ],
         "tested_triangle_pairs": 326,
-        "elapsed_seconds": 3.562
+        "elapsed_seconds": 10.375
       },
       {
         "a": "Upper_Thumbscrew003",
@@ -30817,7 +30760,7 @@
           }
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.078
+        "elapsed_seconds": 0.312
       },
       {
         "a": "Mount014",
@@ -30855,7 +30798,7 @@
           }
         ],
         "tested_triangle_pairs": 4,
-        "elapsed_seconds": 7.375
+        "elapsed_seconds": 20.172
       },
       {
         "a": "Mount014",
@@ -30917,7 +30860,7 @@
           }
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.047
+        "elapsed_seconds": 0.172
       },
       {
         "a": "Upper_Thumbscrew008",
@@ -30941,7 +30884,7 @@
           117278
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.125
+        "elapsed_seconds": 0.406
       },
       {
         "a": "Lower_Thumbscrew008",
@@ -30965,7 +30908,7 @@
           319128
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.0
+        "elapsed_seconds": 0.015
       },
       {
         "a": "C1_AOMO_3100_125",
@@ -31003,7 +30946,7 @@
           }
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.062
+        "elapsed_seconds": 0.157
       },
       {
         "a": "Surface_Adapter004",
@@ -31041,7 +30984,7 @@
           }
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.078
+        "elapsed_seconds": 0.266
       },
       {
         "a": "Mount_KM100PM004",
@@ -31089,7 +31032,7 @@
           6118
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.344
+        "elapsed_seconds": 1.078
       },
       {
         "a": "Upper_Thumbscrew015",
@@ -31113,7 +31056,7 @@
           319128
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.375
+        "elapsed_seconds": 1.063
       },
       {
         "a": "C3_M1",
@@ -31137,7 +31080,7 @@
           6118
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.0
+        "elapsed_seconds": 0.016
       },
       {
         "a": "Mount025",
@@ -31175,7 +31118,7 @@
           }
         ],
         "tested_triangle_pairs": 139,
-        "elapsed_seconds": 7.36
+        "elapsed_seconds": 18.625
       },
       {
         "a": "Mount025",
@@ -31213,7 +31156,7 @@
           }
         ],
         "tested_triangle_pairs": 125,
-        "elapsed_seconds": 0.094
+        "elapsed_seconds": 0.218
       },
       {
         "a": "Upper_Thumbscrew017",
@@ -31237,7 +31180,7 @@
           500
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.015
+        "elapsed_seconds": 0.016
       },
       {
         "a": "Upper_Thumbscrew017",
@@ -31275,7 +31218,7 @@
           }
         ],
         "tested_triangle_pairs": 125,
-        "elapsed_seconds": 0.11
+        "elapsed_seconds": 0.25
       },
       {
         "a": "Mount_KM100PM006",
@@ -31299,7 +31242,7 @@
           319128
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 0.703
+        "elapsed_seconds": 1.235
       }
     ],
     "original_bbox_overlap_candidates": [
@@ -31646,7 +31589,7 @@
             }
           ],
           "tested_triangle_pairs": 326,
-          "elapsed_seconds": 3.562
+          "elapsed_seconds": 10.375
         },
         "original_bbox_candidates": [
           {
@@ -31947,7 +31890,7 @@
             }
           ],
           "tested_triangle_pairs": 139,
-          "elapsed_seconds": 7.36
+          "elapsed_seconds": 18.625
         },
         "original_bbox_candidates": [
           {
@@ -36638,17 +36581,17 @@
       "AOMO optical center includes its MeshApertureLocal offset (0,-0.030,-0.115 mm).",
       "Sliding-cell body/lid exceptions apply only to the intended seat-axis ray; the selected slide must remain inside its bore.",
       {
-        "object": "Mount_Hole__0__3_",
+        "object": "Mount_Hole__22__0_",
         "proxy": "baseplate_mount",
         "assumption": "No verified axial-aperture rule; entire physical projection checked."
       },
       {
-        "object": "Mount_Hole__0__10_",
+        "object": "Mount_Hole__0__2_",
         "proxy": "baseplate_mount",
         "assumption": "No verified axial-aperture rule; entire physical projection checked."
       },
       {
-        "object": "Mount_Hole__22__3_",
+        "object": "Mount_Hole__0__12_",
         "proxy": "baseplate_mount",
         "assumption": "No verified axial-aperture rule; entire physical projection checked."
       },
@@ -36856,43 +36799,43 @@
         ]
       },
       {
-        "name": "Mount_Hole__0__3_",
+        "name": "Mount_Hole__22__0_",
         "kind": "physical_hardware",
         "bounds_xy_mm": [
-          8.5087616,
-          83.99999999999999,
-          18.3087616,
-          93.8
+          576.125,
+          23.674999999999997,
+          585.925,
+          33.475
         ]
       },
       {
-        "name": "Mount_Hole__0__10_",
+        "name": "Mount_Hole__0__2_",
         "kind": "physical_hardware",
         "bounds_xy_mm": [
-          8.5087616,
-          261.8,
-          18.3087616,
-          271.59999999999997
+          17.324999999999996,
+          74.475,
+          27.125,
+          84.275
         ]
       },
       {
-        "name": "Mount_Hole__22__3_",
+        "name": "Mount_Hole__0__12_",
         "kind": "physical_hardware",
         "bounds_xy_mm": [
-          567.3087616,
-          83.99999999999999,
-          577.1087616,
-          93.8
+          17.324999999999996,
+          328.475,
+          27.125,
+          338.275
         ]
       },
       {
         "name": "Mount_Hole__22__10_",
         "kind": "physical_hardware",
         "bounds_xy_mm": [
-          567.3087616,
-          261.8,
-          577.1087616,
-          271.59999999999997
+          576.125,
+          277.675,
+          585.925,
+          287.47499999999997
         ]
       },
       {
@@ -39222,80 +39165,298 @@
     },
     "scope": "Continuous free placement including all physical overhangs and declared service reservations; table-hole grid alignment, unmodeled fiber routing outside the plate, and overhang support are not certified."
   },
-  "negative_knob_projection_test": {
-    "negative_test_passed": true,
-    "probe": {
-      "name": "__NEGATIVE_TEST_UNDER_KM_UPPER_KNOB__",
-      "points": [
-        [
-          146.20610992635093,
-          139.0124313496908
-        ],
-        [
-          148.20610992635093,
-          139.0124313496908
-        ]
-      ],
-      "envelope": [
-        0.05,
-        0.05
-      ],
-      "object": null,
-      "assumption": "Deliberate test ray at optical z=0 under an elevated knob."
-    },
-    "probe_z_mm": 0.0,
-    "target_knob_z_range_mm": [
-      5.974886169433592,
-      20.693117370605467
+  "table_mount_grid": {
+    "schema": "table_mount_grid/1",
+    "passed": true,
+    "errors": [],
+    "pitch_mm": 25.4,
+    "anchor_xy_mm": [
+      581.025,
+      28.574999999997587
     ],
-    "target_hit_count": 1,
-    "all_new_thumb_hits": 1,
-    "target_hits": [
+    "finished_plate_bounds_xy_mm": [
+      3.175,
+      3.1749999999975898,
+      606.425,
+      352.425
+    ],
+    "platform_cylinder_inventory": [
       {
-        "object": "Mount_KM100PM",
-        "label": "Mount KM100PM",
-        "proxy": "prism_mount_km100pm_bridged",
-        "path": "__NEGATIVE_TEST_UNDER_KM_UPPER_KNOB__",
-        "segment": 0,
-        "radius_mm": 0.05,
-        "root": "A_AOMO_3100_125",
-        "axis_distance_hull_mm": 0.0,
-        "edge_margin_hull_lower_bound_mm": -0.05,
-        "z_range_mm": [
-          5.974886169433592,
-          20.693117370605467
+        "center_xy_mm": [
+          22.224999999999998,
+          333.375
         ],
-        "source": "actual_mesh_triangles",
-        "own_root_on_segment": false,
-        "subcomponent": "upper adjustment knob",
-        "axis_distance_projected_surface_mm": 0.0,
-        "edge_margin_projected_surface_mm": -0.05,
-        "status": "projected_surface_hit"
+        "diameter_mm": 14.2875,
+        "angular_span": 6.283185307179586,
+        "z_min": -22.7,
+        "z_max": -12.7
+      },
+      {
+        "center_xy_mm": [
+          22.224999999999998,
+          333.375
+        ],
+        "diameter_mm": 6.604,
+        "angular_span": 6.283185307179586,
+        "z_min": -38.099999999999994,
+        "z_max": -22.7
+      },
+      {
+        "center_xy_mm": [
+          22.224999999999998,
+          79.375
+        ],
+        "diameter_mm": 14.2875,
+        "angular_span": 6.283185307179586,
+        "z_min": -22.7,
+        "z_max": -12.7
+      },
+      {
+        "center_xy_mm": [
+          22.224999999999998,
+          79.375
+        ],
+        "diameter_mm": 6.604,
+        "angular_span": 6.283185307179586,
+        "z_min": -38.099999999999994,
+        "z_max": -22.7
+      },
+      {
+        "center_xy_mm": [
+          581.025,
+          282.575
+        ],
+        "diameter_mm": 14.2875,
+        "angular_span": 6.283185307179586,
+        "z_min": -22.7,
+        "z_max": -12.7
+      },
+      {
+        "center_xy_mm": [
+          581.025,
+          282.575
+        ],
+        "diameter_mm": 6.604,
+        "angular_span": 6.283185307179586,
+        "z_min": -38.099999999999994,
+        "z_max": -22.7
+      },
+      {
+        "center_xy_mm": [
+          581.025,
+          28.575
+        ],
+        "diameter_mm": 14.2875,
+        "angular_span": 6.283185307179586,
+        "z_min": -22.7,
+        "z_max": -12.7
+      },
+      {
+        "center_xy_mm": [
+          581.025,
+          28.575
+        ],
+        "diameter_mm": 6.604,
+        "angular_span": 6.283185307179586,
+        "z_min": -38.099999999999994,
+        "z_max": -22.7
       }
     ],
-    "audit_counts": {
-      "segments": 56,
-      "physical_objects": 198,
-      "tested_object_segment_pairs": 12413,
-      "ray_crossings": 0,
-      "thumbscrew_projection_hits": 1,
-      "foreign_hardware_projection_conflicts": 0,
-      "hull_only_candidates": 0,
-      "unresolved_candidates": 0,
-      "geometry_errors": 0,
-      "optical_exceptions": 243,
-      "embedded_adjustment_parts": 28,
-      "documented_unmachined_cell_covers": 0
-    },
-    "model_unchanged": true
+    "complete_clearance_bore_axes_xy_mm": [
+      [
+        22.224999999999998,
+        333.375
+      ],
+      [
+        22.224999999999998,
+        79.375
+      ],
+      [
+        581.025,
+        282.575
+      ],
+      [
+        581.025,
+        28.575
+      ]
+    ],
+    "complete_counterbore_axes_xy_mm": [
+      [
+        22.224999999999998,
+        333.375
+      ],
+      [
+        22.224999999999998,
+        79.375
+      ],
+      [
+        581.025,
+        282.575
+      ],
+      [
+        581.025,
+        28.575
+      ]
+    ],
+    "holes": [
+      {
+        "object": "Mount_Hole__22__0_",
+        "center_xy_mm": [
+          581.025,
+          28.575
+        ],
+        "offset_from_anchor_in": [
+          0.0,
+          9.497214913013938e-14
+        ],
+        "grid_residual_mm": 2.41229258790554e-12,
+        "distance_to_finished_edges_mm": {
+          "left": 577.85,
+          "right": 25.399999999999977,
+          "bottom": 25.40000000000241,
+          "top": 323.85
+        },
+        "head_recess_below_plate_mm": 2.000000000000007,
+        "machined_cylinders": [
+          {
+            "diameter_mm": 14.2875,
+            "angular_span": 6.283185307179586,
+            "z_min": -22.7,
+            "z_max": -12.7
+          },
+          {
+            "diameter_mm": 6.604,
+            "angular_span": 6.283185307179586,
+            "z_min": -38.099999999999994,
+            "z_max": -22.7
+          }
+        ]
+      },
+      {
+        "object": "Mount_Hole__0__2_",
+        "center_xy_mm": [
+          22.224999999999998,
+          79.375
+        ],
+        "offset_from_anchor_in": [
+          -22.0,
+          2.000000000000095
+        ],
+        "grid_residual_mm": 2.413891309061e-12,
+        "distance_to_finished_edges_mm": {
+          "left": 19.049999999999997,
+          "right": 584.1999999999999,
+          "bottom": 76.2000000000024,
+          "top": 273.05
+        },
+        "head_recess_below_plate_mm": 2.000000000000007,
+        "machined_cylinders": [
+          {
+            "diameter_mm": 14.2875,
+            "angular_span": 6.283185307179586,
+            "z_min": -22.7,
+            "z_max": -12.7
+          },
+          {
+            "diameter_mm": 6.604,
+            "angular_span": 6.283185307179586,
+            "z_min": -38.099999999999994,
+            "z_max": -22.7
+          }
+        ]
+      },
+      {
+        "object": "Mount_Hole__0__12_",
+        "center_xy_mm": [
+          22.224999999999998,
+          333.375
+        ],
+        "offset_from_anchor_in": [
+          -22.0,
+          12.000000000000096
+        ],
+        "grid_residual_mm": 2.4364510409213834e-12,
+        "distance_to_finished_edges_mm": {
+          "left": 19.049999999999997,
+          "right": 584.1999999999999,
+          "bottom": 330.20000000000243,
+          "top": 19.05000000000001
+        },
+        "head_recess_below_plate_mm": 2.000000000000007,
+        "machined_cylinders": [
+          {
+            "diameter_mm": 14.2875,
+            "angular_span": 6.283185307179586,
+            "z_min": -22.7,
+            "z_max": -12.7
+          },
+          {
+            "diameter_mm": 6.604,
+            "angular_span": 6.283185307179586,
+            "z_min": -38.099999999999994,
+            "z_max": -22.7
+          }
+        ]
+      },
+      {
+        "object": "Mount_Hole__22__10_",
+        "center_xy_mm": [
+          581.025,
+          282.575
+        ],
+        "offset_from_anchor_in": [
+          0.0,
+          10.000000000000094
+        ],
+        "grid_residual_mm": 2.391331577200617e-12,
+        "distance_to_finished_edges_mm": {
+          "left": 577.85,
+          "right": 25.399999999999977,
+          "bottom": 279.4000000000024,
+          "top": 69.85000000000002
+        },
+        "head_recess_below_plate_mm": 2.000000000000007,
+        "machined_cylinders": [
+          {
+            "diameter_mm": 14.2875,
+            "angular_span": 6.283185307179586,
+            "z_min": -22.7,
+            "z_max": -12.7
+          },
+          {
+            "diameter_mm": 6.604,
+            "angular_span": 6.283185307179586,
+            "z_min": -38.099999999999994,
+            "z_max": -22.7
+          }
+        ]
+      }
+    ],
+    "installation_note": "Fasten the lower-right table bolt before installing the C1/Output 4 fiber tail clamp and routing its fiber; reverse this order for removal.",
+    "scope": "Four actual fixing features and full bores in the machined solid; one-inch relative grid. Optical-table edge-to-first-hole phase is not specified."
   },
   "optical_path_readiness": "not_certified_by_a_mechanical_projection_audit",
   "required_follow_up": [],
+  "platform_holes_only_change": {
+    "passed": true,
+    "errors": [],
+    "non_platform_objects_compared": 239,
+    "mesh_vertices_compared": 5358764,
+    "maximum_mesh_vertex_delta_mm": 1.1368683772161603e-13,
+    "maximum_placement_matrix_delta": 2.842170943040401e-14,
+    "non_platform_holes_preserved": true,
+    "non_platform_hole_count": 85,
+    "plate_volume_delta_mm3": -3.725290298461914e-09,
+    "baseline_file": "SplittingBoardV2/Splitting_Board_V2.FCStd",
+    "scope": "Compare every non-baseplate/non-table-bolt object by class, placement, exact mesh topology and vertices, shape and cutter extents/area/volume; compare every non-platform hole in the finished solid."
+  },
+  "mount_revision": "2026-10-12: lower-right fixing hole 1 inch from finished edges; remaining holes on the same 1 inch grid.",
+  "table_mount_installation_note": "Fasten the lower-right table bolt before installing the C1/Output 4 fiber tail clamp and routing its fiber; reverse this order for removal.",
   "step_round_trip": {
     "file": "StepFile/Splitting_Board_V2_baseplate_24x14in.step",
     "valid": true,
     "solids": 1,
-    "volume_ratio": 1.000000000000051,
+    "volume_ratio": 1.0000000000000508,
     "actual_dimensions_mm": [
       603.25,
       349.25000000000244,
@@ -39305,15 +39466,16 @@
   "source_provenance": {
     "optomech.py": "5e5c840fd3771b3608afd15ca6a14ed1b983d8ae29384e0858da6d0568c78c85",
     "PyOpticL/layout.py (external runtime)": "189b7b649c99cdbc97c1815ad9ca53b1a52030bc9166c4fbf857d7a1ee7f7771",
-    "Rubidium_system/Splitting_Board_V2.py": "b45de1cef4255ff21418750530bab5e11f7d79f32db052575656971c4ffb54bc",
+    "Rubidium_system/Splitting_Board_V2.py": "598fc9e7a53d5cae87d8422c68f1633d9dc99433f291c7da5460bbbb7ed79b57",
     "tools/ta_projection_audit.py": "9f680f1216a508b1cd6d02cbafa915fd7f2a2f44198abce1a535a0452990c7b5",
-    "tools/export_ta_board.py": "a5333228189c52f87feb110d93214c26d7ce15457c04fba1a51a134afb51ecd7",
-    "tools/render_ta_documents.py": "878c9ba2f30d061478f8ff636d8dc02c7294f950b6fa231dc339aaa02ca7d6af",
+    "tools/export_ta_board.py": "125637f4004d01b6badd5d34dec6739581c3432a63258a7362291a6b50ccc1c3",
+    "tools/render_ta_documents.py": "4cb6aa235f88db41591f01a3fa385012a3d9796d25ae798f7a9e0bd8388290a4",
     "tools/test_ta_projection.py": "cd798283de9e3ef7bd2eb09fa77726a03f2188187f73a1ff0e9307c28a1acf81",
     "tools/km05t_audit.py": "a57d6cac23e3556a691709636d1170445a2d0782c0405739edd3850fe3f18718",
     "tools/refine_mesh_candidates.py": "77616ecf39d0c22533a668b6a1b62a5014e6ad264b73d97d18ff987657cdfac2",
     "tools/bonded_cube_audit.py": "1cf94e69b9dbe4f5031217f8ad2354834c592e69abacd27788c8a1237e084825",
     "tools/zero_order_reference_audit.py": "8cfe03ec2aafac54addf48a954f132f2fd422852de9e4fb40a8ccb7b34dde0b0",
+    "tools/table_mount_audit.py": "8f9f376a7f850ff8fd24bf183e7edd1ddd60c2e65464e228d6ec634dcd5ae29e",
     "tools/splitting_table_envelope_audit.py": "1e7abefe51171776bb4995d491c4dc39dfbb1e4ecbc007cb85941bab6ed7f051"
   },
   "freecad_version": [
@@ -39960,20 +40122,140 @@
       "assumptions": "12.7 mm cube bonded to +X engraved rotating ring using four radius 0.40 mm corner glue pads at y,z=+/-5.30 mm. Glue thickness is an assembly assumption; bond strength, coating compatibility, and reflected-port clearance at arbitrary roll angles are not certified. Full cube rotation clearance is checked separately."
     }
   ],
-  "fcstd_round_trip": {
-    "object_count": 244,
-    "names_preserved": true,
+  "native_round_trip": {
+    "passed": true,
+    "validated_after_original_document_closed": true,
+    "objects": 244,
+    "names_and_positions_match_export_audit": true,
     "plate_valid": true,
     "plate_solids": 1,
-    "plate_volume_ratio": 0.9999999999999998,
-    "placement_changes": [],
-    "bad_states": [],
-    "view_provider_errors": [
-      {
-        "object": "Splitting_plate_24_x_14_in",
-        "provider_module": "PyOpticL.layout",
-        "error": "AttributeError(\"'ViewProvider' object has no attribute 'Object'\")"
-      }
+    "plate_volume_difference_mm3": 0.0,
+    "table_mount_grid_passed": true,
+    "invalid_or_error_objects": []
+  },
+  "table_mount_export_guard_checks": {
+    "TA_missing_declaration_rejected": "TA/Splitting export requires the current source table_mount_pattern declaration",
+    "Splitting_missing_declaration_rejected": "TA/Splitting export requires the current source table_mount_pattern declaration",
+    "extra_unowned_bore_rejected": [
+      "Whole plate must contain exactly four complete diameter 6.604 clearance bores matching the four mounting features",
+      "Whole plate must contain exactly four complete diameter 14.2875 counterbores matching the four mounting features"
+    ],
+    "extra_bore_xy_mm": [
+      40,
+      40
     ]
+  },
+  "table_grid_installation": {
+    "schema": "table_grid_installation/1",
+    "passed": true,
+    "table_size_mm": [
+      711.2,
+      381
+    ],
+    "grid_pitch_mm": 25.4,
+    "outermost_hole_offset_from_table_edge_mm": 25.4,
+    "translation_xy_mm": [
+      53.975,
+      22.225
+    ],
+    "table_bounds_in_board_frame_xy_mm": [
+      -53.975,
+      -22.225,
+      657.225,
+      358.775
+    ],
+    "holes": [
+      {
+        "center_in_board_xy_mm": [
+          581.025,
+          28.575
+        ],
+        "center_on_table_xy_mm": [
+          635.0,
+          50.8
+        ],
+        "grid_indices_from_table_edge": [
+          25.0,
+          2.0
+        ],
+        "grid_residual_mm": 0.0
+      },
+      {
+        "center_in_board_xy_mm": [
+          22.224999999999998,
+          79.375
+        ],
+        "center_on_table_xy_mm": [
+          76.2,
+          101.6
+        ],
+        "grid_indices_from_table_edge": [
+          3.0,
+          4.0
+        ],
+        "grid_residual_mm": 1.4210854715202004e-14
+      },
+      {
+        "center_in_board_xy_mm": [
+          22.224999999999998,
+          333.375
+        ],
+        "center_on_table_xy_mm": [
+          76.2,
+          355.6
+        ],
+        "grid_indices_from_table_edge": [
+          3.0,
+          14.0
+        ],
+        "grid_residual_mm": 5.684341886080802e-14
+      },
+      {
+        "center_in_board_xy_mm": [
+          581.025,
+          282.575
+        ],
+        "center_on_table_xy_mm": [
+          635.0,
+          304.8
+        ],
+        "grid_indices_from_table_edge": [
+          25.0,
+          12.0
+        ],
+        "grid_residual_mm": 5.684341886080802e-14
+      }
+    ],
+    "absolute_grid_alignment_verified": true,
+    "machined_plate_bounds_on_table_xy_mm": [
+      57.15,
+      25.39999999999759,
+      660.4,
+      374.65000000000003
+    ],
+    "machined_plate_fully_inside_table": true,
+    "occupied_bounds_on_table_xy_mm": [
+      53.975,
+      7.096522249348446,
+      663.5749999999999,
+      386.4512777506515
+    ],
+    "hardware_and_service_fully_inside_table": false,
+    "maximum_top_overhang_mm": 5.4512777506515,
+    "maximum_top_overhang_owner": "Lower_Thumbscrew023",
+    "overhang_geometry_basis": "Actual placed mesh vertices and declared service reservations from installation_envelope; display bounding boxes are conservative.",
+    "rf_regions_over_top_edge": [
+      {
+        "name": "B2 AOM RF elbow",
+        "top_overhang_mm": 4.566000000000031
+      },
+      {
+        "name": "C4 AOM RF elbow",
+        "top_overhang_mm": 5.315500000000043
+      }
+    ],
+    "user_approved_protrusion": true,
+    "acceptance": "User confirmed a 25.4 mm table-edge-to-outermost-hole offset and explicitly accepted retaining the Splitting layout with approximately 5.45 mm hardware/RF protrusion beyond the table edge.",
+    "scope": "Absolute one-inch grid alignment and full machined-plate support at the stated translation; the accepted hardware/service overhang is not a fully-contained-envelope pass."
   }
 }

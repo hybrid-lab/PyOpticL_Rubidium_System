@@ -42,8 +42,9 @@ Geometry:
   front access at every output head (15 mm at the input head), 20 x 40 mm tail-clamp span and a
   straight 20 mm fiber corridor to the plate edge.
 * Plate 24 x 14 x 1 in (actual 603.25 x 349.25 mm, 1/8 in edge gap). Table bolts (1/4-20,
-  counterbored): two per short side, 7 in apart and centred on the short edge; the two columns
-  are 22 in apart (1 in table grid).
+  counterbored): lower-right anchor 1 in from both finished edges; the other three lie
+  (-22, +2), (-22, +12), and (0, +10) in from that anchor. The two columns are 22 in apart,
+  with 10 in between each column's bolts and staggered rows on a shared 1 in table grid.
 * C1 FR and C1 M1 each have a lower mirror-mount body corner overhanging the plate (conservative
   bounding-box overhang about 6.44 mm), in addition to the listed adjustment-knob overhangs.
   Their mounting taps remain on the plate; the edge audit checks every tapped-hole centre
@@ -70,10 +71,13 @@ base_dy = PLATE_IN[1]*INCH
 base_dz = INCH
 gap = INCH/8
 
-# table bolts, PyOpticL grid convention: hole at ((i + 0.5) in, (j + 0.5) in)
-mount_holes = [(0.027904, 3.000000), (0.027904, 10.000000), (22.027904, 3.000000), (22.027904, 10.000000)]
-BOLT_ROWS_APART_IN = 7        # two bolts per short side, centred on that edge
-BOLT_COLUMNS_APART_IN = 22
+# Anchor one inch from the actual right and lower machined edges. The remaining
+# three bolts share its one-inch table grid, with staggered rows for clearance.
+TABLE_MOUNT_ANCHOR_MM = (base_dx-gap-INCH, gap+INCH)
+TABLE_MOUNT_OFFSETS_IN = ((0, 0), (-22, 2), (-22, 12), (0, 10))
+mount_holes = [(TABLE_MOUNT_ANCHOR_MM[0]/INCH+dx-.5,
+                TABLE_MOUNT_ANCHOR_MM[1]/INCH+dy-.5)
+               for dx, dy in TABLE_MOUNT_OFFSETS_IN]
 
 # ---- optics geometry -------------------------------------------------------------------
 LENS_TUBE_FRONT = 18.798         # common KM05T/KA05T lens-tube front ahead of the mount origin
@@ -299,6 +303,10 @@ def build(x=0, y=0, angle=0, drill=True):
             'layout_status': 'Splitting Board V2 (1 -> 2 -> 4, seven single-pass AOMs, outputs on one short '
                              'edge, no beam crossings); not machined.'}
     info['mount_holes_mm'] = [((mx + .5)*INCH, (my + .5)*INCH) for mx, my in mount_holes]
+    info['table_mount_pattern'] = {'pitch_mm': INCH, 'right_lower_edge_offset_mm': INCH,
+                                  'edge_datum': 'finished machined plate edges',
+                                  'offsets_in': TABLE_MOUNT_OFFSETS_IN,
+                                  'installation_note': 'Fasten the lower-right table bolt before installing the C1/Output 4 fiber tail clamp and routing its fiber; reverse this order for removal.'}
 
     def put(name, cls, px, py, pangle=0, **kw):
         obj = baseplate.place_element(name, cls, x=px, y=py, angle=pangle, **kw)
@@ -555,14 +563,8 @@ def build(x=0, y=0, angle=0, drill=True):
                       'tolerance': 1e-7})
     A.append({'name': 'No beam crosses another beam (crossing pairs)', 'measured': len(beam_crossings(geo)),
               'expected': 0, 'tolerance': 0.})
-    xs = sorted(set(round(x, 6) for x, _ in info['mount_holes_mm']))
-    ys = sorted(set(round(y, 6) for _, y in info['mount_holes_mm']))
-    A.append({'name': 'Table bolts: columns %d in apart' % BOLT_COLUMNS_APART_IN, 'measured': xs[-1] - xs[0],
-              'expected': BOLT_COLUMNS_APART_IN*INCH, 'tolerance': 1e-6})
-    A.append({'name': 'Table bolts: rows %d in apart (<= 10 in)' % BOLT_ROWS_APART_IN, 'measured': ys[-1] - ys[0],
-              'expected': BOLT_ROWS_APART_IN*INCH, 'tolerance': 1e-6})
-    A.append({'name': 'Table bolts centred on the short edge (offset mm)', 'measured': (ys[0] + ys[-1])/2 - base_dy/2,
-              'expected': 0., 'tolerance': 1e-6})
+    # Finished-edge distances and the nonrectangular table grid are checked
+    # against the actual machined solid by tools/table_mount_audit.py.
     info['lane_geometry'] = {n: {k: (list(v) if isinstance(v, tuple) else v) for k, v in g.items()}
                              for n, g in geo.items()}
     info['beam_crossings'] = beam_crossings(geo)

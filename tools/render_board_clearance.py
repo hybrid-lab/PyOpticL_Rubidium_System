@@ -12,8 +12,9 @@ Example::
 Hardware is drawn from per-object XY hulls when explicitly supplied as
 ``hull_xy_mm`` or ``projection_xy_mm``, otherwise from axis-aligned ``bbox``
 envelopes. Bbox overlaps must not be interpreted as physical collisions.
-``--table`` consumes table_envelope_audit/1 in report['table_envelope']; without
-that audit it draws a labelled, centred 15 x 28 in reference frame only.
+``--table`` consumes report['table_envelope'] or the Splitting board's saved
+``installation_envelope``; without either audit it draws a labelled, centred
+15 x 28 in reference frame only.
 """
 from __future__ import annotations
 
@@ -147,7 +148,13 @@ def render(report, output, title=None, table=False):
     if regions is None:
         regions = report.get("service_regions", [])
     fibers = report.get("fiber_clearance", {}).get("fibers", [])
+    mount_grid = report.get("table_mount_grid", {})
+    grid_installation = report.get("table_grid_installation", {})
     audit = report.get("table_envelope", {}) if table else {}
+    if table and not audit:
+        installation = report.get("installation_envelope", {})
+        if installation.get("schema") == "splitting_table_envelope/1":
+            audit = installation
     extension = audit.get("conservative_cable_beyond_edge", {})
     table_bounds = audit.get("table_bounds_in_board_frame_xy_mm")
     occupied = audit.get("occupied_bounds_xy_mm")
@@ -155,6 +162,12 @@ def render(report, output, title=None, table=False):
         tx, ty = audit.get("translation_xy_mm", [0., 0.])
         b = audit["table_bounds_xy_mm"]
         table_bounds = [b[0]-tx, b[1]-ty, b[2]-tx, b[3]-ty]
+    if not table_bounds and audit.get("schema") == "splitting_table_envelope/1":
+        tx, ty = audit["centered_translation_xy_mm"]
+        width, height = audit["table_size_mm"]
+        table_bounds = [-tx, -ty, width-tx, height-ty]
+    if table and grid_installation.get("passed") is True:
+        table_bounds = grid_installation["table_bounds_in_board_frame_xy_mm"]
 
     hardware = []
     extent_points = rectangle_points(plate_bounds)
@@ -309,11 +322,22 @@ def render(report, output, title=None, table=False):
         if audit and occupied:
             width, height = occupied[2]-occupied[0], occupied[3]-occupied[1]
             audit_text.append(f"Audited total extent: {width:.2f} × {height:.2f} mm\n({width/25.4:.2f} × {height/25.4:.2f} in)")
-            result = "PASS" if audit.get("passed") is True else "NOT PASSED / NOT RECORDED"
-            audit_text.append(f"Saved table-envelope check: {result}")
-            audit_text.append("Table fit permits translation; table-hole grid alignment is not verified.")
+            if grid_installation.get("passed") is not True:
+                result = "PASS" if audit.get("passed") is True else "NOT PASSED / NOT RECORDED"
+                audit_text.append(f"Saved table-envelope check: {result}")
+                audit_text.append("Table fit permits translation.")
         else:
             audit_text.append("Table placement is a centred reference only; no saved table-envelope audit.")
+    if grid_installation.get("passed") is True:
+        tx, ty = grid_installation["translation_xy_mm"]
+        audit_text.append(f"Table grid aligned: translate board by (+{tx:g}, +{ty:g}) mm. First holes are 25.4 mm from table edges.")
+        audit_text.append("All four bolts align; the machined plate is fully supported.")
+        overhang = grid_installation["maximum_top_overhang_mm"]
+        audit_text.append(f"User-approved top overhang: {overhang:.2f} mm (hardware and RF reservations).")
+    elif mount_grid.get("passed") is True:
+        audit_text.append("Relative 1 in fixing-hole grid verified; absolute table-edge phase unspecified.")
+    elif table:
+        audit_text.append("No passing relative fixing-hole grid check is recorded.")
     audit_text.extend(["Conservative XY envelopes, not exact CAD silhouettes. Rectangle overlaps do not establish a collision.",
                        "Service widths and connector bend radii retain the assumptions in the source report."])
     if report.get("projection_audit", {}).get("optical_path_readiness") == "blocked_by_unmachined_cell_covers":

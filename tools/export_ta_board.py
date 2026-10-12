@@ -138,6 +138,18 @@ def export_board(doc, info, report, output_directory, fcstd_directory=None, *,
         raise ValueError('TA plate needs a passing table/cable envelope audit')
     if info.get('mode') == 'splitting' and report.get('installation_envelope', {}).get('passed') is not True:
         raise ValueError('Splitting plate needs a passing hardware/service table envelope audit')
+    require_mount_grid = (info.get('mode') == 'splitting' or
+                          'table_mount_grid' in report or 'table_mount_pattern' in info)
+    if require_mount_grid:
+        pattern = info.get('table_mount_pattern')
+        if not isinstance(pattern, dict) or not pattern:
+            raise ValueError('TA/Splitting export requires the current source table_mount_pattern declaration')
+        import table_mount_audit
+        # Always use the current solid and source info, including reopened files;
+        # an earlier passing report is not evidence for the present hole pattern.
+        report['table_mount_grid'] = table_mount_audit.audit(doc, info)
+        if report['table_mount_grid']['passed'] is not True:
+            raise ValueError('Table mounting holes do not satisfy the finished-edge/grid requirements')
     issues = {key: value for key, value in report['summary_counts'].items()
               if value and key not in ('outside_plate_xy', 'bbox_overlap_candidates', 'unrelated_beam_proximity')}
     if issues:
@@ -178,6 +190,7 @@ def export_board(doc, info, report, output_directory, fcstd_directory=None, *,
                           ('mesh_candidate_refinement', 'refine_mesh_candidates.py'),
                           ('bonded_cube_audit', 'bonded_cube_audit.py'),
                           ('zero_order_reference_model', 'zero_order_reference_audit.py'),
+                          ('table_mount_grid', 'table_mount_audit.py'),
                           ('installation_envelope', 'splitting_table_envelope_audit.py')):
         if key in report:
             source_files['tools/'+filename] = repo/'tools'/filename
@@ -192,15 +205,18 @@ def export_board(doc, info, report, output_directory, fcstd_directory=None, *,
         (output/name).write_text(json.dumps(data, indent=2, default=str)+'\n', encoding='utf-8', newline='\n')
     view = Gui.activeDocument().activeView()
     view.setCameraType('Orthographic')
-    view.viewTop()
+    # Set orientations directly: animated presets can save an intermediate
+    # frame when a reopened document starts from its stored 3D camera.
+    view.setCameraOrientation((0., 0., 0., 1.), False)
     view.fitAll()
     Gui.updateGui()
     view.saveImage(str(output/(stem+'_top.png')), 2200, 2200, 'White')
-    view.viewAxonometric()
+    view.setCameraOrientation((0.4247081321999479, 0.1759200437218226,
+                               0.339851090706265, 0.8204732639190053), False)
     view.fitAll()
     Gui.updateGui()
     view.saveImage(str(output/(stem+'_3D.png')), 2200, 1800, 'White')
-    view.viewTop()
+    view.setCameraOrientation((0., 0., 0., 1.), False)
     view.fitAll()
     if fcstd_directory is not None:
         model_output = Path(fcstd_directory)
