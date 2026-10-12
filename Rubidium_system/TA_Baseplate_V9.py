@@ -1,4 +1,4 @@
-"""TA baseplate V9.9 - 14 x 21.5 in, with the TA cable at a short edge.
+"""TA baseplate V9.10 - 14 x 16.5 in, with a folded AOM output chain.
 
 Beam order, read top to bottom in example_baseplate():
 
@@ -6,14 +6,15 @@ Beam order, read top to bottom in example_baseplate():
        -> six bare 8-32 conditioning stations
        -> lattice V9.7 sliding Rb cell enclosure -> folds 3 and 4
        -> power-division HWP -> main PBS
-            transmitted -> AOM (integral seat) -> SR475 shutter -> fold 5
+            transmitted -> AOM (integral seat) -> SR475 shutter -> folds 5 and 7
                            -> L1, L2, HWP, rotating PBS, iris, KA05T
             reflected   -> one steering fold left across the middle
                            -> L1, L2, HWP, rotating PBS, KA05T (no iris)
 
 The TA emits right and its thick cable exits the upper short edge. The common
 conditioning train runs left, down, then right through the sliding cell.
-The AOM output runs down the left edge; the direct output runs left above it.
+The AOM output turns down the left edge then right across the bottom row;
+the direct output runs left above the AOM.
 All optical segments remain orthogonal, and the conditioning and telescope
 spacings are preserved. Coordinates are in the board frame.
 
@@ -32,12 +33,12 @@ from PyOpticL import layout, optomech
 
 # baseplate constants
 base_dx = 14*layout.inch
-base_dy = 21.5*layout.inch
+base_dy = 16.5*layout.inch
 base_dz = layout.inch
 gap = layout.inch/8
 
 # Table mount grid indices: hole centres are (index + 0.5) inches.
-mount_holes = [(0, 1), (13, 0), (0, 20), (9, 20)]
+mount_holes = [(0, 3), (13, 0), (0, 15), (9, 15)]
 
 
 def board_xy(px, py):
@@ -49,27 +50,28 @@ def board_direction(dx, dy):
     return dx, dy
 
 # --- common path: lattice ordering and conditioning pitches -----------------
-TA_XY = (105., 491.)
-TA_FOLD1_XY = (327., 491.)
-TA_FOLD2_XY = (327., 418.)
-TA_HWP_XY = (305., 418.)
-ISO_XY = (235., 418.)
-QWP_XY = (171., 418.)
-STATIONS_XY = ((150., 418.), (105., 418.), (60., 418.),
-               (32., 396.), (48., 352.), (88., 352.))
-COMMON_FOLD1_XY = (32., 418.)
-COMMON_FOLD2_XY = (32., 352.)
-CELL_XY = (189., 352.)
-COMMON_FOLD3_XY = (327., 352.)
-COMMON_FOLD4_XY = (327., 250.)
-POWER_HWP_XY = (312., 250.)
-PBS_XY = (280.6, 250.)
+TA_XY = (105., 364.)
+TA_FOLD1_XY = (327., 364.)
+TA_FOLD2_XY = (327., 291.)
+TA_HWP_XY = (305., 291.)
+ISO_XY = (235., 291.)
+QWP_XY = (171., 291.)
+STATIONS_XY = ((150., 291.), (105., 291.), (60., 291.),
+               (32., 269.), (48., 225.), (88., 225.))
+COMMON_FOLD1_XY = (32., 291.)
+COMMON_FOLD2_XY = (32., 225.)
+CELL_XY = (189., 225.)
+COMMON_FOLD3_XY = (327., 225.)
+COMMON_FOLD4_XY = (327., 123.)
+POWER_HWP_XY = (312., 123.)
+PBS_XY = (280.6, 123.)
 
 # --- the two output branches ------------------------------------------------
-AOM_XY = (213.6, 250.)
-SHUTTER_XY = (116.6, 250.)
-AOM_FOLD_XY = (40., 250.)
-DIRECT_FOLD_XY = (280.6, 305.5)
+AOM_XY = (213.6, 123.)
+SHUTTER_XY = (116.6, 123.)
+AOM_FOLD_XY = (40., 123.)
+AOM_OUTPUT_FOLD_XY = (40., 33.5)
+DIRECT_FOLD_XY = (280.6, 178.5)
 
 # output-chain offsets from each row's fold mirror (the lattice DP-output chain)
 OUT = {'lens1': 14., 'lens2': 14.+45.319348, 'hwp': 72., 'rot': 94., 'iris': 125.,
@@ -103,14 +105,14 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
 
     baseplate = layout.baseplate(base_dx, base_dy, base_dz, x=x, y=y, angle=angle, gap=gap,
                                  drill=False, mount_holes=mount_holes,
-                                 name='TA plate V9.9 14 x 21.5 in')
+                                 name='TA plate V9.10 14 x 16.5 in')
     plate = doc.getObject(baseplate.active_baseplate)
     info = {'mode': 'ta', 'plate': plate, 'roots': {}, 'paths': [], 'arms': [],
             'reservations': [], 'extra_cuts': [], 'geometry_assertions': [], 'alternate': False,
             'service_regions': [], 'output_optical_routes': [],
             'requirements': {'mirror_roles': [], 'spherical_groups': []},
             'isolator': None, 'cell': None,
-            'layout_status': 'V9.9 short-edge cable layout; see the saved audit report for results.',
+            'layout_status': 'V9.10 folded AOM output; see the saved audit report for results.',
             'mount_holes_mm': [[(hx+.5)*layout.inch, (hy+.5)*layout.inch] for hx, hy in mount_holes]}
 
     # ---- placement helpers, so every optic below is a single readable line ----
@@ -131,7 +133,18 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
         du = math.hypot(*u)
         dv = math.hypot(*v)
         n = (v[0]/dv - u[0]/du, v[1]/dv - u[1]/du)
-        return mirror(name, p[0], p[1], math.degrees(math.atan2(n[1], n[0])))
+        obj = mirror(name, p[0], p[1], math.degrees(math.atan2(n[1], n[0])))
+        normal = obj.BasePlacement.Rotation.multVec(App.Vector(1, 0, 0))
+        dot = u[0]/du*normal.x + u[1]/du*normal.y
+        reflected = (u[0]/du-2*dot*normal.x, u[1]/du-2*dot*normal.y)
+        info['geometry_assertions'].extend([
+            {'name': name+': reflection direction residual',
+             'measured': math.hypot(reflected[0]-v[0]/dv, reflected[1]-v[1]/dv),
+             'expected': 0., 'tolerance': 1e-9},
+            {'name': name+': incidence angle (degrees)',
+             'measured': math.degrees(math.acos(min(1., abs(dot)))),
+             'expected': 45., 'tolerance': 1e-9}])
+        return obj
 
     def wp(name, px, py, pangle=0):
         return put(name, optomech.waveplate, px, py, pangle,
@@ -261,12 +274,14 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
     info['extra_cuts'].append(seat)
     put('SRS SR475 shutter', optomech.shutter_sr475, *SHUTTER_XY, 0)
     fold5 = bend('AOM branch output steering mirror', SHUTTER_XY, AOM_FOLD_XY,
-                 (AOM_FOLD_XY[0], AOM_FOLD_XY[1]-OUT['lens1']))
+                 AOM_OUTPUT_FOLD_XY)
+    fold7 = bend('AOM branch compacting fold 7', AOM_FOLD_XY, AOM_OUTPUT_FOLD_XY,
+                 (AOM_OUTPUT_FOLD_XY[0]+OUT['lens1'], AOM_OUTPUT_FOLD_XY[1]))
 
     # =========================================================================
     # 5. Reflected arm: one fold left above the AOM row
     # =========================================================================
-    # The direct fiber exits at the left; the AOM fiber exits at the bottom.
+    # The direct fiber exits left; the AOM fiber exits right along the bottom.
     fold6 = bend('Reflected branch fold 6', PBS_XY, DIRECT_FOLD_XY,
                  (DIRECT_FOLD_XY[0]-OUT_NO_IRIS['lens1'], DIRECT_FOLD_XY[1]))
 
@@ -275,7 +290,7 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
     # =========================================================================
     rows = []
     for tag, x0, row_y, with_iris, theta in (
-            ('AOM branch', *AOM_FOLD_XY, True, -90),
+            ('AOM branch', *AOM_OUTPUT_FOLD_XY, True, 0),
             ('Reflected branch', *DIRECT_FOLD_XY, False, 180)):
         O = OUT if with_iris else OUT_NO_IRIS
         ux, uy = round(math.cos(math.radians(theta))), round(math.sin(math.radians(theta)))
@@ -309,9 +324,9 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
          RED, [.9, .6, .6, .6, .6, .6, .6],
          'Stations 5/6 are bare 8-32 holes; optics unselected. ' + DOWNSTREAM)
     path('AOM branch',
-         [PBS_XY, AOM_XY, SHUTTER_XY, AOM_FOLD_XY,
+         [PBS_XY, AOM_XY, SHUTTER_XY, AOM_FOLD_XY, AOM_OUTPUT_FOLD_XY,
           rows[0]['xy']['lens1'], rows[0]['xy']['lens2'], rows[0]['xy']['fiber_face']],
-         BLUE, [.6, .6, .6, .6, .6, .035, .6],
+         BLUE, [.6, .6, .6, .6, .6, .6, .035, .6],
          'Single-pass AOM; the first order is modeled straight (RF deflection ~1 deg absorbed '
          'by fold 5). ' + DOWNSTREAM)
     path('Reflected branch',
@@ -340,7 +355,8 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
              'spare_holes': [], 'spare_required': 0})
         if row['with_iris']:
             events = [{'type': 'aom', 'name': 'AOM (single pass)', 'xy': AOM_XY},
-                      {'type': 'mirror', 'name': fold5.Label, 'xy': AOM_FOLD_XY}]
+                      {'type': 'mirror', 'name': fold5.Label, 'xy': AOM_FOLD_XY},
+                      {'type': 'mirror', 'name': fold7.Label, 'xy': AOM_OUTPUT_FOLD_XY}]
         else:
             events = [{'type': 'pbs', 'name': main_pbs.Label, 'xy': PBS_XY},
                       {'type': 'mirror', 'name': fold6.Label, 'xy': DIRECT_FOLD_XY}]
@@ -363,8 +379,8 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
             assert_distance(tag+': iris -> fiber face (>= 40 required)', row['xy']['iris'],
                             row['xy']['fiber_face'], 42.35)
         # front access in front of each head, as on the lattice heads
-        # In board coordinates the fronts face +y (AOM) and +x (direct).
-        design_direction = (0., 1.) if row['with_iris'] else (1., 0.)
+        # In board coordinates the fronts face -x (AOM) and +x (direct).
+        design_direction = (-1., 0.) if row['with_iris'] else (1., 0.)
         service(row['head'].Label+' front access', 'fiber_front', row['head'],
                 row['xy']['fiber_face'], design_direction, 40., 20.,
                 allowed=[tag], assumptions=['20 mm full front access width; 40 mm axial access.'])
@@ -412,12 +428,15 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
         {'name': 'Direct branch has one steering mirror',
          'measured': sum(e['type'] == 'mirror' for e in info['output_optical_routes'][1]['events']),
          'expected': 1, 'tolerance': 0.},
+        {'name': 'AOM branch has two steering mirrors',
+         'measured': sum(e['type'] == 'mirror' for e in info['output_optical_routes'][0]['events']),
+         'expected': 2, 'tolerance': 0.},
         {'name': 'Reflected KA05T rear-hole axis to left plate edge (mm)',
          'measured': DIRECT_FOLD_XY[0]-OUT_NO_IRIS['port']-REAR_CLAMP_OFFSET-gap,
          'expected': 60.627, 'tolerance': 0.1},
-        {'name': 'AOM-branch KA05T rear-hole axis to bottom plate edge (mm)',
-         'measured': AOM_FOLD_XY[1]-OUT['port']-AOM_REAR_CLAMP_OFFSET-gap,
-         'expected': 14.675, 'tolerance': 0.1},
+        {'name': 'AOM-branch KA05T rear-hole axis to right plate edge (mm)',
+         'measured': base_dx-gap-AOM_OUTPUT_FOLD_XY[0]-OUT['port']-AOM_REAR_CLAMP_OFFSET,
+         'expected': 80.275, 'tolerance': 0.1},
         {'name': 'RF elbow space beyond connector face (mm)', 'measured': 40.,
          'expected': 40., 'tolerance': 0.}])
     assert_distance('HWP -> PBS (lattice 31.4)', POWER_HWP_XY, main_pbs, 31.4)
@@ -431,7 +450,7 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
     plate.touch()
     doc.recompute()
     info['plate_size_mm'] = [base_dx, base_dy, base_dz]
-    doc.Label = 'TA board - V9.9 short-edge cable'
+    doc.Label = 'TA board - V9.10 folded AOM output'
     return info
 
 
