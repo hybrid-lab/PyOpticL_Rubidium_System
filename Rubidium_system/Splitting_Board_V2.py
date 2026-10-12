@@ -3,32 +3,39 @@
 Beam tree (every split is HWP -> PBS; no beam crosses another beam, no beam passes over or under
 another element's hardware):
 
-    input KM05T -> A:  M1 (the input head is the second steering element), AOM (+1 order), iris
-                       (stops the 0 order), HWP, PBS
+    input KM05T -> A:  M1 (the input head is the second steering element), AOM (RF off, order 0),
+                       iris, HWP, PBS
         A PBS transmitted -> B1: M1, M2, AOM, iris, HWP, PBS
-            B1 transmitted -> C1: FR (extra 45 deg fold), M1, M2, AOM, HWP, rotating-PBS RSP05, iris -> OUT
-            B1 reflected   -> C2:                     M1, M2, AOM, HWP, rotating-PBS RSP05, iris -> OUT
+            B1 transmitted -> C1: FR, M1, M2, AOM, HWP, bonded PBS, output fold, iris, output fold -> OUT
+            B1 reflected   -> C2:                     M1, M2, AOM, two output folds, HWP, bonded PBS, iris -> OUT
         A PBS reflected   -> B2: M1, M2, AOM, iris, HWP, PBS
-            B2 transmitted -> C3:                     M1, M2, AOM, HWP, rotating-PBS RSP05, iris -> OUT
-            B2 reflected   -> C4: FR (extra 45 deg fold), M1, M2, AOM, HWP, rotating-PBS RSP05, iris -> OUT
+            B2 transmitted -> C3:                     M1, M2, AOM, two output folds, HWP, bonded PBS, iris -> OUT
+            B2 reflected   -> C4: FR (extra 45 deg fold), M1, M2, AOM, two output folds, HWP, bonded PBS, iris -> OUT
 
 Geometry:
-* Every mirror works at 45 deg incidence (90 deg folds). Only the mirror in front of each AOM
-  (A: M1, others: M2) turns by 90 deg -+ 2*theta_B = 1.0845 deg: the leg into the AOM is pre-tilted
-  (795 nm, 100 MHz, TeO2 4.2 mm/us) so the +1 order leaves every AOM exactly along a board axis.
-* All four output lanes run along +x and end in a KM05T on the right short edge (tail clamps within
+* AOM RF is off. The drawn beam is the undeflected zero order. Every mirror works at 45 deg
+  incidence, every turn is 90 deg, and every free-space leg is horizontal or vertical. This is
+  a mechanical zero-order reference layout, not a validated RF-on first-order optical system.
+* All four output lanes have two steering mirrors, then run along +x into a KM05T on the
+  right short edge (tail clamps within
   0.5 mm of the edge). The two siblings of a PBS always leave perpendicular to each other, so
   one output of each pair needs one extra 45 deg fold (FR) in its feed: C1 and C4 have three mirrors
   in front of their AOM (FR, M1, M2), all other lanes two (A: one plus the input head).
-* AOM centre -> iris 81 mm, -> HWP 98 mm, -> PBS 121 mm (A, B1, B2). Output lanes: AOM -> HWP (RSP05)
-  -> 24.52 mm -> empty RSP05 for a rotating PBS (mount only) -> iris -> >= 30 mm -> output lens-tube
-  front; AOM -> iris path >= 81 mm (0/+1 separation >= 1.53 mm at the iris).
+* AOM centre -> iris 81 mm, -> HWP 98 mm, -> PBS 121 mm (A, B1, B2). Output lanes retain AOM
+  -> HWP (first RSP05) -> real 12.7 mm PBS cube bonded upstream of the second RSP05 -> iris
+  -> >= 30 mm -> output lens-tube front. The HWP and second stage references are 32 mm apart;
+  reversing the second stage puts the cube centre 14.297 mm upstream of its reference. Four
+  modelled 0.2 mm adhesive pads join cube corners to the engraved rotor. Adhesive thickness is
+  an assembly assumption; bond strength and coating compatibility are not certified.
+  C1's two added mirrors straddle its iris; C2-C4's two mirrors precede their HWP. AOM -> iris
+  path >= 81 mm is retained as a mechanical spacing. The iris is not claimed to reject order 0.
 * AOMO 3100-125 on KM100PM with the lattice V9 integral seat. Orientation D: KM100PM downstream,
   RF connector on the left of the beam; U: KM100PM upstream, RF on the right. The M2 -> AOM leg is at
   least 26 mm (D) / 79 mm (U).
 * KM05T fiber ports on the unchanged Surface_Adapter_fiberport_lip. Each adapter uses its two
   mounting taps; its optional Y-shape and rear-hole patterns are disabled. Two board-level
-  BareTappedHole features retain the original 76 mm rear tail-clamp pair at each head. The lens
+  BareTappedHole features retain the original rear tail-clamp X positions: 76 mm behind each
+  head except C4, whose head moves 32 mm toward its unchanged pair (44 mm rear offset). The lens
   tube, lens adapter, fiber adapter and optical reference are unchanged from the KA05T assembly.
   Mirrors M05 + HKTS thumbscrews, HWPs RSP05, PBS cube_mount_halfinch, irises IDA12.
 * Reserved free space (checked by the audits): 40 x 20 mm RF elbow at every AOM connector face, 28 mm
@@ -37,13 +44,14 @@ Geometry:
 * Plate 24 x 14 x 1 in (actual 603.25 x 349.25 mm, 1/8 in edge gap). Table bolts (1/4-20,
   counterbored): two per short side, 7 in apart and centred on the short edge; the two columns
   are 22 in apart (1 in table grid).
-* Mounts may overhang the plate edge; every tapped-hole centre is >= 6 mm and every pocket >= 3 mm
-  inside it.
+* C1 FR and C1 M1 each have a lower mirror-mount body corner overhanging the plate (conservative
+  bounding-box overhang about 6.44 mm), in addition to the listed adjustment-knob overhangs.
+  Their mounting taps remain on the plate; the edge audit checks every tapped-hole centre
+  >= 6 mm and every pocket >= 3 mm inside it. Inspect the supported contact area before assembly.
 
-Layout found with a 2-D footprint model (FreeCAD bounding boxes of the V9.7 lattice parts) and a
-sequential-LP compactor; margins between different lanes 1.8 mm (hardware), 2.5 mm (pocket walls),
-1.0 mm (keep-out zones), 1.2 mm beam half-width, 3 mm from any beam to a foreign knob / KM100PM; the
-CAD audits are the authority.
+Output folds and upstream feed distances are arranged around the actual M05/HKTS and KM100PM
+hardware. The CAD projection, service, machining, and bonded-cube sweep audits are the authority;
+no claim of mechanical clearance is inferred from the drawn centre lines alone.
 
 Run in FreeCAD (Macro > Macros..., or paste into the Python console):
     example_baseplate()          (example_baseplate(drill=False) for a fast undrilled preview)
@@ -69,13 +77,14 @@ BOLT_COLUMNS_APART_IN = 22
 
 # ---- optics geometry -------------------------------------------------------------------
 LENS_TUBE_FRONT = 18.798         # common KM05T/KA05T lens-tube front ahead of the mount origin
-REAR_CLAMP_OFFSET = 76.          # retained rear tail-clamp hole pair behind every fiber root
+REAR_CLAMP_OFFSET = 76.          # default rear tail-clamp offset; C4 moves within its fixed pair
+OUTPUT_REAR_CLAMP_OFFSETS = {'C1': 76., 'C2': 76., 'C3': 76., 'C4': 44.}
 REAR_CLAMP_HOLE_SPACING = 18.328
 IRIS_L = 81.                     # AOM centre -> iris (A, B lanes); minimum AOM -> iris path (C lanes)
 HWP_D = 98.                      # AOM centre -> HWP (A, B)
 PBS_D = 121.                     # AOM centre -> PBS (A, B)
 M2_TO_AOM_MIN = {'D': 26., 'U': 79.}
-HWP_TO_ROT = 24.52            # output lanes: HWP RSP05 -> rotating-PBS RSP05
+HWP_TO_ROT = 32.              # HWP optical plane -> reversed rotating-PBS stage reference
 ROT_TO_IRIS = {1: 19.20, -1: 15.30}     # by iris post side
 IRIS_TO_FRONT_MIN = {1: 30., -1: 36.5}           # iris -> output lens-tube front (>= 30 mm)
 OUT_DIR = 0.                     # every output beam runs +x into its fiber head
@@ -84,8 +93,8 @@ OUTPUT_FRONT_ACCESS = 28.
 INPUT_FRONT_ACCESS = 15.
 AOM_RF_DESIGN_HZ = 100.e6
 AOM_V_SOUND_MM_S = 4.2e6
-DIFF_ANGLE_RAD = 0.795e-3*AOM_RF_DESIGN_HZ/AOM_V_SOUND_MM_S   # 0.018929 rad
-KAPPA = math.degrees(DIFF_ANGLE_RAD)                          # 1.0845 deg
+DIFF_ANGLE_RAD = 0.795e-3*AOM_RF_DESIGN_HZ/AOM_V_SOUND_MM_S  # future RF-on estimate only; unused by geometry
+KAPPA = 0.                       # RF off: order 0 passes straight through every AOM
 
 INPUT_XY = (89.4150, 42.4155)
 INPUT_DIR = 0
@@ -97,17 +106,40 @@ OUTPUT_NUMBER = {'C4': 1, 'C3': 2, 'C2': 3, 'C1': 4}     # output head number, c
 # side: jog (A: lane) to the left (+1) / right (-1) of the feed. mode Z: the lane continues the feed
 # direction, U: it runs back against it. orient D/U: see above. post: iris post side (+1 toward
 # the AOM, -1 toward the fiber). inv: PBS reflection side (PyOpticL invert).
-# C lanes: fmode 'pre' = extra fold FR at dR after the PBS turning the feed by 90*fr deg;
-# sH: AOM -> HWP; dIF: iris -> lens-tube front.
+# C lanes: fmode 'pre' = extra fold FR at dR after the PBS turning the feed by 90*fr deg.
 LANES = {
     'A': {'d1': 24.0983, 'a2': 33.9461, 'side': +1, 'orient': 'D', 'post': +1, 'inv': 0},
     'B1': {'d1': 20.6871, 'J': 53.0353, 'a2': 34.6620, 'side': -1, 'mode': 'U', 'orient': 'D', 'post': +1, 'inv': 0},
     'B2': {'d1': 48.5416, 'J': 92.9594, 'a2': 26.0000, 'side': -1, 'mode': 'U', 'orient': 'D', 'post': +1, 'inv': 0},
-    'C1': {'fmode': 'pre', 'dR': 43.1227, 'fr': +1, 'd1': 126.2710, 'J': 47.8219, 'a2': 79.0000, 'side': +1, 'mode': 'Z', 'orient': 'U', 'post': +1, 'sH': 37.2800, 'dIF': 30.0000},
-    'C2': {'fmode': 'none', 'd1': 82.8844, 'J': 57.5677, 'a2': 58.9636, 'side': +1, 'mode': 'Z', 'orient': 'D', 'post': +1, 'sH': 88.2675, 'dIF': 41.9318},
-    'C3': {'fmode': 'none', 'd1': 21.2740, 'J': 56.0364, 'a2': 127.0032, 'side': -1, 'mode': 'Z', 'orient': 'U', 'post': +1, 'sH': 37.2800, 'dIF': 41.7401},
-    'C4': {'fmode': 'pre', 'dR': 43.5128, 'fr': -1, 'd1': 65.2904, 'J': 45.2633, 'a2': 46.6523, 'side': -1, 'mode': 'Z', 'orient': 'D', 'post': +1, 'sH': 85.8401, 'dIF': 30.0001},
+    'C1': {'fmode': 'pre', 'dR': 43.1227, 'fr': +1, 'd1': 126.2710, 'J': 47.8219, 'a2': 79.0000, 'side': +1, 'mode': 'Z', 'orient': 'U', 'post': +1},
+    'C2': {'fmode': 'none', 'd1': 82.8844, 'J': 57.5677, 'a2': 58.9636, 'side': +1, 'mode': 'Z', 'orient': 'D', 'post': +1},
+    'C3': {'fmode': 'none', 'd1': 21.2740, 'J': 56.0364, 'a2': 127.0032, 'side': -1, 'mode': 'Z', 'orient': 'U', 'post': +1},
+    'C4': {'fmode': 'pre', 'dR': 43.5128, 'fr': -1, 'd1': 65.2904, 'J': 45.2633, 'a2': 46.6523, 'side': -1, 'mode': 'Z', 'orient': 'D', 'post': +1},
 }
+
+# Two 45-degree output folds preserve four fibres on the same short edge.
+# Every AOM is modelled with an undeflected, axis-aligned zero-order beam.
+LANES['C1']['d1'] -= 14.
+LANES['C1']['dR'] -= 2.
+LANES['C1']['J'] -= 2.       # raise only FR/M1; keep the AOM and its M2 fixed
+LANES['C2']['d1'] -= 14.
+LANES['C2']['a2'] = 26.
+LANES['C3']['a2'] = 79.
+LANES['C3']['J'] += 3.3
+LANES['C4']['orient'] = 'D'
+LANES['C4']['a2'] = 47.6523
+LANES['C4']['dR'] -= 6.
+LANES['C4']['J'] -= 8.5
+LANES['C4']['post'] = -1        # keep the upper output's iris post on the board
+OUTPUT_DOGLEGS = {
+    'C1': {'x': 464., 'y': 31., 'hwp_distance': 15.},
+    'C2': {'x': 379.5, 'y': 146.5, 'hwp_distance': 15.},
+    'C3': {'x': 400., 'y': 207., 'hwp_distance': 15.},
+    'C4': {'x': 434.8, 'y': 325., 'hwp_distance': 15.},
+}
+OUTPUT_PORT_X = {'C1': 520.4149980904114, 'C2': 519.9148874122972,
+                 'C3': 519.9150781884387, 'C4': 552.415072253436}
+BONDED_CUBE_CENTRE_OFFSET = 14.297  # 7.747 mm rotor face + 0.2 mm glue + 6.35 mm
 
 RED = (.85, .15, .1)
 BLUE = (.1, .35, .95)
@@ -115,9 +147,10 @@ GREEN = (.05, .6, .3)
 PURPLE = (.65, .15, .85)
 ORANGE = (.9, .5, .05)
 LANE_COLOR = {'A': RED, 'B1': ORANGE, 'B2': ORANGE, 'C1': GREEN, 'C2': BLUE, 'C3': PURPLE, 'C4': (.85, .1, .55)}
-BEAM = ('Nominal 0.6 mm beam radius (collimated ~0.43 mm 1/e2 radius from a f = 4.5 mm fiber '
-        'collimator, rounded up); +1 order on the board axis, 0 order 2*theta_B off it. '
-        'Measured q/M2 and RF tuning range pending.')
+BEAM = ('AOM RF off: undeflected zero-order reference beam, nominal 0.6 mm radius '
+        '(collimated ~0.43 mm 1/e2 radius from a f = 4.5 mm fiber collimator, rounded up). '
+        'All free-space legs are axis-aligned. RF-on first-order coupling and order rejection '
+        'are outside this model; measured q/M2 remains pending.')
 
 
 def _u(deg):
@@ -168,12 +201,25 @@ def lane_geometry():
                  rf_side=_u(lane_dir - 90 if q['orient'] == 'U' else lane_dir + 90))
         if name.startswith('C'):
             d = _u(lane_dir)
-            g['hwp'] = _add(aom, d, q['sH'])
+            out = OUTPUT_DOGLEGS[name]
+            g['out_m1'] = (out.get('first_x', out['x']), aom[1])
+            g['out_m2'] = (out['x'], out['y'])
+            g['hwp'] = _add(g['out_m2'], d, out['hwp_distance'])
             g['rot'] = _add(g['hwp'], d, HWP_TO_ROT)
+            g['cube'] = _add(g['rot'], d, -BONDED_CUBE_CENTRE_OFFSET)
             g['iris'] = _add(g['rot'], d, ROT_TO_IRIS[q['post']])
-            g['front'] = _add(g['iris'], d, q['dIF'])
-            g['port'] = _add(g['front'], d, LENS_TUBE_FRONT)
+            g['port'] = (OUTPUT_PORT_X[name], out['y'])
+            g['front'] = _add(g['port'], d, -LENS_TUBE_FRONT)
             g['iris_angle'] = (lane_dir if q['post'] < 0 else lane_dir + 180) % 360
+            g['output_sequence'] = ['out_m1', 'out_m2', 'hwp', 'cube', 'rot', 'iris', 'front']
+            if name == 'C1':
+                # Its RF connector points down. Keep the HWP/PBS on the AOM
+                # row and place the iris between the two output folds, so no
+                # output-mirror hardware occupies the RF service rectangle.
+                g.update(hwp=(404., aom[1]), rot=(436., aom[1]),
+                         cube=(436.-BONDED_CUBE_CENTRE_OFFSET, aom[1]),
+                         iris=(464., 45.5), iris_angle=90.)
+                g['output_sequence'] = ['hwp', 'cube', 'rot', 'out_m1', 'iris', 'out_m2', 'front']
         else:
             g['iris'] = _add(aom, _u(lane_dir), IRIS_L)
             g['iris_angle'] = (lane_dir if q['post'] < 0 else lane_dir + 180) % 360
@@ -187,7 +233,7 @@ def lane_geometry():
 
 
 def lane_points(name, g):
-    """Nominal +1-order axis of a lane, from its feed to its last element."""
+    """RF-off zero-order axis of a lane, from its feed to its last element."""
     pts = [g['src']]
     if 'fr' in g:
         pts.append(g['fr'])
@@ -196,7 +242,9 @@ def lane_points(name, g):
         pts.append(g['m2'])
     pts.append(g['aom'])
     if name.startswith('C'):
-        pts += [g['hwp'], g['rot'], g['iris'], g['front']]
+        # The cube is this assembly's optical centre. Keep the collinear stage
+        # reference out of the polyline so it is not mistaken for a new optic.
+        pts += [g[key] for key in g['output_sequence'] if key != 'rot']
     else:
         pts += [g['iris'], g['hwp'], g['pbs']]
     return pts
@@ -234,7 +282,7 @@ def beam_crossings(geo):
 
 def build(x=0, y=0, angle=0, drill=True):
     """Build the Splitting Board V2 in a new document; returns (doc, info)."""
-    doc = App.newDocument('Splitting_Board_V2') if App.ActiveDocument is None else App.ActiveDocument
+    doc = App.newDocument('Splitting_Board_V2')
     baseplate = layout.baseplate(base_dx, base_dy, base_dz, x=x, y=y, angle=angle, gap=gap,
                                  drill=False, mount_holes=mount_holes,
                                  name='Splitting plate %d x %d in' % PLATE_IN)
@@ -242,10 +290,12 @@ def build(x=0, y=0, angle=0, drill=True):
     info = {'mode': 'splitting', 'plate': plate, 'roots': {}, 'paths': [], 'arms': [],
             'reservations': [], 'extra_cuts': [], 'geometry_assertions': [],
             'alternate': False, 'service_regions': [], 'output_optical_routes': [],
-            'fiber_tail_pairs': [],
+            'fiber_tail_pairs': [], 'bonded_output_pbs': [],
             'requirements': {'mirror_roles': [], 'spherical_groups': []},
             'isolator': None, 'cell': None,
             'plate_size_mm': [base_dx, base_dy, base_dz],
+            'optical_reference_model': {'kind': 'zero_order_reference_model', 'aom_rf_state': 'off',
+                                        'modeled_order': 0, 'diffraction_angle_deg': 0.0},
             'layout_status': 'Splitting Board V2 (1 -> 2 -> 4, seven single-pass AOMs, outputs on one short '
                              'edge, no beam crossings); not machined.'}
     info['mount_holes_mm'] = [((mx + .5)*INCH, (my + .5)*INCH) for mx, my in mount_holes]
@@ -255,29 +305,29 @@ def build(x=0, y=0, angle=0, drill=True):
         info['roots'][name] = obj
         return obj
 
-    def fiber(name, px, py, pangle):
+    def fiber(name, px, py, pangle, rear_offset=REAR_CLAMP_OFFSET):
         # Use the repository's KM05T and lip-adapter geometry without changing
         # the optical origin. "mount_only" keeps the two adapter attachment
         # taps and omits the optional Y-shape pattern; all optional rear pairs
         # are off because their 52.7/72.7/82.7 mm offsets are not this board's
-        # existing 76 mm clamp position.
+        # board-level clamp positions.
         obj = put(name, optomech.fiberport_mount_km05T, px, py, pangle,
                   hole_config='mount_only', mount_args={'thumbscrews': True},
                   adapter_args={'rear_pair_43': False, 'rear_pair_63': False, 'rear_pair_73': False})
-        obj.addProperty('App::PropertyLength', 'RearHoleXOffset', 'Tail clamp').RearHoleXOffset = REAR_CLAMP_OFFSET
+        obj.addProperty('App::PropertyLength', 'RearHoleXOffset', 'Tail clamp').RearHoleXOffset = rear_offset
         obj.addProperty('App::PropertyLength', 'RearHoleYSpacing', 'Tail clamp').RearHoleYSpacing = REAR_CLAMP_HOLE_SPACING
         obj.addProperty('App::PropertyStringList', 'RearHoleNames', 'Tail clamp')
         direction = _u(pangle)
         sideways = (-direction[1], direction[0])
-        rear = _add((px, py), direction, -REAR_CLAMP_OFFSET)
+        rear = _add((px, py), direction, -rear_offset)
         holes, positions = [], []
         for sign in (-1, 1):
             position = _add(rear, sideways, sign*REAR_CLAMP_HOLE_SPACING/2)
             hole = put(name + ' rear clamp tap %+d' % sign, optomech.BareTappedHole, *position)
-            hole.Purpose = 'Retained 8-32 tail-clamp pair, 76 mm behind the KM05T optical mount origin.'
+            hole.Purpose = '8-32 tail-clamp pair at the retained rear X position, %g mm behind the KM05T optical mount origin.' % rear_offset
             hole.addProperty('App::PropertyLink', 'Owner', 'Tail clamp').Owner = obj
             hole.addProperty('App::PropertyString', 'CutKind', 'Tail clamp').CutKind = 'fiber-tail-hole'
-            hole.addProperty('App::PropertyLength', 'RearOffset', 'Tail clamp').RearOffset = REAR_CLAMP_OFFSET
+            hole.addProperty('App::PropertyLength', 'RearOffset', 'Tail clamp').RearOffset = rear_offset
             hole.addProperty('App::PropertyInteger', 'RearSide', 'Tail clamp').RearSide = sign
             info['extra_cuts'].append(hole)
             info['reservations'].append({'object': hole.Name, 'reason': hole.Purpose})
@@ -288,7 +338,7 @@ def build(x=0, y=0, angle=0, drill=True):
         obj.RearHoleNames = [hole.Name for hole in holes]
         info['fiber_tail_pairs'].append({'owner': obj.Name, 'class': 'fiberport_mount_km05T',
                                          'holes': [hole.Name for hole in holes],
-                                         'rear_offset_mm': REAR_CLAMP_OFFSET,
+                                         'rear_offset_mm': rear_offset,
                                          'hole_spacing_mm': REAR_CLAMP_HOLE_SPACING,
                                          'hole_centres_board_xy_mm': positions,
                                          'adapter_hole_config': 'mount_only'})
@@ -327,7 +377,7 @@ def build(x=0, y=0, angle=0, drill=True):
 
     geo = lane_geometry()
     inport = fiber('Input KM05T', INPUT_XY[0], INPUT_XY[1], INPUT_DIR)
-    ports, aoms = {}, {}
+    ports, aoms, output_mirrors = {}, {}, {}
     for k, name in enumerate(ORDER):
         q, g = LANES[name], geo[name]
         if 'fr' in g:
@@ -348,18 +398,33 @@ def build(x=0, y=0, angle=0, drill=True):
         aoms[name] = aom
         if name.startswith('C'):
             out_no = OUTPUT_NUMBER[name]
+            sequence = ['aom'] + g['output_sequence']
+            for number, key in ((1, 'out_m1'), (2, 'out_m2')):
+                index = sequence.index(key)
+                output_mirrors[name, key] = bend(name + ' output steering mirror %d' % number,
+                                               g[sequence[index-1]], g[key], g[sequence[index+1]])
             put(name + ' HWP', optomech.waveplate, g['hwp'][0], g['hwp'][1], g['lane_dir'],
                 mount_type=optomech.rotation_stage_rsp05)
-            # empty RSP05 (same placement as the HWP mount: 0.5 mm behind the optic plane)
-            dl = _u(g['lane_dir'])
-            rot = put(name + ' rotating-PBS RSP05', optomech.rotation_stage_rsp05,
-                      g['rot'][0] - 0.5*dl[0], g['rot'][1] - 0.5*dl[1], g['lane_dir'])
-            rot.addProperty('App::PropertyLength', 'OpticalPlaneOffset', 'Optical reference').OpticalPlaneOffset = 0.5
+            # The verified engraved rotor face is local +X. Reverse the whole
+            # stage to bond its cube upstream, between the HWP and the RSP05.
+            rot = put(name + ' rotating-PBS RSP05', optomech.rotation_stage_rsp05_bonded_cube,
+                      *g['rot'], (g['lane_dir']+180) % 360, cube_roll_deg=0.)
             rot.addProperty('App::PropertyString', 'Purpose').Purpose = (
-                'Empty RSP05: user bonds a PBS to the rotating front face; no PBS or waveplate modeled.')
+                '12.7 mm PBS cube bonded to the reversed RSP05 engraved rotor; '
+                'cube lies between the HWP and the stage. This second stage holds no waveplate.')
+            info['bonded_output_pbs'].append({
+                'lane': name, 'stage': rot.Name, 'cube': rot.BondedCube.Name,
+                'adhesive': rot.BondedAdhesive.Name,
+                'stage_reference_xy_mm': list(g['rot']), 'cube_centre_xy_mm': list(g['cube']),
+                'stage_angle_deg': (g['lane_dir']+180) % 360,
+                'hwp_to_stage_reference_mm': HWP_TO_ROT, 'cube_side': 'upstream',
+                'cube_size_mm': 12.7, 'cube_roll_deg': 0.,
+                'adhesive_thickness_mm': float(rot.AdhesiveThickness.Value),
+                'assumptions': rot.BondAssumptions})
             put(name + ' iris', optomech.pinhole_ida12, g['iris'][0], g['iris'][1], g['iris_angle'])
             ports[name] = fiber('Output %d KM05T (%s)' % (out_no, name),
-                                g['port'][0], g['port'][1], (g['lane_dir'] + 180) % 360)
+                                g['port'][0], g['port'][1], (g['lane_dir'] + 180) % 360,
+                                rear_offset=OUTPUT_REAR_CLAMP_OFFSETS[name])
         else:
             put(name + ' iris', optomech.pinhole_ida12, g['iris'][0], g['iris'][1], g['iris_angle'])
             put(name + ' HWP', optomech.waveplate, g['hwp'][0], g['hwp'][1], g['lane_dir'],
@@ -373,13 +438,16 @@ def build(x=0, y=0, angle=0, drill=True):
         service(name + ' AOM RF elbow', 'aom_sma', aom, _add(g['aom'], rf, 33.02), rf, 40., 20.,
                 note='Connector on the AOM face away from the beam (STL box); 40 mm of free space for the '
                      'L-shaped SMB elbow; cable taped down afterwards.')
-        # paraxial 0-order screen: AOM -> iris (-> HWP -> PBS) | AOM -> HWP -> RSP05 -> iris -> fiber
+        # Events describe the RF-off zero-order reference, including the real cube centre.
         events = [{'type': 'aom', 'name': name + ' AOM', 'xy': g['aom']}]
         if name.startswith('C'):
-            events += [{'type': 'hwp', 'name': name + ' HWP', 'xy': g['hwp']},
-                       {'type': 'rotation_mount', 'name': name + ' rotating-PBS RSP05', 'xy': g['rot']},
-                       {'type': 'iris', 'name': name + ' iris', 'xy': g['iris']},
-                       {'type': 'fiber', 'name': name + ' output KM05T', 'xy': g['front']}]
+            kinds = {'out_m1': ('mirror', ' output steering mirror 1'),
+                     'out_m2': ('mirror', ' output steering mirror 2'),
+                     'hwp': ('hwp', ' HWP'), 'cube': ('pbs', ' bonded PBS cube'),
+                     'rot': ('rotation_mount', ' rotating-PBS RSP05'),
+                     'iris': ('iris', ' iris'), 'front': ('fiber', ' output KM05T')}
+            events += [{'type': kinds[key][0], 'name': name + kinds[key][1], 'xy': g[key]}
+                       for key in g['output_sequence']]
         else:
             events += [{'type': 'iris', 'name': name + ' iris', 'xy': g['iris']},
                        {'type': 'hwp', 'name': name + ' HWP', 'xy': g['hwp']},
@@ -398,7 +466,8 @@ def build(x=0, y=0, angle=0, drill=True):
             _add(INPUT_XY, _u(INPUT_DIR), LENS_TUBE_FRONT), _u(INPUT_DIR), INPUT_FRONT_ACCESS, 20.,
             allowed=['A lane'], note='20 mm full front access width; 15 mm axial access (input head).')
     info['service_clearance'] = {'min_length_mm': {'fiber_front': INPUT_FRONT_ACCESS, 'aom_sma': 40.}}
-    info['fiber_clearance'] = {'rear_offsets_mm': [REAR_CLAMP_OFFSET], 'clamp_width_mm': 30.}
+    info['fiber_clearance'] = {'rear_offsets_mm': sorted(set([REAR_CLAMP_OFFSET] + list(OUTPUT_REAR_CLAMP_OFFSETS.values()))),
+                               'clamp_width_mm': 30.}
     info['hole_clearance'] = {'platform_beam_crossings_allowed': True}
     info['pbs_path_specs'] = [
         {'role': 'main', 'cube': 'A PBS', 'incoming_path': 'A lane', 'outgoing_paths': ['B1 lane', 'B2 lane']},
@@ -422,7 +491,7 @@ def build(x=0, y=0, angle=0, drill=True):
             A.append({'name': name + ': FR folds the beam by exactly 90 deg (45 deg incidence)',
                       'measured': turn(g['src'], g['fr'], g['m1']), 'expected': 90., 'tolerance': 1e-7})
         if name == 'A':
-            A.append({'name': 'A: M1 fold = 90 deg -+ 2 theta_B (|turn - 90| in deg; pre-tilted AOM input)',
+            A.append({'name': 'A: M1 fold = 90 deg (zero-order reference)',
                       'measured': abs(turn(g['p0'], g['m1'], g['aom']) - 90.), 'expected': KAPPA, 'tolerance': 1e-7})
             A.append({'name': 'A: M1 -> AOM >= KM100PM clearance (excess, mm)',
                       'measured': min(0., dist(g['m1'], g['aom']) - M2_TO_AOM_MIN[q['orient']]), 'expected': 0.,
@@ -430,30 +499,55 @@ def build(x=0, y=0, angle=0, drill=True):
         else:
             A.append({'name': name + ': M1 folds the beam by exactly 90 deg', 'measured': turn(g['p0'], g['m1'], g['m2']),
                       'expected': 90., 'tolerance': 1e-7})
-            A.append({'name': name + ': M2 fold = 90 deg -+ 2 theta_B (|turn - 90| in deg; pre-tilted AOM input)',
+            A.append({'name': name + ': M2 fold = 90 deg (zero-order reference)',
                       'measured': abs(turn(g['m1'], g['m2'], g['aom']) - 90.), 'expected': KAPPA, 'tolerance': 1e-7})
             A.append({'name': name + ': M2 -> AOM >= KM100PM clearance (excess, mm)',
                       'measured': min(0., dist(g['m2'], g['aom']) - M2_TO_AOM_MIN[q['orient']]), 'expected': 0.,
                       'tolerance': 1e-7})
-        A.append({'name': name + ': +1 order leaves the AOM along a board axis (deg off axis)',
+        A.append({'name': name + ': undeflected zero order follows a board axis (deg off axis)',
                   'measured': min(g['lane_dir'] % 90, 90 - g['lane_dir'] % 90), 'expected': 0., 'tolerance': 1e-9})
         if name.startswith('C'):
             A.append({'name': name + ': output beam runs +x into its fiber head (deg)',
                       'measured': min(abs(g['lane_dir'] - OUT_DIR) % 360, 360 - abs(g['lane_dir'] - OUT_DIR) % 360),
                       'expected': 0., 'tolerance': 1e-9})
-            path_to_iris = dist(g['aom'], g['hwp']) + dist(g['hwp'], g['rot']) + dist(g['rot'], g['iris'])
-            A.append({'name': name + ': AOM -> iris path >= 81 mm (0/+1 separation >= 1.53 mm; shortfall mm)',
+            sequence = ['aom'] + g['output_sequence']
+            route = [g[key] for key in sequence]
+            iris_index = sequence.index('iris')
+            path_to_iris = sum(dist(a, b) for a, b in zip(route[:iris_index], route[1:iris_index+1]))
+            iris_to_front = sum(dist(a, b) for a, b in zip(route[iris_index:], route[iris_index+1:]))
+            for number, key in ((1, 'out_m1'), (2, 'out_m2')):
+                index = sequence.index(key)
+                before, point, after = route[index-1:index+2]
+                u = App.Vector(point[0]-before[0], point[1]-before[1], 0)
+                v = App.Vector(after[0]-point[0], after[1]-point[1], 0)
+                u.normalize()
+                v.normalize()
+                normal = output_mirrors[name, key].BasePlacement.Rotation.multVec(App.Vector(1, 0, 0))
+                reflected = u-normal*(2*u.dot(normal))
+                incidence = math.degrees(math.acos(min(1., abs(u.dot(normal)))))
+                A.append({'name': name + ': output mirror %d obeys specular reflection (vector error)' % number,
+                          'measured': (reflected-v).Length, 'expected': 0., 'tolerance': 1e-7})
+                A.append({'name': name + ': output mirror %d incidence <= 45 deg (excess)' % number,
+                          'measured': max(0., incidence-45.), 'expected': 0., 'tolerance': 1e-7})
+                A.append({'name': name + ': output mirror %d turns exactly 90 deg' % number,
+                          'measured': turn(before, point, after), 'expected': 90., 'tolerance': 1e-7})
+            A.append({'name': name + ': AOM -> iris mechanical path >= 81 mm (shortfall mm)',
                       'measured': min(0., path_to_iris - IRIS_L), 'expected': 0., 'tolerance': 1e-7})
             A.append({'name': name + ': HWP -> rotating-PBS RSP05', 'measured': dist(g['hwp'], g['rot']),
                       'expected': HWP_TO_ROT, 'tolerance': 1e-7})
             A.append({'name': name + ': iris -> output lens-tube front >= 30 mm (shortfall mm)',
-                      'measured': min(0., dist(g['iris'], g['front']) - IRIS_TO_FRONT_MIN[q['post']]),
+                      'measured': min(0., iris_to_front - IRIS_TO_FRONT_MIN[q['post']]),
                       'expected': 0., 'tolerance': 1e-7})
-            clamp_end = g['port'][0] + REAR_CLAMP_OFFSET + 10.
+            clamp_end = g['port'][0] + OUTPUT_REAR_CLAMP_OFFSETS[name] + 10.
             A.append({'name': name + ': output tail clamp within %g mm of the right plate edge (excess mm)' % PORT_EDGE,
                       'measured': max(0., right_edge - clamp_end - PORT_EDGE), 'expected': 0., 'tolerance': 0.05})
+            if name == 'C4':
+                A.append({'name': 'C4: rear-clamp pair centre retains its board XY position (mm)',
+                          'measured': dist((g['port'][0] + OUTPUT_REAR_CLAMP_OFFSETS[name], g['port'][1]),
+                                           (596.415072253436, 325.)),
+                          'expected': 0., 'tolerance': 1e-7})
         else:
-            A.append({'name': name + ': AOM -> iris (0/+1 separation 1.53 mm)', 'measured': dist(g['aom'], g['iris']),
+            A.append({'name': name + ': AOM -> iris mechanical spacing', 'measured': dist(g['aom'], g['iris']),
                       'expected': IRIS_L, 'tolerance': 1e-7})
             A.append({'name': name + ': AOM -> HWP', 'measured': dist(g['aom'], g['hwp']), 'expected': HWP_D,
                       'tolerance': 1e-7})

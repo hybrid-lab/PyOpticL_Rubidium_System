@@ -7267,11 +7267,14 @@ class square_mirror:
 
 class ViewProvider:
     def __init__(self, obj):
-        obj.Proxy = self
         self.Object = obj.Object
+        obj.Proxy = self
 
     def attach(self, obj):
-        return
+        # FreeCAD calls attach when restoring a saved view proxy without
+        # rerunning __init__. Rebind the actual owner so claimChildren can
+        # rebuild the component tree from its persisted ChildObjects links.
+        self.Object = obj.Object
 
     def getDefaultDisplayMode(self):
         return "Shaded"
@@ -9371,4 +9374,307 @@ def audit_machining(seat):
             and plate.Shape.isValid() and len(plate.Shape.Solids) == 1
             and all(c["status"] in ("pass", "not_applicable_outside_plate_xy")
                     for c in checks) else "fail"}
+
+
+# RSP05 front-face bonding geometry, measured from RSP05-Step.stl after the
+# rotation/translation in rotation_stage_rsp05.execute. Only the +X engraved
+# rotor face is supported here; the identity of the -X rear face is not assumed.
+RSP05_ROTOR_FACE_X = 7.747
+RSP05_BOND_PAD_CENTRE = 5.30
+RSP05_BOND_PAD_RADIUS = 0.40
+
+
+class RSP05CubeAdhesive:
+    """Four explicit corner bonds, outside the RSP05 clear aperture.
+
+    These model the assumed glue thickness and contact area, not adhesive
+    strength, cure shrinkage, or an optical-coating compatibility approval.
+    The pads occupy rotor radii 7.0953..7.8953 mm, clear of the bore and of
+    the engraved scale grooves (which start beyond radius 7.95 mm).
+    """
+    type = 'Part::FeaturePython'
+
+    def __init__(self, obj, thickness=0.2):
+        obj.Proxy = self
+        ViewProvider(obj.ViewObject)
+        obj.addProperty('App::PropertyLength', 'Thickness', 'Bond').Thickness = thickness
+        obj.ViewObject.ShapeColor = (0.85, 0.65, 0.2)
+        obj.ViewObject.Transparency = 30
+
+    def execute(self, obj):
+        thickness = float(obj.Thickness.Value)
+        if not 0.01 <= thickness <= 1.0:
+            raise ValueError('RSP05 adhesive thickness must be 0.01..1.0 mm')
+        obj.Shape = Part.makeCompound([
+            Part.makeCylinder(RSP05_BOND_PAD_RADIUS, thickness,
+                              App.Vector(0, sy*RSP05_BOND_PAD_CENTRE,
+                                         sz*RSP05_BOND_PAD_CENTRE),
+                              App.Vector(1, 0, 0))
+            for sy in (-1, 1) for sz in (-1, 1)])
+
+
+class rotation_stage_rsp05_bonded_cube(rotation_stage_rsp05):
+    """Original RSP05 and lip adapter, with a real 12.7 mm cube on its rotor.
+
+    Placement is the ORIGINAL RSP05 reference, not the cube optical centre.
+    At the default 0.2 mm glue thickness, the cube centre is local
+    (14.297, 0, 0), and the cube occupies x=7.947..20.647 mm. Local +X is
+    the supported bonding side. To put the cube upstream, rotate the whole
+    stage 180 degrees about world Z; do not attach to an unverified rear face.
+    CubeRoll rotates the cube and its adhesive about the optical axis while
+    leaving the fixed housing/adapter in place. The scale mesh is a static
+    representation; its engraving is not animated with CubeRoll.
+    """
+    def __init__(self, obj, invert=False, adapter_args=None, adapter=True,
+                 cube_size=12.7, adhesive_thickness=0.2, cube_roll_deg=0.,
+                 cube_part_number='', cube_invert=False):
+        if abs(float(cube_size)-12.7) > 1.e-6:
+            raise ValueError('This verified corner-bond geometry requires a 12.7 mm cube')
+        if not 0.01 <= float(adhesive_thickness) <= 1.0:
+            raise ValueError('RSP05 adhesive thickness must be 0.01..1.0 mm')
+        super().__init__(obj, invert=invert, adapter_args=dict(adapter_args or {}), adapter=adapter)
+        obj.addProperty('App::PropertyLength', 'AdhesiveThickness', 'Bond').AdhesiveThickness = adhesive_thickness
+        obj.addProperty('App::PropertyAngle', 'CubeRoll', 'Bond').CubeRoll = cube_roll_deg
+        obj.addProperty('App::PropertyLength', 'CubeCentreOffset', 'Bond').CubeCentreOffset = RSP05_ROTOR_FACE_X+adhesive_thickness+cube_size/2
+        obj.addProperty('App::PropertyString', 'BondAssumptions', 'Bond').BondAssumptions = (
+            '12.7 mm cube bonded to +X engraved rotating ring using four radius 0.40 mm '
+            'corner glue pads at y,z=+/-5.30 mm. Glue thickness is an assembly assumption; '
+            'bond strength, coating compatibility, and reflected-port clearance at arbitrary '
+            'roll angles are not certified. Full cube rotation clearance is checked separately.')
+        obj.setEditorMode('CubeCentreOffset', 1)
+        cube = _add_linked_object(obj, 'Bonded PBS cube', cube_splitter,
+                                 pos_offset=(float(obj.CubeCentreOffset.Value), 0, 0),
+                                 rot_offset=(cube_roll_deg, 0, 0), cube_size=cube_size,
+                                 invert=cube_invert, cube_part_number=cube_part_number,
+                                 mount_type=None)
+        glue = _add_linked_object(obj, 'PBS corner adhesive', RSP05CubeAdhesive,
+                                 pos_offset=(RSP05_ROTOR_FACE_X, 0, 0),
+                                 rot_offset=(cube_roll_deg, 0, 0), thickness=adhesive_thickness)
+        obj.addProperty('App::PropertyLink', 'BondedCube', 'Bond').BondedCube = cube
+        obj.addProperty('App::PropertyLink', 'BondedAdhesive', 'Bond').BondedAdhesive = glue
+
+    def _sync_bonded_parts(self, obj):
+        """Update dependants only when their physical parameters change.
+
+        Unconditional writes during execute retouch children that FreeCAD has
+        already recomputed, leaving the document permanently dirty. Ordinary
+        parameter edits are synchronized in onChanged, before recomputation;
+        execute retains this idempotent fallback for restored documents.
+        """
+        thickness = float(obj.AdhesiveThickness.Value)
+        if not 0.01 <= thickness <= 1.0 or abs(float(obj.BondedCube.CubeSize.Value)-12.7) > 1.e-6:
+            raise ValueError('Unsupported RSP05 bonded-cube dimensions')
+        centre = RSP05_ROTOR_FACE_X+thickness+6.35
+        if abs(float(obj.CubeCentreOffset.Value)-centre) > 1.e-9:
+            obj.CubeCentreOffset = centre
+        if abs(float(obj.BondedAdhesive.Thickness.Value)-thickness) > 1.e-9:
+            obj.BondedAdhesive.Thickness = thickness
+        rotation = App.Rotation(App.Vector(1, 0, 0), float(obj.CubeRoll.Value))
+        def same_placement(actual, expected):
+            delta = expected.inverse().multiply(actual)
+            return delta.Base.Length < 1.e-9 and abs(delta.Rotation.Angle) < 1.e-10
+
+        for child, x in ((obj.BondedCube, centre),
+                         (obj.BondedAdhesive, RSP05_ROTOR_FACE_X)):
+            relative = App.Placement(App.Vector(x, 0, 0), rotation)
+            if not same_placement(child.RelativePlacement, relative):
+                child.RelativePlacement = relative
+            if hasattr(obj, 'BasePlacement'):
+                base = obj.BasePlacement.multiply(relative)
+                if not same_placement(child.BasePlacement, base):
+                    child.BasePlacement = base
+
+    def onChanged(self, obj, prop):
+        if (prop in ('AdhesiveThickness', 'CubeRoll') and
+                getattr(obj, 'BondedCube', None) is not None and
+                getattr(obj, 'BondedAdhesive', None) is not None):
+            self._sync_bonded_parts(obj)
+
+    def execute(self, obj):
+        self._sync_bonded_parts(obj)
+        super().execute(obj)
+
+
+def audit_rsp05_bonded_cube(stage, foreign_objects=()):
+    """Check actual placed bond faces and a conservative 360-degree cube sweep.
+
+    Pass all nearby physical objects to foreign_objects (including the stage's
+    adapter); omit beam drawings, service-envelope visualizations, and machining
+    cutter objects. Actual mesh/shape triangles are clipped to the swept axial
+    slab before measuring their radial distance. Overlapping enclosing bounds
+    with no surface hit remain unresolved rather than being silently cleared.
+    This is a mechanical geometry check, not adhesive/optical certification.
+    """
+    if type(getattr(stage, 'Proxy', None)).__name__ != 'rotation_stage_rsp05_bonded_cube':
+        raise ValueError('Expected rotation_stage_rsp05_bonded_cube')
+    cube, glue = stage.BondedCube, stage.BondedAdhesive
+    inverse = stage.Placement.inverse()
+    thickness = float(stage.AdhesiveThickness.Value)
+    centre = RSP05_ROTOR_FACE_X+thickness+6.35
+    rotation = App.Rotation(App.Vector(1, 0, 0), float(stage.CubeRoll.Value))
+    checks, conflicts, unresolved = [], [], []
+
+    def check(name, ok, **evidence):
+        checks.append(dict(name=name, passed=bool(ok), **evidence))
+
+    for child, x in ((cube, centre), (glue, RSP05_ROTOR_FACE_X)):
+        actual = inverse.multiply(child.Placement)
+        expected = App.Placement(App.Vector(x, 0, 0), rotation)
+        delta = expected.inverse().multiply(actual)
+        check(child.Name+' actual placement', delta.Base.Length < 1.e-5 and
+              abs(delta.Rotation.Angle) < 1.e-7,
+              displacement_mm=float(delta.Base.Length), rotation_error_rad=float(delta.Rotation.Angle))
+    local_cube = cube.Shape.copy()
+    local_cube.Placement = App.Placement()
+    bound = local_cube.BoundBox
+    check('12.7 mm actual cube bounds', all(abs(v-12.7) < 1.e-5
+          for v in (bound.XLength, bound.YLength, bound.ZLength)),
+          dimensions_mm=[bound.XLength, bound.YLength, bound.ZLength])
+    local_glue = glue.Shape.copy()
+    local_glue.Placement = App.Placement()
+    placed_cube = cube.Shape.copy()
+    placed_cube.Placement = inverse.multiply(placed_cube.Placement)
+    placed_glue = glue.Shape.copy()
+    placed_glue.Placement = inverse.multiply(placed_glue.Placement)
+    expected_volume = 4*pi*RSP05_BOND_PAD_RADIUS**2*thickness
+    check('Four actual corner adhesive solids', len(local_glue.Solids) == 4 and
+          abs(local_glue.Volume-expected_volume) < 1.e-6,
+          solids=len(local_glue.Solids), volume_mm3=float(local_glue.Volume),
+          expected_volume_mm3=expected_volume)
+
+    # Use the actual imported rotor's planar triangles, not a surrogate annulus.
+    points, faces = stage.Mesh.Topology
+    points = [inverse.multVec(p) for p in points]
+    rotor_faces = []
+    for indices in faces:
+        vertices = [points[i] for i in indices]
+        if (all(abs(p.x-RSP05_ROTOR_FACE_X) < 2.e-5 for p in vertices) and
+                all(7.04 < hypot(p.y, p.z) < 10.80 for p in vertices)):
+            # STL single-precision coordinates place this face at 7.74700015;
+            # snap only the measured axial plane within the stated tolerance.
+            vertices = [App.Vector(RSP05_ROTOR_FACE_X, p.y, p.z) for p in vertices]
+            rotor_faces.append(Part.Face(Part.makePolygon(vertices+[vertices[0]])))
+    for sy in (-1, 1):
+        for sz in (-1, 1):
+            point = rotation.multVec(App.Vector(0, sy*RSP05_BOND_PAD_CENTRE,
+                                                sz*RSP05_BOND_PAD_CENTRE))
+            point.x = RSP05_ROTOR_FACE_X
+            disk = Part.Face(Part.Wire([Part.makeCircle(RSP05_BOND_PAD_RADIUS, point, App.Vector(1, 0, 0))]))
+            area = sum(face.common(disk).Area for face in rotor_faces
+                       if face.BoundBox.intersect(disk.BoundBox))
+            check('Rotor contact pad %s,%s' % (sy, sz), abs(area-disk.Area) < 2.e-4,
+                  contact_area_mm2=float(area), adhesive_end_area_mm2=float(disk.Area))
+            glue_area = placed_glue.common(disk).Area
+            check('Actual adhesive rotor-side contact %s,%s' % (sy, sz),
+                  abs(glue_area-disk.Area) < 2.e-4, contact_area_mm2=float(glue_area))
+            near_cube_disk = disk.copy()
+            near_cube_disk.translate(App.Vector(thickness, 0, 0))
+            cube_area = placed_cube.common(near_cube_disk).Area
+            glue_far_area = placed_glue.common(near_cube_disk).Area
+            check('Actual cube-glue contact %s,%s' % (sy, sz),
+                  abs(cube_area-disk.Area) < 2.e-4 and abs(glue_far_area-disk.Area) < 2.e-4,
+                  cube_contact_area_mm2=float(cube_area), adhesive_contact_area_mm2=float(glue_far_area))
+    check('Cube-glue axial contact without metal overlap', thickness > 0 and
+          abs(centre-6.35-(RSP05_ROTOR_FACE_X+thickness)) < 1.e-8,
+          rotor_face_local_x_mm=RSP05_ROTOR_FACE_X,
+          cube_near_face_local_x_mm=centre-6.35, metal_to_glass_gap_mm=thickness)
+
+    xmin, xmax, radius = centre-6.35, centre+6.35, 6.35*sqrt(2)
+
+    def clip(poly, plane, sign):
+        out = []
+        for a, b in zip(poly, poly[1:]+poly[:1]):
+            da, db = sign*(a.x-plane), sign*(b.x-plane)
+            if da >= 0:
+                out.append(a)
+            if (da >= 0) != (db >= 0):
+                out.append(a+(b-a)*(da/(da-db)))
+        return out
+
+    def radial_distance(poly):
+        # Distance from (0,0) to a convex polygon in the local YZ plane.
+        signs, best = [], float('inf')
+        for a, b in zip(poly, poly[1:]+poly[:1]):
+            dy, dz = b.y-a.y, b.z-a.z
+            cross = a.y*b.z-a.z*b.y
+            if abs(cross) > 1.e-10:
+                signs.append(cross > 0)
+            denominator = dy*dy+dz*dz
+            t = max(0., min(1., -(a.y*dy+a.z*dz)/denominator)) if denominator else 0.
+            best = min(best, hypot(a.y+t*dy, a.z+t*dz))
+        return 0. if len(poly) >= 3 and signs and all(s == signs[0] for s in signs) else best
+
+    checked, broad_phase_cleared, detailed_surface_checked = [], [], []
+    excluded = {cube.Name, glue.Name}
+    own_parts, pending, seen = [], [stage], set()
+    while pending:
+        obj = pending.pop()
+        if obj.Name not in seen:
+            seen.add(obj.Name)
+            own_parts.append(obj)
+            pending.extend(getattr(obj, 'ChildObjects', []))
+    candidates = {obj.Name: obj for obj in own_parts+list(foreign_objects) if obj.Name not in excluded}
+    for obj in candidates.values():
+        if hasattr(obj, 'Mesh') and obj.Mesh.CountPoints:
+            geometry, is_mesh, uncertainty = obj.Mesh, True, 0.
+        elif hasattr(obj, 'Shape') and not obj.Shape.isNull():
+            geometry, is_mesh, uncertainty = obj.Shape, False, 0.05
+        else:
+            continue
+        checked.append(obj.Name)
+        # Geometry.BoundBox already includes the object's actual placement.
+        # Transform all eight corners of that containing world AABB. Its
+        # stage-frame AABB remains conservative at every stage orientation.
+        # In particular, the drilled plate and distant high-resolution AOM
+        # meshes need no tessellation/topology allocation to establish separation.
+        bound = geometry.BoundBox
+        corners = [inverse.multVec(App.Vector(x, y, z))
+                   for x in (bound.XMin, bound.XMax)
+                   for y in (bound.YMin, bound.YMax)
+                   for z in (bound.ZMin, bound.ZMax)]
+        broad_lo = [min(getattr(v, k) for v in corners) for k in ('x', 'y', 'z')]
+        broad_hi = [max(getattr(v, k) for v in corners) for k in ('x', 'y', 'z')]
+        if (broad_hi[0] < xmin-uncertainty or broad_lo[0] > xmax+uncertainty or
+                broad_hi[1] < -radius-uncertainty or broad_lo[1] > radius+uncertainty or
+                broad_hi[2] < -radius-uncertainty or broad_lo[2] > radius+uncertainty):
+            broad_phase_cleared.append(obj.Name)
+            continue
+        detailed_surface_checked.append(obj.Name)
+        vertices, triangles = geometry.Topology if is_mesh else geometry.tessellate(0.05)
+        vertices = [inverse.multVec(p) for p in vertices]
+        if not vertices:
+            unresolved.append(dict(object=obj.Name, label=obj.Label,
+                                   reason='Overlapping actual geometry returned no surface vertices'))
+            continue
+        lo = [min(getattr(v, k) for v in vertices) for k in ('x', 'y', 'z')]
+        hi = [max(getattr(v, k) for v in vertices) for k in ('x', 'y', 'z')]
+        if (hi[0] < xmin-uncertainty or lo[0] > xmax+uncertainty or
+                hi[1] < -radius-uncertainty or lo[1] > radius+uncertainty or
+                hi[2] < -radius-uncertainty or lo[2] > radius+uncertainty):
+            continue
+        hit = False
+        for indices in triangles:
+            polygon = [vertices[i] for i in indices]
+            polygon = clip(polygon, xmin-uncertainty, 1)
+            polygon = clip(polygon, xmax+uncertainty, -1) if polygon else []
+            if polygon and radial_distance(polygon) <= radius+uncertainty:
+                conflicts.append(dict(object=obj.Name, label=obj.Label,
+                                      reason='Actual surface intersects full cube rotation envelope',
+                                      tessellation_allowance_mm=uncertainty))
+                hit = True
+                break
+        if not hit and all(lo[i] <= v <= hi[i] for i, v in enumerate((centre, 0., 0.))):
+            unresolved.append(dict(object=obj.Name, label=obj.Label,
+                                   reason='Object bounds enclose sweep centre; solid containment needs verification'))
+    return dict(schema='rsp05_bonded_cube/1', stage=stage.Name, cube=cube.Name, adhesive=glue.Name,
+                passed=all(c['passed'] for c in checks) and not conflicts and not unresolved,
+                checks=checks, rotation_envelope_conflicts=conflicts, unresolved=unresolved,
+                checked_physical_objects=checked,
+                broad_phase_cleared_objects=broad_phase_cleared,
+                detailed_surface_checked_objects=detailed_surface_checked,
+                cube_centre_offset_mm=centre, adhesive_thickness_mm=thickness,
+                full_rotation_envelope_local=dict(x_range_mm=[xmin, xmax], radius_mm=radius),
+                rotor_face_stl_axial_tolerance_mm=2.e-5,
+                assumptions=[str(stage.BondAssumptions),
+                             'Foreign-object sweep is limited to the physical objects supplied by the caller.'])
 

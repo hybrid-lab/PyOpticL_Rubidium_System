@@ -122,8 +122,22 @@ def export_board(doc, info, report, output_directory, fcstd_directory=None, *,
         raise ValueError('KM05T heads require their explicit mounting and service audit')
     if km05t_report is not None and km05t_report.get('passed') is not True:
         raise ValueError('Resolve KM05T mounting/service audit failures before export')
+    has_bonded_cube = any(o.get('class') == 'rotation_stage_rsp05_bonded_cube' for o in report['objects'])
+    if has_bonded_cube and report.get('bonded_cube_audit', {}).get('passed') is not True:
+        raise ValueError('Bonded output cubes need passing contact and full-rotation clearance checks')
+    reference = info.get('optical_reference_model', {})
+    zero_reference = report.get('zero_order_reference_model')
+    if reference.get('kind') == 'zero_order_reference_model' or zero_reference is not None:
+        output_optics = report.get('engineering', {}).get('output_optics', {})
+        if (not zero_reference or zero_reference.get('passed') is not True or
+                zero_reference.get('declaration') != reference or
+                output_optics.get('status') != 'not_applicable_rf_off_zero_order_reference' or
+                output_optics.get('nominal_feasible') is not None):
+            raise ValueError('RF-off zero-order geometry needs its passing model audit and explicit inapplicable RF-on screening')
     if info.get('mode') == 'ta' and report.get('table_envelope', {}).get('passed') is not True:
         raise ValueError('TA plate needs a passing table/cable envelope audit')
+    if info.get('mode') == 'splitting' and report.get('installation_envelope', {}).get('passed') is not True:
+        raise ValueError('Splitting plate needs a passing hardware/service table envelope audit')
     issues = {key: value for key, value in report['summary_counts'].items()
               if value and key not in ('outside_plate_xy', 'bbox_overlap_candidates', 'unrelated_beam_proximity')}
     if issues:
@@ -161,13 +175,16 @@ def export_board(doc, info, report, output_directory, fcstd_directory=None, *,
                else str(km05t_source)+' (external audit runtime)')
         source_files[key] = km05t_source
     for key, filename in (('table_envelope', 'table_envelope_audit.py'),
-                          ('mesh_candidate_refinement', 'refine_mesh_candidates.py')):
+                          ('mesh_candidate_refinement', 'refine_mesh_candidates.py'),
+                          ('bonded_cube_audit', 'bonded_cube_audit.py'),
+                          ('zero_order_reference_model', 'zero_order_reference_audit.py'),
+                          ('installation_envelope', 'splitting_table_envelope_audit.py')):
         if key in report:
             source_files['tools/'+filename] = repo/'tools'/filename
     report['source_provenance'] = {name: hashlib.sha256(path.read_bytes()).hexdigest()
                                    for name, path in source_files.items()}
     report['freecad_version'] = list(App.Version())
-    for key in ('fiber_tail_pairs', 'lane_geometry', 'beam_crossings'):
+    for key in ('fiber_tail_pairs', 'lane_geometry', 'beam_crossings', 'bonded_output_pbs'):
         if key in info:
             report[key] = info[key]
     for name, data in ((stem+'_validation.json', report), (stem+'_holes.json', hole_census(plate)),

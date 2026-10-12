@@ -32,7 +32,7 @@ _MIRRORS = {'circular_mirror', 'circular_mirror_union_optic'}
 _AXIAL_BODIES = {
     'TA_butterfly', 'TA_butterfly_on_adapter', 'isolator_850',
     'isolator_850_long_pocket', 'shutter_sr475', 'AOMO_3100_125',
-    'pinhole_ida12', 'rotation_stage_rsp05',
+    'pinhole_ida12', 'rotation_stage_rsp05', 'rotation_stage_rsp05_bonded_cube',
     'SlidingCellEnclosure',
 }
 _CELL_PARTS = {'SlidingCellEnclosure', 'SlidingCellLid', 'SlidingCellCover', 'SlidingCellGlass'}
@@ -303,6 +303,14 @@ def _center_and_axis(root):
     center = placement.Base
     if _kind(root) in _FIBER_ROOTS:
         center = center + direction*18.798
+    elif _kind(root) == 'rotation_stage_rsp05_bonded_cube':
+        # Explicit centre of the real linked 12.7 mm cube. Do not reuse the
+        # former empty-mount 0.5 mm optical-plane placeholder.
+        offset = float(root.CubeCentreOffset.Value)
+        expected = 7.747+float(root.AdhesiveThickness.Value)+6.35
+        if abs(offset-expected) > _EPS:
+            raise ValueError('Inconsistent RSP05 bonded-cube optical centre')
+        center = placement.multVec(App.Vector(offset, 0, 0))
     elif _kind(root) == 'rotation_stage_rsp05' and hasattr(root, 'OpticalPlaneOffset'):
         # Splitting mounts sit 0.5 mm behind the declared bonded-optic plane,
         # matching the offset of an RSP05 child of a waveplate.
@@ -358,6 +366,14 @@ def _exception(obj, root, segment, geometry, embedded_verified=False):
     if _knob(obj) or root is None or not _on_axis(root, segment):
         return None
     kind = _kind(obj)
+    if kind == 'RSP05CubeAdhesive' and _kind(root) == 'rotation_stage_rsp05_bonded_cube':
+        # The four actual pads sit at radius >=7.095 mm for every cube roll.
+        # Only this registered axial ray can pass through their XY shadow;
+        # foreign rays and every separately modeled control remain checked.
+        if segment['radius_mm'] < 7.09:
+            return ('Four RSP05 corner adhesive pads outside the intended axial beam '
+                    '(minimum radial clearance 7.095 mm); actual rotor contact and full '
+                    'cube rotation envelope require audit_rsp05_bonded_cube.')
     if _kind(root) == 'SlidingCellEnclosure' and kind in _CELL_PARTS:
         if kind == 'SlidingCellCover':
             return ('UNMACHINED V9.7 end cover: the current solid BLOCKS this ray. '
@@ -573,7 +589,7 @@ def audit(doc, info):
             except Exception as exc:
                 report['geometry_errors'].append(dict(_ref(obj), error=repr(exc),
                                                       consequence='Complete mesh checked; no KM support exception.'))
-        if kind not in (_OPTICS | _MIRRORS | _AXIAL_BODIES | _FIBER_ROOTS | _APERTURE_PARTS | _KM_BODIES | _CELL_PARTS) and not knob:
+        if kind not in (_OPTICS | _MIRRORS | _AXIAL_BODIES | _FIBER_ROOTS | _APERTURE_PARTS | _KM_BODIES | _CELL_PARTS | {'RSP05CubeAdhesive'}) and not knob:
             report['assumptions'].append({'object': obj.Name, 'proxy': kind,
                                           'assumption': 'No verified axial-aperture rule; entire physical projection checked.'})
 

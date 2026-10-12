@@ -1,7 +1,7 @@
 {
-  "document": "TA_Fold_Trial2",
+  "document": "TA_Tails_HalfInch",
   "mode": "ta",
-  "layout_status": "V9.10 folded AOM output; see the saved audit report for results.",
+  "layout_status": "V9.11 folded AOM output; see the saved audit report for results.",
   "plate_size_mm": [
     355.59999999999997,
     419.09999999999997,
@@ -9,11 +9,11 @@
   ],
   "plate_valid": true,
   "plate_solid_count": 1,
-  "plate_volume_mm3": 3222107.9755343734,
+  "plate_volume_mm3": 3222107.975534371,
   "objects": [
     {
-      "name": "TA_plate_V9_10_14_x_16_5_in",
-      "label": "TA_plate_V9_10_14_x_16_5_in",
+      "name": "TA_plate_V9_11_14_x_16_5_in",
+      "label": "TA_plate_V9_11_14_x_16_5_in",
       "type": "Part::FeaturePython",
       "state": [
         "Up-to-date"
@@ -3440,14 +3440,14 @@
     },
     {
       "name": "Reflected KA05T rear-hole axis to left plate edge (mm)",
-      "measured": 60.627000000000024,
-      "expected": 60.627,
+      "measured": 47.92700000000002,
+      "expected": 47.927,
       "tolerance": 0.1
     },
     {
       "name": "AOM-branch KA05T rear-hole axis to right plate edge (mm)",
-      "measured": 80.27499999999995,
-      "expected": 80.275,
+      "measured": 67.57499999999995,
+      "expected": 67.575,
       "tolerance": 0.1
     },
     {
@@ -3494,7 +3494,7 @@
     ]
   ],
   "restore_info": {
-    "plate": "TA_plate_V9_10_14_x_16_5_in",
+    "plate": "TA_plate_V9_11_14_x_16_5_in",
     "roots": {
       "TA": "TA",
       "TA steering fold 1": "TA_steering_fold_1",
@@ -3938,14 +3938,14 @@
       },
       {
         "name": "Reflected KA05T rear-hole axis to left plate edge (mm)",
-        "measured": 60.627000000000024,
-        "expected": 60.627,
+        "measured": 47.92700000000002,
+        "expected": 47.927,
         "tolerance": 0.1
       },
       {
         "name": "AOM-branch KA05T rear-hole axis to right plate edge (mm)",
-        "measured": 80.27499999999995,
-        "expected": 80.275,
+        "measured": 67.57499999999995,
+        "expected": 67.575,
         "tolerance": 0.1
       },
       {
@@ -4138,7 +4138,7 @@
   },
   "engineering": {
     "scope": "Nominal CAD engineering checks, not a physical no-obstruction certification",
-    "document": "TA_Fold_Trial2",
+    "document": "TA_Tails_HalfInch",
     "mode": "ta",
     "assembly_contacts_checked": true,
     "units": "mm",
@@ -5619,15 +5619,15 @@
       },
       {
         "name": "Reflected KA05T rear-hole axis to left plate edge (mm)",
-        "measured": 60.627000000000024,
-        "expected": 60.627,
+        "measured": 47.92700000000002,
+        "expected": 47.927,
         "tolerance": 0.1,
         "status": "pass"
       },
       {
         "name": "AOM-branch KA05T rear-hole axis to right plate edge (mm)",
-        "measured": 80.27499999999995,
-        "expected": 80.275,
+        "measured": 67.57499999999995,
+        "expected": 67.575,
         "tolerance": 0.1,
         "status": "pass"
       },
@@ -6058,7 +6058,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 3,
         "screened_samples": 97195,
-        "elapsed_seconds": 0.36
+        "elapsed_seconds": 0.516
       },
       {
         "arm": 1,
@@ -6209,7 +6209,7 @@
     },
     "pbs_paths": {
       "scope": "Nominal PBS T/R paths and actual CAD cue orientation; no polarization or physical transmission certification",
-      "document": "TA_Fold_Trial2",
+      "document": "TA_Tails_HalfInch",
       "mode": "ta",
       "formula": "a_norm = yaw + 180 + Proxy.reflection_angle; R = 2*a_norm - incoming - 180; T = incoming (degrees)",
       "cad_cue_formula": "Diagonal slot tangent = yaw - Proxy.reflection_angle, from original cube_splitter.execute",
@@ -6518,7 +6518,7 @@
     "result": "Issues or unresolved candidates recorded; review evidence and stated exclusions"
   },
   "fiber_clearance": {
-    "document": "TA_Fold_Trial2",
+    "document": "TA_Tails_HalfInch",
     "mode": "ta",
     "assumptions": {
       "clamp_length_mm": 10.0,
@@ -6529,8 +6529,8 @@
       "tessellation_deflection_mm": 0.04,
       "contact_tolerance_mm": 1e-05,
       "rear_offsets_mm": [
-        46.0,
-        54.0
+        58.7,
+        66.7
       ]
     },
     "fibers": [
@@ -6546,16 +6546,16 @@
           -0.0
         ],
         "rear_offsets_mm": [
-          46.0
+          58.7
         ],
         "hole_pairs_xy_mm": [
           [
             [
-              272.15,
+              284.85,
               24.336
             ],
             [
-              272.15,
+              284.85,
               42.664
             ]
           ]
@@ -6567,38 +6567,38 @@
         "clamp_bands_xy_mm": [
           [
             [
-              262.15,
+              274.85,
               3.5
             ],
             [
-              282.15,
+              294.85,
               3.5
             ],
             [
-              282.15,
+              294.85,
               63.5
             ],
             [
-              262.15,
+              274.85,
               63.5
             ]
           ]
         ],
         "clamp_reserved_span_xy_mm": [
           [
-            262.15,
+            274.85,
             3.5
           ],
           [
-            282.15,
+            294.85,
             3.5
           ],
           [
-            282.15,
+            294.85,
             63.5
           ],
           [
-            262.15,
+            274.85,
             63.5
           ]
         ],
@@ -6640,16 +6640,16 @@
           0.0
         ],
         "rear_offsets_mm": [
-          54.0
+          66.7
         ],
         "hole_pairs_xy_mm": [
           [
             [
-              63.802,
+              51.102,
               187.664
             ],
             [
-              63.802,
+              51.102,
               169.336
             ]
           ]
@@ -6661,38 +6661,38 @@
         "clamp_bands_xy_mm": [
           [
             [
-              73.802,
+              61.102,
               208.5
             ],
             [
-              53.802,
+              41.102,
               208.5
             ],
             [
-              53.802,
+              41.102,
               148.5
             ],
             [
-              73.802,
+              61.102,
               148.5
             ]
           ]
         ],
         "clamp_reserved_span_xy_mm": [
           [
-            73.802,
+            61.102,
             208.5
           ],
           [
-            53.802,
+            41.102,
             208.5
           ],
           [
-            53.802,
+            41.102,
             148.5
           ],
           [
-            73.802,
+            61.102,
             148.5
           ]
         ],
@@ -6760,7 +6760,7 @@
     "passed": true
   },
   "service_clearance": {
-    "document": "TA_Fold_Trial2",
+    "document": "TA_Tails_HalfInch",
     "mode": "ta",
     "settings": {
       "tessellation_deflection_mm": 0.04,
@@ -7013,7 +7013,7 @@
     "passed": true
   },
   "hole_clearance": {
-    "document": "TA_Fold_Trial2",
+    "document": "TA_Tails_HalfInch",
     "mode": "ta",
     "plate_drilled": true,
     "plate_top_z_mm": -12.7,
@@ -7174,14 +7174,14 @@
         "kind": "fiber_tail_8_32",
         "label": "AOM branch output KA05T rear -1",
         "center_xy_mm": [
-          272.15,
+          284.85,
           24.336
         ],
         "reserved_radius_mm": 3.7272,
         "owner": "AOM_branch_output_KA05T",
         "source": "AOM_branch_output_KA05T",
         "metadata": {
-          "rear_offset_mm": 46.0,
+          "rear_offset_mm": 58.7,
           "side": -1
         },
         "within_plate_xy": true
@@ -7190,14 +7190,14 @@
         "kind": "fiber_tail_8_32",
         "label": "AOM branch output KA05T rear +1",
         "center_xy_mm": [
-          272.15,
+          284.85,
           42.664
         ],
         "reserved_radius_mm": 3.7272,
         "owner": "AOM_branch_output_KA05T",
         "source": "AOM_branch_output_KA05T",
         "metadata": {
-          "rear_offset_mm": 46.0,
+          "rear_offset_mm": 58.7,
           "side": 1
         },
         "within_plate_xy": true
@@ -7206,14 +7206,14 @@
         "kind": "fiber_tail_8_32",
         "label": "Reflected branch output KA05T rear -1",
         "center_xy_mm": [
-          63.802,
+          51.102,
           187.664
         ],
         "reserved_radius_mm": 3.7272,
         "owner": "Reflected_branch_output_KA05T",
         "source": "Reflected_branch_output_KA05T",
         "metadata": {
-          "rear_offset_mm": 54.0,
+          "rear_offset_mm": 66.7,
           "side": -1
         },
         "within_plate_xy": true
@@ -7222,14 +7222,14 @@
         "kind": "fiber_tail_8_32",
         "label": "Reflected branch output KA05T rear +1",
         "center_xy_mm": [
-          63.802,
+          51.102,
           169.336
         ],
         "reserved_radius_mm": 3.7272,
         "owner": "Reflected_branch_output_KA05T",
         "source": "Reflected_branch_output_KA05T",
         "metadata": {
-          "rear_offset_mm": 54.0,
+          "rear_offset_mm": 66.7,
           "side": 1
         },
         "within_plate_xy": true
@@ -14265,7 +14265,7 @@
   },
   "pbs_path_check": {
     "scope": "Nominal PBS T/R paths and actual CAD cue orientation; no polarization or physical transmission certification",
-    "document": "TA_Fold_Trial2",
+    "document": "TA_Tails_HalfInch",
     "mode": "ta",
     "formula": "a_norm = yaw + 180 + Proxy.reflection_angle; R = 2*a_norm - incoming - 180; T = incoming (degrees)",
     "cad_cue_formula": "Diagonal slot tangent = yaw - Proxy.reflection_angle, from original cube_splitter.execute",
@@ -16329,7 +16329,7 @@
   },
   "table_envelope": {
     "schema": "table_envelope_audit/1",
-    "document": "TA_Fold_Trial2",
+    "document": "TA_Tails_HalfInch",
     "coordinate_frame": "Plate-local XY; board short edge is along X, cable exits +Y.",
     "table_size_mm": [
       381.0,
@@ -19199,7 +19199,7 @@
         ]
       },
       {
-        "name": "TA_plate_V9_10_14_x_16_5_in",
+        "name": "TA_plate_V9_11_14_x_16_5_in",
         "kind": "physical_plate",
         "bounds_xy_mm": [
           3.1749999999999154,
@@ -20338,101 +20338,55 @@
     },
     "model_unchanged": true
   },
-  "cell_travel_endpoint_checks": {
-    "slide_0_mm": {
-      "summary_counts": {
-        "bbox_overlap_candidates": 0,
-        "confirmed_part_intersections": 0,
-        "outside_plate_xy": 8,
-        "confirmed_mesh_contacts": 0,
-        "centerline_intersections": 0,
-        "finite_beam_sample_intersections": 0,
-        "geometry_errors": 0,
-        "beam_definition_errors": 0,
-        "aom_aperture_failures": 0,
-        "aom_plate_penetration_issues": 0,
-        "unresolved_mesh_pair_checks": 0,
-        "unresolved_bbox_candidates": 0,
-        "unrelated_beam_proximity": 0,
-        "adjustment_mirror_failures": 0,
-        "isolator_input_failures": 0,
-        "pbs_path_failures": 0,
-        "nonorthogonal_beam_segments": 0,
-        "dual_leakage_interception_failures": 0,
-        "unresolved_design_requirements": 0,
-        "lens_reservation_failures": 0,
-        "cylindrical_hole_failures": 0,
-        "integral_adapter_failures": 0,
-        "geometry_assertion_failures": 0,
-        "drill_cut_issues": 0,
-        "output_order_feasibility_issues": 0,
-        "fiber_clearance_issues": 0,
-        "service_clearance_issues": 0,
-        "hole_clearance_issues": 0
-      },
-      "projection_counts": {
-        "segments": 26,
-        "physical_objects": 90,
-        "tested_object_segment_pairs": 2339,
-        "ray_crossings": 0,
-        "thumbscrew_projection_hits": 0,
-        "foreign_hardware_projection_conflicts": 0,
-        "hull_only_candidates": 0,
-        "unresolved_candidates": 0,
-        "geometry_errors": 0,
-        "optical_exceptions": 105,
-        "embedded_adjustment_parts": 4,
-        "documented_unmachined_cell_covers": 2
-      }
+  "cell_slide_endpoint_validation": {
+    "slide_mm": 10.5,
+    "summary_counts": {
+      "bbox_overlap_candidates": 0,
+      "confirmed_part_intersections": 0,
+      "outside_plate_xy": 8,
+      "confirmed_mesh_contacts": 0,
+      "centerline_intersections": 0,
+      "finite_beam_sample_intersections": 0,
+      "geometry_errors": 0,
+      "beam_definition_errors": 0,
+      "aom_aperture_failures": 0,
+      "aom_plate_penetration_issues": 0,
+      "unresolved_mesh_pair_checks": 0,
+      "unresolved_bbox_candidates": 0,
+      "unrelated_beam_proximity": 0,
+      "adjustment_mirror_failures": 0,
+      "isolator_input_failures": 0,
+      "pbs_path_failures": 0,
+      "nonorthogonal_beam_segments": 0,
+      "dual_leakage_interception_failures": 0,
+      "unresolved_design_requirements": 0,
+      "lens_reservation_failures": 0,
+      "cylindrical_hole_failures": 0,
+      "integral_adapter_failures": 0,
+      "geometry_assertion_failures": 0,
+      "drill_cut_issues": 0,
+      "output_order_feasibility_issues": 0,
+      "fiber_clearance_issues": 0,
+      "service_clearance_issues": 0,
+      "hole_clearance_issues": 0
     },
-    "slide_10p5_mm": {
-      "summary_counts": {
-        "bbox_overlap_candidates": 0,
-        "confirmed_part_intersections": 0,
-        "outside_plate_xy": 8,
-        "confirmed_mesh_contacts": 0,
-        "centerline_intersections": 0,
-        "finite_beam_sample_intersections": 0,
-        "geometry_errors": 0,
-        "beam_definition_errors": 0,
-        "aom_aperture_failures": 0,
-        "aom_plate_penetration_issues": 0,
-        "unresolved_mesh_pair_checks": 0,
-        "unresolved_bbox_candidates": 0,
-        "unrelated_beam_proximity": 0,
-        "adjustment_mirror_failures": 0,
-        "isolator_input_failures": 0,
-        "pbs_path_failures": 0,
-        "nonorthogonal_beam_segments": 0,
-        "dual_leakage_interception_failures": 0,
-        "unresolved_design_requirements": 0,
-        "lens_reservation_failures": 0,
-        "cylindrical_hole_failures": 0,
-        "integral_adapter_failures": 0,
-        "geometry_assertion_failures": 0,
-        "drill_cut_issues": 0,
-        "output_order_feasibility_issues": 0,
-        "fiber_clearance_issues": 0,
-        "service_clearance_issues": 0,
-        "hole_clearance_issues": 0
-      },
-      "projection_counts": {
-        "segments": 26,
-        "physical_objects": 90,
-        "tested_object_segment_pairs": 2339,
-        "ray_crossings": 0,
-        "thumbscrew_projection_hits": 0,
-        "foreign_hardware_projection_conflicts": 0,
-        "hull_only_candidates": 0,
-        "unresolved_candidates": 0,
-        "geometry_errors": 0,
-        "optical_exceptions": 105,
-        "embedded_adjustment_parts": 4,
-        "documented_unmachined_cell_covers": 2
-      },
-      "mechanical_projection_passed": true
+    "projection_counts": {
+      "segments": 26,
+      "physical_objects": 90,
+      "tested_object_segment_pairs": 2339,
+      "ray_crossings": 0,
+      "thumbscrew_projection_hits": 0,
+      "foreign_hardware_projection_conflicts": 0,
+      "hull_only_candidates": 0,
+      "unresolved_candidates": 0,
+      "geometry_errors": 0,
+      "optical_exceptions": 105,
+      "embedded_adjustment_parts": 4,
+      "documented_unmachined_cell_covers": 2
     },
-    "method": "Independent rebuild at each slide endpoint; all physical geometry checked."
+    "mechanical_projection_passed": true,
+    "table_envelope_passed": true,
+    "bad_object_states": []
   },
   "optical_path_readiness": "blocked_by_unmachined_cell_covers",
   "required_follow_up": [
@@ -20450,7 +20404,7 @@
     "file": "StepFile/TA_Board_V9_baseplate_14x16p5in.step",
     "valid": true,
     "solids": 1,
-    "volume_ratio": 1.00000000000005,
+    "volume_ratio": 1.0000000000000504,
     "actual_dimensions_mm": [
       349.2500000000021,
       412.7500000000001,
@@ -20458,12 +20412,12 @@
     ]
   },
   "source_provenance": {
-    "optomech.py": "b28aa83b5dcb244d048c27a298f38a56e4fc6657fb439a55fcd722f87f44a5c7",
+    "optomech.py": "5e5c840fd3771b3608afd15ca6a14ed1b983d8ae29384e0858da6d0568c78c85",
     "PyOpticL/layout.py (external runtime)": "189b7b649c99cdbc97c1815ad9ca53b1a52030bc9166c4fbf857d7a1ee7f7771",
-    "Rubidium_system/TA_Baseplate_V9.py": "0c636f5612b90f891543a2d8d4403579cf43479350b1b41571f16804d41aaa2c",
-    "tools/ta_projection_audit.py": "326f287c5202f3628f04d9c7ccb7addf9693d03e673a2d1e1bfd295cccc5726c",
-    "tools/export_ta_board.py": "42795152179ab17cdbaf772383a79f020974bbb7a4f365fa9207b5e5884e0ea8",
-    "tools/render_ta_documents.py": "a30c511cb98f06a0a2ae83152faf11cab89635409ee2dc81e84122caed3e164e",
+    "Rubidium_system/TA_Baseplate_V9.py": "2ab144f8e00ba444a0ca8a8ac5e0c0ee716ded3af7bef38947eb881d65d5d413",
+    "tools/ta_projection_audit.py": "9f680f1216a508b1cd6d02cbafa915fd7f2a2f44198abce1a535a0452990c7b5",
+    "tools/export_ta_board.py": "a5333228189c52f87feb110d93214c26d7ce15457c04fba1a51a134afb51ecd7",
+    "tools/render_ta_documents.py": "878c9ba2f30d061478f8ff636d8dc02c7294f950b6fa231dc339aaa02ca7d6af",
     "tools/test_ta_projection.py": "cd798283de9e3ef7bd2eb09fa77726a03f2188187f73a1ff0e9307c28a1acf81",
     "tools/table_envelope_audit.py": "b17a600b27a9574ba4d083f23d7c21a4a58055c6b2cbaa5e18860d9ce778a045"
   },
@@ -20478,13 +20432,517 @@
     "145529fe741292ff0b3977a01195bf0247425794"
   ],
   "fcstd_round_trip": {
-    "file": "TA_Board_V9.FCStd",
-    "object_count": 115,
-    "original_object_count": 115,
-    "plate_valid": true,
-    "solid_count": 1,
-    "volume_ratio": 1.0,
+    "objects": 115,
+    "valid": true,
+    "solids": 1,
+    "volume": 3222107.975534371,
     "bad_states": [],
-    "optomech_source": "C:\\Users\\Haotian Xu\\Documents\\Codex\\2026-10-11\\https-github-com-hybrid-lab-pyopticl-2\\work\\repo\\optomech.py"
+    "view_provider_bindings": [
+      {
+        "name": "Mount_Hole__0__3_",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Mount_Hole__13__0_",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Mount_Hole__0__15_",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Mount_Hole__9__15_",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "TA",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "TA_adapter",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "TA_steering_fold_1",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Mount",
+        "bound": true,
+        "children": 2
+      },
+      {
+        "name": "Upper_Thumbscrew",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Lower_Thumbscrew",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "TA_steering_fold_2",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Mount001",
+        "bound": true,
+        "children": 2
+      },
+      {
+        "name": "Upper_Thumbscrew001",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Lower_Thumbscrew001",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "TA_output_HWP",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Mount002",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Surface_Adapter",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Hana_long_isolator",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Surface_Adapter001",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "TA_output_QWP",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Mount003",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Surface_Adapter002",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Common_post_isolator_fold_1",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Mount004",
+        "bound": true,
+        "children": 2
+      },
+      {
+        "name": "Upper_Thumbscrew002",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Lower_Thumbscrew002",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Common_post_isolator_fold_2",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Mount005",
+        "bound": true,
+        "children": 2
+      },
+      {
+        "name": "Upper_Thumbscrew003",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Lower_Thumbscrew003",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Common_post_isolator_fold_3",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Mount006",
+        "bound": true,
+        "children": 2
+      },
+      {
+        "name": "Upper_Thumbscrew004",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Lower_Thumbscrew004",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Common_post_isolator_fold_4",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Mount007",
+        "bound": true,
+        "children": 2
+      },
+      {
+        "name": "Upper_Thumbscrew005",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Lower_Thumbscrew005",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Rb_cell_enclosure__sliding_lower_half__slide_0_0_mm_",
+        "bound": true,
+        "children": 4
+      },
+      {
+        "name": "Rb_cell_enclosure_lid__upper_half_",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Rb_cell_enclosure_cover__x",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Rb_cell_enclosure_cover__x001",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Rb_vapour_cell_GC25075_RB__envelope_",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Main_power_division_HWP",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Mount008",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Surface_Adapter003",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Main_power_PBS",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Mount009",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "TA_AOMO_3100_125",
+        "bound": true,
+        "children": 2
+      },
+      {
+        "name": "Mount_KM100PM",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "AOM_Adapter",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "SRS_SR475_shutter",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Adapter",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "AOM_branch_output_steering_mirror",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Mount010",
+        "bound": true,
+        "children": 2
+      },
+      {
+        "name": "Upper_Thumbscrew006",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Lower_Thumbscrew006",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "AOM_branch_compacting_fold_7",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Mount011",
+        "bound": true,
+        "children": 2
+      },
+      {
+        "name": "Upper_Thumbscrew007",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Lower_Thumbscrew007",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Reflected_branch_fold_6",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Mount012",
+        "bound": true,
+        "children": 2
+      },
+      {
+        "name": "Upper_Thumbscrew008",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Lower_Thumbscrew008",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "AOM_branch_output_first_LA1289_B",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Mount013",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "AOM_branch_output_second_LA1540_B",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Mount014",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "AOM_branch_output_HWP",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Mount015",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Surface_Adapter004",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "AOM_branch_empty_rotating_PBS_RSP05",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Surface_Adapter005",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "AOM_branch_output_filtering_iris",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Slide_Mount",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "AOM_branch_output_KA05T",
+        "bound": true,
+        "children": 5
+      },
+      {
+        "name": "Mount016",
+        "bound": true,
+        "children": 2
+      },
+      {
+        "name": "Upper_Thumbscrew009",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Lower_Thumbscrew009",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Fiber_Adapter",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Lens_Tube",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Lens_Adapter",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Lens",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Reflected_branch_output_first_LA1289_B",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Mount017",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Reflected_branch_output_second_LA1540_B",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Mount018",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Reflected_branch_output_HWP",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Mount019",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Surface_Adapter006",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Reflected_branch_empty_rotating_PBS_RSP05",
+        "bound": true,
+        "children": 1
+      },
+      {
+        "name": "Surface_Adapter007",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Reflected_branch_output_KA05T",
+        "bound": true,
+        "children": 5
+      },
+      {
+        "name": "Mount020",
+        "bound": true,
+        "children": 2
+      },
+      {
+        "name": "Upper_Thumbscrew010",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Lower_Thumbscrew010",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Fiber_Adapter001",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Lens_Tube001",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Lens_Adapter001",
+        "bound": true,
+        "children": 0
+      },
+      {
+        "name": "Lens001",
+        "bound": true,
+        "children": 0
+      }
+    ]
   }
 }

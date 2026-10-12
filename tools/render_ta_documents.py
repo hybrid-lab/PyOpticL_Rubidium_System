@@ -9,7 +9,7 @@ Example::
     python tools/render_ta_documents.py --report TA_validation.json \
         --holes TA_holes.json --edges TA_plate_edges.json \
         --output-dir Production/TABoardV9 --stem TA_Board_V9 \
-        --step-name TA_Board_V9_baseplate_14x17p5in.step --title "TA board V9.8"
+        --step-name TA_Board_V9_baseplate_14x16p5in.step --title "TA board V9.11"
 
 Inputs follow board_tools.inspect_board and the run_split2.py hole/edge dumps.
 Dimensions, hole positions, thread types and quantities are read from those
@@ -45,6 +45,7 @@ ELEMENTS = {
     "mirror_mount_M05": "Newport M05 mirror mount",
     "circular_mirror_union_optic": "1/2 in mirror (BB05-E03 or equivalent)",
     "rotation_stage_rsp05": "RSP05 rotation mount",
+    "rotation_stage_rsp05_bonded_cube": "RSP05 rotation mount",
     "cube_splitter": "PBS cube 12.7 mm",
     "fiberport_mount_KA05T_holes": "KA05T fiber port mount",
     "fiberport_mount_km05T": "KM05T fiber port mount",
@@ -70,6 +71,7 @@ ELEMENTS = {
 NON_BOM_CLASSES = {
     "baseplate", "IntegralAOMBaseplate", "IntegralAOMSeat", "BareTappedHole",
     "CellPocketMachining", "SlidingCellSeat", "mirror_mount_KA05T", "mirror_mount_km05T",
+    "RSP05CubeAdhesive",  # modelled bond layer, not a separately purchased part
     "beam_path", "beam_path_manual",
 }
 
@@ -158,6 +160,8 @@ def build_bom(report, holes, title, step_name, source_name, sheet_name):
             unknown[cls] += 1
     if unknown:
         raise ValueError(f"Unmapped physical classes in BOM; review before publishing: {dict(unknown)}")
+    # Only the legacy bare RSP05 needs an unmodelled cube allowance. The bonded
+    # subclass has a real cube_splitter child, counted in the object inventory.
     empty_pbs = sum(o.get("class") == "rotation_stage_rsp05" and
                     any(word in o.get("label", "").lower() for word in ("empty", "rotating")) and
                     "pbs" in o.get("label", "").lower() for o in objects)
@@ -200,6 +204,15 @@ def build_bom(report, holes, title, step_name, source_name, sheet_name):
         notes.append("KM05T mounts are counted once at each fiber assembly root; their mirror-mount child is not counted again. The lip adapters and optical subparts are listed separately.")
     if report.get("mode") == "splitting":
         notes.append("The splitting-board optical model assumes an f ~4.5 mm fiber collimation lens in each head. C220TMD-A is the retained CAD envelope, not the specified optical prescription. Confirm the actual lens and beam size before operation.")
+    reference = report.get("optical_reference_model") or {}
+    if (reference.get("kind") == "zero_order_reference_model" and
+            reference.get("aom_rf_state") == "off" and
+            type(reference.get("modeled_order")) is int and reference["modeled_order"] == 0 and
+            finite(reference.get("diffraction_angle_deg")) and
+            abs(reference["diffraction_angle_deg"]) <= 1.e-10):
+        notes.append("Optical reference: AOM RF off, straight-through zero order. RF-on first-order propagation, order rejection and fiber-coupling performance are not evaluated for this layout.")
+        if classes["RSP05CubeAdhesive"]:
+            notes.append("The bonded PBS cubes are modelled and counted once above. Their modelled corner adhesive pads describe the assumed bond geometry and are not separate procurement items. Adhesive selection, bond strength and coating compatibility require assembly engineering.")
     if classes["CellPocketMachining"]:
         notes.append("The reserved cell pocket is machining only. No cell enclosure is included in the installed component counts.")
     if classes["SlidingCellEnclosure"]:

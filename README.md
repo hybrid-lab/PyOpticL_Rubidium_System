@@ -125,9 +125,10 @@ If you use this work in academic settings, please also cite:
 # Rb-87 795 nm lattice laser system — branch `gpt+claude+Haotian`
 
 Three baseplates for the 795 nm lattice light, designed in September 2026 by
-Haotian Xu with GPT (Codex) and Claude. The current TA revision is **V9.10**
-(2026-10-12): a 14 × 16.5 in layout with an added mirror folding the long AOM
-output leg across the bottom. It is 5 in shorter than V9.9, reducing plate area
+Haotian Xu with GPT (Codex) and Claude. The current TA revision is **V9.11**
+(2026-10-12): the two fiber tail-clamp pairs move 12.7 mm farther behind their
+heads, retaining the V9.10 optical layout and 14 × 16.5 in plate. The AOM
+output leg folds across the bottom. It is 5 in shorter than V9.9, reducing plate area
 by 23.26%. The TA cable leaves the upper short edge; the direct-fiber branch
 still has one steering mirror, and the full V9.7 sliding cell enclosure is
 retained. Including every modelled hardware protrusion and a full 4 in
@@ -139,13 +140,16 @@ cell end covers still need beam apertures before optical operation.
 Since 2026-10-09 the branch also carries a fourth, independent board, the
 **Splitting Board V2** (24 × 14 in): one fiber in, HWP → PBS splits 1 → 2 → 4
 with a single-pass AOM after every stage (1 + 2 + 4 AOMs), four fibers out on
-one short edge. The 2026-10-12 revision replaces all five fiber heads with
-KM05T assemblies on lip adapters while keeping every optical coordinate.
+one short edge. The current 2026-10-12 design uses five KM05T assemblies on
+lip adapters, two output steering mirrors per final lane, and four modelled
+12.7 mm PBS cubes bonded to their rotating stages. It is an **AOM RF-off,
+zero-order reference layout**: every beam leg follows a board axis, and all
+23 mirrors have 45° incidence. The RF-on first-order paths are not validated.
 
 | Board | Script | Size | Production folder |
 |---|---|---|---|
 | Lattice board | `Rubidium_system/Lattice_Baseplate_V9.py` | 24 × 15 in | `Production/LatticeBoardV9/` |
-| TA board (V9.10) | `Rubidium_system/TA_Baseplate_V9.py` | 14 × 16.5 in | `Production/TABoardV9/` |
+| TA board (V9.11) | `Rubidium_system/TA_Baseplate_V9.py` | 14 × 16.5 in | `Production/TABoardV9/` |
 | Double-pass AOM board | `Rubidium_system/AOM_DoublePass_Baseplate_V9.py` | 17 × 6 in | `Production/AOMDoublePassV9/` |
 | Splitting board (1 → 2 → 4 AOMs) | `Rubidium_system/Splitting_Board_V2.py` | 24 × 14 in | `Production/SplittingBoardV2/` |
 
@@ -172,13 +176,15 @@ The changes relative to `yajur-branch` are described below:
 
 **Modified — `optomech.py`**: the code above the banner
 `Rb-87 795 nm lattice laser system - components added on this branch` is
-inherited from yajur-branch, with one narrow, opt-in exception added on
-2026-10-12: `surface_adapter_fiberport_lip` accepts `hole_config='mount_only'`.
-This mode omits the optional Y-shape pattern while retaining the two adapter
-mounting taps and the separately controlled rear-pair flags. Splitting turns
-all three rear-pair flags off. The adapter mesh, all existing hole modes and
-their defaults are unchanged. The classes and helpers added below the banner
-are:
+inherited from yajur-branch, with two narrow changes added on 2026-10-12.
+`surface_adapter_fiberport_lip` accepts `hole_config='mount_only'`, which omits
+the optional Y-shape pattern while retaining the two adapter mounting taps
+and the separately controlled rear-pair flags. Splitting turns all three
+rear-pair flags off. The adapter mesh, all existing hole modes and their
+defaults are unchanged. `ViewProvider` also binds its owning object before
+proxy assignment and again in `attach`, so reopening an FCStd restores the
+component tree; this changes no part geometry. The classes and helpers added
+below the banner are:
 
 - `lens_holder_l05g_no_pin_slots` — POLARIS-L05G without the two 5 × 2 × 2.2 mm
   alignment-pin slots, so the holder can sit anywhere without extra plate
@@ -193,6 +199,12 @@ are:
 - `BareTappedHole` — an 8-32 tap-drill location with no mount, optic or
   counterbore, used for positions whose holder is not yet chosen and for the
   revised Splitting board's ten explicit fiber tail-clamp taps.
+- `rotation_stage_rsp05_bonded_cube` / `RSP05CubeAdhesive` /
+  `audit_rsp05_bonded_cube` — the inherited RSP05 mesh and lip adapter with a
+  real 12.7 mm PBS cube on its engraved rotating face. Four corner adhesive
+  pads per cube model a 0.2 mm bond layer. The audit checks the actual bond
+  contacts and the cube's full rotation envelope against supplied physical
+  parts. It does not certify adhesive strength or optical-coating compatibility.
 - `SlidingCellEnclosure` / `SlidingCellLid` / `SlidingCellCover` /
   `SlidingCellGlass` / `SlidingCellSeat` / `place_sliding_cell` (V9.5, split in
   V9.6, two end screws and closed stem pocket in V9.7) — the Rb cell enclosure
@@ -207,7 +219,7 @@ are:
   direction. All dimensions live in the `SLIDING_CELL` dict and are exported
   with the parts (`Production/CellEnclosure/`). The V9.2–V9.4 pocket-only seat
   (`CellPocketMachining` / `place_cell_pocket`) stays in the library for legacy
-  layouts. The V9.10 TA board uses the full, unchanged V9.7 enclosure and
+  layouts. The V9.11 TA board uses the full, unchanged V9.7 enclosure and
   sliding seat, including the unfinished end covers.
 - `IntegralAOMSeat` / `integrate_aom` / `_make_IntegralAOMBaseplate` — the AOM
   seat machined directly into the baseplate (no lower surface adapter), with a
@@ -220,8 +232,8 @@ The component variants are new classes. The adapter's additional
 other boards retain their existing geometry and default drilling patterns.
 
 **Added — four board scripts** in `Rubidium_system/`, listed in the table above
-(`Splitting_Board_V2.py` since 2026-10-09; it uses only classes that are already
-in `optomech.py`).
+(`Splitting_Board_V2.py` since 2026-10-09; its KM05T heads use the inherited
+classes and its bonded output cubes use the new RSP05 subclass above).
 
 **Added — four `Production/` folders** (`Production/SplittingBoardV2/` since
 2026-10-09), each holding the top and 3D renders,
@@ -250,6 +262,16 @@ checks; these are required by the exporter whenever KM05T heads are present.
 `tools/refine_mesh_candidates.py` can resolve an otherwise inconclusive mesh
 pair only when its actual XY convex hulls are strictly separated beyond the
 tessellation uncertainties; the original checks and counts remain in the report.
+`tools/bonded_cube_audit.py` checks registered bonded cubes and resolves only
+their intended axial glass traversal when the actual placement, aperture and
+bond/rotation checks supply the matching evidence. `tools/zero_order_reference_audit.py`
+requires the explicit RF-off model, verifies zero deflection through all seven
+AOMs and checks every mirror's 45° incidence and axis-aligned beam legs. It
+archives the older RF-on optical calculation as inapplicable to this reference
+model; mechanical, aperture and projection checks remain active. It does not
+claim RF-on first-order feasibility. `tools/splitting_table_envelope_audit.py`
+checks the physical assembly and its service reservations against a 28 × 15 in
+platform by continuous translation; mounting-grid alignment is a separate check.
 
 **Unchanged:** the inherited `stl/` meshes, including the existing KM05T and
 fiberport lip-adapter meshes; every other script in `Rubidium_system/`; and
@@ -312,7 +334,7 @@ each half, so the covers also tie the halves together. The covers carry **no
 beam aperture yet** — it is to be opened later on the bore axis.
 
 The placement coordinates and board directions in this enclosure description
-refer to the lattice board. The V9.10 TA board reuses these parts at its own
+refer to the lattice board. The V9.11 TA board reuses these parts at its own
 placement, recorded in its script and validation report.
 
 The enclosure slides across the beam and is held by a screw at each end. The
@@ -366,7 +388,7 @@ The 10 in bolt-pair limit above applies to the lattice board. The compact TA
 board has its own table-grid mounting pattern in `TA_Baseplate_V9.py` and the
 current tapping sheet.
 
-**TA board (14 × 16.5 in, V9.10, 2026-10-12).** The nominal outline is
+**TA board (14 × 16.5 in, V9.11, 2026-10-12).** The nominal outline is
 355.6 × 419.1 mm; the machined plate outline is
 349.25 × 412.75 × 25.4 mm after the standard edge inset. Compared with V9.9,
 the plate is 5 in shorter and its area is reduced by 23.26%. The TA emits right
@@ -397,16 +419,19 @@ exits the left edge. Both telescope spacings and the order of every existing
 optic are unchanged. The added fold raises the board's mirror count from
 eight to nine; its mount and adjusters clear the optical paths.
 
-Rear fiber-clamp hole pairs are 46 mm behind the AOM output head and 54 mm
-behind the direct output head. Both reserve the full 60 × 20 mm clamp footprint
+Rear fiber-clamp hole pairs are 58.7 mm behind the AOM output head and 66.7 mm
+behind the direct output head, each 12.7 mm farther back than V9.10. These four
+hole positions are the only TA geometry changes in V9.11; every optical
+component, mounting hole and plate dimension is otherwise retained.
+Both reserve the full 60 × 20 mm clamp footprint
 and a 20 mm-wide fiber corridor to the edge; the AOM RF elbow reserves
 40 × 20 mm, exceeding the 1.5 in (38.1 mm) axial requirement. The measured
-clearances are recorded in the V9.10 validation report. The V9.7 cell end covers
+clearances are recorded in the V9.11 validation report. The V9.7 cell end covers
 are opaque in the supplied model: their
 beam apertures must be designed and machined before the board can transmit
 light through the cell.
 
-Current V9.10 machining model:
+Current V9.11 machining model:
 [TA_Board_V9_baseplate_14x16p5in.step](Production/TABoardV9/StepFile/TA_Board_V9_baseplate_14x16p5in.step).
 The earlier
 [14 × 21.5 in V9.9 STEP](Production/TABoardV9/StepFile/TA_Board_V9_baseplate_14x21p5in.step),
@@ -414,7 +439,7 @@ The earlier
 and
 [25 × 14 in STEP](Production/TABoardV9/StepFile/TA_Board_V9_baseplate_25x14in.step)
 are retained as legacy models. The top/3D renders, BOM, tapping sheet,
-hole inventory and validation report in `Production/TABoardV9/` describe V9.10.
+hole inventory and validation report in `Production/TABoardV9/` describe V9.11.
 The [installation-clearance plan](Production/TABoardV9/TA_Board_V9_table_clearance.png)
 shows the beam routes, cable reservations and measured platform envelope.
 
@@ -424,41 +449,55 @@ iris, retro mirror; the return line runs 74 mm above the input line through a
 steering mirror, HWP, rotating PBS and iris into a KA05T.
 
 **Splitting board (24 × 14 in, V2, revised 2026-10-12).** One KM05T input on the left
-short edge, seven G&H AOMO 3100-125 in single pass (+1 order) on integral
-seats, three HWP → PBS splits and four KM05T outputs, all four on the right
-short edge (output 1 at the top):
+short edge, seven G&H AOMO 3100-125 on integral seats, three HWP → PBS splits
+and four KM05T outputs, all four pointing +X through the right short edge
+(output 1 at the top). The model has **RF off and follows the straight-through
+zero order** at every AOM:
 
     input KM05T -> A:  M1, AOM, iris, HWP, PBS
         A transmitted -> B1: M1, M2, AOM, iris, HWP, PBS
-            B1 transmitted -> C1: FR, M1, M2, AOM, HWP, rotating-PBS RSP05, iris -> output 4
-            B1 reflected   -> C2:     M1, M2, AOM, HWP, rotating-PBS RSP05, iris -> output 3
+            B1 transmitted -> C1: FR, M1, M2, AOM, HWP, bonded PBS, output fold, iris, output fold -> output 4
+            B1 reflected   -> C2:     M1, M2, AOM, output fold, output fold, HWP, bonded PBS, iris -> output 3
         A reflected   -> B2: M1, M2, AOM, iris, HWP, PBS
-            B2 transmitted -> C3:     M1, M2, AOM, HWP, rotating-PBS RSP05, iris -> output 2
-            B2 reflected   -> C4: FR, M1, M2, AOM, HWP, rotating-PBS RSP05, iris -> output 1
+            B2 transmitted -> C3:     M1, M2, AOM, output fold, output fold, HWP, bonded PBS, iris -> output 2
+            B2 reflected   -> C4: FR, M1, M2, AOM, output fold, output fold, HWP, bonded PBS, iris -> output 1
 
-Every mirror is a Newport M05 at 45° incidence (a 90° fold); the one right in
-front of each AOM (A: M1, the others: M2) works at 45 ± 0.54° and takes the
-2θ_B = 1.08° Bragg deflection, so every +1 order leaves its AOM along a board
-axis. A has one mirror (the input head is itself adjustable), B1, B2, C2 and
-C3 have two. The two outputs of a PBS always leave perpendicular to each
-other, so one output of each pair (C1, C4) needs one extra 45° fold (FR) in
-its feed to reach the common output edge. The KM05T replacement preserves all
-seven beam paths, their component order and their zero-crossing geometry.
-The fresh projection and clearance audits check the wider lip adapters and
-actual KM05T hardware. They detect no beam crossing, knob projection hit or
-foreign-hardware projection conflict. No beam may pass over or under a knob
-or another element's hardware.
-The A and B lanes keep the lattice
-spacing (AOM → iris 81 mm, → HWP 98 mm, → PBS 121 mm). Each output lane runs
-AOM → HWP (RSP05) → an empty RSP05 for a user-bonded rotating PBS (mount only)
-→ IDA12 iris → ≥ 30 mm → KM05T (iris → lens-tube front 30 mm on outputs 1
-and 4, about 42 mm on outputs 2 and 3, staggered against the neighbouring
-row), with AOM → iris ≥ 81 mm so that the 0 order is at least 1.53 mm off axis
-at the iris. AOMs A, B1, B2, C2 and C4 are in orientation D (KM100PM
-downstream), C1 and C3 in U; every AOM retains its 40 × 20 mm RF-elbow
-reservation, exceeding the 1.5 in (38.1 mm) axial requirement
-(B2, C4 and C1 point theirs off the plate edge). The four output tail clamps
-end at the right plate edge, within 0.5 mm of each other. Table bolts: two per
+All 23 steering mirrors use Newport M05 mounts at exactly 45° incidence,
+giving 90° folds and horizontal or vertical beam legs. This includes the
+mirrors immediately before the AOMs; there is no Bragg-compensation angle in
+this RF-off layout. A has one input steering mirror (the input head itself
+is adjustable); B1, B2, C2 and C3 have two, while C1 and C4 also have an FR
+feed fold. Each C lane adds two output steering mirrors. C1 keeps its HWP and
+bonded PBS on the AOM row, then folds through an iris on the vertical leg
+before the second fold sends the beam to its fiber. C2–C4 put both added folds
+before the HWP and bonded PBS. No beam may pass beneath a knob, even when the
+parts are separated in height; the final geometry must satisfy the full
+mechanical and XY-projection checks.
+
+The layout includes edge overhangs from eight knobs and the C1 FR/M1 mount
+bodies. Their conservative body bounding boxes extend about 6.44 mm beyond
+the plate, while their actual bottom support surfaces protrude about 1.60 mm.
+About 98.4% of each bottom footprint remains supported and the mounting-tap
+centres are about 8.93 mm inside the edge. These are geometric support
+measurements, not a certification of mount strength or stiffness; the final
+report records the accepted overhangs separately from collisions.
+
+The A and B lanes keep AOM → iris 81 mm, → HWP 98 mm and → PBS 121 mm.
+The output HWP and second RSP05 **stage references** are 32 mm apart. Each
+second stage is turned 180° so that the cube bonds to the supported engraved
+rotating face on the upstream side. With the 0.2 mm adhesive layer, the cube
+centre is 14.297 mm upstream of that stage reference; it is an actual optical
+solid rather than an empty mount. The four 12.7 mm cubes each have four
+modelled corner adhesive pads. Bond strength, cure behaviour and coating
+compatibility still require assembly engineering. The model does not validate
+RF-on first-order propagation, diffraction efficiency, order rejection or
+fiber-coupling performance. In particular, the iris is centred on the zero
+order here and does not reject it.
+
+AOMs A, B1, B2, C2 and C4 are in orientation D (KM100PM downstream); C1 and
+C3 are in U. Each AOM retains its 40 × 20 mm RF-elbow reservation, exceeding
+the 1.5 in (38.1 mm) axial requirement. The four output tail clamps end at
+the right plate edge. Table bolts: two per
 short side, 7 in apart and centred on the short edge, the two columns 22 in
 apart — STEP-file coordinates (13.41, 88.90), (13.41, 266.70), (572.21, 88.90),
 (572.21, 266.70). The original V2 layout was found with a 2-D footprint model
@@ -470,18 +509,29 @@ All five heads use the existing `fiberport_mount_km05T` assembly and the
 unchanged [Surface_Adapter_fiberport_lip.step](Production/Adapters/Stepfile/Surface_Adapter_fiberport_lip.step).
 The lens tube, fiber adapter, lens adapter and lens-envelope positions match
 the former KA05T assembly. Each lip adapter drills only its two mounting taps;
-two separate `BareTappedHole` features preserve each original tail-clamp pair
-76 mm behind the head, spaced 18.328 mm apart. The optional Y-shape and
+two separate `BareTappedHole` features place each tail-clamp pair, spaced
+18.328 mm apart. The input and C1–C3 heads keep a 76 mm rear offset. The C4
+head moves 32 mm right toward its existing pair, reducing its offset to
+44 mm while keeping the pair centre at board coordinates (596.415072, 325) mm.
+C3's output row moves to Y = 207 mm, including its head and tail-clamp pair;
+its rear offset remains 76 mm. No additional rear extension is introduced.
+The optional Y-shape and
 52.7/72.7/82.7 mm rear-pair patterns are disabled. The board still reserves a
 20 × 40 mm tail-clamp area and a 20 mm straight fiber corridor. Clamps are not
 modelled parts. The BOM counts five KM05T mounts, five separate lip adapters,
-their optical subparts and the four PBS cubes to be bonded to the empty RSP05
-mounts. C220TMD-A remains a CAD envelope; the optical design assumes an
+their optical subparts, seven actual PBS cubes (three splitting cubes and four
+bonded output cubes), and eleven RSP05 stages (seven for waveplates and four
+for the bonded cubes). The four modelled output cubes replace the former
+manual allowance for four unmodelled cubes; they are not counted twice.
+C220TMD-A remains a CAD envelope; the optical design assumes an
 f ≈ 4.5 mm fiber collimation lens.
 
 The [layout illustration](Production/SplittingBoardV2/Splitting_Board_V2_layout_model.png),
-top/3D renders, STEP, BOM, tapping sheet and validation report have all been
-regenerated for the current KM05T revision.
+top/3D renders, STEP, BOM, tapping sheet and validation report all describe
+the current RF-off reference layout. The illustration shows conservative XY
+envelopes and service reservations; overlapping rectangles are not evidence
+of a physical collision. The final STEP is a valid single solid measuring
+603.25 × 349.25 × 25.4 mm.
 
 ## Positions with nothing installed yet
 
@@ -500,7 +550,7 @@ that set lie on the input beam axis by design — empty holes 12.7 mm below the
 beam, usable only with that beam absent or the f = 300 chain's first fold
 removed.
 
-Both the lattice and V9.10 TA boards carry the V9.7 enclosure described above.
+Both the lattice and V9.11 TA boards carry the V9.7 enclosure described above.
 Its end covers have no beam apertures yet and currently block the optical
 axis. Heater/insulation and the glass retention they provide are not modelled.
 
@@ -524,22 +574,21 @@ sizes, tolerances, material and finish are left to the shop):
 | Part | Sheet | Tapped | Not tapped |
 |---|---|---|---|
 | Lattice baseplate (V9.7) | `Production/LatticeBoardV9/Lattice_V9_7_baseplate_TAP_or_NOT.pdf` | 100 × #8-32 | 4 × 1/4-20 table-bolt clearance |
-| TA baseplate (V9.10) | `Production/TABoardV9/TA_Board_V9_baseplate_TAP_or_NOT.pdf` | 55 × #8-32 | 4 × 1/4-20 table-bolt clearance |
+| TA baseplate (V9.11) | `Production/TABoardV9/TA_Board_V9_baseplate_TAP_or_NOT.pdf` | 55 × #8-32 | 4 × 1/4-20 table-bolt clearance |
 | Double-pass AOM baseplate | `Production/AOMDoublePassV9/AOM_DoublePass_V9_baseplate_TAP_or_NOT.pdf` | 22 × #8-32 | 3 × 1/4-20 clearance |
-| Splitting baseplate (V2, KM05T) | `Production/SplittingBoardV2/Splitting_Board_V2_baseplate_TAP_or_NOT.pdf` | 77 × #8-32 | 4 × 1/4-20 table-bolt clearance |
+| Splitting baseplate (V2, RF-off reference) | `Production/SplittingBoardV2/Splitting_Board_V2_baseplate_TAP_or_NOT.pdf` | 85 × #8-32 | 4 × 1/4-20 table-bolt clearance |
 | TA adapter (`stl/TA_adapter.stl`) | `Production/Adapters/TA_adapter_TAP_or_NOT.pdf` | 4 × M2.5 × 0.45 (board screws) | 4 × 8-32 clearance (to the plate taps) |
 | AOM adapter (`stl/aom_adapter.stl`) | `Production/Adapters/AOM_adapter_TAP_or_NOT.pdf` | 2 × M4 × 0.7 | 4 × clearance, in a row |
 
-The final machined-solid inventories contain 59 hole axes on TA V9.10 and
-81 on the KM05T Splitting board. The latter replaces five KA05T mounting taps
-with ten lip-adapter taps, increasing the tapped-hole count from 72 to 77;
-all ten original tail-clamp taps remain at their original coordinates.
+The final machined-solid inventories contain 59 hole axes on TA V9.11 and
+89 on the RF-off Splitting board. Splitting has eight more tapped holes than
+the preceding KM05T export, one for each added output steering mirror.
 
 Every hole in the part is marked on its sheet; the rounded corners inside the
 milled pockets are R3.175 end-mill fillets, not holes. `Production/Adapters/`
 also holds the historical `V9_7_tapping_sheets_all.pdf`, the five sheets in one
 file (the V9.7 lattice sheet and the four V9.3 sheets). Its TA page describes
-the legacy plate; use the current V9.10 TA sheet linked above. The hole
+the legacy plate; use the current V9.11 TA sheet linked above. The hole
 coordinates of every sheet are listed on it (plates: STEP-file coordinates;
 adapters: from the part's lower-left corner).
 
@@ -556,7 +605,7 @@ the XY projections of actual placed hardware, including mirror knobs;
 vertical separation never excuses a beam beneath a knob. Any accepted
 overhang, optical exception or unresolved candidate is listed in that report,
 along with the current station, clamp and service clearances.
-At both cell travel endpoints (0 and 10.5 mm), V9.10 has zero detected beam
+At both cell travel endpoints (0 and 10.5 mm), V9.11 has zero detected beam
 crossings, knob projection hits, foreign-hardware projection conflicts,
 part contacts, unresolved candidates, clamp/service conflicts and hole-access
 issues. The projection check covers 26 beam segments, 90 physical objects
@@ -598,14 +647,43 @@ are archived only when that independent hole check supplies matching evidence.
 Its results appear as `fiber_clearance`, `fiber_installation`,
 `service_clearance`, `hole_clearance` and the combined `km05t_audit` gate in
 [the Splitting validation report](Production/SplittingBoardV2/Splitting_Board_V2_validation.json).
-All four checks pass for five KM05T heads, five lip adapters, ten tail holes
-and ten adapter mounting holes. The final projection report has zero ray
-crossings, knob hits or foreign-hardware conflicts. Three formerly unresolved
-mesh pairs are now proven separated by actual XY convex-hull gaps of
-5.498833, 8.681311 and 7.079230 mm; the original records remain archived under
-`mesh_candidate_refinement`. All engineering issue counts are zero, with
-eleven resolved bounding-box candidates and twelve recorded overhang entries
-retained as evidence. Each AOM keeps its 40 mm RF reservation, above 38.1 mm.
+The current RF-off design also requires the explicit zero-order/45° checks,
+the four actual bonded-cube contact and rotation-envelope audits, and the
+platform-envelope check described above. These checks pass for all seven
+AOMs, all 23 mirrors and all four bonded cubes. The full report has zero
+detected mechanical, aperture, fiber-installation, service, hole-access or
+unresolved-candidate issues. Projection checks cover 55 beam segments,
+198 physical objects and 12,187 object/segment pairs, with zero ray crossings,
+knob hits or foreign-hardware conflicts. The minimum beam-edge/knob projection
+margin is 0.520322 mm, between the C4 route and C3 M1's lower knob. A deliberate
+beam beneath an elevated KM100PM knob is correctly rejected without changing
+the model. RF-on first-order readiness remains unevaluated; a mechanical and
+zero-order reference pass does not establish RF-on optical performance.
+
+Ten conservative edge-overhang entries are retained: eight knobs and the
+two C1 mirror bodies described above. The occupied assembly and service
+envelope is 609.6 × 379.354756 mm (24 × 14.935227 in). It fits the 28 × 15 in
+platform by continuous translation, leaving 101.6 mm in length and only
+1.645244 mm in total width. Table-hole grid alignment, outside-plate fiber
+routing and overhang strength are not certified by this envelope check.
+
+The saved FCStd reopens with 244 objects, unchanged placements and object
+names, no object error states, and a valid single-solid plate with unchanged
+volume. Its external `PyOpticL.layout.ViewProvider` raises an `Object`
+attribute error when restoring the plate's tree view. This is a remaining
+runtime tree-view limitation; the stored plate geometry and placements pass
+their independent checks. The STEP round trip also preserves a valid single
+solid and its volume.
+
+The preceding KM05T-only revision passed all four fiber-related checks for
+five heads, five lip adapters, ten tail holes and ten adapter mounting holes.
+Its projection report had zero ray crossings, knob hits or foreign-hardware
+conflicts. Three formerly unresolved mesh pairs were proven separated by
+actual XY convex-hull gaps of 5.498833, 8.681311 and 7.079230 mm; the original
+records remain archived under `mesh_candidate_refinement`. Its engineering
+issue counts were zero, with eleven resolved bounding-box candidates and
+twelve recorded overhang entries. These are historical results and do not
+establish clearance for the new mirrors and bonded cubes.
 
 For historical reference, the 2026-10-09 KA05T report recorded no contact,
 intersection, beam-crossing or clearance issue. Its accepted items were
@@ -620,6 +698,41 @@ local development tooling. The TA projection, export and document-generation
 helpers and the Splitting KM05T audit are included in `tools/`.
 
 ## Change log
+
+**Splitting board V2 (2026-10-12, RF-off reference and output steering)** —
+adds two steering mirrors to each of the four output lanes, bringing the total
+to 23. Every mirror now has exactly 45° incidence, and all beam legs follow
+the board axes with each AOM modelled off in straight-through order zero.
+Four actual 12.7 mm PBS cubes replace the empty output RSP05 positions; each
+is bonded to the engraved rotor using four modelled 0.2 mm adhesive pads.
+The HWP and second-stage references are 32 mm apart. C1's added folds straddle
+its iris after the HWP/PBS; C2–C4 put both folds before their HWP/PBS.
+The 24 × 14 in plate, five KM05T heads and lip adapters are retained. Four
+heads keep their 76 mm tail-clamp offset; the C4 head moves 32 mm right toward
+its unchanged pair, giving a 44 mm offset. C3's output row and its pair move
+to Y = 207 mm without increasing that head's rear offset. New scoped audits
+verify the zero-order reference,
+bonded-cube geometry and platform envelope; RF-on first-order behaviour is
+not validated. All mechanical and reference-path checks pass, including a
+negative beam-under-knob test; the minimum beam-edge/knob margin is 0.520322 mm.
+The 24 × 14.935227 in occupied envelope fits the 28 × 15 in platform by
+continuous translation with 1.645244 mm total width spare. The final machining
+inventory is 85 tapped and four clearance holes. STEP, top/3D views, layout
+illustration, BOM and tapping sheets are regenerated. FCStd geometry and
+placements survive reopening, with the external plate tree-view limitation
+recorded above.
+
+**V9.11 (2026-10-12, TA tail-clamp spacing)** — moves both rear fiber-clamp
+hole pairs 12.7 mm farther behind the heads: 66.7 mm for the direct output
+and 58.7 mm for the AOM output. The four clamp-hole positions change; the
+14 × 16.5 in outline, every optic and its placement, all other mounting holes,
+and optical order remain as in V9.10. The full 60 × 20 mm clamp footprints and
+20 mm fiber corridors remain clear in the rebuilt mechanical audit. The
+cell-slide checks pass at both 0 and 10.5 mm, and the deliberately injected
+beam-under-knob case is correctly rejected. The
+occupied hardware-plus-cable envelope is unchanged at
+367.784956 × 523.592478 mm, including the full 101.6 mm TA cable allowance.
+The reused opaque cell covers still require beam apertures before operation.
 
 **V9.10 (2026-10-12, folded TA output)** — adds one steering mirror on a
 Newport M05 mount at

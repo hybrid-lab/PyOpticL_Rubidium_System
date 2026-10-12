@@ -1,4 +1,4 @@
-"""TA baseplate V9.10 - 14 x 16.5 in, with a folded AOM output chain.
+"""TA baseplate V9.11 - 14 x 16.5 in, with a folded AOM output chain.
 
 Beam order, read top to bottom in example_baseplate():
 
@@ -80,8 +80,8 @@ OUT = {'lens1': 14., 'lens2': 14.+45.319348, 'hwp': 72., 'rot': 94., 'iris': 125
 # rotating PBS: 40 mm front access plus the RSP05 body (7.25 mm) and 2.75 mm
 OUT_NO_IRIS = {'lens1': 14., 'lens2': 14.+45.319348, 'hwp': 72., 'rot': 94.,
                'fiber_face': 144., 'port': 144.+18.798}
-REAR_CLAMP_OFFSET = 54.              # direct head: clear the shutter and bottom fold
-AOM_REAR_CLAMP_OFFSET = 46.          # full 60 x 20 envelope remains on the plate
+REAR_CLAMP_OFFSET = 66.7              # direct head: clear the shutter and bottom fold
+AOM_REAR_CLAMP_OFFSET = 58.7          # full 60 x 20 envelope remains on the plate
 
 LENSES = {
     'LA1289-B': (29.9, 3.2, 1.8, 30.2466184),
@@ -105,14 +105,14 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
 
     baseplate = layout.baseplate(base_dx, base_dy, base_dz, x=x, y=y, angle=angle, gap=gap,
                                  drill=False, mount_holes=mount_holes,
-                                 name='TA plate V9.10 14 x 16.5 in')
+                                 name='TA plate V9.11 14 x 16.5 in')
     plate = doc.getObject(baseplate.active_baseplate)
     info = {'mode': 'ta', 'plate': plate, 'roots': {}, 'paths': [], 'arms': [],
             'reservations': [], 'extra_cuts': [], 'geometry_assertions': [], 'alternate': False,
             'service_regions': [], 'output_optical_routes': [],
             'requirements': {'mirror_roles': [], 'spherical_groups': []},
             'isolator': None, 'cell': None,
-            'layout_status': 'V9.10 folded AOM output; see the saved audit report for results.',
+            'layout_status': 'V9.11 folded AOM output; see the saved audit report for results.',
             'mount_holes_mm': [[(hx+.5)*layout.inch, (hy+.5)*layout.inch] for hx, hy in mount_holes]}
 
     # ---- placement helpers, so every optic below is a single readable line ----
@@ -433,10 +433,10 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
          'expected': 2, 'tolerance': 0.},
         {'name': 'Reflected KA05T rear-hole axis to left plate edge (mm)',
          'measured': DIRECT_FOLD_XY[0]-OUT_NO_IRIS['port']-REAR_CLAMP_OFFSET-gap,
-         'expected': 60.627, 'tolerance': 0.1},
+         'expected': 47.927, 'tolerance': 0.1},
         {'name': 'AOM-branch KA05T rear-hole axis to right plate edge (mm)',
          'measured': base_dx-gap-AOM_OUTPUT_FOLD_XY[0]-OUT['port']-AOM_REAR_CLAMP_OFFSET,
-         'expected': 80.275, 'tolerance': 0.1},
+         'expected': 67.575, 'tolerance': 0.1},
         {'name': 'RF elbow space beyond connector face (mm)', 'measured': 40.,
          'expected': 40., 'tolerance': 0.}])
     assert_distance('HWP -> PBS (lattice 31.4)', POWER_HWP_XY, main_pbs, 31.4)
@@ -450,7 +450,7 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
     plate.touch()
     doc.recompute()
     info['plate_size_mm'] = [base_dx, base_dy, base_dz]
-    doc.Label = 'TA board - V9.10 folded AOM output'
+    doc.Label = 'TA board - V9.11 folded AOM output'
     return info
 
 
