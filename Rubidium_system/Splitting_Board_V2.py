@@ -6,7 +6,7 @@ hardware underpasses; see the saved native production validation report:
     input KM05T -> A:  M1 (the input head is the second steering element), entrance HWP, AOM (RF off, order 0),
                        iris, HWP, PBS
         A PBS transmitted -> B1: M1, M2, entrance HWP, AOM, iris, HWP, PBS
-            B1 transmitted -> C1: FR, M1, M2, entrance HWP, AOM, HWP, bonded PBS, output fold, iris, output fold -> OUT
+            B1 transmitted -> C1: FR, M1, M2, entrance HWP, AOM, two output folds, HWP, bonded PBS, iris -> OUT
             B1 reflected   -> C2:                     M1, M2, entrance HWP, AOM, two output folds, HWP, bonded PBS, iris -> OUT
         A PBS reflected   -> B2: M1, M2, entrance HWP, AOM, iris, HWP, PBS
             B2 transmitted -> C3:                     M1, M2, entrance HWP, AOM, two output folds, HWP, bonded PBS, iris -> OUT
@@ -29,15 +29,16 @@ Geometry:
   reversing the second stage puts the cube centre 14.297 mm upstream of its reference. Four
   modelled 0.2 mm adhesive pads join cube corners to the engraved rotor. Adhesive thickness is
   an assembly assumption; bond strength and coating compatibility are not certified.
-  C1's two added mirrors straddle its iris; C2-C4's two mirrors precede their HWP. AOM -> iris
+  All C1-C4 output mirrors precede their HWP and bonded PBS. AOM -> iris
   path >= 81 mm is retained as a mechanical spacing. The iris is not claimed to reject order 0.
 * A dedicated entrance HWP on a real RSP05 and its lip adapter precedes each AOM,
   in addition to all seven existing downstream HWPs. Entrance optical-centre spacings
   are A 28.3 mm, B1 27.8 mm, B2/C2/C4 28 mm and C1/C3 81 mm. The U-facing KM100PM
   extends about 67.58 mm upstream, so C1/C3 sit before that assembly.
-  In-plane translations provide adjustment clearance around these HWPs and C1's
-  existing downstream HWP while retaining all five fiber heads, tail-clamp holes,
-  table holes and the board outline. The AOM upper adapters, integral seats and
+  The preceding revision established adjustment clearance using in-plane translations.
+  This C1 output revision retains that clearance and all tail-clamp holes, moves only
+  its fiber head +32 mm in X and one table bolt +2 in in Y, and keeps the board outline.
+  The AOM upper adapters, integral seats and
   mounting depths remain identical to the lattice installation. The catalogue
   +/-4-degree mount travel is not guaranteed by this board: the unchanged seat
   limits some pitch/combined settings. See the explicit motion-audit scope.
@@ -47,16 +48,17 @@ Geometry:
 * KM05T fiber ports on the unchanged Surface_Adapter_fiberport_lip. Each adapter uses its two
   mounting taps; its optional Y-shape and rear-hole patterns are disabled. Two board-level
   BareTappedHole features retain the original rear tail-clamp X positions: 76 mm behind each
-  head except C4, whose head moves 32 mm toward its unchanged pair (44 mm rear offset). The lens
+  head except C1 and C4, whose heads move 32 mm toward their unchanged pairs (44 mm rear offset). The lens
   tube, lens adapter, fiber adapter and optical reference are unchanged from the KA05T assembly.
   Mirrors M05 + HKTS thumbscrews, HWPs RSP05, PBS cube_mount_halfinch, irises IDA12.
 * Reserved free space (checked by the audits): 40 x 20 mm RF elbow at every AOM connector face, 28 mm
   front access at every output head (15 mm at the input head), 20 x 40 mm tail-clamp span and a
   straight 20 mm fiber corridor to the plate edge.
 * Plate 24 x 14 x 1 in (actual 603.25 x 349.25 mm, 1/8 in edge gap). Table bolts (1/4-20,
-  counterbored): lower-right anchor 1 in from both finished edges; the other three lie
-  (-22, +2), (-22, +12), and (0, +10) in from that anchor. The two columns are 22 in apart,
-  with 10 in between each column's bolts and staggered rows on a shared 1 in table grid.
+  counterbored): retain the original one-inch grid datum, 1 in from the finished right/lower
+  edges. The right-lower bolt moves +2 in in Y to clear the C1 head and knob pocket;
+  the other three stay fixed. Their grid offsets from the original datum are now
+  (0, +2), (-22, +2), (-22, +12), and (0, +10) in. Plate dimensions remain unchanged.
 * C1 FR and C1 M1 each have a lower mirror-mount body corner overhanging the plate (conservative
   bounding-box overhang about 6.44 mm), in addition to the listed adjustment-knob overhangs.
   Their mounting taps remain on the plate; the edge audit checks every tapped-hole centre
@@ -83,18 +85,19 @@ base_dy = PLATE_IN[1]*INCH
 base_dz = INCH
 gap = INCH/8
 
-# Anchor one inch from the actual right and lower machined edges. The remaining
-# three bolts share its one-inch table grid, with staggered rows for clearance.
+# Keep the original finished-edge anchor as the grid-phase datum. The user
+# permits integer-inch relocation: move only that bolt +2 inches in Y to clear
+# the C1 fiber-head controls and their machined relief; the other bolts stay.
 TABLE_MOUNT_ANCHOR_MM = (base_dx-gap-INCH, gap+INCH)
-TABLE_MOUNT_OFFSETS_IN = ((0, 0), (-22, 2), (-22, 12), (0, 10))
+TABLE_MOUNT_OFFSETS_IN = ((0, 2), (-22, 2), (-22, 12), (0, 10))
 mount_holes = [(TABLE_MOUNT_ANCHOR_MM[0]/INCH+dx-.5,
                 TABLE_MOUNT_ANCHOR_MM[1]/INCH+dy-.5)
                for dx, dy in TABLE_MOUNT_OFFSETS_IN]
 
 # ---- optics geometry -------------------------------------------------------------------
 LENS_TUBE_FRONT = 18.798         # common KM05T/KA05T lens-tube front ahead of the mount origin
-REAR_CLAMP_OFFSET = 76.          # default rear tail-clamp offset; C4 moves within its fixed pair
-OUTPUT_REAR_CLAMP_OFFSETS = {'C1': 76., 'C2': 76., 'C3': 76., 'C4': 44.}
+REAR_CLAMP_OFFSET = 76.          # default rear tail-clamp offset; C1/C4 move within fixed pairs
+OUTPUT_REAR_CLAMP_OFFSETS = {'C1': 44., 'C2': 76., 'C3': 76., 'C4': 44.}
 REAR_CLAMP_HOLE_SPACING = 18.328
 IRIS_L = 81.                     # AOM centre -> iris (A, B lanes); minimum AOM -> iris path (C lanes)
 HWP_D = 98.                      # default AOM centre -> HWP (B1/B2; A has an explicit override)
@@ -178,12 +181,12 @@ LANES['C1']['d1'] -= 8.5
 LANES['C2']['d1'] -= 8.5
 LANES['C2']['a2'] += 8.5
 OUTPUT_DOGLEGS = {
-    'C1': {'x': 464., 'y': 31., 'hwp_distance': 15.},
+    'C1': {'x': 434., 'y': 31., 'hwp_distance': 15.},
     'C2': {'x': 397.5, 'y': 146.5, 'hwp_distance': 15.},
     'C3': {'x': 400., 'y': 207., 'hwp_distance': 15.},
     'C4': {'x': 434.8, 'y': 325., 'hwp_distance': 15.},
 }
-OUTPUT_PORT_X = {'C1': 520.4149980904114, 'C2': 519.9148874122972,
+OUTPUT_PORT_X = {'C1': 552.4149980904114, 'C2': 519.9148874122972,
                  'C3': 519.9150781884387, 'C4': 552.415072253436}
 BONDED_CUBE_CENTRE_OFFSET = 14.297  # 7.747 mm rotor face + 0.2 mm glue + 6.35 mm
 
@@ -262,14 +265,6 @@ def lane_geometry():
             g['front'] = _add(g['port'], d, -LENS_TUBE_FRONT)
             g['iris_angle'] = (lane_dir if q['post'] < 0 else lane_dir + 180) % 360
             g['output_sequence'] = ['out_m1', 'out_m2', 'hwp', 'cube', 'rot', 'iris', 'front']
-            if name == 'C1':
-                # Its RF connector points down. Keep the HWP/PBS on the AOM
-                # row and place the iris between the two output folds, so no
-                # output-mirror hardware occupies the RF service rectangle.
-                g.update(hwp=(414., aom[1]), rot=(446., aom[1]),
-                         cube=(446.-BONDED_CUBE_CENTRE_OFFSET, aom[1]),
-                         iris=(464., 45.5), iris_angle=90.)
-                g['output_sequence'] = ['hwp', 'cube', 'rot', 'out_m1', 'iris', 'out_m2', 'front']
         else:
             g['iris'] = _add(aom, _u(lane_dir), IRIS_L)
             g['iris_angle'] = (lane_dir if q['post'] < 0 else lane_dir + 180) % 360
@@ -357,10 +352,17 @@ def build(x=0, y=0, angle=0, drill=True):
                  'unchanged lattice seat restricts pitch/combined travel; RF-on optical coupling not certified.',
     }
     info['mount_holes_mm'] = [((mx + .5)*INCH, (my + .5)*INCH) for mx, my in mount_holes]
-    info['table_mount_pattern'] = {'pitch_mm': INCH, 'right_lower_edge_offset_mm': INCH,
-                                  'edge_datum': 'finished machined plate edges',
+    info['table_mount_pattern'] = {'pitch_mm': INCH, 'original_right_lower_edge_offset_mm': INCH,
+                                  'edge_datum': 'original one-inch datum from finished machined plate edges',
                                   'offsets_in': TABLE_MOUNT_OFFSETS_IN,
-                                  'installation_note': 'Fasten the lower-right table bolt before installing the C1/Output 4 fiber tail clamp and routing its fiber; reverse this order for removal.'}
+                                  'relocated_anchor': {
+                                      'schema': 'integer_grid_relocation/1',
+                                      'prior_anchor_xy_mm': list(TABLE_MOUNT_ANCHOR_MM),
+                                      'relocation_in': [0, 2],
+                                      'board_translation_xy_mm': [0., 0.],
+                                      'prior_plate_size_mm': [base_dx, base_dy, base_dz],
+                                      'authorization': 'User permits platform fixing bolts to move by integer-inch steps in either board axis.'},
+                                  'installation_note': 'The former right-lower bolt moves +2 inches in Y on the existing table grid to clear the C1 coupling-head controls; all other table bolts and all tail-clamp holes retain their positions.'}
 
     def put(name, cls, px, py, pangle=0, **kw):
         obj = baseplate.place_element(name, cls, x=px, y=py, angle=pangle, **kw)
@@ -633,10 +635,12 @@ def build(x=0, y=0, angle=0, drill=True):
             clamp_end = g['port'][0] + OUTPUT_REAR_CLAMP_OFFSETS[name] + 10.
             A.append({'name': name + ': output tail clamp within %g mm of the right plate edge (excess mm)' % PORT_EDGE,
                       'measured': max(0., right_edge - clamp_end - PORT_EDGE), 'expected': 0., 'tolerance': 0.05})
-            if name == 'C4':
-                A.append({'name': 'C4: rear-clamp pair centre retains its board XY position (mm)',
+            if name in ('C1', 'C4'):
+                original_tail = {'C1': (596.4149980904114, 31.),
+                                 'C4': (596.415072253436, 325.)}[name]
+                A.append({'name': name + ': rear-clamp pair centre retains its board XY position (mm)',
                           'measured': dist((g['port'][0] + OUTPUT_REAR_CLAMP_OFFSETS[name], g['port'][1]),
-                                           (596.415072253436, 325.)),
+                                           original_tail),
                           'expected': 0., 'tolerance': 1e-7})
         else:
             A.append({'name': name + ': AOM -> iris mechanical spacing', 'measured': dist(g['aom'], g['iris']),

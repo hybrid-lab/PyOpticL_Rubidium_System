@@ -25,6 +25,11 @@ _MIRRORS = {'circular_mirror', 'circular_mirror_union_optic'}
 _TOL = 1.e-5
 _REPORT_KEY = 'pre_aom_waveplate_audit'
 _ISSUE_KEY = 'pre_aom_waveplate_audit_issues'
+_OUTPUT_LANES = ('C1', 'C2', 'C3', 'C4')
+_OUTPUT_KEYS = ('aom', 'mirror_1', 'mirror_2', 'hwp', 'cube', 'stage', 'iris', 'fiber')
+_OUTPUT_TYPES = ('aom', 'mirror', 'mirror', 'hwp', 'pbs', 'rotation_mount', 'iris', 'fiber')
+_OUTPUT_SUFFIXES = (' AOM', ' output steering mirror 1', ' output steering mirror 2',
+                    ' HWP', ' bonded PBS cube', ' rotating-PBS RSP05', ' iris', ' output KM05T')
 
 
 def _kind(obj):
@@ -248,6 +253,138 @@ def _required_roots(doc, info, report):
     return roots
 
 
+def _ordered_output_geometry(lane, events, path_points, actual, normals):
+    """Verify actual optical centres, not just an editable event-type list.
+
+    All coordinates and normals are in the board frame. The stage reference
+    is a collinear mechanical datum between cube and iris, not a ray vertex.
+    This pure geometry step also permits contract tests without a CAD session.
+    """
+    if lane not in _OUTPUT_LANES:
+        raise ValueError('Unknown final output lane: '+lane)
+    expected_names = [lane+suffix for suffix in _OUTPUT_SUFFIXES]
+    if ([event.get('type') for event in events] != list(_OUTPUT_TYPES) or
+            [event.get('name') for event in events] != expected_names):
+        raise ValueError('Both output mirrors must precede HWP/PBS, followed by iris then fiber: '+lane)
+    positions = {key: _xyz(actual[key]) for key in _OUTPUT_KEYS}
+    if any(abs(point[2]) > _TOL for point in positions.values()):
+        raise ValueError('Every final output optical datum must be at board z=0: '+lane)
+    for key, event in zip(_OUTPUT_KEYS, events):
+        if not _near(_xyz(event['xy']), positions[key]):
+            raise ValueError('Output event differs from its actual native optical datum: '+lane+' '+key)
+    points = [_xyz(point) for point in path_points]
+    matches = [i for i, point in enumerate(points) if _near(point, positions['aom'])]
+    optical_keys = [key for key in _OUTPUT_KEYS if key != 'stage']
+    if (len(matches) != 1 or len(points[matches[0]:]) != len(optical_keys) or
+            any(not _near(point, positions[key]) for point, key in
+                zip(points[matches[0]:], optical_keys))):
+        raise ValueError('Actual lane suffix must be AOM -> two mirrors -> HWP -> PBS -> iris -> fiber: '+lane)
+    steps = [[positions[b][i]-positions[a][i] for i in range(3)]
+             for a, b in zip(_OUTPUT_KEYS, _OUTPUT_KEYS[1:])]
+    directions = [_unit(step) for step in steps]
+    if any(min(abs(d[0])+abs(d[2]), abs(d[1])+abs(d[2])) > 1.e-8 for d in directions):
+        raise ValueError('Output segments must remain horizontal/vertical in the plate plane: '+lane)
+    reflections = []
+    for index, key in enumerate(('mirror_1', 'mirror_2')):
+        incoming, outgoing = directions[index], directions[index+1]
+        normal = _unit(normals[key])
+        dot = _dot(incoming, normal)
+        reflected = [incoming[i]-2.*dot*normal[i] for i in range(3)]
+        residual = math.sqrt(sum((a-b)**2 for a, b in zip(reflected, outgoing)))
+        if (abs(abs(dot)-math.sqrt(.5)) > 1.e-8 or abs(_dot(incoming, outgoing)) > 1.e-8 or
+                residual > 1.e-8 or dot >= 0. or _dot(outgoing, normal) <= 0.):
+            raise ValueError('Output mirror is not an actual front-face 45-degree reflection: '+lane+' '+key)
+        reflections.append({'mirror': key, 'incoming_dot_normal': dot,
+                            'incidence_deg': math.degrees(math.acos(abs(dot))),
+                            'reflection_vector_error': residual})
+    downstream = directions[2]
+    if any(not _near(direction, downstream, 1.e-8) for direction in directions[3:]):
+        raise ValueError('HWP, PBS/stage, iris and fiber must follow mirror 2 on one forward line: '+lane)
+    axial_dots = {}
+    for key in ('hwp', 'cube', 'stage', 'iris', 'fiber'):
+        dot = _dot(_unit(normals[key]), downstream)
+        axial_dots[key] = dot
+        if abs(abs(dot)-1.) > 1.e-8 or (key == 'fiber' and dot > 0.):
+            raise ValueError('Actual downstream optic axis is not aligned to its incoming beam: '+lane+' '+key)
+    return {'lane': lane, 'passed': True, 'required_event_types': list(_OUTPUT_TYPES),
+            'actual_board_xyz_mm': positions, 'aom_path_vertex': matches[0],
+            'actual_event_segment_lengths_mm': [math.sqrt(sum(v*v for v in s)) for s in steps],
+            'mirror_reflections': reflections, 'downstream_normal_dot_beam': axial_dots,
+            'iris_between_actual_cube_and_fiber': True,
+            'scope': 'Native optical datums and actual mirror/optic orientations; no mechanical clearance exemption.'}
+
+
+def _check_output_routes(doc, info, report):
+    """Four unique installed output assemblies must obey the requested order."""
+    import FreeCAD as App
+
+    plate, roots = info['plate'], info['roots']
+    inverse = plate.Placement.inverse()
+    snapshots = {record['name']: record for record in report['objects']}
+    routes = info.get('output_optical_routes', [])
+    paths = info.get('paths', [])
+    metadata = info.get('bonded_output_pbs', [])
+    if len(metadata) != 4 or {item.get('lane') for item in metadata} != set(_OUTPUT_LANES):
+        raise ValueError('Four distinct bonded output registrations required for optical-order proof')
+    verified, used = [], set()
+    for lane, output_number in zip(_OUTPUT_LANES, (4, 3, 2, 1)):
+        own_routes = [route for route in routes if route.get('arm') == lane]
+        own_paths = [path for path in paths if path.get('name') == lane+' lane']
+        if len(own_routes) != 1 or len(own_paths) != 1:
+            raise ValueError('Output needs one unique route and one actual lane path: '+lane)
+        registration = next(item for item in metadata if item['lane'] == lane)
+        labels = {'aom': lane+' AOMO 3100-125',
+                  'mirror_1': lane+' output steering mirror 1',
+                  'mirror_2': lane+' output steering mirror 2', 'hwp': lane+' HWP',
+                  'stage': lane+' rotating-PBS RSP05', 'iris': lane+' iris',
+                  'fiber': 'Output %d KM05T (%s)' % (output_number, lane)}
+        objects = {key: roots.get(label) for key, label in labels.items()}
+        if any(obj is None or doc.getObject(obj.Name) is not obj or not _on_plate(obj, plate)
+               for obj in objects.values()):
+            raise ValueError('Output optical roots must belong to this actual native plate: '+lane)
+        kinds = {'aom': {'AOMO_3100_125'}, 'mirror_1': _MIRRORS, 'mirror_2': _MIRRORS,
+                 'hwp': {'waveplate'}, 'stage': {'rotation_stage_rsp05_bonded_cube'},
+                 'iris': {'pinhole_ida12'}, 'fiber': {'fiberport_mount_km05T'}}
+        if any(_kind(objects[key]) not in expected for key, expected in kinds.items()):
+            raise ValueError('An output optical root was replaced by the wrong hardware class: '+lane)
+        stage = objects['stage']
+        cube = stage.BondedCube
+        if (registration['stage'] != stage.Name or registration['cube'] != cube.Name or
+                doc.getObject(cube.Name) is not cube or _kind(cube) != 'cube_splitter' or
+                cube.ParentObject is not stage or cube not in stage.ChildObjects):
+            raise ValueError('Output PBS must be the actual glass bonded to its own RSP05: '+lane)
+        objects['cube'] = cube
+        names = {obj.Name for obj in objects.values()}
+        if len(names) != len(objects) or used & names:
+            raise ValueError('Output assemblies must have distinct actual optical objects: '+lane)
+        used.update(names)
+        tubes = [obj for obj in _descendants(objects['fiber']) if _kind(obj) == 'lens_tube_sm05l05']
+        if len(tubes) != 1 or tubes[0].ParentObject is not objects['fiber']:
+            raise ValueError('Actual output lens tube is missing or detached: '+lane)
+        tube, fiber = tubes[0], objects['fiber']
+        relative = fiber.Placement.inverse().multiply(tube.Placement)
+        expected = App.Placement(App.Vector(5.336, 0, 0), App.Rotation())
+        if not _near(list(relative.toMatrix().A), list(expected.toMatrix().A)):
+            raise ValueError('Actual output lens-tube attachment transform changed: '+lane)
+        physical = [obj for key, obj in objects.items() if key != 'fiber']+[tube]
+        records = [_geometry_record(obj, snapshots) for obj in physical]
+        local_vertices = [fiber.Placement.inverse().multVec(vertex) for vertex in tube.Mesh.Topology[0]]
+        front_x = max(vertex.x for vertex in local_vertices)
+        if not math.isfinite(front_x) or abs(front_x-18.798) > 2.e-4:
+            raise ValueError('Actual unchanged SM05L05 mesh does not define the expected front face: '+lane)
+        actual = {key: list(inverse.multVec(obj.Placement.Base)) for key, obj in objects.items()}
+        actual['aom'] = list(inverse.multVec(objects['aom'].Placement.multVec(App.Vector(0., -.030, -.115))))
+        actual['fiber'] = list(inverse.multVec(fiber.Placement.multVec(App.Vector(front_x, 0, 0))))
+        normals = {key: list(inverse.Rotation.multVec(obj.Placement.Rotation.multVec(App.Vector(1, 0, 0))))
+                   for key, obj in objects.items()}
+        evidence = _ordered_output_geometry(lane, own_routes[0]['events'], own_paths[0]['points'], actual, normals)
+        evidence.update(objects={key: obj.Name for key, obj in objects.items()},
+                        mounted_geometry=records, lens_tube_front_local_x_mm=front_x,
+                        fiber_face_basis='Axial extreme of the actual, correctly attached SM05L05 mesh')
+        verified.append(evidence)
+    return {'passed': len(verified) == 4, 'verified_routes': verified, 'expected_count': 4}
+
+
 def _check_placement(doc, info, report, entries, result):
     import FreeCAD as App
 
@@ -357,8 +494,7 @@ def _check_placement(doc, info, report, entries, result):
         events = routes[lane]['events']
         types = [x['type'] for x in events]
         expected_types = (['aom', 'iris', 'hwp', 'pbs'] if lane in ('A', 'B1', 'B2') else
-                          ['aom', 'hwp', 'pbs', 'rotation_mount', 'mirror', 'iris', 'mirror', 'fiber'] if lane == 'C1' else
-                          ['aom', 'mirror', 'mirror', 'hwp', 'pbs', 'rotation_mount', 'iris', 'fiber'])
+                          list(_OUTPUT_TYPES))
         if (types != expected_types or
                 [(x['name'], x['type']) for x in events] != [(x['name'], x['type']) for x in legacy[lane]['events']]):
             raise ValueError('Original downstream route was replaced or reordered: '+lane)
@@ -433,12 +569,14 @@ def _clearance_gates(report, info):
 
 def apply(report, doc, info, source_module=None):
     """Augment only this audit key and its issue counter; no exemptions."""
-    result = {'schema': 'pre_aom_waveplate_audit/1', 'document': doc.Name,
+    result = {'schema': 'pre_aom_waveplate_audit/2', 'document': doc.Name,
               'passed': False, 'placement_passed': False, 'assemblies': [], 'errors': [],
               'declaration': deepcopy(info.get('pre_aom_waveplates', [])),
               'expected_counts': {'new_hwps': 7, 'new_rsp05_stages': 7, 'new_lip_adapters': 7,
                                   'retained_downstream_hwps': 7, 'total_hwps': 14, 'retained_aoms': 7},
-              'scope': 'Actual placement, assembly identity and retained optical routes; all mechanical '
+              'output_order': {'passed': False, 'verified_routes': [], 'expected_count': 4},
+              'scope': 'Actual placement, assembly identity and four outputs with both steering mirrors '
+                       'before HWP/PBS, then iris before fiber; all mechanical '
                        'clearance conclusions come from independent full native/projection/hole/service audits.',
               'source_provenance': {'audit_path': str(Path(__file__).resolve()),
                                     'audit_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest()},
@@ -452,7 +590,8 @@ def apply(report, doc, info, source_module=None):
             'sha256': hashlib.sha256(Path(optomech.__file__).read_bytes()).hexdigest()}
         entries = _contract(info, spacing)
         _check_placement(doc, info, report, entries, result)
-        result['placement_passed'] = len(result['assemblies']) == 7
+        result['output_order'] = _check_output_routes(doc, info, report)
+        result['placement_passed'] = len(result['assemblies']) == 7 and result['output_order']['passed']
     except Exception as exc:
         result['errors'].append({'stage': 'placement', 'error': str(exc)})
     try:
@@ -463,6 +602,7 @@ def apply(report, doc, info, source_module=None):
         result['errors'].append({'stage': 'independent_clearance', 'error': str(exc)})
     result['passed'] = result['placement_passed'] and not result['errors']
     result['counts'] = {'verified_new_assemblies': len(result['assemblies']),
+                        'verified_output_routes': len(result['output_order']['verified_routes']),
                         'errors': len(result['errors'])}
     report.setdefault('summary_counts', {})[_ISSUE_KEY] = len(result['errors']) or int(not result['passed'])
     return report

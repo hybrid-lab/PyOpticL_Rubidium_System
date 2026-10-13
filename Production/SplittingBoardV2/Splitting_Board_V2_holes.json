@@ -1,6 +1,6 @@
 {
   "plate": "Splitting_plate_24_x_14_in",
-  "corner_fillet_faces": 281,
+  "corner_fillet_faces": 283,
   "features": [
     {
       "x": 22.22,
@@ -30,7 +30,7 @@
     },
     {
       "x": 581.02,
-      "y": 28.57,
+      "y": 79.38,
       "diameters": [
         14.29,
         6.6
@@ -787,30 +787,6 @@
       "z_top": -21.97
     },
     {
-      "x": 414.9,
-      "y": 54.59,
-      "diameters": [
-        3.45
-      ],
-      "spec": "8-32 tap drill (3.454)",
-      "kind": "TAP",
-      "through": false,
-      "depth_mm": 16.13,
-      "z_top": -21.97
-    },
-    {
-      "x": 414.9,
-      "y": 79.59,
-      "diameters": [
-        3.45
-      ],
-      "spec": "8-32 tap drill (3.454)",
-      "kind": "TAP",
-      "through": false,
-      "depth_mm": 16.13,
-      "z_top": -21.97
-    },
-    {
       "x": 415.9,
       "y": 194.5,
       "diameters": [
@@ -833,6 +809,18 @@
       "through": false,
       "depth_mm": 16.13,
       "z_top": -21.97
+    },
+    {
+      "x": 424.84,
+      "y": 21.84,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
     },
     {
       "x": 425.64,
@@ -871,8 +859,8 @@
       "z_top": -21.97
     },
     {
-      "x": 443.96,
-      "y": 281.91,
+      "x": 443.16,
+      "y": 76.25,
       "diameters": [
         3.45
       ],
@@ -883,28 +871,16 @@
       "z_top": -12.7
     },
     {
-      "x": 444.6,
-      "y": 54.59,
+      "x": 443.96,
+      "y": 281.91,
       "diameters": [
         3.45
       ],
       "spec": "8-32 tap drill (3.454)",
       "kind": "TAP",
-      "through": false,
-      "depth_mm": 16.13,
-      "z_top": -21.97
-    },
-    {
-      "x": 444.6,
-      "y": 79.59,
-      "diameters": [
-        3.45
-      ],
-      "spec": "8-32 tap drill (3.454)",
-      "kind": "TAP",
-      "through": false,
-      "depth_mm": 16.13,
-      "z_top": -21.97
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
     },
     {
       "x": 445.6,
@@ -931,6 +907,30 @@
       "z_top": -21.97
     },
     {
+      "x": 449.9,
+      "y": 18.5,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 449.9,
+      "y": 43.5,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
       "x": 450.7,
       "y": 312.5,
       "diameters": [
@@ -953,18 +953,6 @@
       "through": false,
       "depth_mm": 16.13,
       "z_top": -21.97
-    },
-    {
-      "x": 454.84,
-      "y": 21.84,
-      "diameters": [
-        3.45
-      ],
-      "spec": "8-32 tap drill (3.454)",
-      "kind": "TAP",
-      "through": true,
-      "depth_mm": 25.4,
-      "z_top": -12.7
     },
     {
       "x": 461.74,
@@ -991,16 +979,28 @@
       "z_top": -12.7
     },
     {
-      "x": 473.16,
-      "y": 76.25,
+      "x": 479.6,
+      "y": 18.5,
       "diameters": [
         3.45
       ],
       "spec": "8-32 tap drill (3.454)",
       "kind": "TAP",
-      "through": true,
-      "depth_mm": 25.4,
-      "z_top": -12.7
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 479.6,
+      "y": 43.5,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
     },
     {
       "x": 480.4,
@@ -1027,8 +1027,8 @@
       "z_top": -21.97
     },
     {
-      "x": 491.33,
-      "y": 47.46,
+      "x": 498.24,
+      "y": 58.33,
       "diameters": [
         3.45
       ],
@@ -1099,7 +1099,7 @@
       "z_top": -22.7
     },
     {
-      "x": 530.11,
+      "x": 562.11,
       "y": 13.0,
       "diameters": [
         3.45
@@ -1111,7 +1111,7 @@
       "z_top": -22.7
     },
     {
-      "x": 530.11,
+      "x": 562.11,
       "y": 49.0,
       "diameters": [
         3.45
