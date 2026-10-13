@@ -140,10 +140,11 @@ the output group left to restore actual mirror-base support. V9.14 is a
 rejected machining reference: its left post-isolator mirror stood over the
 TA-adapter pocket, which the older contact and beam checks did not detect.
 V9.15 adds an audit of all six M05 bearing footprints against the final
-machined plate. The full V9.7 sliding
-cell enclosure remains, including its end covers that still need beam
-apertures before optical operation. The lattice board remains at V9.7 and
-the double-pass board at V9.3; earlier TA designs remain in the change log.
+machined plate. The sliding cell enclosure is the V9.16 one (2026-10-13: two
+identical half bodies and two end covers, see the lattice board below),
+including its end covers that still need beam apertures before optical
+operation. The lattice board remains at V9.7 (with the same V9.16 enclosure)
+and the double-pass board at V9.3; earlier TA designs remain in the change log.
 Since 2026-10-09 the branch also carries a fourth, independent board, the
 **Splitting Board V2** (24 × 14 in): one fiber in, HWP → PBS splits 1 → 2 → 4
 with a single-pass AOM after every stage (1 + 2 + 4 AOMs), four fibers out on
@@ -223,19 +224,22 @@ below the banner are:
   parts. It does not certify adhesive strength or optical-coating compatibility.
 - `SlidingCellEnclosure` / `SlidingCellLid` / `SlidingCellCover` /
   `SlidingCellGlass` / `SlidingCellSeat` / `place_sliding_cell` (V9.5, split in
-  V9.6, two end screws and closed stem pocket in V9.7) — the Rb cell enclosure
-  and its seat: a plain block cut into a lower half and a lid, 88 × 46.9 × 24 mm
-  each, parted on the bore axis, with the 30.4 mm bore, a closed 12 × 10 mm
-  stem pocket split between them, a through slot in each bore end region,
-  eight 16 mm deep cover taps and a 6 × 6 mm cable notch; two 7 mm end covers
+  V9.6, two end screws and closed stem pocket in V9.7, identical halves in
+  V9.16) — the Rb cell enclosure and its seat: a plain block cut into two
+  identical half bodies, 88 × 46.9 × 24 mm each, parted on the bore axis (the
+  lid is the lower half turned over; `sliding_cell_half_shape()` gives the
+  part), with the 30.4 mm bore, a closed 12 × 10 mm stem pocket split between
+  them, a plain through slot in each bore end region, eight 16 mm deep cover
+  taps and a 6 × 6 mm cable notch opposite the stem pocket; two 7 mm end covers
   with counterbored 8-32 holes (no beam aperture yet); the GC25075-RB envelope;
   and the plate machining (an 11.3 mm pocket shaped for the assembly plus
   10.5 mm of travel, two 8-32 taps through its floor). `place_sliding_cell(bp, x, y,
   angle, slide)` places the seat and the enclosure `slide` mm along the slot
-  direction. All dimensions live in the `SLIDING_CELL` dict; the three machined
-  parts are in `Production/CellEnclosure/`. The V9.2–V9.4 pocket-only seat
+  direction. All dimensions live in the `SLIDING_CELL` dict; the two machined
+  parts (half body and end cover) are in `Production/CellEnclosure/`. The
+  V9.2–V9.4 pocket-only seat
   (`CellPocketMachining` / `place_cell_pocket`) stays in the library for legacy
-  layouts. The V9.15 TA board uses the full, unchanged V9.7 enclosure and
+  layouts. The V9.15 TA board uses the same V9.16 enclosure on its unchanged
   sliding seat, including the unfinished end covers.
 - `IntegralAOMSeat` / `integrate_aom` / `_make_IntegralAOMBaseplate` — the AOM
   seat machined directly into the baseplate (no lower surface adapter), with a
@@ -259,10 +263,11 @@ baseplate STEP, and a `*_TAP_or_NOT` sheet (PDF + PNG) that marks which holes
 of that plate are tapped. The baseplate STEPs are also collected in
 `Production/Baseplate/`, and the same sheets for the two adapters are in
 `Production/Adapters/`. **`Production/CellEnclosure/`** (since V9.5) holds the
-Rb cell enclosure as one folder per machined part — `LowerHalf/`, `Lid/` and
-`Cover/`, each with the part's STEP and its `*_TAP_or_NOT.png` sheet — plus one
-3D overview picture, `Rb_Cell_Enclosure_V9_7_3D.png` (assembled, lid off,
-exploded, parts table).
+Rb cell enclosure as the two parts to order —
+`Rb_Cell_Enclosure_HalfBody_V9_16.step` (2 off: the lower and the upper half
+are this one part) and `Rb_Cell_Enclosure_Cover_V9_16.step` (2 off) — plus one
+picture, `Rb_Cell_Enclosure_V9_16_3D_TAP.png` (assembled and exploded views,
+every hole marked TAP or NO TAP).
 
 **Added — board export and projection tools** in `tools/`:
 `ta_projection_audit.py` checks beam crossings and projected hardware,
@@ -348,23 +353,30 @@ key there. Both test configurations were built on the same plate and audited
 (`example_baseplate(mode='dual', cat_eye='75-50')` / `'75-75'`; reports in
 `Production/LatticeBoardV9/`).
 
-**Rb cell enclosure (V9.7).** The GC25075-RB cell (Ø25.4 × 71.8 mm per the
+**Rb cell enclosure (V9.16).** The GC25075-RB cell (Ø25.4 × 71.8 mm per the
 Thorlabs drawing 24088-E0W, length tolerance 0.8, fill stem at mid-length and
 < 10 mm high) sits in a plain machined aluminium block, 88 × 46.9 × 48 mm, that
-is cut in two along the bore axis — a lower half and a lid, 24 mm each — so
-the cell is simply laid in. Nothing sticks out of the block. The parting plane
+is cut in two along the bore axis — two half bodies, 24 mm each — so the cell
+is simply laid in. The two halves are **one part made twice**: the upper half
+is the lower half turned over end for end (rotated 180° about the horizontal
+axis across the bore), so an order is two half bodies and two end covers.
+Nothing sticks out of the block. The parting plane
 is the plate's 12.7 mm optical axis, so the beam runs along the split. The
 bore is Ø30.4 mm (cell diameter + 5 mm), through the whole length, bored with
 the two halves clamped together. The fill stem lies in the parting plane and
 points toward −x on the board (away from the side the beam moves to), in a
-12 × 10 mm pocket split 5/5 between the halves; the pocket is **closed**: it
+12 × 10 mm pocket in the middle of the block's length, split 5/5 between the
+halves; the pocket is **closed**: it
 runs from the bore to 24.2 mm from the axis (1.5 mm beyond the longest stem
 Thorlabs allows) and leaves 2.5 mm of wall to the outer face, so nothing
-connects the cell space to the outside there. A 6 × 6 mm cable notch in the
-lower half's parting face leaves through the same wall. Two separate 7 mm end
+connects the cell space to the outside there. The 6 × 6 mm cable notch sits
+straight across the bore from it, in the middle of the +x wall: centred on the
+parting plane, 3 mm in each half, it opens 9.7–15.7 mm above the plate top.
+Two separate 7 mm end
 covers are each held by four 8-32 × 5/8 in socket head screws in 3.5 mm
 counterbores (the heads stand 0.9 mm proud) — eight 16 mm deep taps, two in
-each half, so the covers also tie the halves together. The covers carry **no
+each end face of each half, so the covers also tie the halves together. The
+covers carry **no
 beam aperture yet** — it is to be opened later on the bore axis.
 
 The placement coordinates and board directions in this enclosure description
@@ -374,12 +386,14 @@ placement, recorded in its script and validation report.
 The enclosure slides across the beam and is held by a screw at each end. The
 block is 8.1 mm longer than the cell at both ends, and in each bore end region
 — beyond the cell, 1 mm from its end even at the +0.8 length tolerance — a
-through slot (4.37 wide, 14.9 long, running through both halves) sits on the
-−x half of the bore while the beam uses the centre and the +x half; two 8-32 ×
-2 in screws go from the lid top through the slots into two 8-32 taps in the
-plate at (185, 123.6) and (185, 203.4). They clamp the halves together and fix
-the position, their heads riding in 8.5 × 5 mm counter-slots below the lid
-top, so the position is set from above with everything assembled; the screws
+plain through slot (4.37 wide, 14.9 long, running through both halves) sits on
+the −x half of the bore while the beam uses the centre and the +x half; two
+8-32 × 2-1/4 in socket head screws, each with a #8 flat washer, go from the top
+face through the slots into two 8-32 taps in the plate at (185, 123.6) and
+(185, 203.4), with 9.2 mm of thread in the 14.1 mm pocket floor. They clamp
+the halves together and fix the position; the slots have no counter-slot (that
+is what lets both halves be one part), so the heads and washers sit on the top
+face and the position is set from above with everything assembled; the screws
 never meet the cell or the beam (≥ 8.9 mm from the beam at any position). With
 the screws at the slots' outer ends the beam passes through the cell centre;
 pushed to the other end (the block moving 10.5 mm toward −x) the beam runs
@@ -397,11 +411,13 @@ the beam to y = 163.5. Both ends of the travel were built and audited
 `Production/LatticeBoardV9/`): the two halves are never exempted — the beam
 has to pass the bore geometrically — while the aperture-less covers and the
 cell envelope are exempted explicitly for a beam running along the bore. The
-enclosure parts are in `Production/CellEnclosure/`: `LowerHalf/`, `Lid/` and
-`Cover/` each hold the part's STEP (`Rb_Cell_Enclosure_LowerHalf_V9_7.step`,
-`..._Lid_V9_7.step`, `..._Cover_V9_7.step` — the STEPs carry every dimension)
-and its tapping sheet, and `Rb_Cell_Enclosure_V9_7_3D.png` shows how they go
-together. The cell is centred in the bore, and kept from sliding along it, by
+enclosure parts are in `Production/CellEnclosure/`:
+`Rb_Cell_Enclosure_HalfBody_V9_16.step` (2 off) and
+`Rb_Cell_Enclosure_Cover_V9_16.step` (2 off) — the STEPs carry every
+dimension — and `Rb_Cell_Enclosure_V9_16_3D_TAP.png` shows the assembly and,
+exploded, which holes are tapped: in each half body the four 8-32 cover taps
+in its end faces; the slots and the cover holes are not tapped. The cell is
+centred in the bore, and kept from sliding along it, by
 its heater/insulation, which is not part of this design.
 
 **Lattice table bolts (V9.4.2).** The lab table has a 1 in hole grid whose first row
@@ -444,9 +460,9 @@ apart. The four positions remain bare 8-32 holes. Both common folds and all
 four provisions move 1 mm left from V9.14; their existing conditioning pitches
 are unchanged. Native probes with the selected POLARIS-L05G holder verify
 each actual mounting axis and full holder footprint at both cell endpoints. The lenses and focal
-lengths remain unselected. The full lattice
-V9.7 enclosure, seat, lid and covers, and the existing TA/adapter component
-geometry, are retained.
+lengths remain unselected. The lattice cell seat and enclosure (since V9.16
+the two identical half bodies and two covers), and the existing TA/adapter
+component geometry, are retained.
 
 There is one post-cell output, in this order:
 cell → mirror at (248, 80.9) → LA1289-B at (248, 62.9) → mirror at (248, 33.9)
@@ -745,7 +761,7 @@ that set lie on the input beam axis by design — empty holes 12.7 mm below the
 beam, usable only with that beam absent or the f = 300 chain's first fold
 removed.
 
-Both the lattice and V9.15 TA boards carry the V9.7 enclosure described above.
+Both the lattice and V9.15 TA boards carry the V9.16 enclosure described above.
 Its end covers have no beam apertures yet and currently block the optical
 axis. Heater/insulation and the glass retention they provide are not modelled.
 
@@ -769,10 +785,10 @@ Threads are specified, not modelled — a STEP file shows every bore's diameter,
 position and depth but cannot say whether it is threaded, so each plate and
 each adapter has a **`*_TAP_or_NOT` sheet** next to its STEP that marks exactly
 that and nothing else (red ring = tap, blue crossed circle = do not tap; drill
-sizes, tolerances, material and finish are left to the shop). The three cell
-enclosure parts have the same kind of sheet, drawn on shaded 3D views of the
-part (every view of a part in one PNG, tapped hole walls red, plain ones blue),
-which also gives the tap-drill depth and the minimum thread depth:
+sizes, tolerances, material and finish are left to the shop). The cell
+enclosure has one picture for both of its parts, the assembled and the exploded
+3D view with the same marks on every hole (hole sizes and depths are in the
+STEP files):
 
 | Part | Sheet | Tapped | Not tapped |
 |---|---|---|---|
@@ -782,9 +798,8 @@ which also gives the tap-drill depth and the minimum thread depth:
 | Splitting baseplate (V2, entrance-HWP revision) | `Production/SplittingBoardV2/Splitting_Board_V2_baseplate_TAP_or_NOT.pdf` | 99 × #8-32 | 4 × 1/4-20 table-bolt clearance |
 | TA adapter (`stl/TA_adapter.stl`) | `Production/Adapters/TA_adapter_TAP_or_NOT.pdf` | 4 × M2.5 × 0.45 (board screws) | 4 × 8-32 clearance (to the plate taps) |
 | AOM adapter (`stl/aom_adapter.stl`) | `Production/Adapters/AOM_adapter_TAP_or_NOT.pdf` | 2 × M4 × 0.7 | 4 × clearance, in a row |
-| Rb cell enclosure, lower half (1 off) | `Production/CellEnclosure/LowerHalf/Rb_Cell_Enclosure_LowerHalf_V9_7_TAP_or_NOT.png` | 4 × #8-32, 16 deep (end faces) | 2 through slots, 4.37 wide |
-| Rb cell enclosure, lid (1 off) | `Production/CellEnclosure/Lid/Rb_Cell_Enclosure_Lid_V9_7_TAP_or_NOT.png` | 4 × #8-32, 16 deep (end faces) | 2 through slots, 4.37 wide, with 8.5 × 5 counter-slots |
-| Rb cell enclosure, end cover (2 off, identical) | `Production/CellEnclosure/Cover/Rb_Cell_Enclosure_Cover_V9_7_TAP_or_NOT.png` | none | 4 × Ø4.37 through, Ø7.5 × 3.5 counterbore |
+| Rb cell enclosure, half body (2 off, identical) | `Production/CellEnclosure/Rb_Cell_Enclosure_V9_16_3D_TAP.png` | 4 × #8-32 (2 in each end face) | 2 through slots |
+| Rb cell enclosure, end cover (2 off, identical) | `Production/CellEnclosure/Rb_Cell_Enclosure_V9_16_3D_TAP.png` | none | 4 counterbored holes |
 
 The standalone TA adapter matching the **current TA V9.15 and lattice V9.7
 board models** is
@@ -894,7 +909,7 @@ volume. The production model uses slide = 0 mm. Endpoint checks are distinct
 from the historical V9.13 swept-box result; they do not establish clearance
 at every intermediate adjustment position.
 `mechanical_projection_passed` describes mechanical routing only. The reused
-V9.7 end covers remain solid and opaque, so `optical_path_readiness` is
+end covers (unchanged since V9.7) remain solid and opaque, so `optical_path_readiness` is
 `blocked_by_unmachined_cell_covers`; the required follow-up is to machine their
 beam apertures and rerun the optical-path audit. A mechanical pass does not
 mean the current assembly is ready to transmit light through those covers.
@@ -1043,6 +1058,35 @@ local development tooling. The TA projection, export and document-generation
 helpers and the Splitting KM05T audit are included in `tools/`.
 
 ## Change log
+
+**V9.16 (2026-10-13, cell enclosure — lattice and TA boards)** — the two halves
+of the cell enclosure become one part, made twice: the upper half is the lower
+half turned over end for end. For that, the lid's 8.5 × 5 mm counter-slots are
+filled (both halves have the same plain 4.37 mm through slots; the two seat
+screws become 8-32 × 2-1/4 in with a #8 washer under each head, 9.2 mm of thread
+in the 14.1 mm pocket floor), and the 6 × 6 cable notch moves from the stem side
+of the lower half to the middle of the opposite (+x) wall, straight across the
+bore from the stem pocket, 3 mm in each half (9.7–15.7 mm above the plate top).
+This also removes the V9.7 lid's end-face openings noted below. Bore, stem
+pocket, slots, cover taps, covers, seat and both plates are unchanged: the
+lattice V9.7 and TA V9.15 plate STEPs and tapping sheets stay. Checks: the
+exported half body equals the upper half turned over (0 mm³ difference both
+ways) and differs from the V9.7 lower half / lid only by the notch and the
+counter-slots; the cover equals the V9.7 cover; the assembly parts do not
+overlap. The five lattice configurations were rebuilt and audited — logs and
+issues identical to V9.7 (the same ten accepted overhangs), the plate solid
+identical to the V9.7 STEP; the renders, validation reports (only the enclosure
+dimensions and part numbers change) and the BOM are regenerated. The TA V9.15 board
+was rebuilt with the new enclosure: plate identical to its published STEP, and
+the board audit and `tools/ta_projection_audit.py` give results identical to
+the same build with the V9.7 enclosure. The TA BOM (generated by
+`tools/render_ta_documents.py`, which now names the V9.16 parts and adds the
+washers) is updated; the TA renders and validation report are not regenerated
+and still record the V9.7 enclosure parts. `Production/CellEnclosure/` now holds
+`Rb_Cell_Enclosure_HalfBody_V9_16.step`, `Rb_Cell_Enclosure_Cover_V9_16.step`
+and one picture, `Rb_Cell_Enclosure_V9_16_3D_TAP.png` (assembled + exploded,
+every hole marked TAP or NO TAP); the per-part folders with the V9.7 STEPs and
+sheets and the V9.7 3D picture are removed.
 
 **Cell enclosure files (2026-10-12, no geometry change)** — `Production/CellEnclosure/`
 is reorganised into one folder per machined part: `LowerHalf/`, `Lid/` and

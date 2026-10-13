@@ -1,5 +1,19 @@
 """Lattice baseplate V9.7 (2026-10-08) - 24 x 15 in, f = 300 mm folded cat-eyes,
 split sliding Rb cell enclosure (plain block, two end screws, closed stem pocket).
+Cell enclosure V9.16 (2026-10-13); the plate is still V9.7.
+
+V9.16 against V9.7 (only the enclosure changes, in optomech.SLIDING_CELL; no
+hole, pocket or part on this plate moves):
+
+* The two halves of the enclosure are now the same part, the "half body"
+  (order 2 half bodies + 2 covers): the upper half is the lower one turned over
+  end for end. The lid's 8.5 x 5 counter-slots are gone - both halves carry the
+  same plain 4.37 mm through slots - and the cable notch moves to the middle
+  of the beam-side wall, opposite the stem pocket (enclosure x = 0, board
+  y = 163.5, leaving toward board +x), 6 x 6 mm and centred on the parting
+  plane, 3 mm in each half.
+* The seat screws become 8-32 x 2-1/4 in with their heads on the top face:
+  48 mm of enclosure, then 9.2 mm of thread in the 14.1 mm pocket floor.
 
 V9.7 against V9.6 (only the cell enclosure and its seat change):
 
