@@ -22,8 +22,8 @@ Geometry:
   one output of each pair needs one extra 45 deg fold (FR) in its feed: C1 and C4 have three mirrors
   in front of their AOM (FR, M1, M2), all other lanes two (A: one plus the input head).
 * AOM centre -> iris 81 mm (A, B1, B2). B1/B2 retain -> HWP 98 mm and -> PBS 121 mm.
-  A moves its AOM/iris +1.5 mm in Y while retaining its downstream HWP/PBS, giving 96.5 mm
-  and 119.5 mm from AOM to those optics; downstream HWP -> PBS remains 23 mm. Output lanes retain AOM
+  A retains 96.5 mm and 119.5 mm to those optics; downstream HWP -> PBS remains 23 mm.
+  Output lanes retain AOM
   -> HWP (first RSP05) -> real 12.7 mm PBS cube bonded upstream of the second RSP05 -> iris
   -> >= 30 mm -> output lens-tube front. The HWP and second stage references are 32 mm apart;
   reversing the second stage puts the cube centre 14.297 mm upstream of its reference. Four
@@ -31,14 +31,16 @@ Geometry:
   an assembly assumption; bond strength and coating compatibility are not certified.
   C1's two added mirrors straddle its iris; C2-C4's two mirrors precede their HWP. AOM -> iris
   path >= 81 mm is retained as a mechanical spacing. The iris is not claimed to reject order 0.
-* A dedicated entrance HWP on a real RSP05 and its lip adapter precedes each AOM, in addition
-  to all seven existing downstream HWPs. A's input head and M1 move 0.9 mm in -Y; its AOM/iris
-  move 1.5 mm in +Y with the existing downstream HWP/PBS fixed. B1 retains its original mirror
-  and AOM positions.
-  For U-oriented C1/C3, the KM100PM extends about 67.58 mm upstream of the AOM centre:
-  the entrance HWP is 79 mm upstream, immediately before that assembly rather than arbitrarily
-  far from the AOM. D-oriented entrance HWPs are 18.8 mm upstream for A, 18.3 mm for B1,
-  and 19.5 mm for B2/C2/C4, measured from the AOM optical centre.
+* A dedicated entrance HWP on a real RSP05 and its lip adapter precedes each AOM,
+  in addition to all seven existing downstream HWPs. Entrance optical-centre spacings
+  are A 28.3 mm, B1 27.8 mm, B2/C2/C4 28 mm and C1/C3 81 mm. The U-facing KM100PM
+  extends about 67.58 mm upstream, so C1/C3 sit before that assembly.
+  In-plane translations provide adjustment clearance around these HWPs and C1's
+  existing downstream HWP while retaining all five fiber heads, tail-clamp holes,
+  table holes and the board outline. The AOM upper adapters, integral seats and
+  mounting depths remain identical to the lattice installation. The catalogue
+  +/-4-degree mount travel is not guaranteed by this board: the unchanged seat
+  limits some pitch/combined settings. See the explicit motion-audit scope.
 * AOMO 3100-125 on KM100PM with the lattice V9 integral seat. Orientation D: KM100PM downstream,
   RF connector on the left of the beam; U: KM100PM upstream, RF on the right. The M2 -> AOM leg is at
   least 26 mm (D) / 79 mm (U).
@@ -100,8 +102,8 @@ PBS_D = 121.                     # default AOM centre -> PBS (B1/B2; A has an ex
 M2_TO_AOM_MIN = {'D': 26., 'U': 79.}
 # Optical-centre separation to the AOM, in the incoming propagation direction.
 # U-facing mounts occupy the upstream 67.58 mm, so their HWP sits before KM100PM.
-PRE_AOM_HWP_TO_AOM_MM = {'A': 18.8, 'B1': 18.3, 'B2': 19.5, 'C1': 79.,
-                        'C2': 19.5, 'C3': 79., 'C4': 19.5}
+PRE_AOM_HWP_TO_AOM_MM = {'A': 28.3, 'B1': 27.8, 'B2': 28., 'C1': 81.,
+                        'C2': 28., 'C3': 81., 'C4': 28.}
 HWP_TO_ROT = 32.              # HWP optical plane -> reversed rotating-PBS stage reference
 ROT_TO_IRIS = {1: 19.20, -1: 15.30}     # by iris post side
 IRIS_TO_FRONT_MIN = {1: 30., -1: 36.5}           # iris -> output lens-tube front (>= 30 mm)
@@ -161,6 +163,20 @@ LANES['B2']['a2'] += 11.
 LANES['C1']['a2'] += 18.
 LANES['C2']['a2'] += 11.
 LANES['C3']['a2'] += 18.
+# Adjustment clearance: move optics in plane only. The shared lattice AOM
+# adapter, integral seat, bearing stock and mounting depth remain unchanged.
+# Reserve the external hardware against a 4-degree any-axis rotation cone
+# about the ideal sphere/cone contact centre, with 1 mm extra separation.
+# This is NOT a full +/-4-degree board-clearance qualification: the unchanged
+# lattice seat can restrict pitch before the mount's catalogue limit.
+LANES['A']['a2'] += 9.5
+LANES['B1']['a2'] += 9.5
+LANES['B2']['d1'] += 8.5
+LANES['B2']['J'] -= 9.5
+LANES['B2']['a2'] += 8.5
+LANES['C1']['d1'] -= 8.5
+LANES['C2']['d1'] -= 8.5
+LANES['C2']['a2'] += 8.5
 OUTPUT_DOGLEGS = {
     'C1': {'x': 464., 'y': 31., 'hwp_distance': 15.},
     'C2': {'x': 397.5, 'y': 146.5, 'hwp_distance': 15.},
@@ -330,8 +346,16 @@ def build(x=0, y=0, angle=0, drill=True):
             'plate_size_mm': [base_dx, base_dy, base_dz],
             'optical_reference_model': {'kind': 'zero_order_reference_model', 'aom_rf_state': 'off',
                                         'modeled_order': 0, 'diffraction_angle_deg': 0.0},
-            'layout_status': 'Splitting Board V2 with seven entrance HWPs (RF-off zero order); '
+            'layout_status': 'Splitting Board V2 with entrance-HWP adjustment clearance (RF-off zero order); '
                              'see the saved native production audit; not machined.'}
+    info['aom_adjustment_design'] = {
+        'required': True, 'external_net_rotation_cone_deg': 4.,
+        'external_clearance_margin_mm': 1.,
+        'preserve_lattice_installation': True,
+        'full_catalogue_travel_certified': False,
+        'scope': 'External hardware reserve around an ideal sphere/cone contact pivot; '
+                 'unchanged lattice seat restricts pitch/combined travel; RF-on optical coupling not certified.',
+    }
     info['mount_holes_mm'] = [((mx + .5)*INCH, (my + .5)*INCH) for mx, my in mount_holes]
     info['table_mount_pattern'] = {'pitch_mm': INCH, 'right_lower_edge_offset_mm': INCH,
                                   'edge_datum': 'finished machined plate edges',
@@ -433,7 +457,7 @@ def build(x=0, y=0, angle=0, drill=True):
                            mount_type=optomech.rotation_stage_rsp05)
         entrance_hwp.addProperty('App::PropertyString', 'Purpose').Purpose = (
             'Dedicated pre-AOM half-wave plate on RSP05; existing downstream HWP retained. '
-            + ('Located immediately before the upstream KM100PM assembly (79 mm from AOM centre).'
+            + ('Located before the upstream KM100PM assembly with explicit adjustment clearance.'
                if q['orient'] == 'U' else 'Located immediately before the AOM entrance assembly.'))
         entrance_stage = next(child for child in entrance_hwp.ChildObjects
                               if child.Proxy.__class__.__name__ == 'rotation_stage_rsp05')
@@ -458,7 +482,7 @@ def build(x=0, y=0, angle=0, drill=True):
             'aom_mount_orientation': q['orient'],
             'last_mirror_to_hwp_mm': q['a2'] - PRE_AOM_HWP_TO_AOM_MM[name],
             'hwp_to_aom_mm': PRE_AOM_HWP_TO_AOM_MM[name],
-            'spacing_basis': ('HWP precedes the upstream KM100PM envelope; 79 mm is the optical-centre '
+            'spacing_basis': ('HWP precedes the upstream KM100PM envelope; the declared spacing is the optical-centre '
                               'distance to the AOM, not free space to its outer housing.'
                               if q['orient'] == 'U' else
                               'HWP lies on the final incoming leg immediately before the AOM assembly.')})

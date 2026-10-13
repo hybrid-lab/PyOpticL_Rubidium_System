@@ -159,6 +159,11 @@ def export_board(doc, info, report, output_directory, fcstd_directory=None, *,
         report['upstream_order_audit'] = ta_upstream_order_audit.audit(doc, info)
         if not report['upstream_order_audit']['passed']:
             raise ValueError('Actual TA upstream waveplate/mirror/isolator order must pass')
+    if info.get('mode') == 'ta' and requires_single_output:
+        import ta_mount_support_audit
+        ta_mount_support_audit.apply(report, doc, info)
+        if not report['mount_support_audit']['passed']:
+            raise ValueError('All six actual M05 bases need plate support and clearance from the TA pocket')
     bare_stations = [o for o in doc.Objects
                      if type(getattr(o, 'Proxy', None)).__name__ == 'BareTappedHole'
                      and getattr(o, 'Baseplate', plate) == plate]
@@ -179,6 +184,10 @@ def export_board(doc, info, report, output_directory, fcstd_directory=None, *,
         pre_aom_waveplate_audit.apply(report, doc, info, source_module=board_source)
         if report['pre_aom_waveplate_audit'].get('passed') is not True:
             raise ValueError('Seven AOM entrance waveplates require their current placement and independent clearance audits')
+        import aom_adjustment_audit
+        aom_adjustment_audit.apply(report, doc, info, source_module=board_source)
+        if report['aom_adjustment_audit'].get('passed') is not True:
+            raise ValueError('AOM external adjustment clearance and unchanged lattice installation must pass')
     if info.get('mode') == 'ta' and report.get('table_envelope', {}).get('passed') is not True:
         raise ValueError('TA plate needs a passing table/cable envelope audit')
     if info.get('mode') == 'splitting' and report.get('installation_envelope', {}).get('passed') is not True:
@@ -238,7 +247,10 @@ def export_board(doc, info, report, output_directory, fcstd_directory=None, *,
                           ('single_output_audit', 'single_output_audit.py'),
                           ('conditioning_station_audit', 'conditioning_station_audit.py'),
                           ('upstream_order_audit', 'ta_upstream_order_audit.py'),
+                          ('mount_support_audit', 'ta_mount_support_audit.py'),
                           ('pre_aom_waveplate_audit', 'pre_aom_waveplate_audit.py'),
+                          ('aom_adjustment_audit', 'aom_adjustment_audit.py'),
+                          ('aom_adjustment_audit', 'km100pm_kinematic_geometry.py'),
                           ('table_mount_grid', 'table_mount_audit.py'),
                           ('table_grid_installation', 'splitting_table_grid_audit.py'),
                           ('installation_envelope', 'splitting_table_envelope_audit.py')):

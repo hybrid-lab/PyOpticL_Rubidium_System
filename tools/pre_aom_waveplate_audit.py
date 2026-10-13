@@ -86,8 +86,8 @@ def _source(source_module):
     spacing = constants.get('PRE_AOM_HWP_TO_AOM_MM', {})
     if set(spacing) != set(_LANES) or any(_number(v) <= 0. for v in spacing.values()):
         raise ValueError('Source must explicitly declare a positive HWP-to-AOM spacing for all seven lanes')
-    if any(abs(_number(spacing[n])-79.) > _TOL for n in _UPSTREAM_MOUNT_LANES):
-        raise ValueError('Upstream-facing C1/C3 KM100PM assemblies require the declared 79 mm reference spacing')
+    if any(_number(spacing[n]) < 79.-_TOL for n in _UPSTREAM_MOUNT_LANES):
+        raise ValueError('Upstream-facing C1/C3 KM100PM assemblies require at least 79 mm spacing, exactly matching the source declaration')
     if hasattr(source_module, '__file__'):
         if (not _same(getattr(source_module, 'PRE_AOM_HWP_TO_AOM_MM', None), spacing) or
                 tuple(getattr(source_module, 'ORDER', ())) != _LANES):

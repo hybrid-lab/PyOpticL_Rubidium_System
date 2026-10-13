@@ -125,8 +125,8 @@ If you use this work in academic settings, please also cite:
 # Rb-87 795 nm lattice laser system — branch `gpt+claude+Haotian`
 
 Three baseplates for the 795 nm lattice light, designed in September 2026 by
-Haotian Xu with GPT (Codex) and Claude. The current TA revision is **V9.14**
-(2026-10-12): an **11.625 × 10.15 in plate with one fiber output**. It restores
+Haotian Xu with GPT (Codex) and Claude. The current TA revision is **V9.15**
+(2026-10-12): an **11.625 × 10.625 in plate with one fiber output**. It retains
 the upstream order TA → two steering mirrors → HWP → isolator → QWP, followed
 by the common folds and four bare conditioning positions: two cylindrical-lens
 and two spherical-lens provisions. All four positions fit the selected
@@ -134,9 +134,13 @@ POLARIS-L05G holders; the lenses themselves have not been selected.
 After the cell, two steering folds and a folded two-lens telescope lead to an
 HWP, a real 12.7 mm PBS bonded to an RSP05, and one KA05T. This revision has
 six mirrors and no AOM or shutter. The TA cable leaves the upper long edge;
-every physical part and the full 4 in cable allowance beyond that nominal
-edge fit inside the 28 × 15 in platform at a verified mounting-grid position.
-The measured occupied envelope is 310.985 × 361.543 mm. The full V9.7 sliding
+the full 4 in cable allowance and the existing 1 in platform-grid phase remain
+required. This revision relocates the TA, lowers the isolator lane and moves
+the output group left to restore actual mirror-base support. V9.14 is a
+rejected machining reference: its left post-isolator mirror stood over the
+TA-adapter pocket, which the older contact and beam checks did not detect.
+V9.15 adds an audit of all six M05 bearing footprints against the final
+machined plate. The full V9.7 sliding
 cell enclosure remains, including its end covers that still need beam
 apertures before optical operation. The lattice board remains at V9.7 and
 the double-pass board at V9.3; earlier TA designs remain in the change log.
@@ -160,7 +164,7 @@ that the top hardware/RF overhang stays within the accepted 5.451278 mm limit.
 | Board | Script | Size | Production folder |
 |---|---|---|---|
 | Lattice board | `Rubidium_system/Lattice_Baseplate_V9.py` | 24 × 15 in | `Production/LatticeBoardV9/` |
-| TA board (V9.14) | `Rubidium_system/TA_Baseplate_V9.py` | 11.625 × 10.15 in | `Production/TABoardV9/` |
+| TA board (V9.15) | `Rubidium_system/TA_Baseplate_V9.py` | 11.625 × 10.625 in | `Production/TABoardV9/` |
 | Double-pass AOM board | `Rubidium_system/AOM_DoublePass_Baseplate_V9.py` | 17 × 6 in | `Production/AOMDoublePassV9/` |
 | Splitting board (1 → 2 → 4 AOMs) | `Rubidium_system/Splitting_Board_V2.py` | 24 × 14 in | `Production/SplittingBoardV2/` |
 
@@ -230,7 +234,7 @@ below the banner are:
   direction. All dimensions live in the `SLIDING_CELL` dict and are exported
   with the parts (`Production/CellEnclosure/`). The V9.2–V9.4 pocket-only seat
   (`CellPocketMachining` / `place_cell_pocket`) stays in the library for legacy
-  layouts. The V9.14 TA board uses the full, unchanged V9.7 enclosure and
+  layouts. The V9.15 TA board uses the full, unchanged V9.7 enclosure and
   sliding seat, including the unfinished end covers.
 - `IntegralAOMSeat` / `integrate_aom` / `_make_IntegralAOMBaseplate` — the AOM
   seat machined directly into the baseplate (no lower surface adapter), with a
@@ -293,6 +297,13 @@ checks the four fixing holes against the machined plate and their relative
 1 in grid. The saved `table_grid_installation` then records the confirmed
 25.4 mm platform-edge hole offset, aligned installation and approved overhang.
 
+`tools/aom_adjustment_audit.py` and `tools/km100pm_kinematic_geometry.py`
+verify the original lattice installation and the ideal KM100PM contact
+geometry before testing continuous external adjustment envelopes. They use
+NumPy and SciPy in the native FreeCAD runtime. This export used FreeCAD's
+existing NumPy 1.26.4 and SciPy 1.16.3; their actual paths are saved in the
+validation report. The audit does not alter the AOM pockets or installation.
+
 **Unchanged:** the inherited `stl/` meshes, including the existing KM05T and
 fiberport lip-adapter meshes; every other script in `Rubidium_system/`; and
 every other `Production/` folder.
@@ -354,7 +365,7 @@ each half, so the covers also tie the halves together. The covers carry **no
 beam aperture yet** — it is to be opened later on the bore axis.
 
 The placement coordinates and board directions in this enclosure description
-refer to the lattice board. The V9.14 TA board reuses these parts at its own
+refer to the lattice board. The V9.15 TA board reuses these parts at its own
 placement, recorded in its script and validation report.
 
 The enclosure slides across the beam and is held by a screw at each end. The
@@ -408,81 +419,87 @@ The 10 in bolt-pair limit above applies to the lattice board. The compact TA
 board has its own table-grid mounting pattern in `TA_Baseplate_V9.py` and the
 current tapping sheet.
 
-**TA board (11.625 × 10.15 in, V9.14, 2026-10-12).** The nominal outline is
-295.275 × 257.81 mm; the machined plate is 288.925 × 251.46 × 25.4 mm after
-the standard 3.175 mm edge inset. Relative to V9.13, the bottom is cropped by
-38.1 mm and the top extended by 16.51 mm to clear the restored upstream route.
-The resulting nominal area is 7.73% smaller. The output HWP's complete adapter
-remains supported: its lower edge is 7.725 mm inside the finished plate edge.
-The full 60 × 20 mm fiber-clamp reservation is also inside, with a 0.725 mm
-lower-edge margin.
+**TA board (11.625 × 10.625 in, V9.15, 2026-10-12).** The nominal outline is
+295.275 × 269.875 mm; the machined plate is 288.925 × 263.525 × 25.4 mm after
+the standard 3.175 mm edge inset. The previous 38.1 mm bottom crop is retained;
+the top extension relative to the uncropped 11 in reference is now 28.575 mm.
+The long dimension stays 11.625 in. The added 12.065 mm in Y relative to V9.14
+provides room to separate the TA-adapter pocket from the mirror supports
+while retaining the full cable reservation and the previous platform-grid phase.
 
-The TA emits right from (93.5, 204.41) mm, folds at (266, 204.41) and
-(266, 147.9), then passes through the HWP at (252, 147.9), isolator at
-(188.5, 147.9) and QWP at (125.5, 147.9). This restores the original
-**TA → two steering mirrors → HWP → isolator → QWP** order. The common fold
-at (27.8, 147.9) sends the beam down through the first cylindrical-lens hole
-at (27.8, 103.9); it folds right at (27.8, 80.9), through the second
-cylindrical hole at (50, 80.9), spherical holes at (75, 80.9) and (115, 80.9),
+The TA emits right from (211, 216.4) mm, folds at (268, 216.4) and
+(268, 137.5), then passes through the HWP at (245, 137.5), isolator at
+(112, 137.5) and QWP at (49, 137.5). The original
+**TA → two steering mirrors → HWP → isolator → QWP** order is retained.
+The isolator lane is 10.4 mm lower than V9.14. The common fold
+at (26.8, 137.5) sends the beam down through the first cylindrical-lens hole
+at (26.8, 103.9); it folds right at (26.8, 80.9), through the second
+cylindrical hole at (49, 80.9), spherical holes at (74, 80.9) and (114, 80.9),
 and the cell at (180, 80.9). The two cylindrical provisions span **45.2 mm
 along the folded beam** (23 + 22.2 mm); the spherical provisions are 40 mm
-apart. The four positions remain bare 8-32 holes. Native probes with the
-selected POLARIS-L05G holder verify each actual mounting axis and full holder
-footprint. The lenses and focal lengths remain unselected. The full lattice
+apart. The four positions remain bare 8-32 holes. Both common folds and all
+four provisions move 1 mm left from V9.14; their existing conditioning pitches
+are unchanged. Native probes with the selected POLARIS-L05G holder verify
+each actual mounting axis and full holder footprint at both cell endpoints. The lenses and focal
+lengths remain unselected. The full lattice
 V9.7 enclosure, seat, lid and covers, and the existing TA/adapter component
 geometry, are retained.
 
 There is one post-cell output, in this order:
-cell → mirror at (265, 80.9) → LA1289-B at (265, 62.9) → mirror at (265, 33.9)
-→ LA1540-B at (248.680652, 33.9) → HWP at (223.680652, 33.9)
-→ bonded PBS cube at (205.977652, 33.9) → fiber face at (141.680652, 33.9) mm.
-This complete output group retains its V9.13 geometry, translated 34.1 mm in −Y.
+cell → mirror at (248, 80.9) → LA1289-B at (248, 62.9) → mirror at (248, 33.9)
+→ LA1540-B at (231.680652, 33.9) → HWP at (206.680652, 33.9)
+→ bonded PBS cube at (188.977652, 33.9) → fiber face at (124.680652, 33.9) mm.
+This complete output group moves rigidly 17 mm left from V9.14, retaining
+its internal optical and tail-clamp geometry.
 Both output mirrors have 45° incidence. The second mirror lies between the
 two lenses, so their retained **45.319348 mm spacing is measured along the
 folded beam**: 29 + 16.319348 mm. Their direct centre-to-centre chord is not
 the telescope spacing. The first lens mount has 90° yaw and the second 0°.
-The RSP05 reference is at (191.680652, 33.9) mm,
+The RSP05 reference is at (174.680652, 33.9) mm,
 32 mm after the HWP; its bonded 12.7 mm PBS lies 14.297 mm upstream of that
 reference. Only its axial transmitted route is modelled. There are six mirrors
 in total, one KA05T and no AOM, shutter, branch-splitting PBS or output iris.
 
-The KA05T reference is (122.882652, 33.9) mm, with its tail-clamp pair centred
-at (56.182652, 33.9) mm: the 66.7 mm rear offset is retained. The audit reserves
+The KA05T reference is (105.882652, 33.9) mm, with its tail-clamp pair centred
+at (39.182652, 33.9) mm: the 66.7 mm rear offset is retained. The audit reserves
 the full 60 × 20 mm clamp footprint and the 20 mm-wide fiber corridor to the
 left edge. RF clearance is explicitly not applicable because the actual
 object and service inventories contain no AOM.
 
 The TA cable exits the upper **long edge** in +Y. A full 101.6 mm (4 in)
-reservation starts at the nominal Y = 257.81 mm edge, in addition to the
-connector service region. Including actual hardware, knobs, fiber services
-and cable, the occupied envelope is 310.984956 × 361.543393 mm. The selected
-translation onto the **28 × 15 in platform** is **(+215.9, +9.525) mm**.
+reservation starts at the nominal Y = 269.875 mm edge, in addition to the
+connector service region. The retained installation translation onto the
+**28 × 15 in platform** is **(+215.9, +9.525) mm**.
 The confirmed table hole grid has 25.4 mm pitch and its outermost holes are
-25.4 mm from each edge. All four fixing holes align:
+25.4 mm from each edge. The four selected fixing-hole centres are:
 
 | Fixing-hole centre in board frame (mm) | Centre on platform (mm) | Grid indices from platform edges |
 |---|---|---|
-| (88.9, 117.475) | (304.8, 127) | (12, 5) |
-| (38.1, 41.275) | (254, 50.8) | (10, 2) |
-| (139.7, 219.075) | (355.6, 228.6) | (14, 9) |
-| (190.5, 219.075) | (406.4, 228.6) | (16, 9) |
+| (266.7, 66.675) | (482.6, 76.2) | (19, 3) |
+| (12.7, 15.875) | (228.6, 25.4) | (9, 1) |
+| (114.3, 244.475) | (330.2, 254) | (13, 10) |
+| (38.1, 244.475) | (254, 254) | (10, 10) |
 
 The former lower-right anchor is relocated with the user's authorization by
-(−7, +5) whole inches on its previous grid, after rebasing Y by −38.1 mm for
+(0, +3) whole inches on its previous grid, after rebasing Y by −38.1 mm for
 the bottom crop. It is no longer a hole 25.4 mm from the current right/lower
 edges. The audit binds this relocation to the actual cropped and extended
-plate, and verifies all four through bores and counterbores in its solid.
-At the selected installation position the actual plate's lower edge is
-platform Y = 12.7 mm; the empty nominal border is not physical stock. The
-plate, all hardware and all reserved services are fully inside the platform.
-The smallest platform-edge margin is 7.391607 mm at a knob; the cable has
-12.065 mm above it. Seven knobs extend beyond the plate, with no body
-overhang, and all remain within the platform. The reused V9.7 end
+plate, and checks all four through bores and counterbores in its solid.
+At this installation position the actual plate's lower edge is platform
+Y = 12.7 mm; the empty nominal border is not physical stock. The full cable
+allowance reaches platform Y = 381 mm. The final native model occupies
+313.984956 × 373.608393 mm including hardware and all declared services.
+Every body and service reservation fits the platform at this grid alignment;
+the reserved cable corridor ends exactly at its upper edge. Five knobs extend
+beyond the plate itself; no non-knob body extends beyond its finished edges.
+The reused V9.7 end
 covers are still opaque: their beam apertures must be designed and machined
 before optical operation.
 
-Current V9.14 machining model:
-[TA_Board_V9_baseplate_11p625x10p15in.step](Production/TABoardV9/StepFile/TA_Board_V9_baseplate_11p625x10p15in.step).
+V9.15 machining-model filename:
+`TA_Board_V9_baseplate_11p625x10p625in.step` in `Production/TABoardV9/StepFile/`.
+**The V9.14 11.625 × 10.15 in STEP is a rejected support-defect reference,
+not a machining-ready predecessor.**
 The earlier single-output
 [11.625 × 11 in V9.13 STEP](Production/TABoardV9/StepFile/TA_Board_V9_baseplate_11p625x11in.step),
 [14 × 11 in V9.12 STEP](Production/TABoardV9/StepFile/TA_Board_V9_baseplate_14x11in.step),
@@ -493,7 +510,8 @@ and the dual-output
 and
 [25 × 14 in STEP](Production/TABoardV9/StepFile/TA_Board_V9_baseplate_25x14in.step)
 are retained as legacy models. The top/3D renders, BOM, tapping sheet,
-hole inventory and validation report in `Production/TABoardV9/` describe V9.14.
+hole inventory and validation report in `Production/TABoardV9/` are regenerated
+from the final V9.15 native assembly.
 The [installation-clearance plan](Production/TABoardV9/TA_Board_V9_table_clearance.png)
 shows the beam routes, cable reservations and measured platform envelope.
 
@@ -524,27 +542,24 @@ HWP centre-to-AOM optical-bore distances are:
 
 | AOM lane | Entrance HWP to AOM (mm) | AOM mount orientation |
 |---|---|---|
-| A | 18.8 | D, KM100PM downstream |
-| B1 | 18.3 | D, KM100PM downstream |
-| B2 | 19.5 | D, KM100PM downstream |
-| C1 | 79 | U, KM100PM upstream |
-| C2 | 19.5 | D, KM100PM downstream |
-| C3 | 79 | U, KM100PM upstream |
-| C4 | 19.5 | D, KM100PM downstream |
+| A | 28.3 | D, KM100PM downstream |
+| B1 | 27.8 | D, KM100PM downstream |
+| B2 | 28 | D, KM100PM downstream |
+| C1 | 81 | U, KM100PM upstream |
+| C2 | 28 | D, KM100PM downstream |
+| C3 | 81 | U, KM100PM upstream |
+| C4 | 28 | D, KM100PM downstream |
 
-The 79 mm U-orientation distance accommodates the KM100PM assembly upstream
+The 81 mm U-orientation distance accommodates the KM100PM assembly upstream
 of the AOM. Positions reference the actual optical bore, including the AOM
 mesh's (0, −0.030, −0.115) mm local aperture correction, not its shifted mesh
-placement origin. A's entrance HWP is at (132.3113, 59.0616) mm. Relative to
-the preceding mounting-only revision, the input head, A M1 and the two input
-tail taps move 0.9 mm in −Y; B2's feed mirrors move 11 mm in −X; the C1/C3 AOMs
-move 18 mm in +X; C1's existing HWP/PBS pair moves 10 mm in +X; and C2's AOM
-moves 11 mm in +X with its output dogleg group 18 mm in +X. All four output
-heads, their eight tail taps and the four table-fixing holes retain their
-previous positions. A's AOM and iris additionally move 1.5 mm in +Y to
-(132.3113, 77.8616) and (132.3113, 158.8616) mm, respectively; its downstream
-HWP and PBS stay at Y = 174.3616 and 197.3616 mm. The AOM adapter geometry
-is unchanged. The plate remains 24 × 14 in.
+placement origin. The adjustment-clearance revision increases the five D-lane
+entrance spacings by 8.5–9.5 mm and the two U-lane spacings by 2 mm. Selected
+feed mirrors and AOM positions translate in the board plane; all five fiber
+heads, ten tail taps, four platform holes and the 24 × 14 in outline retain
+their preceding entrance-HWP positions. A's AOM, iris, downstream HWP and PBS
+move together 9.5 mm in +Y. The AOM adapter, KM100PM, integral seat and mounting
+depth are the same as on the lattice board. **No deeper AOM pocket is added.**
 
 All 23 steering mirrors use Newport M05 mounts at exactly 45° incidence,
 giving 90° folds and horizontal or vertical beam legs. This includes the
@@ -558,14 +573,31 @@ before the HWP and bonded PBS. No beam may pass beneath a knob, even when the
 parts are separated in height; the final geometry must satisfy the full
 mechanical and XY-projection checks.
 
-These results apply to the nominal static pose. Thorlabs specifies ±4°
-tip/tilt for the [KM100PM prism mount](https://www.thorlabs.us/newgrouppage9.cfm?objectgroup_id=1811&pn=KPY1),
-but this model uses one rigid STL without articulated parts or pivot data.
-At B1, the entrance-HWP RSP05 and AOM adapter have only 0.147001 mm of axial
-bounding-box separation. That is neither an exact nearest-face clearance nor
-an allowable adjustment angle. Full angular travel has **not** been verified;
-`kinematic_adjustment_scope` records this limitation without changing the
-delivered Splitting layout or its static collision results.
+Thorlabs specifies ±4° tip/tilt for the
+[KM100PM prism mount](https://www.thorlabs.us/newgrouppage9.cfm?objectgroup_id=1811&pn=KPY1).
+The earlier entrance-HWP layout checked only its static pose and left as
+little as 0.147001 mm axial bounding-box separation at B1. It is superseded
+by this adjustment-clearance revision. The new `aom_adjustment_audit` derives
+an ideal sphere/cone pivot from the actual KM100PM STL and distinguishes
+clearance to neighbouring hardware from the retained installation's own
+limits. Its external envelope covers a **4° net rotation about any axis**,
+with 1 mm added clearance. Both adjustment screws are modelled on their
+actual fixed axes, including arbitrary axial rotation and the approximately
+±2.638 mm travel bound derived from the upper flat contact and lower double-rod
+contact. All 28 actual knurled heads and shafts are included in the dynamic
+projection check. The smallest certified external-clearance lower bound is
+1.051485 mm; this is a conservative separating-plane bound, not a measured
+global closest distance. This is not a guarantee of simultaneous ±4° on
+both adjustment axes, internal relative clearance, full-angle platform fit,
+real cable deformation or RF-on optical transmission.
+
+The unchanged upper adapter starts only 0.715 mm above the uncut plate top.
+A native single-axis 4° probe enters the plate by about 2.93 mm, so the original
+lattice installation itself limits some tilt settings. The user's request
+is to preserve that installation; the audit records this limitation rather
+than deepening the plate. Actual RF connector/bend geometry is unmodelled:
+the static 40 × 20 mm reservations remain checked, while their swept routing
+cannot be certified from these envelopes alone.
 
 The layout includes edge overhangs from eight knobs and the C1 FR/M1 mount
 bodies. Their conservative body bounding boxes extend about 6.44 mm beyond
@@ -694,7 +726,7 @@ that set lie on the input beam axis by design — empty holes 12.7 mm below the
 beam, usable only with that beam absent or the f = 300 chain's first fold
 removed.
 
-Both the lattice and V9.14 TA boards carry the V9.7 enclosure described above.
+Both the lattice and V9.15 TA boards carry the V9.7 enclosure described above.
 Its end covers have no beam apertures yet and currently block the optical
 axis. Heater/insulation and the glass retention they provide are not modelled.
 
@@ -706,10 +738,13 @@ pocket and the 1/4-20 table-bolt counterbores included (the lattice plate is
 `Lattice_V9_7_baseplate_24x15in.step`; the superseded V9.4–V9.5 and
 24 × 14 in V9.2/V9.3 plates are removed; the splitting plate is
 `Splitting_Board_V2_baseplate_24x14in.step`). The current TA plate is
-`TA_Board_V9_baseplate_11p625x10p15in.step`; the
+`TA_Board_V9_baseplate_11p625x10p625in.step`; its V9.15 STEP round trip retains
+one valid solid with the same volume, and its complete hole inventory is below. The
 11.625 × 11 in V9.13, 14 × 11 in V9.12,
 14 × 16.5 in V9.11, 14 × 21.5 in V9.9,
-14 × 17.5 in V9.8 and 25 × 14 in predecessors are retained as legacy STEPs. The solid is inset
+14 × 17.5 in V9.8 and 25 × 14 in predecessors are retained as legacy STEPs.
+The 11.625 × 10.15 in V9.14 model is retained only as a rejected reference
+because of its unsupported common-fold mirror. The solid is inset
 3.175 mm from the nominal outline on every side, as in every PyOpticL plate.
 Threads are specified, not modelled — a STEP file shows every bore's diameter,
 position and depth but cannot say whether it is threaded, so each plate and
@@ -720,13 +755,13 @@ sizes, tolerances, material and finish are left to the shop):
 | Part | Sheet | Tapped | Not tapped |
 |---|---|---|---|
 | Lattice baseplate (V9.7) | `Production/LatticeBoardV9/Lattice_V9_7_baseplate_TAP_or_NOT.pdf` | 100 × #8-32 | 4 × 1/4-20 table-bolt clearance |
-| TA baseplate (V9.14) | `Production/TABoardV9/TA_Board_V9_baseplate_TAP_or_NOT.pdf` | 31 × #8-32 | 4 × 1/4-20 table-bolt clearance |
+| TA baseplate (V9.15) | `Production/TABoardV9/TA_Board_V9_baseplate_TAP_or_NOT.pdf` | 31 × #8-32 | 4 × 1/4-20 table-bolt clearance |
 | Double-pass AOM baseplate | `Production/AOMDoublePassV9/AOM_DoublePass_V9_baseplate_TAP_or_NOT.pdf` | 22 × #8-32 | 3 × 1/4-20 clearance |
 | Splitting baseplate (V2, entrance-HWP revision) | `Production/SplittingBoardV2/Splitting_Board_V2_baseplate_TAP_or_NOT.pdf` | 99 × #8-32 | 4 × 1/4-20 table-bolt clearance |
 | TA adapter (`stl/TA_adapter.stl`) | `Production/Adapters/TA_adapter_TAP_or_NOT.pdf` | 4 × M2.5 × 0.45 (board screws) | 4 × 8-32 clearance (to the plate taps) |
 | AOM adapter (`stl/aom_adapter.stl`) | `Production/Adapters/AOM_adapter_TAP_or_NOT.pdf` | 2 × M4 × 0.7 | 4 × clearance, in a row |
 
-The standalone TA adapter matching the **current TA V9.14 and lattice V9.7
+The standalone TA adapter matching the **current TA V9.15 and lattice V9.7
 board models** is
 [`TA_adapter_board_model.step`](Production/Adapters/Stepfile/TA_adapter_board_model.step).
 Use it with `Production/Adapters/TA_adapter_TAP_or_NOT.pdf`. Its analytic
@@ -743,8 +778,9 @@ The adapter's four outer holes also align with the holes in both machined
 baseplate solids. Checks and source hashes are recorded in
 [`TA_adapter_board_model_validation.json`](Production/Adapters/TA_adapter_board_model_validation.json).
 
-The final machined-solid inventory contains 35 hole axes on TA V9.14:
-31 tapped and four platform-clearance holes. The
+The TA V9.15 final machined solid contains 35 complete hole axes: 31 tapped
+and four platform-clearance bores, each with its complete counterbore.
+The
 Splitting entrance-HWP revision contains 103 axes in its final native inventory:
 14 added adapter taps compared with the 89-axis
 mounting-only revision. Its earlier output-steering revision had added eight
@@ -771,14 +807,38 @@ the XY projections of actual placed hardware, including mirror knobs;
 vertical separation never excuses a beam beneath a knob. Any accepted
 overhang, optical exception or unresolved candidate is listed in that report,
 along with the current station, clamp and service clearances.
-The V9.14 native assembly, with the cell at slide = 0 mm, has zero detected
-beam crossings, knob projection hits, foreign-hardware projection conflicts,
-part contacts, unresolved candidates, clamp/service conflicts or hole-access
-issues. Its projection check covers 19 beam segments, 55 physical objects and
-977 object/segment pairs. The minimum beam-edge/knob projection margin is
-17.839503 mm. The single-output audit verifies the actual route, two 45° output
-folds and 45.319348 mm lens-to-lens distance along the folded path. The real
-bonded cube passes its face-contact, adhesive and rotation-envelope checks.
+V9.14 passed those contact and beam checks but still had an unsupported
+mirror: the first common post-isolator M05 projected over the recessed TA
+adapter and its pocket. The small vertical gap prevented a physical-contact
+finding, and the earlier beam audit did not examine bearing surfaces.
+Consequently its previous zero-conflict counts are not an installation pass.
+
+V9.15 adds `tools/ta_mount_support_audit.py`. For each of the six actual M05
+mounts, it extracts the horizontal bottom facets at the plate top, excludes
+only that mount's own verified DrillPart bore, and intersects a thin probe
+0.05 mm below the top with the final machined solid. It records the required,
+supported and unsupported areas, so pockets cut for neighbouring adjusters
+also affect the result. A separate actual-geometry check forbids an M05 body
+or bearing footprint over the foreign TA-adapter pocket, irrespective of
+vertical separation. Missing geometry and unresolved intersections fail the
+check. This is a static geometric support check for the six M05s, not a
+clamping-strength calculation or a blanket support certification for other
+components.
+
+The final V9.15 report includes this support audit alongside the full
+mechanical, projection, machining, fiber and service checks at cell slides
+0 and 10.5 mm. Both endpoints have zero blocking issue counts. All six M05s
+retain their complete measured 161.332280 mm² bottom bearing area, with zero
+unsupported area. The nominal projection check covers 19 beam segments,
+55 physical objects and 977 segment/object pairs, with zero crossings,
+knob underpasses, foreign-hardware conflicts or unresolved candidates.
+The 72-object FCStd round trip preserves object names and placements, and
+the plate remains one valid solid. The regression report
+`TA_Board_V9_mount_support_regression.json` confirms that the new audit rejects
+the V9.14 mirror whose lost support area was 148.585202 mm².
+The single-output audit checks the actual route, two 45° output folds and
+45.319348 mm lens-to-lens distance along the folded path. The bonded cube
+also requires its face-contact, adhesive and rotation-envelope checks.
 The old RF/order-separation calculation is retained as inapplicable because
 there is no AOM; no Gaussian mode-matching or coupling-efficiency claim follows.
 
@@ -788,29 +848,26 @@ four selected POLARIS-L05G holders each match their actual tap axis and
 the full footprint reservation. Fresh clearance checks include these
 holder/lens footprints together; no installed conditioning optics are implied.
 
-The actual-vertex table audit records seven protruding knobs, at most
-11.767478 mm beyond the machined plate edge, and no body overhang. Every
-protrusion, the full 101.6 mm cable extension, fiber clamp and service region
-is included in the 310.984956 × 361.543393 mm occupied envelope. A search finds
-16 placements on the confirmed 1 in platform grid. The selected
-(+215.9, +9.525) mm translation aligns all four actual drilled fixing holes
-and contains the complete assembly and services within the 711.2 × 381 mm
-platform. The actual finished plate determines the lower support edge; its
+The actual-vertex table audit includes every protrusion, the full
+101.6 mm cable extension, fiber clamp and service region. It checks the
+selected (+215.9, +9.525) mm translation against all four actual drilled
+fixing holes and the 711.2 × 381 mm platform. The actual finished plate
+determines the lower support edge; its
 empty nominal border is excluded from physical containment. The
 `table_mount_grid` check covers the actual relative hole grid and authorized
 anchor relocation; `table_envelope.grid_installation` additionally verifies
 the known 25.4 mm table-edge phase and complete physical/service containment.
-Negative probes reject an actually displaced upstream HWP, a fractional-inch
-anchor move and crop metadata inconsistent with the actual plate; the HWP is
-restored afterward. A separately rebuilt slide = 10.5 mm assembly also passes
-the full mechanical, hole, service, projection, holder-fit, upstream-order and
-table-installation checks. Its complete report is
+Required negative controls include a displaced upstream HWP, a
+fractional-inch anchor move, inconsistent crop metadata and the unsupported
+V9.14 common-fold placement. A separately rebuilt slide = 10.5 mm assembly
+must run the same full checks, including mirror support. Its report is
 [TA_Board_V9_cell_endpoint_validation.json](Production/TABoardV9/TA_Board_V9_cell_endpoint_validation.json).
-The saved FCStd reopens with all 72 objects and names preserved, no invalid/error
-object states, and unchanged single-solid plate volume. The STEP round trip
-also preserves one valid solid and its volume. The production model is saved
-at slide = 0 mm. The V9.14 endpoint checks are separate from the historical
-V9.13 swept-box result; no new continuous adjustment-sweep clearance is claimed.
+Before delivery, the saved FCStd must reopen with its object inventory and
+names preserved, no invalid/error states and unchanged single-solid plate
+volume; the STEP round trip must independently retain a valid solid and its
+volume. The production model uses slide = 0 mm. Endpoint checks are distinct
+from the historical V9.13 swept-box result; they do not establish clearance
+at every intermediate adjustment position.
 `mechanical_projection_passed` describes mechanical routing only. The reused
 V9.7 end covers remain solid and opaque, so `optical_path_readiness` is
 `blocked_by_unmachined_cell_covers`; the required follow-up is to machine their
@@ -854,13 +911,16 @@ the four actual bonded-cube contact and rotation-envelope audits, and the
 platform-envelope check described above. These checks pass for all seven
 AOMs, all 23 mirrors and all four bonded cubes. The full report has zero
 detected mechanical, aperture, fiber-installation, service, hole-access or
-unresolved-candidate issues; all 19 broad-phase overlap candidates are resolved.
+unresolved-candidate issues; all 21 broad-phase overlap candidates are resolved.
 Projection checks cover 62 beam segments,
 212 physical objects and 14,609 object/segment pairs, with zero ray crossings,
 knob hits or foreign-hardware conflicts. The minimum beam-edge/knob projection
 margin is 0.520322 mm, between the C4 route and C3 M1's lower knob. A deliberate
 beam beneath an elevated KM100PM knob is correctly rejected without changing
-the model. Four native negative checks also reject a mismatched document,
+the model. The current native motion checks also reject an entrance HWP
+deliberately moved into the adjustment envelope and an unsupported 8° scope
+request. All probes restore the original placements and declarations.
+The preceding entrance-HWP revision's four native negative checks rejected a mismatched document,
 a plate-only empty hardware inventory, a displaced entrance HWP, and a report
 with a prior mesh-contact failure. The original geometry and placement are
 restored after the probes; no existing failure is overwritten by an entrance-HWP
@@ -892,7 +952,18 @@ runtime tree-view limitation; the stored plate geometry and placements pass
 their independent checks. The STEP round trip also preserves a valid single
 solid and its volume.
 
-Comparison against the preceding native assembly verifies all 66 existing
+For the current adjustment-clearance revision, native comparison against
+the preceding entrance-HWP assembly verifies all 73 root assemblies and
+246 physical/analytic objects, including 5,456,491 mesh vertices. Only the
+explicitly listed translations are accepted; the maximum translated-vertex
+residual is 1.14 × 10⁻¹³ mm. There are no new root assemblies. All five fiber
+heads, their tail taps and all four actual platform bores are preserved.
+The report separately records 27 display bounding-box cache differences;
+analytic shape equality and Boolean differences resolve these without
+relaxing the geometry tolerance.
+
+For the preceding seven-entrance-HWP revision, comparison against its earlier
+native assembly verified all 66 existing
 root assemblies and 225 objects by class, rotation, the stated translations,
 mesh topology, 5,358,764 mesh vertices and analytic BREP geometry. The maximum
 translated mesh-vertex difference is 1.14 × 10⁻¹³ mm. There are exactly seven
@@ -927,7 +998,18 @@ helpers and the Splitting KM05T audit are included in `tools/`.
 
 ## Change log
 
-**Splitting V2 (2026-10-12, seven entrance HWPs)** —
+**Splitting V2 (2026-10-12, AOM adjustment clearance)** — keeps the lattice
+AOM adapter, KM100PM, integral seat and installation depth unchanged; no
+deeper pockets are added. Entrance HWP-to-AOM spacings become 28.3 mm (A),
+27.8 mm (B1), 28 mm (B2/C2/C4) and 81 mm (C1/C3). Selected internal feed
+mirrors and AOMs translate to make room. All five fiber heads, ten tail
+taps, four platform holes, plate outline and accepted platform overhang
+retain their preceding positions. A continuous external-clearance audit
+uses the actual KM100PM contact geometry and distinguishes clearance to
+neighbouring hardware from the original lattice installation's own tilt
+limits. It does not certify the full combined catalogue adjustment range.
+
+**Splitting V2 (2026-10-12, seven entrance HWPs; historical static layout)** —
 adds one half-inch HWP, RSP05 and lip adapter before each of the seven AOMs,
 retaining all seven original downstream HWPs: fourteen HWPs and eighteen
 RSP05 stages in total. A uses an 18.8 mm HWP-to-AOM bore distance, B1 uses
@@ -945,7 +1027,26 @@ round trips preserve the valid machined solid. Layout/views, BOM, tapping sheets
 and validation evidence are regenerated for this revision. The user-approved
 5.451278 mm top hardware/RF overhang is unchanged.
 
-**V9.14 (2026-10-12, cropped TA and restored upstream order)** — crops 38.1 mm
+**V9.15 (2026-10-12, TA mirror-support correction)** — changes the TA plate
+to 11.625 × 10.625 in while retaining its 11.625 in long dimension, the
+previous bottom crop and the authorized integer-inch platform-grid phase.
+The TA moves to (211, 216.4) mm; the isolator lane moves down to Y = 137.5 mm.
+The upper steering mirrors use X = 268 mm, the complete post-cell output
+group moves 17 mm left, and the two left common folds and four conditioning
+provisions move 1 mm left. All six mirrors, the upstream polarization order,
+45.2/40 mm conditioning pitches, 45.319348 mm folded output telescope and
+66.7 mm rear-clamp offset are retained. The four table holes move only by
+whole-inch offsets on the existing grid. The new six-M05 audit checks actual
+bottom bearing area on the final machined plate and forbids support over the
+TA-adapter pocket; it also detects support lost to neighbouring knob slots.
+Fresh native checks pass at both cell endpoints, including all six support
+footprints and four actual POLARIS-L05G fits. The 72-object model retains
+31 tapped and four complete platform-clearance holes; STEP and FCStd round
+trips pass. Views, holder-fit illustration, tapping sheets, BOM and validation
+evidence are regenerated. V9.14's former pass counts are not reused.
+
+**V9.14 (2026-10-12, historical — rejected support-defect layout)** —
+**do not use this STEP for machining or installation.** It crops 38.1 mm
 from the V9.13 bottom and adds 16.51 mm at the top, giving 11.625 × 10.15 in.
 Restores TA → two steering mirrors → HWP → isolator → QWP before the common
 folds. The four bare conditioning holes fit actual selected POLARIS-L05G
@@ -960,8 +1061,12 @@ and all hardware plus the full 4 in cable fit the 28 × 15 in platform.
 The 72-object model has 31 tapped and four platform-clearance holes; native
 reopening and STEP round trips pass. Both 0 and 10.5 mm cell positions pass
 the mechanical, projection, actual-holder, order and table checks. The V9.7
-cell covers still require beam apertures. The V9.13 STEP and the following
-version records remain historical.
+cell covers still require beam apertures. Those historical checks omitted
+actual mirror bearing support: a subsequent native probe found the first
+common post-isolator M05 standing largely over the TA-adapter pocket. This
+is a real unsupported mounting condition despite the absence of a 3D body
+collision. V9.15 replaces this layout and adds the missing support check.
+The V9.13 STEP and the following version records remain historical.
 
 **V9.13 (2026-10-12, historical compact TA with four conditioning provisions)** — reduces
 the single-output plate from 14 × 11 to 11.625 × 11 in. The non-mirror optical

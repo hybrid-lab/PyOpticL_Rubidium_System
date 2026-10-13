@@ -223,6 +223,9 @@ def build_bom(report, holes, title, step_name, source_name, sheet_name):
             stage_count = classes["rotation_stage_rsp05"] + classes["rotation_stage_rsp05_bonded_cube"]
             bonded_count = classes["rotation_stage_rsp05_bonded_cube"]
             notes.append(f"Each of the {len(entrance_hwps)} AOM entrances has a dedicated HWP, RSP05 and lip adapter. The {hwp_count-len(entrance_hwps)} downstream HWPs remain installed, giving {hwp_count} HWPs in total. The {stage_count} RSP05 mounts include {bonded_count} bonded-PBS stages that hold cubes, not additional waveplates.")
+        motion = report.get('aom_adjustment_audit', {})
+        if motion.get('passed') is True:
+            notes.append('AOM upper adapters, KM100PM mounts and integral seats retain the lattice installation and depth; no deeper pockets are added. External hardware clears an ideal-pivot net rotation cone of 4 degrees with 1 mm added margin. This does not certify full combined catalogue travel: the existing adapter-to-plate clearance limits some tilt directions, as recorded in the adjustment audit.')
     reference = report.get("optical_reference_model") or {}
     if (reference.get("kind") == "zero_order_reference_model" and
             reference.get("aom_rf_state") == "off" and
@@ -238,6 +241,8 @@ def build_bom(report, holes, title, step_name, source_name, sheet_name):
             notes.append("The upstream HWP is on the first horizontal TA output leg, before the first steering mirror. The QWP is on the left vertical leg, after the isolator and before the conditioning stations.")
         if report.get('upstream_order_audit', {}).get('passed') is True:
             notes.append('Original upstream order restored: TA -> two steering mirrors -> HWP -> isolator -> QWP -> common folding mirrors and conditioning. Actual native optical centres, axes and mirror normals are independently checked.')
+        if report.get('mount_support_audit', {}).get('passed') is True:
+            notes.append('All six M05 mirror bases are checked against the actual machined plate, excluding only their own mounting bores. The TA adapter pocket must not remove a mirror support footprint; vertical separation alone is insufficient.')
     if classes["CellPocketMachining"]:
         notes.append("The reserved cell pocket is machining only. No cell enclosure is included in the installed component counts.")
     if classes["SlidingCellEnclosure"]:

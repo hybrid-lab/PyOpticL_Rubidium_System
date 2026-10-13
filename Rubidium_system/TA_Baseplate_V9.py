@@ -1,4 +1,4 @@
-"""TA baseplate V9.14 - 11.625 x 10.15 in, with one fiber output.
+"""TA baseplate V9.15 - 11.625 x 10.625 in, with one fiber output.
 
 Beam order, read top to bottom in example_baseplate():
 
@@ -10,8 +10,9 @@ Beam order, read top to bottom in example_baseplate():
 The TA emits right; its thick cable exits the upper long edge. The HWP and
 QWP retain their original order relative to the isolator and every mirror.
 Four conditioning taps accept selected POLARIS-L05G holders; their optics
-remain unselected. The bottom stock is trimmed by 38.1 mm. The TA moves left
-and up to restore waveplate order without mounting interference.
+remain unselected. The previous 38.1 mm bottom crop and table-grid phase are
+retained. The TA sits above the right half of the isolator lane, clearing
+the left folding mirror's support footprint. The post-cell group moves left.
 After the cell, two 45-degree mirrors turn the output down and then left.
 The second mirror lies between the lenses; their 45.319348 mm propagation
 distance is measured along this folded path. The bonded PBS lies upstream of its
@@ -34,7 +35,7 @@ from PyOpticL import layout, optomech
 # baseplate constants
 base_dx = 11.625*layout.inch
 BOTTOM_TRIM_MM = 1.5*layout.inch
-TA_TOP_EXTENSION_MM = .65*layout.inch
+TA_TOP_EXTENSION_MM = 1.125*layout.inch
 base_dy = 11*layout.inch-BOTTOM_TRIM_MM+TA_TOP_EXTENSION_MM
 base_dz = layout.inch
 gap = layout.inch/8
@@ -42,10 +43,10 @@ gap = layout.inch/8
 # Preserve the previous one-inch table-grid phase after trimming. The former
 # lower-right anchor may move by integer inches under the user's new request.
 PRIOR_TABLE_ANCHOR_MM = (base_dx-gap-layout.inch, gap+layout.inch)
-TABLE_MOUNT_ANCHOR_RELOCATION_IN = (-7, 5)
-TABLE_MOUNT_ANCHOR_MM = (PRIOR_TABLE_ANCHOR_MM[0]-7*layout.inch,
-                         PRIOR_TABLE_ANCHOR_MM[1]+5*layout.inch-BOTTOM_TRIM_MM)
-TABLE_MOUNT_OFFSETS_IN = ((0, 0), (-2, -3), (2, 4), (4, 4))
+TABLE_MOUNT_ANCHOR_RELOCATION_IN = (0, 3)
+TABLE_MOUNT_ANCHOR_MM = (PRIOR_TABLE_ANCHOR_MM[0],
+                         PRIOR_TABLE_ANCHOR_MM[1]+3*layout.inch-BOTTOM_TRIM_MM)
+TABLE_MOUNT_OFFSETS_IN = ((0, 0), (-10, -2), (-6, 7), (-9, 7))
 mount_holes = [(TABLE_MOUNT_ANCHOR_MM[0]/layout.inch+dx-.5,
                 TABLE_MOUNT_ANCHOR_MM[1]/layout.inch+dy-.5)
                for dx, dy in TABLE_MOUNT_OFFSETS_IN]
@@ -60,21 +61,21 @@ def board_direction(dx, dy):
     return dx, dy
 
 # --- common path: lattice ordering and conditioning pitches -----------------
-TA_XY = (93.5, 187.9+TA_TOP_EXTENSION_MM)
-TA_FOLD1_XY = (266., 187.9+TA_TOP_EXTENSION_MM)
-TA_FOLD2_XY = (266., 147.9)
-TA_HWP_XY = (252., 147.9)
-ISO_XY = (188.5, 147.9)
-QWP_XY = (125.5, 147.9)
+TA_XY = (211., 216.4)
+TA_FOLD1_XY = (268., 216.4)
+TA_FOLD2_XY = (268., 137.5)
+TA_HWP_XY = (245., 137.5)
+ISO_XY = (112., 137.5)
+QWP_XY = (49., 137.5)
 CYLINDRICAL_PITCH = 45.2
 STATION_IDS = (1, 2, 5, 6)  # retain four provisions, removing old positions 3 and 4
-STATIONS_XY = ((27.8, 103.9), (50., 80.9), (75., 80.9), (115., 80.9))
-COMMON_FOLD1_XY = (27.8, 147.9)
-COMMON_FOLD2_XY = (27.8, 80.9)
+STATIONS_XY = ((26.8, 103.9), (49., 80.9), (74., 80.9), (114., 80.9))
+COMMON_FOLD1_XY = (26.8, 137.5)
+COMMON_FOLD2_XY = (26.8, 80.9)
 CELL_XY = (180., 80.9)
-COMMON_FOLD3_XY = (265., 80.9)
-COMMON_FOLD4_XY = (265., 33.9)
-OUTPUT_L1_XY = (265., 62.9)
+COMMON_FOLD3_XY = (248., 80.9)
+COMMON_FOLD4_XY = (248., 33.9)
+OUTPUT_L1_XY = (248., 62.9)
 
 # L1 lies on the downward leg. The remaining distances run leftward from
 # the second post-cell mirror, preserving L1 -> mirror -> L2 propagation.
@@ -108,14 +109,14 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
 
     baseplate = layout.baseplate(base_dx, base_dy, base_dz, x=x, y=y, angle=angle, gap=gap,
                                  drill=False, mount_holes=mount_holes,
-                                 name='TA plate V9.14 trimmed single-output')
+                                 name='TA plate V9.15 supported-mirror single-output')
     plate = doc.getObject(baseplate.active_baseplate)
     info = {'mode': 'ta', 'plate': plate, 'roots': {}, 'paths': [], 'arms': [],
             'reservations': [], 'extra_cuts': [], 'geometry_assertions': [], 'alternate': False,
             'service_regions': [], 'output_optical_routes': [], 'bonded_output_pbs': [],
             'requirements': {'mirror_roles': [], 'spherical_groups': []},
             'isolator': None, 'cell': None, 'upstream_order_required': True,
-            'layout_status': 'V9.14 trimmed single-output with restored polarization order; see saved audit report.',
+            'layout_status': 'V9.15 single-output with mirror-support audit; see saved audit report.',
             'optical_reference_model': {'kind': 'single_output_no_aom', 'output_lane': OUTPUT_LANE},
             'mount_holes_mm': [[(hx+.5)*layout.inch, (hy+.5)*layout.inch] for hx, hy in mount_holes]}
     info['table_mount_pattern'] = {'pitch_mm': layout.inch, 'prior_right_lower_edge_offset_mm': layout.inch,
@@ -405,8 +406,8 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
          'expected': 2, 'tolerance': 0.},
         {'name': 'Single KA05T rear-hole axis to left plate edge (mm)',
          'measured': output_xy['port'][0]-REAR_CLAMP_OFFSET-gap,
-         'expected': 53.007652, 'tolerance': 1e-6}])
-    assert_distance('Cell -> first output fold', CELL_XY, COMMON_FOLD3_XY, 85.)
+             'expected': 36.007652, 'tolerance': 1e-6}])
+    assert_distance('Cell -> first output fold', CELL_XY, COMMON_FOLD3_XY, 68.)
     assert_distance('Output fold separation', COMMON_FOLD3_XY, COMMON_FOLD4_XY, 47.)
 
     # ---- cut the plate once every element and machining volume is in place ----
@@ -416,7 +417,7 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
     plate.touch()
     doc.recompute()
     info['plate_size_mm'] = [base_dx, base_dy, base_dz]
-    doc.Label = 'TA board - V9.14 trimmed single-output'
+    doc.Label = 'TA board - V9.15 supported-mirror single-output'
     return info
 
 
