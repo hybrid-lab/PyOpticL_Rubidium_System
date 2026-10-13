@@ -8408,21 +8408,29 @@ def place_cell_pocket(bp, x, y, angle=0, name="Rb vapor cell seat - plate pocket
             "dimensions": dimensions}
 
 
-# --- 3b. V9.7 split sliding Rb vapour-cell enclosure (plain block) -----------
+# --- 3b. split sliding Rb vapour-cell enclosure (plain block; V9.7, halves identical since V9.16)
 #
 # Local frame of every part below: x along the bore (= the beam), y across the
 # beam in the plate plane (the sliding direction), z up. The origin is on the
 # bore axis at the middle of the CELL; the parting plane of the two halves is
 # z = 0 = the plate's 12.7 mm optical axis, so the beam runs along the split.
 #
+# V9.16: the two halves are ONE part (the "half body", 2 per enclosure). Every
+# feature of it is symmetric about x = 0, so the upper half is the lower half
+# turned over end for end (180 deg about local y): the lid's counter-slots are
+# gone (plain through slots, screw heads on the top face) and the cable notch
+# moved to x = 0 in the beam-side (local -y) wall, opposite the stem pocket,
+# centred on the parting plane.
+#
 #   SlidingCellEnclosure  the LOWER half (root): a plain 88 x 46.9 x 24 block
 #                         (x = +-44; 20.2 toward local -y, 26.7 toward
 #                         local +y) with the half bore, the lower half of the
-#                         closed stem pocket, the cable notch, the two through
-#                         slots and the four lower cover taps
-#   SlidingCellLid        the UPPER half: the same plain block, 24 tall, with the
-#                         half bore, the upper half of the stem pocket, the two
-#                         through slots with their counter-slots, the upper taps
+#                         closed stem pocket, the lower half of the cable
+#                         notch, the two through slots and the four lower
+#                         cover taps
+#   SlidingCellLid        the UPPER half: the same half body turned over (the
+#                         half bore, the upper halves of the stem pocket and of
+#                         the notch, the two through slots, the upper taps)
 #   SlidingCellCover      two 46.9 x 48 x 7 mm end plates, four counterbored
 #                         8-32 clearance holes each, NO beam aperture yet
 #   SlidingCellGlass      the GC25075-RB envelope (25.4 x 71.8, Thorlabs drawing
@@ -8431,9 +8439,9 @@ def place_cell_pocket(bp, x, y, angle=0, name="Rb vapor cell seat - plate pocket
 #   SlidingCellSeat       plate machining: the 11.3 mm deep pocket (both halves,
 #                         covers and travel) and the two 8-32 taps
 #
-# Two 8-32 x 2 in screws, one at each end, go from the lid top through the
-# slots of BOTH halves into the plate: they clamp the halves together and fix
-# the position. The slots sit in the bore's end regions beyond the cell (the
+# Two 8-32 x 2-1/4 in screws, one at each end, go from the top face of the upper
+# half through the slots of BOTH halves into the plate: they clamp the halves
+# together and fix the position. The slots sit in the bore's end regions beyond the cell (the
 # body is 8.1 mm longer than the cell at each end), on the local +y half of the
 # bore - the beam uses the centre and the local -y half - so the screws never
 # meet the cell or the beam. The stem pocket is CLOSED: it ends 1.5 mm beyond
@@ -8461,13 +8469,13 @@ SLIDING_CELL = {
     "slot_y_mm": [0.5, 11.0],                # screw centre at full travel .. centred (slide 0)
     "slot_width_mm": 0.172*25.4,             # 8-32 close clearance (4.37)
     "travel_mm": 10.5,                       # beam 2.2 mm inside the cell wall at the end (the isolator limits more)
-    "lid_counterslot_mm": [8.5, 5.0],        # width, depth from the lid top: the socket head sits 0.6 mm below the top
     # closed stem pocket in the local +y wall, centred on the parting plane and on the cell's mid-length
     "stem_channel_mm": [12.0, 10.0],         # x width, z height (5 in each half): 1.85 mm around a 6.3 mm stem
     "stem_pocket_depth_from_axis_mm": 24.2,  # 1.5 mm beyond the 10 mm MAX stem; 2.5 mm of wall stays to the face
-    # cable notch in the lower half's parting face, through the local +y wall
-    "cable_notch_mm": [6.0, 6.0],            # x width, depth below the parting plane
-    "cable_notch_x_mm": -20.0,
+    # cable notch through the local -y (beam-side) wall, opposite the stem pocket, at the middle of the
+    # length and centred on the parting plane (half in each half body), so the turned-over half matches
+    "cable_notch_mm": [6.0, 6.0],            # x width, z height (3 mm in each half)
+    "cable_notch_x_mm": 0.0,
     # covers
     "cover_thickness_mm": 7.0,
     "cover_hole_yz_mm": [[17.0, 17.0], [-14.5, 17.0], [17.0, -17.0], [-14.5, -17.0]],   # +y pair clears the slots
@@ -8475,7 +8483,8 @@ SLIDING_CELL = {
     "cover_counterbore_mm": [7.5, 3.5],      # diameter, depth: the 4.4 mm socket head stands 0.9 mm proud
     "cover_screw": "8-32 x 5/8 in socket head cap screw (15.9 mm), 8 per enclosure",
     "cover_tap_depth_mm": 16.0,              # 15.9 - (7 - 3.5) = 12.4 mm of thread engaged, 3.6 mm spare
-    "seat_screw": "8-32 x 2 in socket head cap screw (50.8 mm) through the lid and the lower half, 2 per seat",
+    "seat_screw": "8-32 x 2-1/4 in socket head cap screw (57.2 mm), head on the top face, through both halves "
+                  "into the plate tap (9.2 mm engaged), 2 per seat",
     # plate machining
     "pocket_clearance_mm": 1.2,              # beyond the covers (x): the proud screw heads take 0.9 of it
     "pocket_clearance_stem_side_mm": 1.0,    # local +y end of the travel: the pocket wall is the travel stop
@@ -8528,30 +8537,37 @@ def _sliding_cell_common_cuts(p, shape, z0, z1, sign):
     return shape
 
 
-def sliding_cell_lower_shape(p=None):
-    """The lower half in the local frame: trough, lower stem pocket, cable notch, slots, lower cover taps."""
-    p = p or SLIDING_CELL
+def _sliding_cell_half(p, sign):
+    """One half body (sign = -1: lower, z = -24 .. 0; +1: upper, z = 0 .. 24): trough, half stem pocket,
+    half of the cable notch, the two plain through slots and the cover taps of that half.
+    Every feature is symmetric about x = 0, so the upper half is the lower one turned over end for end."""
     h = p["half_height_mm"]
-    shape = _sliding_cell_block(p, -h, 0.)
-    shape = _sliding_cell_common_cuts(p, shape, -h, 0., -1)
-    nw, nd = p["cable_notch_mm"]
-    ys = p["half_width_stem_side_mm"]
-    shape = shape.cut(Part.makeBox(nw, ys - p["bore_radius_mm"] + 4., nd + 1.,
-                                   App.Vector(p["cable_notch_x_mm"] - nw/2., p["bore_radius_mm"] - 2., -nd)))
+    z0, z1 = (-h, 0.) if sign < 0 else (0., h)
+    shape = _sliding_cell_block(p, z0, z1)
+    shape = _sliding_cell_common_cuts(p, shape, z0, z1, sign)
+    # the cable notch: from inside the bore out through the beam-side (local -y) wall
+    nw, nh = p["cable_notch_mm"]
+    yb = p["half_width_beam_side_mm"]
+    y_in = p["bore_radius_mm"] - 2.
+    z_box = -nh/2. if sign < 0 else -1.          # the box reaches 1 mm past the parting plane
+    shape = shape.cut(Part.makeBox(nw, yb - y_in + 2., nh/2. + 1.,
+                                   App.Vector(p["cable_notch_x_mm"] - nw/2., -yb - 2., z_box)))
     return shape.removeSplitter()
+
+
+def sliding_cell_half_shape(p=None):
+    """The half body as machined (2 per enclosure), in the lower-half frame (z = -24 .. 0)."""
+    return _sliding_cell_half(p or SLIDING_CELL, -1)
+
+
+def sliding_cell_lower_shape(p=None):
+    """The lower half in the local frame (the half body)."""
+    return _sliding_cell_half(p or SLIDING_CELL, -1)
 
 
 def sliding_cell_lid_shape(p=None):
-    """The upper half: trough, upper stem pocket, the through slots with their counter-slots, upper cover taps."""
-    p = p or SLIDING_CELL
-    h = p["half_height_mm"]
-    shape = _sliding_cell_block(p, 0., h)
-    shape = _sliding_cell_common_cuts(p, shape, 0., h, +1)
-    cw, cd = p["lid_counterslot_mm"]
-    y0, y1 = p["slot_y_mm"]
-    for sx in p["slot_x_mm"]:
-        shape = shape.cut(_sliding_cell_slot(sx, y0, y1, cw, h - cd, cd + 1.))
-    return shape.removeSplitter()
+    """The upper half in the local frame: the same half body turned over (180 deg about local y)."""
+    return _sliding_cell_half(p or SLIDING_CELL, +1)
 
 
 def sliding_cell_body_shape(p=None):
@@ -8625,8 +8641,9 @@ def sliding_cell_dimensions(p=None):
     width = p["half_width_beam_side_mm"] + p["half_width_stem_side_mm"]
     x0, x1 = p["x_range_mm"]
     d.update({
-        "holder": "V9.7 split sliding enclosure: plain block, lower half + lid + 2 covers in an 11.3 mm pocket, "
-                  "two through-slot screws (one per end), closed stem pocket",
+        "holder": "V9.16 split sliding enclosure: plain block of two identical half bodies + 2 covers in an "
+                  "11.3 mm pocket, two through-slot screws (one per end), closed stem pocket",
+        "halves_identical": True,
         "length_mm": x1 - x0,
         "body_size_mm": [x1 - x0, width, 2*p["half_height_mm"]],
         "cover_size_mm": [p["cover_thickness_mm"], width, 2*p["half_height_mm"]],
@@ -8658,18 +8675,23 @@ def sliding_cell_dimensions(p=None):
             "Plain rectangular block 88 x 46.9 x 48 (x = +-44), nothing protrudes. Bore 30.4 mm = cell 25.4 + 5, "
             "through the whole length, bored with the two halves clamped together; the cell is centred in the bore "
             "by the heater/insulation (not modelled), which must also keep it from sliding along the bore.",
-            "Two through slots (4.37 wide, screw centres y = 0.5 .. 11, both halves) at x = +-39.9 in the bore's end "
-            "regions, 1.0 mm beyond the cell end at its +0.8 tolerance and 1.9 mm inside the end faces; they lie in "
+            "The two halves are the same part (half body, 2 per enclosure): the upper half is the lower half turned "
+            "over end for end (180 deg about local y). Every feature of the half body is symmetric about x = 0.",
+            "Two plain through slots (4.37 wide, screw centres y = 0.5 .. 11, both halves, no counter-slot) at "
+            "x = +-39.9 in the bore's end regions, 1.0 mm beyond the cell end at its +0.8 tolerance and 1.9 mm inside "
+            "the end faces; they lie in "
             "the local +y half of the bore while the beam uses the centre and the local -y half, so the screws never "
             "meet the cell or the beam.",
             "Travel 10.5 mm toward local +y (board -x on the lattice board): beam through the cell centre at 0, "
             "2.2 mm inside the cell wall at 10.5; the pocket wall on that side is the travel stop (1 mm clearance). "
             "In the body frame the screws move from y = 11 (centred) to y = 0.5 (full travel).",
-            "Two 8-32 x 2 in screws, one per end, from the lid top through the slots of both halves into the plate "
-            "taps clamp the halves and fix the position; their heads ride in the lid's 8.5 x 5 counter-slots.",
+            "Two 8-32 x 2-1/4 in screws, one per end, from the top face through the slots of both halves into the "
+            "plate taps (9.2 mm of thread in the 14.1 mm pocket floor) clamp the halves and fix the position; the "
+            "heads bear on the top face (a #8 washer helps: the head covers 1.2 mm on each side of the slot).",
             "Stem pocket 12 x 10 split 5/5 by the parting plane, from the bore to 24.2 from the axis and CLOSED: "
             "1.5 mm beyond the 10 mm MAX stem, 2.5 mm of wall to the outer face.",
-            "Cable notch 6 x 6 in the lower half's parting face through the local +y wall at x = -20.",
+            "Cable notch 6 x 6 through the beam-side (local -y) wall at x = 0, opposite the stem pocket, centred on "
+            "the parting plane (3 mm in each half); it opens 9.7 .. 15.7 mm above the plate top.",
             "Covers 7 mm thick, no beam aperture yet (to be opened later; the beam-passage audit exempts them "
             "explicitly). Cover holes at y = +17 / -14.5, z = +/-17: the +y pair clears the slots by 2.1 mm. The "
             "socket heads stand 0.9 mm proud of the 3.5 mm counterbores.",
@@ -8681,7 +8703,8 @@ def sliding_cell_dimensions(p=None):
 
 
 class SlidingCellEnclosure:
-    """V9.7 split sliding Rb cell enclosure (plain block), lower half (root; the lid, covers and glass are its children)."""
+    """Split sliding Rb cell enclosure (plain block), lower half (root; the lid, covers and glass are its children).
+    V9.16: the lower and upper halves are the same half body."""
     type = 'Part::FeaturePython'
 
     def __init__(self, obj, slide=0.0, covers=True, glass=True, lid=True):
@@ -8696,7 +8719,7 @@ class SlidingCellEnclosure:
         obj.addProperty('App::PropertyLength', 'CellRadius', 'Design').CellRadius = p["cell_radius_mm"]
         obj.addProperty('App::PropertyString', 'Purpose', 'Design')
         obj.addProperty('App::PropertyString', 'DimensionsJSON', 'Design')
-        self.part_numbers = ['Rb cell enclosure lower half (machined, V9.7)']
+        self.part_numbers = ['Rb cell enclosure half body (machined, V9.16; lower)']
         if lid:
             _add_linked_object(obj, "Rb cell enclosure lid (upper half)", SlidingCellLid)
         if covers:
@@ -8717,7 +8740,7 @@ class SlidingCellEnclosure:
 
 
 class SlidingCellLid:
-    """Upper half of the split enclosure (the two long seat screws pass through its slots)."""
+    """Upper half of the split enclosure: the half body turned over (the two seat screws pass through its slots)."""
     type = 'Part::FeaturePython'
 
     def __init__(self, obj):
@@ -8726,8 +8749,8 @@ class SlidingCellLid:
         obj.ViewObject.ShapeColor = adapter_color
         obj.ViewObject.Transparency = 35
         obj.addProperty('App::PropertyString', 'Purpose', 'Design')
-        obj.Purpose = "V9.7 enclosure upper half; the seat screws pass through its slots and counter-slots"
-        self.part_numbers = ['Rb cell enclosure lid (machined, V9.7)']
+        obj.Purpose = "V9.16 enclosure upper half = the half body turned over; the seat screws pass through its slots"
+        self.part_numbers = ['Rb cell enclosure half body (machined, V9.16; upper, turned over)']
 
     def execute(self, obj):
         obj.Shape = sliding_cell_lid_shape()
@@ -8746,8 +8769,8 @@ class SlidingCellCover:
         obj.ViewObject.ShapeColor = adapter_color
         obj.ViewObject.Transparency = 35
         obj.addProperty('App::PropertyString', 'Purpose', 'Design')
-        obj.Purpose = "V9.7 enclosure end cover (7 mm); the beam aperture is to be machined later"
-        self.part_numbers = ['Rb cell enclosure cover (machined, V9.7)']
+        obj.Purpose = "V9.16 enclosure end cover (7 mm, as V9.7); the beam aperture is to be machined later"
+        self.part_numbers = ['Rb cell enclosure cover (machined, V9.16)']
 
     def execute(self, obj):
         obj.Shape = sliding_cell_cover_shape()
@@ -8827,7 +8850,7 @@ def place_sliding_cell(bp, x, y, angle=90, slide=0.0,
     a = radians(angle)
     body = bp.place_element("Rb cell enclosure (sliding lower half, slide %.1f mm)" % slide, SlidingCellEnclosure,
                             x=x - slide*sin(a), y=y + slide*cos(a), angle=angle, slide=slide)
-    body.Purpose = ("V9.7 split sliding enclosure (plain block); slide %.1f of %.1f mm along local +y (beam %.1f mm from the "
+    body.Purpose = ("V9.16 split sliding enclosure (two identical half bodies); slide %.1f of %.1f mm along local +y (beam %.1f mm from the "
                     "cell axis)." % (slide, p["travel_mm"], slide))
     dimensions = sliding_cell_dimensions(p)
     dimensions["placement_xy_angle"] = [float(x), float(y), float(angle)]

@@ -987,7 +987,7 @@
       "valid": true,
       "class": "SlidingCellEnclosure",
       "part_numbers": [
-        "Rb cell enclosure lower half (machined, V9.7)"
+        "Rb cell enclosure half body (machined, V9.16; lower)"
       ]
     },
     {
@@ -1013,7 +1013,7 @@
       "valid": true,
       "class": "SlidingCellLid",
       "part_numbers": [
-        "Rb cell enclosure lid (machined, V9.7)"
+        "Rb cell enclosure half body (machined, V9.16; upper, turned over)"
       ]
     },
     {
@@ -1039,7 +1039,7 @@
       "valid": true,
       "class": "SlidingCellCover",
       "part_numbers": [
-        "Rb cell enclosure cover (machined, V9.7)"
+        "Rb cell enclosure cover (machined, V9.16)"
       ]
     },
     {
@@ -1065,7 +1065,7 @@
       "valid": true,
       "class": "SlidingCellCover",
       "part_numbers": [
-        "Rb cell enclosure cover (machined, V9.7)"
+        "Rb cell enclosure cover (machined, V9.16)"
       ]
     },
     {
@@ -6297,10 +6297,6 @@
     ],
     "slot_width_mm": 4.368799999999999,
     "travel_mm": 10.5,
-    "lid_counterslot_mm": [
-      8.5,
-      5.0
-    ],
     "stem_channel_mm": [
       12.0,
       10.0
@@ -6310,7 +6306,7 @@
       6.0,
       6.0
     ],
-    "cable_notch_x_mm": -20.0,
+    "cable_notch_x_mm": 0.0,
     "cover_thickness_mm": 7.0,
     "cover_hole_yz_mm": [
       [
@@ -6337,14 +6333,15 @@
     ],
     "cover_screw": "8-32 x 5/8 in socket head cap screw (15.9 mm), 8 per enclosure",
     "cover_tap_depth_mm": 16.0,
-    "seat_screw": "8-32 x 2 in socket head cap screw (50.8 mm) through the lid and the lower half, 2 per seat",
+    "seat_screw": "8-32 x 2-1/4 in socket head cap screw (57.2 mm), head on the top face, through both halves into the plate tap (9.2 mm engaged), 2 per seat",
     "pocket_clearance_mm": 1.2,
     "pocket_clearance_stem_side_mm": 1.0,
     "pocket_clearance_beam_side_mm": 6.3,
     "pocket_corner_radius_mm": 3.174,
     "seat_tap_depth_mm": 100.0,
     "seat_tap_diameter_mm": 3.4544,
-    "holder": "V9.7 split sliding enclosure: plain block, lower half + lid + 2 covers in an 11.3 mm pocket, two through-slot screws (one per end), closed stem pocket",
+    "holder": "V9.16 split sliding enclosure: plain block of two identical half bodies + 2 covers in an 11.3 mm pocket, two through-slot screws (one per end), closed stem pocket",
+    "halves_identical": true,
     "length_mm": 88.0,
     "body_size_mm": [
       88.0,
@@ -6410,11 +6407,12 @@
       "Local frame: x along the bore and the beam, y across (sliding direction), z up; origin on the bore axis at the middle of the cell; the parting plane z = 0 is the 12.7 mm optical axis.",
       "Cell per Thorlabs drawing 24088-E0W (GC25075-RB): dia 25.4 x 71.8 (tolerances 0.3 / 0.8), fill stem at mid-length, stem height 10 mm MAX; the stem diameter is not on the drawing (6.3 assumed for display).",
       "Plain rectangular block 88 x 46.9 x 48 (x = +-44), nothing protrudes. Bore 30.4 mm = cell 25.4 + 5, through the whole length, bored with the two halves clamped together; the cell is centred in the bore by the heater/insulation (not modelled), which must also keep it from sliding along the bore.",
-      "Two through slots (4.37 wide, screw centres y = 0.5 .. 11, both halves) at x = +-39.9 in the bore's end regions, 1.0 mm beyond the cell end at its +0.8 tolerance and 1.9 mm inside the end faces; they lie in the local +y half of the bore while the beam uses the centre and the local -y half, so the screws never meet the cell or the beam.",
+      "The two halves are the same part (half body, 2 per enclosure): the upper half is the lower half turned over end for end (180 deg about local y). Every feature of the half body is symmetric about x = 0.",
+      "Two plain through slots (4.37 wide, screw centres y = 0.5 .. 11, both halves, no counter-slot) at x = +-39.9 in the bore's end regions, 1.0 mm beyond the cell end at its +0.8 tolerance and 1.9 mm inside the end faces; they lie in the local +y half of the bore while the beam uses the centre and the local -y half, so the screws never meet the cell or the beam.",
       "Travel 10.5 mm toward local +y (board -x on the lattice board): beam through the cell centre at 0, 2.2 mm inside the cell wall at 10.5; the pocket wall on that side is the travel stop (1 mm clearance). In the body frame the screws move from y = 11 (centred) to y = 0.5 (full travel).",
-      "Two 8-32 x 2 in screws, one per end, from the lid top through the slots of both halves into the plate taps clamp the halves and fix the position; their heads ride in the lid's 8.5 x 5 counter-slots.",
+      "Two 8-32 x 2-1/4 in screws, one per end, from the top face through the slots of both halves into the plate taps (9.2 mm of thread in the 14.1 mm pocket floor) clamp the halves and fix the position; the heads bear on the top face (a #8 washer helps: the head covers 1.2 mm on each side of the slot).",
       "Stem pocket 12 x 10 split 5/5 by the parting plane, from the bore to 24.2 from the axis and CLOSED: 1.5 mm beyond the 10 mm MAX stem, 2.5 mm of wall to the outer face.",
-      "Cable notch 6 x 6 in the lower half's parting face through the local +y wall at x = -20.",
+      "Cable notch 6 x 6 through the beam-side (local -y) wall at x = 0, opposite the stem pocket, centred on the parting plane (3 mm in each half); it opens 9.7 .. 15.7 mm above the plate top.",
       "Covers 7 mm thick, no beam aperture yet (to be opened later; the beam-passage audit exempts them explicitly). Cover holes at y = +17 / -14.5, z = +/-17: the +y pair clears the slots by 2.1 mm. The socket heads stand 0.9 mm proud of the 3.5 mm counterbores.",
       "Cover taps 16 mm deep from each end face (two in each half); 5/8 in screws through the counterbored covers engage 12.4 mm and tie the halves together."
     ],
@@ -7486,7 +7484,7 @@
           }
         ],
         "tested_triangle_pairs": 0,
-        "elapsed_seconds": 3.234
+        "elapsed_seconds": 3.469
       }
     ],
     "confirmed_mesh_contacts": [],
@@ -11252,7 +11250,7 @@
         "status": "no_penetration_in_vertex_centroid_samples",
         "tested_samples": 0,
         "screened_samples": 0,
-        "elapsed_seconds": 0.015
+        "elapsed_seconds": 0.0
       }
     ],
     "limitations": [

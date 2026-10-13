@@ -37,9 +37,10 @@ ADAPTERS = {
     "shutter_adapter": "Shutter_Adapter.step",
     "cube_mount_halfinch": "Cube_Mount_Halfinch.step",
     "slide_mount": "Iris_Mount.step (IDA12 slide mount)",
-    "SlidingCellEnclosure": "Rb_Cell_Enclosure_LowerHalf_V9_7.step",
-    "SlidingCellLid": "Rb_Cell_Enclosure_Lid_V9_7.step",
-    "SlidingCellCover": "Rb_Cell_Enclosure_Cover_V9_7.step",
+    # V9.16: the lower and the upper half of the cell enclosure are one part, ordered twice
+    "SlidingCellEnclosure": "Rb_Cell_Enclosure_HalfBody_V9_16.step",
+    "SlidingCellLid": "Rb_Cell_Enclosure_HalfBody_V9_16.step",
+    "SlidingCellCover": "Rb_Cell_Enclosure_Cover_V9_16.step",
 }
 ELEMENTS = {
     "mirror_mount_M05": "Newport M05 mirror mount",
@@ -169,7 +170,8 @@ def build_bom(report, holes, title, step_name, source_name, sheet_name):
         elements["PBS cube bonded to empty output RSP05 (not modelled)"] += empty_pbs
     cell_count = sum(o.get("class") == "SlidingCellEnclosure" for o in objects)
     if cell_count:
-        elements["8-32 x 2 in socket head screw (cell through-slot; not modelled)"] += 2*cell_count
+        elements["8-32 x 2-1/4 in socket head screw (cell through-slot; not modelled)"] += 2*cell_count
+        elements["#8 flat washer (under the cell through-slot screw heads; not modelled)"] += 2*cell_count
         elements["8-32 x 5/8 in socket head screw (cell end covers; not modelled)"] += 8*cell_count
     selected_stations = report.get('conditioning_station_audit', {})
     if selected_stations.get('declaration', {}).get('holder_selection_confirmed') is True:
@@ -248,9 +250,9 @@ def build_bom(report, holes, title, step_name, source_name, sheet_name):
     if classes["CellPocketMachining"]:
         notes.append("The reserved cell pocket is machining only. No cell enclosure is included in the installed component counts.")
     if classes["SlidingCellEnclosure"]:
-        notes.append("The V9.7 cell lower half, lid and covers reuse the STEP files in Production/CellEnclosure. The seat pocket and mounting taps are baseplate machining, not separate parts.")
+        notes.append("The V9.16 cell enclosure is two identical half bodies (the upper one is the lower one turned over) and two identical end covers; their STEP files and the TAP / NO TAP picture are in Production/CellEnclosure. The seat pocket and mounting taps are baseplate machining, not separate parts.")
     if classes["SlidingCellCover"]:
-        notes.append("The supplied V9.7 front and rear cell covers are opaque and have no beam apertures. Machine the beam apertures before optical operation; their present geometry blocks the beam.")
+        notes.append("The supplied V9.16 front and rear cell covers are opaque and have no beam apertures. Machine the beam apertures before optical operation; their present geometry blocks the beam.")
     if empty_pbs:
         notes.append(f"The {empty_pbs} empty output RSP05 mounts each require one bonded PBS cube, listed separately because it is not modelled.")
     if classes["thumbscrew_hkts_5_64"]:
