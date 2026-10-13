@@ -171,6 +171,11 @@ def build_bom(report, holes, title, step_name, source_name, sheet_name):
     if cell_count:
         elements["8-32 x 2 in socket head screw (cell through-slot; not modelled)"] += 2*cell_count
         elements["8-32 x 5/8 in socket head screw (cell end covers; not modelled)"] += 8*cell_count
+    selected_stations = report.get('conditioning_station_audit', {})
+    if selected_stations.get('declaration', {}).get('holder_selection_confirmed') is True:
+        if selected_stations.get('actual_selected_holder_fit', {}).get('passed') is not True:
+            raise ValueError('Selected conditioning holders require actual native fit evidence')
+        elements['POLARIS-L05G lens holder (four planned conditioning positions)'] += 4
     adapters[step_name] += 1
     rows, headers = [[title, None], [None, None]], []
     for heading, counts in [("Adaptors", adapters), ("Elements", elements)]:
@@ -202,7 +207,10 @@ def build_bom(report, holes, title, step_name, source_name, sheet_name):
             conditioning = (report.get("conditioning_station_audit") or {}).get("declaration") or {}
             counts = conditioning.get("expected_counts") or {}
             if counts.get("total") == other_bare and counts.get("cylindrical") and counts.get("spherical"):
-                notes.append(f"{other_bare} bare conditioning stations provide {counts['cylindrical']} cylindrical-lens and {counts['spherical']} spherical-lens mounting positions. Holders and optics remain unselected and are not installed or counted in this BOM.")
+                if conditioning.get('holder_selection_confirmed') is True:
+                    notes.append(f"{other_bare} bare conditioning stations provide {counts['cylindrical']} cylindrical-lens and {counts['spherical']} spherical-lens positions. Four selected POLARIS-L05G holders are listed as planned parts; actual native holder/cutter fit is verified, while optics remain unselected.")
+                else:
+                    notes.append(f"{other_bare} bare conditioning stations provide {counts['cylindrical']} cylindrical-lens and {counts['spherical']} spherical-lens mounting positions. Holders and optics remain unselected and are not installed or counted in this BOM.")
             else:
                 notes.append(f"{other_bare} bare conditioning stations are drilled provisions. No holder or optic is installed there.")
     if classes["fiberport_mount_km05T"]:
@@ -228,6 +236,8 @@ def build_bom(report, holes, title, step_name, source_name, sheet_name):
         notes.append("The TA has one direct fiber output after the rubidium cell: mirror, first lens, mirror, second lens, HWP, bonded rotating PBS and KA05T fiber port. The folded distance between the two lenses is 45.319348 mm.")
         if (report.get("conditioning_station_audit") or {}).get("declaration", {}).get("schema") == "conditioning_stations/1":
             notes.append("The upstream HWP is on the first horizontal TA output leg, before the first steering mirror. The QWP is on the left vertical leg, after the isolator and before the conditioning stations.")
+        if report.get('upstream_order_audit', {}).get('passed') is True:
+            notes.append('Original upstream order restored: TA -> two steering mirrors -> HWP -> isolator -> QWP -> common folding mirrors and conditioning. Actual native optical centres, axes and mirror normals are independently checked.')
     if classes["CellPocketMachining"]:
         notes.append("The reserved cell pocket is machining only. No cell enclosure is included in the installed component counts.")
     if classes["SlidingCellEnclosure"]:
@@ -389,6 +399,11 @@ def render_tapping(report, holes, edges, plate, args):
         ax.plot([x-d, x+d], [y-d, y+d], color=blue, lw=1.8, zorder=8, clip_on=False)
         ax.plot([x-d, x+d], [y+d, y-d], color=blue, lw=1.8, zorder=8, clip_on=False)
         sx, sy = (1 if x < (x0+x1)/2 else -1), (1 if y < (y0+y1)/2 else -1)
+        row = [other for other in plain if abs(other['y']-y)<.03]
+        if len(row)>1 and y>(y0+y1)/2:
+            # Labels outside a shared upper row keep leaders from crossing.
+            row_midpoint = sum(other['x'] for other in row)/len(row)
+            sx = -1 if x<row_midpoint else 1
         annotation = ax.annotate(f"DO NOT TAP\nX {x:.2f}  Y {y:.2f}", xy=(x,y),
                     xytext=(x+sx*.12*width, y+sy*.09*height), color=blue,
                     fontsize=8.5, weight="bold", ha="left" if sx>0 else "right",

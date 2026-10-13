@@ -44,6 +44,37 @@ def audit(doc, info):
         errors.append('Expected exactly four platform fixing holes')
     cylinder_inventory = _platform_cylinders(solid)
     target = [box.XMax-25.4, box.YMin+25.4]
+    relocated = info.get('table_mount_pattern', {}).get('relocated_anchor')
+    if relocated is not None:
+        # The user explicitly permits retaining the previous table grid and
+        # moving the anchor by integer inches when the TA bottom is trimmed.
+        # All actual bore, edge containment and whole-plate checks below stay.
+        try:
+            prior = relocated['prior_anchor_xy_mm']
+            shift = relocated['board_translation_xy_mm']
+            increments = relocated['relocation_in']
+            old_size = relocated['prior_plate_size_mm']
+            current_size = info['plate_size_mm']
+            trim = float(relocated['bottom_trim_mm'])
+            extension = float(relocated['top_extension_mm'])
+            if (info.get('mode') != 'ta' or relocated.get('schema') != 'cropped_grid_reference/1'
+                    or not relocated.get('authorization') or any(len(v) != 2 for v in (prior, shift, increments))
+                    or not all(math.isfinite(float(v)) for pair in (prior, shift, increments) for v in pair)
+                    or any(abs(v-round(v))>1.e-9 for v in increments)
+                    or abs(shift[0])>1.e-9 or shift[1]>=0
+                    or abs(prior[0]-(box.XMax-25.4))>1.e-6
+                    or abs(prior[1]-(box.YMin+25.4))>1.e-6
+                    or len(old_size)!=3 or len(current_size)!=3
+                    or not all(math.isfinite(float(v)) for v in old_size+current_size+[trim,extension])
+                    or trim<=0 or extension<0 or abs(shift[1]+trim)>1.e-6
+                    or abs(old_size[0]-current_size[0])>1.e-6 or abs(old_size[2]-current_size[2])>1.e-6
+                    or abs(old_size[1]-trim+extension-current_size[1])>1.e-6
+                    or abs(box.XLength-(current_size[0]-6.35))>1.e-6
+                    or abs(box.YLength-(current_size[1]-6.35))>1.e-6):
+                raise ValueError('Invalid TA cropped-grid authorization or original anchor datum')
+            target=[prior[i]+shift[i]+25.4*increments[i] for i in range(2)]
+        except Exception as exc:
+            errors.append('Invalid relocated anchor: '+str(exc))
     for obj in mounts:
         p = inverse.multVec(obj.Placement.Base)
         center = [p.x, p.y]
@@ -89,7 +120,7 @@ def audit(doc, info):
                           machined_cylinders=list(cylinders.values())))
     anchors = [h for h in holes if math.dist(h['center_xy_mm'], target)<1.e-6]
     if len(anchors) != 1:
-        errors.append('Exactly one hole must be one inch from right and bottom finished edges')
+        errors.append('Exactly one hole must match the required finished-edge or authorized relocated anchor')
     centers = [h['center_xy_mm'] for h in holes]
     if len({tuple(round(v,6) for v in c) for c in centers}) != 4:
         errors.append('Platform fixing hole centres must be distinct')
@@ -109,6 +140,9 @@ def audit(doc, info):
         errors.append('Actual mounting features do not match the source mount_holes_mm')
     return dict(schema='table_mount_grid/1', passed=not errors, errors=errors,
                 pitch_mm=25.4, anchor_xy_mm=target,
+                anchor_basis=('User-authorized integer-inch relocation on the previous grid after bottom crop'
+                              if relocated is not None else 'One inch from actual right and bottom finished edges'),
+                relocated_anchor=relocated,
                 finished_plate_bounds_xy_mm=[box.XMin,box.YMin,box.XMax,box.YMax],
                 platform_cylinder_inventory=cylinder_inventory,
                 complete_clearance_bore_axes_xy_mm=complete_axes['clearance bore'],

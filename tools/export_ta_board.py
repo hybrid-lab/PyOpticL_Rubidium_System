@@ -154,6 +154,11 @@ def export_board(doc, info, report, output_directory, fcstd_directory=None, *,
                 pbs_paths.get('status') != 'not_applicable_single_transmitted_output' or
                 pbs_paths.get('passed') is not None):
             raise ValueError('Single-output TA needs its passing actual-geometry audit and explicit no-AOM screening scope')
+    if info.get('upstream_order_required') or 'upstream_order_audit' in report:
+        import ta_upstream_order_audit
+        report['upstream_order_audit'] = ta_upstream_order_audit.audit(doc, info)
+        if not report['upstream_order_audit']['passed']:
+            raise ValueError('Actual TA upstream waveplate/mirror/isolator order must pass')
     bare_stations = [o for o in doc.Objects
                      if type(getattr(o, 'Proxy', None)).__name__ == 'BareTappedHole'
                      and getattr(o, 'Baseplate', plate) == plate]
@@ -232,6 +237,7 @@ def export_board(doc, info, report, output_directory, fcstd_directory=None, *,
                           ('zero_order_reference_model', 'zero_order_reference_audit.py'),
                           ('single_output_audit', 'single_output_audit.py'),
                           ('conditioning_station_audit', 'conditioning_station_audit.py'),
+                          ('upstream_order_audit', 'ta_upstream_order_audit.py'),
                           ('pre_aom_waveplate_audit', 'pre_aom_waveplate_audit.py'),
                           ('table_mount_grid', 'table_mount_audit.py'),
                           ('table_grid_installation', 'splitting_table_grid_audit.py'),

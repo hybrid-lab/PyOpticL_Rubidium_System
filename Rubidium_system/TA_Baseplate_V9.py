@@ -1,15 +1,17 @@
-"""TA baseplate V9.13 - 11.625 x 11 in, with one fiber output.
+"""TA baseplate V9.14 - 11.625 x 10.15 in, with one fiber output.
 
 Beam order, read top to bottom in example_baseplate():
 
-    TA -> HWP -> two steering folds -> isolator -> fold -> QWP
+    TA -> two steering folds -> HWP -> isolator -> QWP
        -> four bare 8-32 conditioning stations (two cylindrical, two spherical)
        -> lattice V9.7 sliding Rb cell enclosure -> output fold 1 -> L1
        -> output fold 2 -> L2, HWP, real half-inch PBS bonded to RSP05 -> one KA05T
 
-The TA emits right; its thick cable exits the upper long edge. Its HWP lies
-on the first output leg and its two conditioning provisions straddle a fold.
-Four unselected conditioning stations replace the previous six provisions.
+The TA emits right; its thick cable exits the upper long edge. The HWP and
+QWP retain their original order relative to the isolator and every mirror.
+Four conditioning taps accept selected POLARIS-L05G holders; their optics
+remain unselected. The bottom stock is trimmed by 38.1 mm. The TA moves left
+and up to restore waveplate order without mounting interference.
 After the cell, two 45-degree mirrors turn the output down and then left.
 The second mirror lies between the lenses; their 45.319348 mm propagation
 distance is measured along this folded path. The bonded PBS lies upstream of its
@@ -31,14 +33,19 @@ from PyOpticL import layout, optomech
 
 # baseplate constants
 base_dx = 11.625*layout.inch
-base_dy = 11*layout.inch
+BOTTOM_TRIM_MM = 1.5*layout.inch
+TA_TOP_EXTENSION_MM = .65*layout.inch
+base_dy = 11*layout.inch-BOTTOM_TRIM_MM+TA_TOP_EXTENSION_MM
 base_dz = layout.inch
 gap = layout.inch/8
 
-# Anchor one inch from the actual right and lower machined edges. All other
-# centres share its one-inch table grid; PyOpticL indices include a +0.5 shift.
-TABLE_MOUNT_ANCHOR_MM = (base_dx-gap-layout.inch, gap+layout.inch)
-TABLE_MOUNT_OFFSETS_IN = ((0, 0), (-9, 0), (-9, 9), (-3, 9))
+# Preserve the previous one-inch table-grid phase after trimming. The former
+# lower-right anchor may move by integer inches under the user's new request.
+PRIOR_TABLE_ANCHOR_MM = (base_dx-gap-layout.inch, gap+layout.inch)
+TABLE_MOUNT_ANCHOR_RELOCATION_IN = (-7, 5)
+TABLE_MOUNT_ANCHOR_MM = (PRIOR_TABLE_ANCHOR_MM[0]-7*layout.inch,
+                         PRIOR_TABLE_ANCHOR_MM[1]+5*layout.inch-BOTTOM_TRIM_MM)
+TABLE_MOUNT_OFFSETS_IN = ((0, 0), (-2, -3), (2, 4), (4, 4))
 mount_holes = [(TABLE_MOUNT_ANCHOR_MM[0]/layout.inch+dx-.5,
                 TABLE_MOUNT_ANCHOR_MM[1]/layout.inch+dy-.5)
                for dx, dy in TABLE_MOUNT_OFFSETS_IN]
@@ -53,21 +60,21 @@ def board_direction(dx, dy):
     return dx, dy
 
 # --- common path: lattice ordering and conditioning pitches -----------------
-TA_XY = (132., 226.)
-TA_FOLD1_XY = (266., 226.)
-TA_FOLD2_XY = (266., 182.)
-TA_HWP_XY = (230., 226.)
-ISO_XY = (205., 182.)
-QWP_XY = (27.8, 157.)
-CYLINDRICAL_PITCH = 45.2  # propagation through the intervening 45-degree fold
+TA_XY = (93.5, 187.9+TA_TOP_EXTENSION_MM)
+TA_FOLD1_XY = (266., 187.9+TA_TOP_EXTENSION_MM)
+TA_FOLD2_XY = (266., 147.9)
+TA_HWP_XY = (252., 147.9)
+ISO_XY = (188.5, 147.9)
+QWP_XY = (125.5, 147.9)
+CYLINDRICAL_PITCH = 45.2
 STATION_IDS = (1, 2, 5, 6)  # retain four provisions, removing old positions 3 and 4
-STATIONS_XY = ((27.8, 138.), (50., 115.), (75., 115.), (115., 115.))
-COMMON_FOLD1_XY = (27.8, 182.)
-COMMON_FOLD2_XY = (27.8, 115.)
-CELL_XY = (180., 115.)
-COMMON_FOLD3_XY = (265., 115.)
-COMMON_FOLD4_XY = (265., 68.)
-OUTPUT_L1_XY = (265., 97.)
+STATIONS_XY = ((27.8, 103.9), (50., 80.9), (75., 80.9), (115., 80.9))
+COMMON_FOLD1_XY = (27.8, 147.9)
+COMMON_FOLD2_XY = (27.8, 80.9)
+CELL_XY = (180., 80.9)
+COMMON_FOLD3_XY = (265., 80.9)
+COMMON_FOLD4_XY = (265., 33.9)
+OUTPUT_L1_XY = (265., 62.9)
 
 # L1 lies on the downward leg. The remaining distances run leftward from
 # the second post-cell mirror, preserving L1 -> mirror -> L2 propagation.
@@ -89,8 +96,8 @@ RED = (.85, .15, .1)
 BLUE = (.1, .35, .95)
 UPSTREAM = 'Assumed upstream clearance radius 2.5 mm; TA measured q/M2 not supplied.'
 DOWNSTREAM = 'Nominal conditioned beam envelope, not a measured Gaussian mode or coupling calculation.'
-STATION_NOTE = ('Bare 8-32 conditioning hole (retained station %d); holder and optic not yet selected. '
-                'The audit reserves a 16 mm round holder footprint at the hole.')
+STATION_NOTE = ('Bare 8-32 conditioning hole (retained station %d); selected POLARIS-L05G holder, optics unselected. '
+                'The holder optical datum is 8 mm forward from its mounting tap along the beam.')
 
 
 def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
@@ -101,19 +108,26 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
 
     baseplate = layout.baseplate(base_dx, base_dy, base_dz, x=x, y=y, angle=angle, gap=gap,
                                  drill=False, mount_holes=mount_holes,
-                                 name='TA plate V9.13 compact single-output')
+                                 name='TA plate V9.14 trimmed single-output')
     plate = doc.getObject(baseplate.active_baseplate)
     info = {'mode': 'ta', 'plate': plate, 'roots': {}, 'paths': [], 'arms': [],
             'reservations': [], 'extra_cuts': [], 'geometry_assertions': [], 'alternate': False,
             'service_regions': [], 'output_optical_routes': [], 'bonded_output_pbs': [],
             'requirements': {'mirror_roles': [], 'spherical_groups': []},
-            'isolator': None, 'cell': None,
-            'layout_status': 'V9.13 compact single-output with four conditioning stations; see saved audit report.',
+            'isolator': None, 'cell': None, 'upstream_order_required': True,
+            'layout_status': 'V9.14 trimmed single-output with restored polarization order; see saved audit report.',
             'optical_reference_model': {'kind': 'single_output_no_aom', 'output_lane': OUTPUT_LANE},
             'mount_holes_mm': [[(hx+.5)*layout.inch, (hy+.5)*layout.inch] for hx, hy in mount_holes]}
-    info['table_mount_pattern'] = {'pitch_mm': layout.inch, 'right_lower_edge_offset_mm': layout.inch,
+    info['table_mount_pattern'] = {'pitch_mm': layout.inch, 'prior_right_lower_edge_offset_mm': layout.inch,
                                   'edge_datum': 'finished machined plate edges',
                                   'offsets_in': TABLE_MOUNT_OFFSETS_IN}
+    info['table_mount_pattern']['relocated_anchor'] = {
+        'schema': 'cropped_grid_reference/1', 'prior_anchor_xy_mm': list(PRIOR_TABLE_ANCHOR_MM),
+        'board_translation_xy_mm': [0., -BOTTOM_TRIM_MM],
+        'relocation_in': list(TABLE_MOUNT_ANCHOR_RELOCATION_IN),
+        'prior_plate_size_mm': [base_dx, 11*layout.inch, base_dz],
+        'bottom_trim_mm': BOTTOM_TRIM_MM, 'top_extension_mm': TA_TOP_EXTENSION_MM,
+        'authorization': '2026-10-12 user permits integer-inch relocation of the previous lower-right hole after trimming the bottom.'}
 
     # ---- placement helpers, so every optic below is a single readable line ----
     def put(name, cls, px, py, pangle=0, **kw):
@@ -216,16 +230,16 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
     # =========================================================================
     # The TA emits +x; its thick cable points +y through the upper long edge.
     ta = put('TA', optomech.TA_butterfly_on_adapter, *TA_XY, 0)
-    supply = [TA_XY, TA_HWP_XY, TA_FOLD1_XY, TA_FOLD2_XY, COMMON_FOLD1_XY, QWP_XY, STATIONS_XY[0]]
+    supply = [TA_XY, TA_FOLD1_XY, TA_FOLD2_XY, TA_HWP_XY, ISO_XY, QWP_XY, COMMON_FOLD1_XY, STATIONS_XY[0]]
     bend('TA steering fold 1', TA_XY, TA_FOLD1_XY, TA_FOLD2_XY)
     bend('TA steering fold 2', TA_FOLD1_XY, TA_FOLD2_XY, ISO_XY)
-    wp('TA output HWP', *TA_HWP_XY, 0)
+    wp('TA output HWP', *TA_HWP_XY, 180)
     isolator = put('Hana long isolator', optomech.isolator_850_long_pocket, *ISO_XY, 0)
     info['extra_cuts'].append(isolator)
-    wp('TA output QWP', *QWP_XY, 90)
+    wp('TA output QWP', *QWP_XY, 180)
 
     # =========================================================================
-    # 2. Four bare conditioning stations (holders and optics not yet selected)
+    # 2. Four bare conditioning stations (POLARIS-L05G selected, optics undecided)
     # =========================================================================
     lane_stations = [hole('Common station 8-32 '+str(STATION_IDS[i]), *STATIONS_XY[i], STATION_NOTE % STATION_IDS[i])
                      for i in range(2)]
@@ -238,7 +252,7 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
     output_xy = {key: (COMMON_FOLD4_XY[0]-distance, COMMON_FOLD4_XY[1])
                  for key, distance in OUT.items()}
     output_xy['lens1'] = OUTPUT_L1_XY
-    fold1 = bend('Common post-isolator fold 1', ISO_XY, COMMON_FOLD1_XY, QWP_XY)
+    fold1 = bend('Common post-isolator fold 1', QWP_XY, COMMON_FOLD1_XY, STATIONS_XY[0])
     fold2 = bend('Common post-isolator fold 2', STATIONS_XY[0], COMMON_FOLD2_XY, STATIONS_XY[1])
     fold3 = bend('Common post-isolator fold 3', CELL_XY, COMMON_FOLD3_XY, output_xy['lens1'])
     fold4 = bend('Common post-isolator fold 4', output_xy['lens1'], COMMON_FOLD4_XY, output_xy['lens2'])
@@ -324,11 +338,13 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
         {'name': 'common', 'active_lenses': [], 'spare_holes': [o.Name for o in sphere_stations],
           'stations_only': True, 'spare_required': 2})
     info['requirements']['conditioning_stations'] = {
-        'schema': 'conditioning_stations/1',
+        'schema': 'conditioning_stations/2',
         'cylindrical_holes': [o.Name for o in lane_stations],
         'spherical_holes': [o.Name for o in sphere_stations],
         'expected_counts': {'cylindrical': 2, 'spherical': 2, 'total': 4},
-        'round_envelope_diameter_mm': 16., 'holders_unselected': True}
+        'round_envelope_diameter_mm': 16., 'holders_unselected': False,
+        'holder_model': 'POLARIS-L05G', 'holder_class': 'lens_holder_l05g_no_pin_slots',
+        'holder_selection_confirmed': True, 'optics_unselected': True}
 
     info['requirements']['spherical_groups'].append(
         {'name': OUTPUT_LANE, 'active_lenses': [l1.Name, l2.Name],
@@ -400,7 +416,7 @@ def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
     plate.touch()
     doc.recompute()
     info['plate_size_mm'] = [base_dx, base_dy, base_dz]
-    doc.Label = 'TA board - V9.13 compact single-output'
+    doc.Label = 'TA board - V9.14 trimmed single-output'
     return info
 
 

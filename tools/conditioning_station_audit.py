@@ -3,7 +3,9 @@
 Run ``apply(report, doc, info)`` after the full native board audit. Only its
 legacy three-cylinder/six-total *count assumptions* can be reclassified. Raw
 evidence is retained; no object, geometry, external module or other check is
-modified. This is a provision for unselected holders, not installed optics.
+modified. Schema 1 leaves holders unselected. Schema 2 uses the user's
+selected POLARIS-L05G: native probe objects verify actual meshes and mounting
+axes, while the production document keeps bare taps and unselected optics.
 
 Required ``info['requirements']['conditioning_stations']``::
 
@@ -55,9 +57,16 @@ def _contract(info):
         raise ValueError('Four-station authorization is scoped to the TA board')
     req = info.get('requirements', {})
     declaration = req.get('conditioning_stations', {})
-    if (declaration.get('schema') != 'conditioning_stations/1' or
+    selected_l05g = (declaration.get('schema') == 'conditioning_stations/2'
+                     and declaration.get('holder_model') == 'POLARIS-L05G'
+                     and declaration.get('holder_class') == 'lens_holder_l05g_no_pin_slots'
+                     and declaration.get('holder_selection_confirmed') is True
+                     and declaration.get('holders_unselected') is False
+                     and declaration.get('optics_unselected') is True)
+    legacy_unselected = (declaration.get('schema') == 'conditioning_stations/1'
+                         and declaration.get('holders_unselected') is True)
+    if (not (selected_l05g or legacy_unselected) or
             declaration.get('expected_counts') != _COUNTS or
-            declaration.get('holders_unselected') is not True or
             declaration.get('round_envelope_diameter_mm') != 16.):
         raise ValueError('Explicit two-cylinder/two-spherical bare-station declaration is required')
     cylinder = declaration.get('cylindrical_holes', [])
@@ -87,6 +96,72 @@ def _contract(info):
     return declaration, names, envelopes
 
 
+def _actual_l05g_fit(doc, info, specs):
+    """Build four real holders in a disposable native document.
+
+    Their actual cutters must align with the four bare taps. Their complete
+    projected meshes must match the already checked L05G reservations.
+    This does not install lenses or change the production document/BOM.
+    """
+    import FreeCAD as App
+    from PyOpticL import optomech
+    from RubidiumLatticeV9 import hole_clearance as hc
+    import ta_projection_audit as projection
+
+    probe = App.newDocument('TA_conditioning_holder_fit_probe')
+    entries = []
+    try:
+        for index, spec in enumerate(specs):
+            center, direction = spec['center_xy_mm'], spec['beam_direction_xy']
+            root = [center[i]+8.*direction[i] for i in range(2)]
+            yaw = math.degrees(math.atan2(direction[1], direction[0]))
+            obj = probe.addObject('Mesh::FeaturePython', 'POLARIS_L05G_fit_'+str(index+1))
+            optomech.lens_holder_l05g_no_pin_slots(obj)
+            obj.Placement = App.Placement(App.Vector(root[0], root[1], 0.),
+                                          App.Rotation(App.Vector(0., 0., 1.), yaw))
+            probe.recompute()
+            if (not obj.Mesh.CountFacets or obj.DrillPart.isNull() or not obj.DrillPart.isValid()
+                    or any('Error' in state or 'Invalid' in state for state in obj.State)):
+                raise ValueError('Actual holder/cutter did not build: '+obj.Name)
+            bore_faces = [face for face in obj.DrillPart.Faces
+                          if type(face.Surface).__name__ == 'Cylinder'
+                          and abs(2*face.Surface.Radius-3.4544)<1.e-6]
+            if len(bore_faces) != 1:
+                raise ValueError('Actual POLARIS holder does not have one 8-32 mounting axis')
+            axis = bore_faces[0].Surface.Center
+            if not _near([axis.x, axis.y], center):
+                raise ValueError('Actual holder mounting axis misses the bare tap')
+            points, facets = obj.Mesh.Topology
+            actual = hc._convex_hull_xy([(point.x, point.y) for point in points])
+            planned = hc._holder_rectangles(center, direction)['l05g_body']
+            # Rounded hull construction can retain different collinear points
+            # after a quarter-turn. Compare complete boundaries, not vertex sets.
+            boundary_delta = max(min(projection._point_segment(p, other[i], other[(i+1)%len(other)])
+                                     for i in range(len(other)))
+                                 for first,other in ((actual,planned),(planned,actual)) for p in first)
+            if boundary_delta>0.0015:  # two 0.001 mm coordinate roundings
+                raise ValueError('Actual installed holder contour differs from the reserved STL: '+str(boundary_delta))
+            entries.append({'station': spec['object'], 'model': 'POLARIS-L05G',
+                            'holder_root_xy_mm': root, 'yaw_deg': yaw,
+                            'actual_mounting_axis_xy_mm': [axis.x, axis.y],
+                            'mounting_axis_error_mm': math.dist([axis.x, axis.y], center),
+                            'vertices': len(points), 'triangles': len(facets),
+                            'actual_hull_xy_mm': actual,
+                            'rounded_outline_boundary_difference_mm':boundary_delta,
+                            'actual_mesh_matches_checked_reservation': True,
+                            'local_tap_offset_mm': [-8., 0., -12.7]})
+        mesh_path = Path(optomech.stl_path)/'POLARIS-L05G-Step.stl'
+        fresh_actual=_fresh_footprints(doc, info, specs,
+                                      actual_hulls={e['station']: e['actual_hull_xy_mm'] for e in entries})
+        return {'passed': len(entries) == 4 and fresh_actual['passed'], 'holders': entries,
+                'actual_installed_footprint_clearance':fresh_actual,
+                'mesh_sha256': hashlib.sha256(mesh_path.read_bytes()).hexdigest(),
+                'scope': 'Actual single-hole holder mounting and full XY footprint fit; optics remain unselected.'}
+    finally:
+        App.closeDocument(probe.Name)
+        App.setActiveDocument(doc.Name)
+
+
 def _axis_matches(center, direction, paths):
     matches = []
     for path in paths:
@@ -107,7 +182,7 @@ def _axis_matches(center, direction, paths):
     return matches
 
 
-def _fresh_footprints(doc, info, specs):
+def _fresh_footprints(doc, info, specs, actual_hulls=None):
     """Recheck present triangles, not just a saved footprint PASS.
 
     This uses the native audit's unchanged projection algorithms. No owning
@@ -133,6 +208,8 @@ def _fresh_footprints(doc, info, specs):
     for spec in specs:
         center = np.asarray(spec['center_xy_mm'], float)
         rectangles = hc._holder_rectangles(center, spec['beam_direction_xy'])
+        if actual_hulls is not None:
+            rectangles['l05g_body']=actual_hulls[spec['object']]
         item = {'object': spec['object'], 'center_xy_mm': center.tolist(), 'diameter_mm': 16.,
                 'holder_footprint_xy_mm': {k: np.asarray(v).tolist() for k, v in rectangles.items()}}
         output.append(item)
@@ -239,6 +316,10 @@ def _geometry(doc, info, report, result):
     result['footprints'] = _fresh_footprints(doc, info, specs)
     if not result['footprints']['passed']:
         raise ValueError('Current 16 mm circles or additional planned holder footprints conflict')
+    if declaration['schema'] == 'conditioning_stations/2':
+        result['actual_selected_holder_fit'] = _actual_l05g_fit(doc, info, specs)
+        if not result['actual_selected_holder_fit']['passed']:
+            raise ValueError('All four selected actual POLARIS-L05G holders must fit')
 
 
 def _transition(report, declaration, legacy):

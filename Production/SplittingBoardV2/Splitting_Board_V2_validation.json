@@ -63006,5 +63006,84 @@
       "Splitting_Board_V2_table_clearance.png": "1056d14842a3aa74fdb58375f6bf576923d95c230a48c268762741822c6fd95d"
     },
     "scope": "Final documents derived from the current exported geometry and hole census; native CAD audit evidence unchanged."
+  },
+  "source_revision_commit": "4d6e976e891776bce91d75c728c6e227e2b2854b",
+  "source_revision_note": "Splitting geometry, audits and documents were delivered in this commit. Later shared table/export/document helpers change for TA V9.14; original source hashes and native audit evidence are preserved.",
+  "source_revision_verified_repository_files": [
+    "optomech.py",
+    "Rubidium_system/Splitting_Board_V2.py",
+    "tools/ta_projection_audit.py",
+    "tools/export_ta_board.py",
+    "tools/render_ta_documents.py",
+    "tools/test_ta_projection.py",
+    "tools/km05t_audit.py",
+    "tools/refine_mesh_candidates.py",
+    "tools/bonded_cube_audit.py",
+    "tools/zero_order_reference_audit.py",
+    "tools/pre_aom_waveplate_audit.py",
+    "tools/table_mount_audit.py",
+    "tools/splitting_table_grid_audit.py",
+    "tools/splitting_table_envelope_audit.py"
+  ],
+  "kinematic_adjustment_scope": {
+    "status": "full_angular_travel_not_verified",
+    "native_model": "KM100PM is one rigid STL without articulation, pivot coordinates or a moving-part split. DiffractionAngle is an optical parameter, not mechanical tip/tilt.",
+    "manufacturer_KM100PM_tip_tilt_each_axis_deg": [
+      -4.0,
+      4.0
+    ],
+    "manufacturer_specification_url": "https://www.thorlabs.us/newgrouppage9.cfm?objectgroup_id=1811&pn=KPY1",
+    "nominal_axial_bbox_gaps": [
+      {
+        "lane": "A",
+        "stage": "Mount002",
+        "target": "AOM_Adapter",
+        "target_class": "aom_adapter",
+        "axial_bbox_gap_mm": 0.6470005989074679
+      },
+      {
+        "lane": "B1",
+        "stage": "Mount007",
+        "target": "AOM_Adapter001",
+        "target_class": "aom_adapter",
+        "axial_bbox_gap_mm": 0.14700059890748207
+      },
+      {
+        "lane": "B2",
+        "stage": "Mount012",
+        "target": "AOM_Adapter002",
+        "target_class": "aom_adapter",
+        "axial_bbox_gap_mm": 1.3470005989074565
+      },
+      {
+        "lane": "C1",
+        "stage": "Mount018",
+        "target": "Mount_KM100PM003",
+        "target_class": "prism_mount_km100pm_bridged",
+        "axial_bbox_gap_mm": 7.238050174713123
+      },
+      {
+        "lane": "C2",
+        "stage": "Mount025",
+        "target": "AOM_Adapter004",
+        "target_class": "aom_adapter",
+        "axial_bbox_gap_mm": 1.3470005989074707
+      },
+      {
+        "lane": "C3",
+        "stage": "Mount032",
+        "target": "Mount_KM100PM005",
+        "target_class": "prism_mount_km100pm_bridged",
+        "axial_bbox_gap_mm": 7.238050174713123
+      },
+      {
+        "lane": "C4",
+        "stage": "Mount040",
+        "target": "AOM_Adapter006",
+        "target_class": "aom_adapter",
+        "axial_bbox_gap_mm": 1.3470005989074707
+      }
+    ],
+    "limitation": "These static projected bounds are not exact nearest-face distances or allowable angles. Nominal no-collision results do not prove the full angle sweep. A faithful dynamic check needs manufacturer pivots, articulated CAD or measured joint geometry."
   }
 }
