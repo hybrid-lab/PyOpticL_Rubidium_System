@@ -223,6 +223,8 @@ def build_bom(report, holes, title, step_name, source_name, sheet_name):
             stage_count = classes["rotation_stage_rsp05"] + classes["rotation_stage_rsp05_bonded_cube"]
             bonded_count = classes["rotation_stage_rsp05_bonded_cube"]
             notes.append(f"Each of the {len(entrance_hwps)} AOM entrances has a dedicated HWP, RSP05 and lip adapter. The {hwp_count-len(entrance_hwps)} downstream HWPs remain installed, giving {hwp_count} HWPs in total. The {stage_count} RSP05 mounts include {bonded_count} bonded-PBS stages that hold cubes, not additional waveplates.")
+        if report.get("pre_aom_waveplate_audit", {}).get("input_order", {}).get("passed") is True:
+            notes.append("The single input QWP has its own RSP05 and lip adapter. Input order is fiber port -> steering mirror -> QWP -> entrance HWP -> AOM; the QWP is counted separately from the fourteen HWPs.")
         motion = report.get('aom_adjustment_audit', {})
         if motion.get('passed') is True:
             notes.append('AOM upper adapters, KM100PM mounts and integral seats retain the lattice installation and depth; no deeper pockets are added. External hardware clears an ideal-pivot net rotation cone of 4 degrees with 1 mm added margin. This does not certify full combined catalogue travel: the existing adapter-to-plate clearance limits some tilt directions, as recorded in the adjustment audit.')

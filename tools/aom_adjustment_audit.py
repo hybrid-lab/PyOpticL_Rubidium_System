@@ -544,6 +544,7 @@ def apply(report, doc, info, source_module=None):
                 raise ValueError('Saved report ownership disagrees with actual current assembly: '+name)
 
         bodies, moving, geometry, knob_names = {}, {}, {}, []
+        physical_geometry_count = 0
         inverse = plate.Placement.inverse()
         path_objects = {p.get('object') for p in info.get('paths', [])}
         for obj in doc.Objects:
@@ -552,10 +553,16 @@ def apply(report, doc, info, source_module=None):
             g = projection._board_geometry(obj, inverse)
             if g is None:
                 continue
-            geometry[obj.Name] = g
+            physical_geometry_count += 1
+            # Every actual mesh is still read and reduced by the same Body
+            # constructor below. Only these two component types need their
+            # original geometry again after the KM100PM contact proof; keeping
+            # all other full triangulations here wastes several GiB of memory.
+            if _kind(obj) in ('AOMO_3100_125', 'aom_adapter'):
+                geometry[obj.Name] = g
             if _kind(obj) != 'prism_mount_km100pm_bridged':
                 bodies[obj.Name] = _Body(obj.Name, g['xyz'], margin=g['uncertainty_mm'], root=owner.get(obj.Name, obj.Name))
-        if len(geometry) < 200:
+        if physical_geometry_count < 200:
             raise ValueError('Actual board physical inventory unexpectedly incomplete')
         for entry in entries:
             aom, km, adapter, pivot, shells, evidence = _installed_assembly(doc, plate, entry, optomech, joint, repo/'stl'/'KM100PM.stl')

@@ -20,11 +20,13 @@ _HEAD = 'mirror_mount_km05T'
 _ADAPTER = 'surface_adapter_fiberport_lip'
 _TAP_DIAMETER = 3.4544
 _REAR_OFFSET = 76.0
-# Only these two explicitly authorised +32 mm head translations use 44 mm.
-# Both original board-frame clamp pairs stay fixed; other heads retain 76 mm.
-_SHORT_TAIL_REFERENCES = {
+# Output pairs retain their original coordinates. The authorised input QWP
+# revision translates the input head (-10, -10) mm and its pair (0, -10) mm:
+# 66 mm rear offset preserves the original input pair X=13.415 mm.
+_FIXED_TAIL_REFERENCES = {
     'Output 1 KM05T (C4)': (44.0, (596.415072253436, 325.0, 0.0)),
     'Output 4 KM05T (C1)': (44.0, (596.4149980904114, 31.0, 0.0)),
+    'Input KM05T': (66.0, (13.415, 31.5155, 0.0)),
 }
 _REAR_SPACING = 18.328
 _POSITION_TOL = 0.01
@@ -116,6 +118,28 @@ def _near(a, b, tolerance=_POSITION_TOL):
                                   and abs(float(x)-float(y)) <= tolerance for x, y in zip(a, b))
 
 
+def _fixed_tail_pose(label, origin, axis, up, rear_offset):
+    """Strict board-frame pose proof for the three explicitly registered pairs.
+
+    The separately verified hole source, real cylindrical plate walls and empty
+    cut volume are still required; this pure datum check cannot certify a hole.
+    """
+    required_offset, reference = _FIXED_TAIL_REFERENCES[label]
+    sign = 1. if label == 'Input KM05T' else -1.
+    center = [float(x)-float(rear_offset)*float(d) for x, d in zip(origin, axis)]
+    if (not _near([rear_offset], [required_offset]) or not _near(center, reference) or
+            not _near(axis, [sign, 0., 0.]) or not _near(up, [0., 0., 1.])):
+        raise ValueError('Registered fiber head no longer matches its fixed tail-pair datum and orientation: '+label)
+    return {'center_board_xyz_mm': center, 'required_center_board_xyz_mm': list(reference),
+            'required_optical_axis_board_xyz': [sign, 0., 0.],
+            'required_holes_by_side_board_xy_mm': {
+                str(side): [reference[0], reference[1]+sign*side*_REAR_SPACING/2]
+                for side in (-1, 1)},
+            'source': ('Authorised input QWP revision: original input tail X retained; both holes translated -10 mm in Y.'
+                       if label == 'Input KM05T' else
+                       'Original '+label+' tail pair before the authorised +32 mm head shift.')}
+
+
 def _tap_faces(cylinders, xy=None):
     return [c for c in cylinders
             if abs(c['radius_mm']-_TAP_DIAMETER/2) <= _RADIUS_TOL
@@ -190,16 +214,17 @@ def installation_audit(doc, info, expected_heads=5):
     """Fail closed on omitted roots, missing meshes, wrong pairs or uncut holes."""
     import FreeCAD as App
 
-    report = {'schema': 'km05t_installation_audit/1', 'document': doc.Name,
+    report = {'schema': 'km05t_installation_audit/2', 'document': doc.Name,
               'expected_counts': {'roots': expected_heads, 'physical_heads': expected_heads,
                                   'lip_adapters': expected_heads, 'tail_taps': 2*expected_heads,
                                   'adapter_taps': 2*expected_heads},
               'heads': [], 'tail_holes': [], 'adapter_holes': [], 'errors': [],
               'scope': [
                   'Real KM05T child meshes and unchanged lip-adapter classes are required.',
-                  'Each root has two separate 8-32 tail taps at local y=+/-9.164 mm; rear offset is 76 mm except the registered C1/C4 outputs at 44 mm.',
+                  'Each root has two separate 8-32 tail taps at local y=+/-9.164 mm; rear offset is 76 mm for C2/C3, 44 mm for C1/C4, and 66 mm for the explicitly registered input.',
                   'C4 retains the original board-frame tail holes at (596.415072253436, 334.164) and (596.415072253436, 315.836) mm.',
                   'C1 retains the original board-frame tail holes at (596.4149980904114, 40.164) and (596.4149980904114, 21.836) mm.',
+                  'Input QWP revision retains tail X=13.415 mm, with its two authorised Y coordinates 22.3515 and 40.6795 mm; its head faces +X at (79.415, 31.5155).',
                   'Each lip adapter must use mount_only with all three optional rear pairs disabled.',
                   'Source cylinders, final plate cylindrical hole walls and empty cut volume are checked independently.',
                   'Mesh collisions and optical aperture clearance remain the full engineering audit responsibility.',
@@ -233,14 +258,14 @@ def installation_audit(doc, info, expected_heads=5):
         check(len(roots) == expected_heads, 'Wrong registered KM05T root count', actual=len(roots))
         check(set(names) == {obj.Name for obj in actual}, 'Registered and actual KM05T roots differ',
               registered=names, actual=[obj.Name for obj in actual])
-        short_tail_roots = {}
-        for label, reference in _SHORT_TAIL_REFERENCES.items():
+        fixed_tail_roots = {}
+        for label, reference in _FIXED_TAIL_REFERENCES.items():
             obj = _resolve(doc, info.get('roots', {}).get(label))
             valid = check(obj is not None and obj in roots and obj.Label == label and
                           sum(root.Label == label for root in roots) == 1,
-                          'Missing or ambiguous registered output for its retained tail pair', label=label)
+                          'Missing or ambiguous registered fiber head for its fixed tail pair', label=label)
             if valid:
-                short_tail_roots[obj.Name] = reference
+                fixed_tail_roots[obj.Name] = reference
         pairs = info.get('fiber_tail_pairs', [])
         check(len(pairs) == expected_heads, 'Wrong tail-pair metadata count', actual=len(pairs))
         pair_owners = [pair.get('owner') for pair in pairs]
@@ -289,24 +314,16 @@ def installation_audit(doc, info, expected_heads=5):
                 entry['origin_board_xyz_mm'] = _xyz(placement.Base)
                 entry['optical_axis_board_xyz'] = _xyz(placement.Rotation.multVec(App.Vector(1, 0, 0)))
                 rear_offset = _number(root.RearHoleXOffset)
-                retained_reference = short_tail_roots.get(root.Name)
+                retained_reference = fixed_tail_roots.get(root.Name)
                 required_offset = retained_reference[0] if retained_reference else _REAR_OFFSET
                 entry['rear_offset_mm'] = rear_offset
                 entry['required_rear_offset_mm'] = required_offset
                 check(_near([rear_offset, _number(root.RearHoleYSpacing)],
                             [required_offset, _REAR_SPACING]), 'Root rear-pair dimensions changed', root=root.Name)
                 if retained_reference:
-                    retained_center = retained_reference[1]
-                    center = placement.multVec(App.Vector(-rear_offset, 0, 0))
-                    entry['retained_tail_pair_reference'] = {
-                        'center_board_xyz_mm': _xyz(center),
-                        'required_center_board_xyz_mm': list(retained_center),
-                        'source': 'Original '+root.Label+' tail pair before the authorised +32 mm head shift.'}
-                    check(_near(_xyz(center), retained_center) and
-                          _near(entry['optical_axis_board_xyz'], [-1., 0., 0.]) and
-                          _near(_xyz(placement.Rotation.multVec(App.Vector(0, 0, 1))), [0., 0., 1.]),
-                          'Output head no longer preserves its original tail-pair center and orientation',
-                          root=root.Name, actual_center_xyz_mm=_xyz(center))
+                    entry['retained_tail_pair_reference'] = _fixed_tail_pose(
+                        root.Label, entry['origin_board_xyz_mm'], entry['optical_axis_board_xyz'],
+                        _xyz(placement.Rotation.multVec(App.Vector(0, 0, 1))), rear_offset)
                 metadata = [pair for pair in pairs if pair.get('owner') == root.Name]
                 if len(metadata) != 1:
                     raise ValueError('Exactly one pair metadata record is required per root')
@@ -344,10 +361,10 @@ def installation_audit(doc, info, expected_heads=5):
                     check(_near([_number(hole.RearOffset), _number(hole.TapDrillDiameter)],
                                 [required_offset, _TAP_DIAMETER]), 'Incorrect tail tap diameter/offset', hole=name)
                     if retained_reference:
-                        fixed_xy = [retained_center[0], retained_center[1]-side*_REAR_SPACING/2]
+                        fixed_xy = entry['retained_tail_pair_reference']['required_holes_by_side_board_xy_mm'][str(side)]
                         check(_near(xy, fixed_xy) and
                               _near(_xyz(_placement(hole, plate).Base)[:2], fixed_xy),
-                              'Output actual tail feature moved from its original board coordinate',
+                              'Actual tail feature differs from its explicitly authorised board coordinate',
                               hole=name, required_board_xy_mm=fixed_xy)
                     source_faces = _tap_faces(_cylinders(_board_shape(hole.DrillPart, plate)))
                     check(len(_distinct_centers(source_faces)) == 1, 'Single tail feature drills extra tap centers', hole=name)

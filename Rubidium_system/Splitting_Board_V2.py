@@ -1,9 +1,9 @@
-"""Splitting Board V2 with seven entrance HWPs - 24 x 14 in: one fiber in, seven single-pass AOMs, four fibers out on one short edge.
+"""Splitting Board V2 with input QWP and seven entrance HWPs - 24 x 14 in.
 
 Beam tree (every split remains HWP -> PBS). The design requires no beam crossings or
 hardware underpasses; see the saved native production validation report:
 
-    input KM05T -> A:  M1 (the input head is the second steering element), entrance HWP, AOM (RF off, order 0),
+    input KM05T -> A:  M1 (the input head is the second steering element), QWP, entrance HWP, AOM (RF off, order 0),
                        iris, HWP, PBS
         A PBS transmitted -> B1: M1, M2, entrance HWP, AOM, iris, HWP, PBS
             B1 transmitted -> C1: FR, M1, M2, entrance HWP, AOM, two output folds, HWP, bonded PBS, iris -> OUT
@@ -21,8 +21,9 @@ Geometry:
   0.5 mm of the edge). The two siblings of a PBS always leave perpendicular to each other, so
   one output of each pair needs one extra 45 deg fold (FR) in its feed: C1 and C4 have three mirrors
   in front of their AOM (FR, M1, M2), all other lanes two (A: one plus the input head).
-* AOM centre -> iris 81 mm (A, B1, B2). B1/B2 retain -> HWP 98 mm and -> PBS 121 mm.
-  A retains 96.5 mm and 119.5 mm to those optics; downstream HWP -> PBS remains 23 mm.
+* B1/B2 retain AOM centre -> iris 81 mm, -> HWP 98 mm and -> PBS 121 mm.
+  A uses 72.5 mm, 88 mm and 111 mm respectively; its iris post is reversed to clear
+  the AOM adjustment controls. Downstream HWP -> PBS remains 23 mm.
   Output lanes retain AOM
   -> HWP (first RSP05) -> real 12.7 mm PBS cube bonded upstream of the second RSP05 -> iris
   -> >= 30 mm -> output lens-tube front. The HWP and second stage references are 32 mm apart;
@@ -35,9 +36,11 @@ Geometry:
   in addition to all seven existing downstream HWPs. Entrance optical-centre spacings
   are A 28.3 mm, B1 27.8 mm, B2/C2/C4 28 mm and C1/C3 81 mm. The U-facing KM100PM
   extends about 67.58 mm upstream, so C1/C3 sit before that assembly.
-  The preceding revision established adjustment clearance using in-plane translations.
-  This C1 output revision retains that clearance and all tail-clamp holes, moves only
-  its fiber head +32 mm in X and one table bolt +2 in in Y, and keeps the board outline.
+  The input QWP is 23 mm before A's entrance HWP. Relative to the C1-output revision,
+  the A column moves 10 mm left, its input/M1 10 mm down and entrance HWP/AOM 13 mm up.
+  A's later optics and three B-feed mirrors move locally; all B/C AOMs and all four
+  complete output assemblies retain their positions. All four table holes and output
+  tail pairs stay fixed; the input tail pair retains X and follows the input 10 mm down.
   The AOM upper adapters, integral seats and
   mounting depths remain identical to the lattice installation. The catalogue
   +/-4-degree mount travel is not guaranteed by this board: the unchanged seat
@@ -47,10 +50,10 @@ Geometry:
   least 26 mm (D) / 79 mm (U).
 * KM05T fiber ports on the unchanged Surface_Adapter_fiberport_lip. Each adapter uses its two
   mounting taps; its optional Y-shape and rear-hole patterns are disabled. Two board-level
-  BareTappedHole features retain the original rear tail-clamp X positions: 76 mm behind each
-  head except C1 and C4, whose heads move 32 mm toward their unchanged pairs (44 mm rear offset). The lens
+  BareTappedHole features retain the original rear tail-clamp X positions: the input
+  offset is 66 mm, C1/C4 are 44 mm, and C2/C3 are 76 mm. The lens
   tube, lens adapter, fiber adapter and optical reference are unchanged from the KA05T assembly.
-  Mirrors M05 + HKTS thumbscrews, HWPs RSP05, PBS cube_mount_halfinch, irises IDA12.
+  Mirrors M05 + HKTS thumbscrews, HWPs/QWP RSP05, PBS cube_mount_halfinch, irises IDA12.
 * Reserved free space (checked by the audits): 40 x 20 mm RF elbow at every AOM connector face, 28 mm
   front access at every output head (15 mm at the input head), 20 x 40 mm tail-clamp span and a
   straight 20 mm fiber corridor to the plate edge.
@@ -99,7 +102,7 @@ LENS_TUBE_FRONT = 18.798         # common KM05T/KA05T lens-tube front ahead of t
 REAR_CLAMP_OFFSET = 76.          # default rear tail-clamp offset; C1/C4 move within fixed pairs
 OUTPUT_REAR_CLAMP_OFFSETS = {'C1': 44., 'C2': 76., 'C3': 76., 'C4': 44.}
 REAR_CLAMP_HOLE_SPACING = 18.328
-IRIS_L = 81.                     # AOM centre -> iris (A, B lanes); minimum AOM -> iris path (C lanes)
+IRIS_L = 81.                     # B lanes AOM -> iris; C minimum path; A has an explicit override
 HWP_D = 98.                      # default AOM centre -> HWP (B1/B2; A has an explicit override)
 PBS_D = 121.                     # default AOM centre -> PBS (B1/B2; A has an explicit override)
 M2_TO_AOM_MIN = {'D': 26., 'U': 79.}
@@ -119,8 +122,10 @@ AOM_V_SOUND_MM_S = 4.2e6
 DIFF_ANGLE_RAD = 0.795e-3*AOM_RF_DESIGN_HZ/AOM_V_SOUND_MM_S  # future RF-on estimate only; unused by geometry
 KAPPA = 0.                       # RF off: order 0 passes straight through every AOM
 
-INPUT_XY = (89.4150, 41.5155)
+INPUT_XY = (79.4150, 31.5155)
 INPUT_DIR = 0
+INPUT_REAR_CLAMP_OFFSET = 66.
+INPUT_QWP_TO_HWP_MM = 23.
 ORDER = ('A', 'B1', 'B2', 'C1', 'C2', 'C3', 'C4')
 FEEDS = {'B1': ('A', 'T'), 'B2': ('A', 'R'), 'C1': ('B1', 'T'), 'C2': ('B1', 'R'),
          'C3': ('B2', 'T'), 'C4': ('B2', 'R')}
@@ -154,7 +159,7 @@ LANES['C4']['a2'] = 47.6523
 LANES['C4']['dR'] -= 6.
 LANES['C4']['J'] -= 8.5
 LANES['C4']['post'] = -1        # keep the upper output's iris post on the board
-# Entrance HWPs: retain all A/B PBS coordinates so every downstream feed stays fixed.
+# Previous entrance-HWP revision: retain A/B PBS coordinates before later adjustments below.
 # A's input/M1 move -0.9 mm in Y, while AOM/iris move +1.5 mm for adapter clearance.
 # Shorten only A's post-AOM distances to keep its existing HWP/PBS in place.
 LANES['A']['a2'] += 2.4
@@ -180,6 +185,19 @@ LANES['B2']['a2'] += 8.5
 LANES['C1']['d1'] -= 8.5
 LANES['C2']['d1'] -= 8.5
 LANES['C2']['a2'] += 8.5
+# Add the input QWP before the retained entrance HWP. Move the A column
+# 10 mm left, its input 10 mm down and its entrance HWP/AOM 13 mm up.
+# Flip the A iris post and shorten only the post-AOM spacing by 8.5 mm.
+# Compensate the B feeds to retain every B/C AOM and all four output assemblies.
+LANES['A']['a2'] += 23.
+LANES['A']['post'] = -1
+LANES['A']['post_iris_distance'] = IRIS_L - 8.5
+LANES['A']['post_hwp_distance'] -= 8.5
+LANES['A']['post_pbs_distance'] -= 8.5
+LANES['B1']['J'] += 10.
+LANES['B1']['a2'] += 4.5
+LANES['B2']['d1'] -= 10.
+LANES['B2']['J'] -= 4.5
 OUTPUT_DOGLEGS = {
     'C1': {'x': 434., 'y': 31., 'hwp_distance': 15.},
     'C2': {'x': 397.5, 'y': 146.5, 'hwp_distance': 15.},
@@ -252,6 +270,9 @@ def lane_geometry():
         # Reverse the RSP05 assembly to minimize its downstream intrusion.
         # The waveplate transmission axis is the same undirected optical line.
         g['pre_aom_hwp_angle'] = (in_dir + 180.) % 360.
+        if name == 'A':
+            g['input_qwp'] = _add(g['pre_aom_hwp'], _u(in_dir), -INPUT_QWP_TO_HWP_MM)
+            g['input_qwp_angle'] = g['pre_aom_hwp_angle']
         if name.startswith('C'):
             d = _u(lane_dir)
             out = OUTPUT_DOGLEGS[name]
@@ -266,7 +287,7 @@ def lane_geometry():
             g['iris_angle'] = (lane_dir if q['post'] < 0 else lane_dir + 180) % 360
             g['output_sequence'] = ['out_m1', 'out_m2', 'hwp', 'cube', 'rot', 'iris', 'front']
         else:
-            g['iris'] = _add(aom, _u(lane_dir), IRIS_L)
+            g['iris'] = _add(aom, _u(lane_dir), q.get('post_iris_distance', IRIS_L))
             g['iris_angle'] = (lane_dir if q['post'] < 0 else lane_dir + 180) % 360
             g['hwp'] = _add(aom, _u(lane_dir), q.get('post_hwp_distance', HWP_D))
             g['pbs'] = _add(aom, _u(lane_dir), q.get('post_pbs_distance', PBS_D))
@@ -285,6 +306,8 @@ def lane_points(name, g):
     pts.append(g['m1'])
     if g['m2'] is not None:
         pts.append(g['m2'])
+    if name == 'A':
+        pts.append(g['input_qwp'])
     pts += [g['pre_aom_hwp'], g['aom']]
     if name.startswith('C'):
         # The cube is this assembly's optical centre. Keep the collinear stage
@@ -341,7 +364,7 @@ def build(x=0, y=0, angle=0, drill=True):
             'plate_size_mm': [base_dx, base_dy, base_dz],
             'optical_reference_model': {'kind': 'zero_order_reference_model', 'aom_rf_state': 'off',
                                         'modeled_order': 0, 'diffraction_angle_deg': 0.0},
-            'layout_status': 'Splitting Board V2 with entrance-HWP adjustment clearance (RF-off zero order); '
+            'layout_status': 'Splitting Board V2 with input QWP and seven entrance HWPs (RF-off zero order); '
                              'see the saved native production audit; not machined.'}
     info['aom_adjustment_design'] = {
         'required': True, 'external_net_rotation_cone_deg': 4.,
@@ -440,7 +463,8 @@ def build(x=0, y=0, angle=0, drill=True):
             'assumptions': [note] if note else []})
 
     geo = lane_geometry()
-    inport = fiber('Input KM05T', INPUT_XY[0], INPUT_XY[1], INPUT_DIR)
+    inport = fiber('Input KM05T', INPUT_XY[0], INPUT_XY[1], INPUT_DIR,
+                   rear_offset=INPUT_REAR_CLAMP_OFFSET)
     ports, aoms, output_mirrors, entrance_mirrors = {}, {}, {}, {}
     for k, name in enumerate(ORDER):
         q, g = LANES[name], geo[name]
@@ -454,6 +478,17 @@ def build(x=0, y=0, angle=0, drill=True):
         else:
             bend(name + ' M1', g['p0'], g['m1'], g['m2'])
             entrance_mirrors[name] = bend(name + ' M2', g['m1'], g['m2'], g['pre_aom_hwp'])
+        if name == 'A':
+            input_qwp = put('Input QWP', optomech.waveplate, *g['input_qwp'], g['input_qwp_angle'],
+                            mount_type=optomech.rotation_stage_rsp05)
+            input_qwp.addProperty('App::PropertyString', 'OpticKind').OpticKind = 'quarter_wave_plate'
+            input_qwp.addProperty('App::PropertyString', 'Purpose').Purpose = (
+                'Input quarter-wave plate after A M1 and before the retained entrance HWP. '
+                'Mechanical glass envelope; optical retardance is not measured by this model.')
+            qwp_stage = next(child for child in input_qwp.ChildObjects
+                             if child.Proxy.__class__.__name__ == 'rotation_stage_rsp05')
+            qwp_adapter = next(child for child in qwp_stage.ChildObjects
+                               if child.Proxy.__class__.__name__ == 'surface_adapter_rotation_stage_lip')
         entrance_hwp = put(name + ' entrance HWP', optomech.waveplate,
                            *g['pre_aom_hwp'], g['pre_aom_hwp_angle'],
                            mount_type=optomech.rotation_stage_rsp05)
@@ -471,6 +506,17 @@ def build(x=0, y=0, angle=0, drill=True):
         seat = optomech.integrate_aom(baseplate, aom)
         info['extra_cuts'].append(seat)
         aoms[name] = aom
+        if name == 'A':
+            info['input_polarization_optics'] = {
+                'required': True, 'expected_count': 1, 'optic_kind': 'quarter_wave_plate',
+                'lane': 'A', 'beam_path': 'A lane', 'fiber': inport.Name,
+                'mirror': entrance_mirrors[name].Name, 'qwp': input_qwp.Name,
+                'qwp_stage': qwp_stage.Name, 'qwp_adapter': qwp_adapter.Name,
+                'hwp': entrance_hwp.Name, 'aom': aom.Name,
+                'required_order': ['fiber', 'mirror', 'qwp', 'hwp', 'aom'],
+                'qwp_to_hwp_mm': INPUT_QWP_TO_HWP_MM,
+                'qwp_angle_deg': g['input_qwp_angle'],
+                'designation': 'QWP / quarter-wave plate; mechanical envelope only, retardance not measured'}
         info['pre_aom_waveplates'].append({
             'lane': name, 'object': entrance_hwp.Name, 'waveplate': entrance_hwp.Name,
             'stage': entrance_stage.Name, 'adapter': entrance_adapter.Name,
@@ -560,7 +606,7 @@ def build(x=0, y=0, angle=0, drill=True):
             _add(INPUT_XY, _u(INPUT_DIR), LENS_TUBE_FRONT), _u(INPUT_DIR), INPUT_FRONT_ACCESS, 20.,
             allowed=['A lane'], note='20 mm full front access width; 15 mm axial access (input head).')
     info['service_clearance'] = {'min_length_mm': {'fiber_front': INPUT_FRONT_ACCESS, 'aom_sma': 40.}}
-    info['fiber_clearance'] = {'rear_offsets_mm': sorted(set([REAR_CLAMP_OFFSET] + list(OUTPUT_REAR_CLAMP_OFFSETS.values()))),
+    info['fiber_clearance'] = {'rear_offsets_mm': sorted(set([REAR_CLAMP_OFFSET, INPUT_REAR_CLAMP_OFFSET] + list(OUTPUT_REAR_CLAMP_OFFSETS.values()))),
                                'clamp_width_mm': 30.}
     info['hole_clearance'] = {'platform_beam_crossings_allowed': True}
     info['pbs_path_specs'] = [
@@ -585,6 +631,9 @@ def build(x=0, y=0, angle=0, drill=True):
             A.append({'name': name + ': FR folds the beam by exactly 90 deg (45 deg incidence)',
                       'measured': turn(g['src'], g['fr'], g['m1']), 'expected': 90., 'tolerance': 1e-7})
         if name == 'A':
+            A.append({'name': 'Input QWP precedes entrance HWP at its declared spacing',
+                      'measured': dist(g['input_qwp'], g['pre_aom_hwp']),
+                      'expected': INPUT_QWP_TO_HWP_MM, 'tolerance': 1e-7})
             A.append({'name': 'A: M1 fold = 90 deg (zero-order reference)',
                       'measured': abs(turn(g['p0'], g['m1'], g['aom']) - 90.), 'expected': KAPPA, 'tolerance': 1e-7})
             A.append({'name': 'A: M1 -> AOM >= KM100PM clearance (excess, mm)',
@@ -644,7 +693,7 @@ def build(x=0, y=0, angle=0, drill=True):
                           'expected': 0., 'tolerance': 1e-7})
         else:
             A.append({'name': name + ': AOM -> iris mechanical spacing', 'measured': dist(g['aom'], g['iris']),
-                      'expected': IRIS_L, 'tolerance': 1e-7})
+                      'expected': q.get('post_iris_distance', IRIS_L), 'tolerance': 1e-7})
             A.append({'name': name + ': AOM -> HWP', 'measured': dist(g['aom'], g['hwp']),
                       'expected': q.get('post_hwp_distance', HWP_D), 'tolerance': 1e-7})
             A.append({'name': name + ': AOM -> PBS', 'measured': dist(g['aom'], g['pbs']),
@@ -710,7 +759,7 @@ def build(x=0, y=0, angle=0, drill=True):
         registered = lane_points(name, geo[name])[entry['path_vertex_index']]
         A.append({'name': name + ': actual entrance HWP lies at its registered path vertex',
                   'measured': dist(points[1], registered), 'expected': 0., 'tolerance': 1e-7})
-    doc.Label = 'Splitting Board V2 - seven entrance HWPs (%d x %d in)' % PLATE_IN
+    doc.Label = 'Splitting Board V2 - input QWP and seven entrance HWPs (%d x %d in)' % PLATE_IN
     return doc, info
 
 

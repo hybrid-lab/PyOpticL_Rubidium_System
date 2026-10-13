@@ -1,4 +1,4 @@
-"""Read-only audit of seven additional Splitting pre-AOM HWP assemblies.
+"""Read-only audit of Splitting's seven entrance HWPs and input QWP.
 
 Call ``apply(report, doc, info, source_module=loaded_board_module)`` after the
 full native, zero-order, bonded-cube, KM05T and projection audits. A source
@@ -8,7 +8,7 @@ requires independent native collision, aperture, hole, service/RF and knob
 projection results. No old failure, geometry or external validator is changed.
 
 The CAD waveplate class is a mechanical glass envelope. Its designation as an
-HWP comes from the board source; this does not measure optical retardance.
+HWP or QWP comes from the board source; this does not measure retardance.
 """
 
 import ast
@@ -30,6 +30,7 @@ _OUTPUT_KEYS = ('aom', 'mirror_1', 'mirror_2', 'hwp', 'cube', 'stage', 'iris', '
 _OUTPUT_TYPES = ('aom', 'mirror', 'mirror', 'hwp', 'pbs', 'rotation_mount', 'iris', 'fiber')
 _OUTPUT_SUFFIXES = (' AOM', ' output steering mirror 1', ' output steering mirror 2',
                     ' HWP', ' bonded PBS cube', ' rotating-PBS RSP05', ' iris', ' output KM05T')
+_INPUT_KEYS = ('fiber', 'mirror', 'qwp', 'hwp', 'aom')
 
 
 def _kind(obj):
@@ -82,7 +83,8 @@ def _source(source_module):
     for node in ast.parse(data.decode('utf-8-sig')).body:
         if isinstance(node, ast.Assign):
             for target in node.targets:
-                if isinstance(target, ast.Name) and target.id in ('ORDER', 'PRE_AOM_HWP_TO_AOM_MM'):
+                if isinstance(target, ast.Name) and target.id in (
+                        'ORDER', 'PRE_AOM_HWP_TO_AOM_MM', 'INPUT_QWP_TO_HWP_MM'):
                     if target.id in constants:
                         raise ValueError('Ambiguous repeated source declaration: '+target.id)
                     constants[target.id] = ast.literal_eval(node.value)
@@ -93,12 +95,17 @@ def _source(source_module):
         raise ValueError('Source must explicitly declare a positive HWP-to-AOM spacing for all seven lanes')
     if any(_number(spacing[n]) < 79.-_TOL for n in _UPSTREAM_MOUNT_LANES):
         raise ValueError('Upstream-facing C1/C3 KM100PM assemblies require at least 79 mm spacing, exactly matching the source declaration')
+    qwp_spacing = _number(constants.get('INPUT_QWP_TO_HWP_MM', -1))
+    if qwp_spacing <= 0.:
+        raise ValueError('Source must explicitly declare a positive input QWP-to-HWP spacing')
     if hasattr(source_module, '__file__'):
         if (not _same(getattr(source_module, 'PRE_AOM_HWP_TO_AOM_MM', None), spacing) or
-                tuple(getattr(source_module, 'ORDER', ())) != _LANES):
+                tuple(getattr(source_module, 'ORDER', ())) != _LANES or
+                _number(getattr(source_module, 'INPUT_QWP_TO_HWP_MM', -1)) != qwp_spacing):
             raise ValueError('Loaded source constants differ from the source file on disk')
     return spacing, {'path': str(path), 'sha256': hashlib.sha256(data).hexdigest(),
-                     'declared_hwp_to_aom_mm': deepcopy(spacing)}
+                     'declared_hwp_to_aom_mm': deepcopy(spacing),
+                     'declared_input_qwp_to_hwp_mm': qwp_spacing}
 
 
 def _contract(info, source_spacing):
@@ -129,6 +136,27 @@ def _contract(info, source_spacing):
         _xyz(e.get('optical_xy_mm', []))
         _number(e.get('waveplate_angle_deg'))
     return {e['lane']: e for e in entries}
+
+
+def _input_contract(info, entries, source):
+    entry = info.get('input_polarization_optics', {})
+    if (entry.get('required') is not True or type(entry.get('expected_count')) is not int or
+            entry['expected_count'] != 1 or entry.get('optic_kind') != 'quarter_wave_plate' or
+            entry.get('lane') != 'A' or entry.get('beam_path') != 'A lane' or
+            entry.get('required_order') != list(_INPUT_KEYS) or
+            not isinstance(entry.get('designation'), str) or not entry['designation'].strip()):
+        raise ValueError('Explicit single input QWP and fiber -> mirror -> QWP -> HWP -> AOM requirement is missing')
+    names = [entry.get(key) for key in _INPUT_KEYS+('qwp_stage', 'qwp_adapter')]
+    if not all(isinstance(name, str) and name for name in names) or len(set(names)) != len(names):
+        raise ValueError('Input QWP proof requires seven distinct registered actual objects')
+    a = entries['A']
+    if (entry['mirror'] != a['last_mirror'] or entry['hwp'] != a['waveplate'] or
+            entry['aom'] != a['aom'] or a['path_vertex_index'] != 3 or
+            abs(_number(entry.get('qwp_to_hwp_mm', -1))-
+                _number(source['declared_input_qwp_to_hwp_mm'])) > _TOL):
+        raise ValueError('Input QWP registration, A entrance HWP index or source spacing disagrees')
+    _number(entry.get('qwp_angle_deg'))
+    return entry
 
 
 def _descendants(root):
@@ -251,6 +279,111 @@ def _required_roots(doc, info, report):
         if doc.getObject(root.Name) is not root or set(old[key]) != {o.Name for o in _descendants(root)}:
             raise ValueError('Native root/descendant inventory differs for '+key)
     return roots
+
+
+def _ordered_input_geometry(path_points, actual, normals, qwp_to_hwp_mm):
+    """Pure geometry proof using native datums supplied by _check_input_route."""
+    positions = {key: _xyz(actual[key]) for key in _INPUT_KEYS}
+    points = [_xyz(point) for point in path_points]
+    if (len(points) < 5 or any(abs(p[2]) > _TOL for p in positions.values()) or
+            any(not _near(point, positions[key]) for point, key in zip(points[:5], _INPUT_KEYS))):
+        raise ValueError('Actual A path must begin fiber face -> M1 -> QWP -> entrance HWP -> AOM bore at z=0')
+    steps = [[positions[b][i]-positions[a][i] for i in range(3)]
+             for a, b in zip(_INPUT_KEYS, _INPUT_KEYS[1:])]
+    directions = [_unit(step) for step in steps]
+    if any(min(abs(d[0])+abs(d[2]), abs(d[1])+abs(d[2])) > 1.e-8 for d in directions):
+        raise ValueError('Input ray segments must remain horizontal/vertical in the plate plane')
+    incoming, outgoing = directions[:2]
+    if any(not _near(direction, outgoing, 1.e-8) for direction in directions[2:]):
+        raise ValueError('QWP and HWP must lie strictly between M1 and AOM on one forward line')
+    normal = _unit(normals['mirror'])
+    dot = _dot(incoming, normal)
+    reflected = [incoming[i]-2.*dot*normal[i] for i in range(3)]
+    residual = math.sqrt(sum((a-b)**2 for a, b in zip(reflected, outgoing)))
+    if (abs(abs(dot)-math.sqrt(.5)) > 1.e-8 or abs(_dot(incoming, outgoing)) > 1.e-8 or
+            residual > 1.e-8 or dot >= 0. or _dot(outgoing, normal) <= 0.):
+        raise ValueError('Input M1 must make an actual front-face 45-degree reflection')
+    axial_dots = {'fiber': _dot(_unit(normals['fiber']), incoming)}
+    if abs(axial_dots['fiber']-1.) > 1.e-8:
+        raise ValueError('Input beam must leave the actual fiber lens-tube front along its positive axis')
+    for key in ('qwp', 'hwp', 'aom'):
+        axial_dots[key] = _dot(_unit(normals[key]), outgoing)
+        if abs(abs(axial_dots[key])-1.) > 1.e-8:
+            raise ValueError('Actual input optic axis is not aligned to the beam: '+key)
+    lengths = [math.sqrt(sum(v*v for v in step)) for step in steps]
+    if _number(qwp_to_hwp_mm) <= 0. or abs(lengths[2]-_number(qwp_to_hwp_mm)) > _TOL:
+        raise ValueError('Actual QWP-to-HWP distance differs from its source declaration')
+    return {'passed': True, 'required_order': list(_INPUT_KEYS),
+            'actual_board_xyz_mm': positions, 'actual_segment_lengths_mm': lengths,
+            'optic_axis_dot_beam': axial_dots,
+            'mirror_reflection': {'incoming_dot_normal': dot,
+                                 'incidence_deg': math.degrees(math.acos(abs(dot))),
+                                 'reflection_vector_error': residual},
+            'scope': 'Actual native optical datums, parented hardware and orientations; optical retardance is not measured.'}
+
+
+def _check_input_route(doc, info, report, entry):
+    import FreeCAD as App
+
+    plate, roots = info['plate'], info['roots']
+    inverse = plate.Placement.inverse()
+    snapshots = {record['name']: record for record in report['objects']}
+    labels = {'fiber': 'Input KM05T', 'mirror': 'A M1', 'qwp': 'Input QWP',
+              'hwp': 'A entrance HWP', 'aom': 'A AOMO 3100-125'}
+    objects = {key: roots.get(label) for key, label in labels.items()}
+    if any(obj is None or doc.getObject(obj.Name) is not obj or obj.Name != entry[key] or
+           not _on_plate(obj, plate) for key, obj in objects.items()):
+        raise ValueError('Input optical registration must match five actual roots on this document/plate')
+    kinds = {'fiber': {'fiberport_mount_km05T'}, 'mirror': _MIRRORS, 'qwp': {'waveplate'},
+             'hwp': {'waveplate'}, 'aom': {'AOMO_3100_125'}}
+    if any(_kind(objects[key]) not in expected for key, expected in kinds.items()):
+        raise ValueError('An input optic was replaced by a different hardware class')
+    qwp = objects['qwp']
+    if getattr(qwp, 'OpticKind', None) != 'quarter_wave_plate':
+        raise ValueError('Actual input glass is not designated as the quarter-wave plate')
+    stage, adapter = (doc.getObject(entry[key]) for key in ('qwp_stage', 'qwp_adapter'))
+    if stage is None or adapter is None:
+        raise ValueError('Input QWP RSP05 or lip adapter is missing')
+    assembly = _assembly(qwp, stage, adapter, plate, snapshots)
+    expected_pose = App.Placement(inverse.multVec(qwp.Placement.Base),
+                                 App.Rotation(App.Vector(0, 0, 1), entry['qwp_angle_deg']))
+    if not _near(list(inverse.multiply(qwp.Placement).toMatrix().A), list(expected_pose.toMatrix().A)):
+        raise ValueError('Actual input QWP pose differs from its source angle')
+    fiber = objects['fiber']
+    tubes = [obj for obj in _descendants(fiber) if _kind(obj) == 'lens_tube_sm05l05']
+    if len(tubes) != 1 or tubes[0].ParentObject is not fiber:
+        raise ValueError('Actual input lens tube is missing or detached')
+    tube = tubes[0]
+    relative = fiber.Placement.inverse().multiply(tube.Placement)
+    expected = App.Placement(App.Vector(5.336, 0, 0), App.Rotation())
+    if not _near(list(relative.toMatrix().A), list(expected.toMatrix().A)):
+        raise ValueError('Actual input lens-tube attachment transform changed')
+    records = [_geometry_record(objects[key], snapshots) for key in ('mirror', 'hwp', 'aom')]
+    records.append(_geometry_record(tube, snapshots))
+    local_vertices = [fiber.Placement.inverse().multVec(vertex) for vertex in tube.Mesh.Topology[0]]
+    front_x = max(vertex.x for vertex in local_vertices)
+    if not math.isfinite(front_x) or abs(front_x-18.798) > 2.e-4:
+        raise ValueError('Actual unchanged input SM05L05 mesh does not define its expected front face')
+    aom = objects['aom']
+    if (not bool(aom.ApertureAlignmentApplied) or
+            not _near(list(aom.MeshApertureLocal), [0., -.030, -.115])):
+        raise ValueError('Actual input AOM bore registration is missing')
+    actual = {key: list(inverse.multVec(obj.Placement.Base)) for key, obj in objects.items()}
+    actual['fiber'] = list(inverse.multVec(fiber.Placement.multVec(App.Vector(front_x, 0, 0))))
+    actual['aom'] = list(inverse.multVec(aom.Placement.multVec(App.Vector(0., -.030, -.115))))
+    normals = {key: list(inverse.Rotation.multVec(obj.Placement.Rotation.multVec(App.Vector(1, 0, 0))))
+               for key, obj in objects.items()}
+    paths = [path for path in info['paths'] if path.get('name') == entry['beam_path']]
+    if len(paths) != 1:
+        raise ValueError('One actual A lane is required for input optical-order proof')
+    evidence = _ordered_input_geometry(paths[0]['points'], actual, normals, entry['qwp_to_hwp_mm'])
+    evidence.update(objects={key: obj.Name for key, obj in objects.items()},
+                    qwp_stage=stage.Name, qwp_adapter=adapter.Name,
+                    qwp_assembly=assembly, other_mounted_geometry=records,
+                    lens_tube_front_local_x_mm=front_x,
+                    fiber_face_basis='Axial extreme of the actual, correctly attached SM05L05 mesh',
+                    declaration=deepcopy(entry), expected_count=1)
+    return evidence
 
 
 def _ordered_output_geometry(lane, events, path_points, actual, normals):
@@ -385,7 +518,7 @@ def _check_output_routes(doc, info, report):
     return {'passed': len(verified) == 4, 'verified_routes': verified, 'expected_count': 4}
 
 
-def _check_placement(doc, info, report, entries, result):
+def _check_placement(doc, info, report, entries, input_entry, result):
     import FreeCAD as App
 
     if (report.get('document') != doc.Name or report.get('mode') != 'splitting' or
@@ -393,7 +526,8 @@ def _check_placement(doc, info, report, entries, result):
             not _same(report.get('arms'), info.get('arms'))):
         raise ValueError('Current document, full lane paths and all AOM arms must match the native report')
     plate = info['plate']
-    if not plate.Drill or not plate.Shape.isValid() or len(plate.Shape.Solids) != 1:
+    if (plate.Document is not doc or doc.getObject(plate.Name) is not plate or
+            not plate.Drill or not plate.Shape.isValid() or len(plate.Shape.Solids) != 1):
         raise ValueError('One valid, fully machined board is required')
     roots = _required_roots(doc, info, report)
     snapshots = {r['name']: r for r in report.get('objects', [])}
@@ -401,17 +535,22 @@ def _check_placement(doc, info, report, entries, result):
         raise ValueError('Native report must inventory every current document object exactly once')
     waveplates = [o for o in doc.Objects if _kind(o) == 'waveplate' and _on_plate(o, plate)]
     plain_stages = [o for o in doc.Objects if _kind(o) == 'rotation_stage_rsp05' and _on_plate(o, plate)]
+    bonded_stages = [o for o in doc.Objects if _kind(o) == 'rotation_stage_rsp05_bonded_cube' and _on_plate(o, plate)]
     aoms = [o for o in doc.Objects if _kind(o) == 'AOMO_3100_125' and _on_plate(o, plate)]
-    if len(waveplates) != 14 or len(plain_stages) != 14 or len(aoms) != 7:
-        raise ValueError('Expected fourteen actual HWPs/RSP05s and seven actual retained AOMs')
+    if len(waveplates) != 15 or len(plain_stages) != 15 or len(bonded_stages) != 4 or len(aoms) != 7:
+        raise ValueError('Expected fourteen HWPs plus one QWP, fifteen plain/four bonded RSP05s and seven AOMs')
     declared_names = {e['waveplate'] for e in entries.values()}
     old_hwp_names = {roots[n+' HWP'].Name for n in _LANES}
-    if (declared_names & old_hwp_names or
-            {o.Name for o in waveplates} != declared_names | old_hwp_names or
+    qwp_names = {input_entry['qwp']}
+    if (declared_names & old_hwp_names or qwp_names & (declared_names | old_hwp_names) or
+            {o.Name for o in waveplates} != declared_names | old_hwp_names | qwp_names or
+            {o.Name for o in waveplates if getattr(o, 'OpticKind', None) == 'quarter_wave_plate'} != qwp_names or
             {o.Name for o in aoms} != {e['aom'] for e in entries.values()}):
-        raise ValueError('Entrance HWPs must be additions to all seven existing downstream HWPs and AOMs')
+        raise ValueError('One unique QWP and seven entrance HWPs must supplement all seven retained downstream HWPs/AOMs')
     result['inventory'] = {'waveplates': sorted(o.Name for o in waveplates),
                             'plain_rsp05_stages': sorted(o.Name for o in plain_stages),
+                            'bonded_rsp05_stages': sorted(o.Name for o in bonded_stages),
+                            'input_qwps': sorted(qwp_names),
                             'aoms': sorted(o.Name for o in aoms),
                             'retained_downstream_hwps': sorted(old_hwp_names)}
     paths = {p['name']: p for p in info['paths']}
@@ -451,9 +590,12 @@ def _check_placement(doc, info, report, entries, result):
         index = e['path_vertex_index']
         if path is None or not 0 < index < len(path['points'])-1:
             raise ValueError('Entrance HWP must be an internal registered lane vertex: '+lane)
-        registered = [_xyz(p) for p in path['points'][index-1:index+2]]
+        indices = (1, 3, 4) if lane == 'A' else (index-1, index, index+1)
+        if lane == 'A' and (index != 3 or len(path['points']) < 5):
+            raise ValueError('A entrance HWP must follow the additional input QWP at vertex 3')
+        registered = [_xyz(path['points'][i]) for i in indices]
         if any(not _near(a, b) for a, b in zip(positions, registered)):
-            raise ValueError('Lane must contain the actual last mirror -> HWP -> AOM bore consecutively: '+lane)
+            raise ValueError('Lane lacks its actual mirror/HWP/AOM vertices (A additionally requires the QWP): '+lane)
         if any(abs(p[2]) > _TOL for p in positions) or not _near(positions[1], _xyz(e['optical_xy_mm'])):
             raise ValueError('Actual entrance optical axes must be at z=0 and the declared optical centre: '+lane)
         direction = _xyz(e['incoming_direction_xy'])
@@ -569,13 +711,18 @@ def _clearance_gates(report, info):
 
 def apply(report, doc, info, source_module=None):
     """Augment only this audit key and its issue counter; no exemptions."""
-    result = {'schema': 'pre_aom_waveplate_audit/2', 'document': doc.Name,
+    result = {'schema': 'pre_aom_waveplate_audit/3', 'document': doc.Name,
               'passed': False, 'placement_passed': False, 'assemblies': [], 'errors': [],
               'declaration': deepcopy(info.get('pre_aom_waveplates', [])),
+              'input_declaration': deepcopy(info.get('input_polarization_optics', {})),
               'expected_counts': {'new_hwps': 7, 'new_rsp05_stages': 7, 'new_lip_adapters': 7,
-                                  'retained_downstream_hwps': 7, 'total_hwps': 14, 'retained_aoms': 7},
+                                  'retained_downstream_hwps': 7, 'total_hwps': 14, 'input_qwps': 1,
+                                  'total_waveplates': 15, 'total_plain_rsp05_stages': 15,
+                                  'total_bonded_rsp05_stages': 4, 'total_rsp05_stages': 19,
+                                  'retained_aoms': 7},
+              'input_order': {'passed': False, 'expected_count': 1},
               'output_order': {'passed': False, 'verified_routes': [], 'expected_count': 4},
-              'scope': 'Actual placement, assembly identity and four outputs with both steering mirrors '
+              'scope': 'Actual input fiber -> M1 -> QWP -> HWP -> AOM, assembly identity and four outputs with both steering mirrors '
                        'before HWP/PBS, then iris before fiber; all mechanical '
                        'clearance conclusions come from independent full native/projection/hole/service audits.',
               'source_provenance': {'audit_path': str(Path(__file__).resolve()),
@@ -589,9 +736,12 @@ def apply(report, doc, info, source_module=None):
         result['source_provenance']['optomech'] = {'path': str(Path(optomech.__file__).resolve()),
             'sha256': hashlib.sha256(Path(optomech.__file__).read_bytes()).hexdigest()}
         entries = _contract(info, spacing)
-        _check_placement(doc, info, report, entries, result)
+        input_entry = _input_contract(info, entries, source)
+        _check_placement(doc, info, report, entries, input_entry, result)
+        result['input_order'] = _check_input_route(doc, info, report, input_entry)
         result['output_order'] = _check_output_routes(doc, info, report)
-        result['placement_passed'] = len(result['assemblies']) == 7 and result['output_order']['passed']
+        result['placement_passed'] = (len(result['assemblies']) == 7 and
+                                      result['input_order']['passed'] and result['output_order']['passed'])
     except Exception as exc:
         result['errors'].append({'stage': 'placement', 'error': str(exc)})
     try:
@@ -602,6 +752,7 @@ def apply(report, doc, info, source_module=None):
         result['errors'].append({'stage': 'independent_clearance', 'error': str(exc)})
     result['passed'] = result['placement_passed'] and not result['errors']
     result['counts'] = {'verified_new_assemblies': len(result['assemblies']),
+                        'verified_input_qwp_assemblies': int(result['input_order']['passed']),
                         'verified_output_routes': len(result['output_order']['verified_routes']),
                         'errors': len(result['errors'])}
     report.setdefault('summary_counts', {})[_ISSUE_KEY] = len(result['errors']) or int(not result['passed'])
