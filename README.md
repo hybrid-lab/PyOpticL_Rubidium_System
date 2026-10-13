@@ -232,8 +232,8 @@ below the banner are:
   and the plate machining (an 11.3 mm pocket shaped for the assembly plus
   10.5 mm of travel, two 8-32 taps through its floor). `place_sliding_cell(bp, x, y,
   angle, slide)` places the seat and the enclosure `slide` mm along the slot
-  direction. All dimensions live in the `SLIDING_CELL` dict and are exported
-  with the parts (`Production/CellEnclosure/`). The V9.2–V9.4 pocket-only seat
+  direction. All dimensions live in the `SLIDING_CELL` dict; the three machined
+  parts are in `Production/CellEnclosure/`. The V9.2–V9.4 pocket-only seat
   (`CellPocketMachining` / `place_cell_pocket`) stays in the library for legacy
   layouts. The V9.15 TA board uses the full, unchanged V9.7 enclosure and
   sliding seat, including the unfinished end covers.
@@ -259,8 +259,10 @@ baseplate STEP, and a `*_TAP_or_NOT` sheet (PDF + PNG) that marks which holes
 of that plate are tapped. The baseplate STEPs are also collected in
 `Production/Baseplate/`, and the same sheets for the two adapters are in
 `Production/Adapters/`. **`Production/CellEnclosure/`** (since V9.5) holds the
-Rb cell enclosure: lower half, lid, cover and assembly STEPs, the four-sheet
-dimensioned drawing (PDF + PNG) and the dimension JSON.
+Rb cell enclosure as one folder per machined part — `LowerHalf/`, `Lid/` and
+`Cover/`, each with the part's STEP and its `*_TAP_or_NOT.png` sheet — plus one
+3D overview picture, `Rb_Cell_Enclosure_V9_7_3D.png` (assembled, lid off,
+exploded, parts table).
 
 **Added — board export and projection tools** in `tools/`:
 `ta_projection_audit.py` checks beam crossings and projected hardware,
@@ -395,12 +397,12 @@ the beam to y = 163.5. Both ends of the travel were built and audited
 `Production/LatticeBoardV9/`): the two halves are never exempted — the beam
 has to pass the bore geometrically — while the aperture-less covers and the
 cell envelope are exempted explicitly for a beam running along the bore. The
-enclosure parts are in `Production/CellEnclosure/`
-(`Rb_Cell_Enclosure_LowerHalf_V9_7.step`, `..._Lid_V9_7.step`,
-`..._Cover_V9_7.step`, `..._Assembly_V9_7.step`, the drawing
-`Rb_Cell_Enclosure_V9_7_drawing.pdf` and `..._dimensions.json`); the cell is
-centred in the bore, and kept from sliding along it, by its heater/insulation,
-which is not part of this design.
+enclosure parts are in `Production/CellEnclosure/`: `LowerHalf/`, `Lid/` and
+`Cover/` each hold the part's STEP (`Rb_Cell_Enclosure_LowerHalf_V9_7.step`,
+`..._Lid_V9_7.step`, `..._Cover_V9_7.step` — the STEPs carry every dimension)
+and its tapping sheet, and `Rb_Cell_Enclosure_V9_7_3D.png` shows how they go
+together. The cell is centred in the bore, and kept from sliding along it, by
+its heater/insulation, which is not part of this design.
 
 **Lattice table bolts (V9.4.2).** The lab table has a 1 in hole grid whose first row
 is 1.5 in from the table edge. The plate is meant to sit with its fiber-side
@@ -767,7 +769,10 @@ Threads are specified, not modelled — a STEP file shows every bore's diameter,
 position and depth but cannot say whether it is threaded, so each plate and
 each adapter has a **`*_TAP_or_NOT` sheet** next to its STEP that marks exactly
 that and nothing else (red ring = tap, blue crossed circle = do not tap; drill
-sizes, tolerances, material and finish are left to the shop):
+sizes, tolerances, material and finish are left to the shop). The three cell
+enclosure parts have the same kind of sheet, drawn on shaded 3D views of the
+part (every view of a part in one PNG, tapped hole walls red, plain ones blue),
+which also gives the tap-drill depth and the minimum thread depth:
 
 | Part | Sheet | Tapped | Not tapped |
 |---|---|---|---|
@@ -777,6 +782,9 @@ sizes, tolerances, material and finish are left to the shop):
 | Splitting baseplate (V2, entrance-HWP revision) | `Production/SplittingBoardV2/Splitting_Board_V2_baseplate_TAP_or_NOT.pdf` | 99 × #8-32 | 4 × 1/4-20 table-bolt clearance |
 | TA adapter (`stl/TA_adapter.stl`) | `Production/Adapters/TA_adapter_TAP_or_NOT.pdf` | 4 × M2.5 × 0.45 (board screws) | 4 × 8-32 clearance (to the plate taps) |
 | AOM adapter (`stl/aom_adapter.stl`) | `Production/Adapters/AOM_adapter_TAP_or_NOT.pdf` | 2 × M4 × 0.7 | 4 × clearance, in a row |
+| Rb cell enclosure, lower half (1 off) | `Production/CellEnclosure/LowerHalf/Rb_Cell_Enclosure_LowerHalf_V9_7_TAP_or_NOT.png` | 4 × #8-32, 16 deep (end faces) | 2 through slots, 4.37 wide |
+| Rb cell enclosure, lid (1 off) | `Production/CellEnclosure/Lid/Rb_Cell_Enclosure_Lid_V9_7_TAP_or_NOT.png` | 4 × #8-32, 16 deep (end faces) | 2 through slots, 4.37 wide, with 8.5 × 5 counter-slots |
+| Rb cell enclosure, end cover (2 off, identical) | `Production/CellEnclosure/Cover/Rb_Cell_Enclosure_Cover_V9_7_TAP_or_NOT.png` | none | 4 × Ø4.37 through, Ø7.5 × 3.5 counterbore |
 
 The standalone TA adapter matching the **current TA V9.15 and lattice V9.7
 board models** is
@@ -1035,6 +1043,18 @@ local development tooling. The TA projection, export and document-generation
 helpers and the Splitting KM05T audit are included in `tools/`.
 
 ## Change log
+
+**Cell enclosure files (2026-10-12, no geometry change)** — `Production/CellEnclosure/`
+is reorganised into one folder per machined part: `LowerHalf/`, `Lid/` and
+`Cover/`, each with the unchanged V9.7 STEP and a new `*_TAP_or_NOT.png` drawn
+on shaded 3D views (two views per part, stitched into one PNG), plus a 3D
+overview, `Rb_Cell_Enclosure_V9_7_3D.png`. The four-sheet dimensioned drawing
+(PDF + PNG), the assembly and on-plate STEPs and the dimension JSON are removed;
+the part STEPs carry every dimension and the plate pocket is in the baseplate
+STEP. Drawing the sheets showed one detail of the V9.7 lid: its 8.5 mm
+counter-slots reach x = ±44.15, 0.15 mm past the end faces, so each end face has
+a 12.7 × 5 mm opening at the top that the end cover closes; the lid sheet notes
+it.
 
 **Splitting V2 (2026-10-12, C1 output order)** — moves both C1 output mirrors
 before its HWP and bonded rotating PBS, followed by iris and fiber coupling.
