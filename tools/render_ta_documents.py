@@ -197,6 +197,24 @@ def build_bom(report, holes, title, step_name, source_name, sheet_name):
     classes = Counter(o.get("class") for o in objects)
     if classes["IntegralAOMSeat"]:
         notes.append("AOM lower seats are integral with the baseplate. Only the upper AOM adapter is a separate part.")
+        relief = report.get('aom_machining_relief_audit')
+        if relief is not None:
+            parameters = relief.get('parameters', {})
+            clearance = relief.get('single_axis_adapter_clearance', {})
+            floor_gap = clearance.get('minimum_floor_gap_mm')
+            side_gap = clearance.get('minimum_sidewall_gap_mm')
+            if (relief.get('schema') != 'aom_machining_relief_audit/1'
+                    or relief.get('passed') is not True
+                    or relief.get('seat_count') != classes['IntegralAOMSeat']
+                    or parameters.get('side_clearance_mm') != 6
+                    or parameters.get('front_relief_depth_mm') != 4
+                    or parameters.get('front_corner_radius_mm') != 3
+                    or clearance.get('pitch_down_interval_deg') != [0, 4]
+                    or not finite(floor_gap) or floor_gap <= 0
+                    or not finite(side_gap) or side_gap <= 0):
+                raise ValueError('AOM machining notes require matching passed native relief evidence')
+            notes.append(f"The {classes['IntegralAOMSeat']} integral AOM seats have 6 mm side clearance and a 4 mm-deep front relief with R3 corners. The bearing faces and installation height remain unchanged.")
+            notes.append(f"The machining audit checks single-axis pitch-down from 0 to 4 degrees: minimum floor gap {floor_gap:.5f} mm and minimum sidewall gap {side_gap:g} mm. Combined-axis travel is not certified.")
     if classes["TA_butterfly_on_adapter"]:
         notes.append("The TA butterfly package mounts to the TA adapter. Its small adapter threads are not baseplate taps.")
     if classes["BareTappedHole"]:
@@ -228,8 +246,8 @@ def build_bom(report, holes, title, step_name, source_name, sheet_name):
         if report.get("pre_aom_waveplate_audit", {}).get("input_order", {}).get("passed") is True:
             notes.append("The single input QWP has its own RSP05 and lip adapter. Input order is fiber port -> steering mirror -> QWP -> entrance HWP -> AOM; the QWP is counted separately from the fourteen HWPs.")
         motion = report.get('aom_adjustment_audit', {})
-        if motion.get('passed') is True:
-            notes.append('AOM upper adapters, KM100PM mounts and integral seats retain the lattice installation and depth; no deeper pockets are added. External hardware clears an ideal-pivot net rotation cone of 4 degrees with 1 mm added margin. This does not certify full combined catalogue travel: the existing adapter-to-plate clearance limits some tilt directions, as recorded in the adjustment audit.')
+        if motion.get('passed') is True and report.get('aom_machining_relief_audit') is None:
+            notes.append('External AOM hardware clears an ideal-pivot net rotation cone of 4 degrees with 1 mm added margin. This external-hardware check does not certify adapter-to-plate clearance or combined-axis travel.')
     reference = report.get("optical_reference_model") or {}
     if (reference.get("kind") == "zero_order_reference_model" and
             reference.get("aom_rf_state") == "off" and
@@ -376,6 +394,16 @@ def render_tapping(report, holes, edges, plate, args):
             fontsize=14, weight="bold", va="center")
     text_mm(14, 388, f"Geometry: {args.step_name}\nThis sheet identifies threaded and clearance holes. Drill sizes, tolerances, material and finish: shop standard.",
             fontsize=8, va="center", linespacing=1.5)
+    relief = report.get('aom_machining_relief_audit') or {}
+    if relief.get('passed') is True:
+        parameters = relief.get('parameters', {})
+        if (relief.get('schema') != 'aom_machining_relief_audit/1'
+                or parameters.get('side_clearance_mm') != 6
+                or parameters.get('front_relief_depth_mm') != 4
+                or parameters.get('front_corner_radius_mm') != 3):
+            raise ValueError('Tapping-sheet AOM note requires matching machining relief evidence')
+        text_mm(14, 382, 'AOM MACHINING: 6 mm side clearance; front relief 4 mm deep, R3 corners. Bearing faces and installation height unchanged.',
+                fontsize=8, va='center')
     text_mm(580, 378, f"PLATE  {width:.2f} x {height:.2f} x {thickness:.2f} mm    UNITS mm    COORDINATES = STEP FILE",
             fontsize=8, ha="right", va="center", family="DejaVu Sans Mono")
     left, bottom, avail_w, avail_h = 31, 71, 539, 286

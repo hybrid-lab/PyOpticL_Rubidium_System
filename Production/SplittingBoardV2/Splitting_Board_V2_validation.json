@@ -1,7 +1,7 @@
 {
-  "document": "candidate2",
+  "document": "Splitting_Board_V2_Input_QWP",
   "mode": "splitting",
-  "layout_status": "Splitting Board V2 with input QWP and seven entrance HWPs (RF-off zero order); see the saved native production audit; not machined.",
+  "layout_status": "Splitting Board V2 with input QWP and seven entrance HWPs (RF-off zero order); see the saved native production audit; not machined. AOM machining side6/front4 revision 2026-10-14; installed optical geometry preserved.",
   "plate_size_mm": [
     609.5999999999999,
     355.59999999999997,
@@ -9,7 +9,7 @@
   ],
   "plate_valid": true,
   "plate_solid_count": 1,
-  "plate_volume_mm3": 4601343.776684687,
+  "plate_volume_mm3": 4535382.828637392,
   "objects": [
     {
       "name": "Splitting_plate_24_x_14_in",
@@ -20,7 +20,7 @@
       ],
       "bbox": [
         3.175,
-        3.174999999999984,
+        3.174999999999999,
         -38.099999999999994,
         606.4249999999998,
         352.42499999999995,
@@ -20900,7 +20900,8 @@
     "pre_aom_waveplate_audit_issues": 0,
     "input_revision_mount_support_issues": 0,
     "aom_adjustment_audit_issues": 0,
-    "c1_fr_support_preservation_issues": 0
+    "c1_fr_support_preservation_issues": 0,
+    "aom_machining_relief_audit_issues": 0
   },
   "fiber_installation": {
     "schema": "km05t_installation_audit/2",
@@ -88688,11 +88689,12 @@
   },
   "aom_adjustment_audit": {
     "schema": "aom_adjustment_audit/1",
-    "document": "candidate2",
+    "document": "Splitting_Board_V2_Input_QWP",
     "passed": true,
     "ideal_contact_geometry_passed": true,
     "external_hardware_clearance_passed": true,
     "lattice_installation_unchanged": true,
+    "machining_relief_verified": true,
     "scope_contract_passed": true,
     "full_catalogue_travel_certified": false,
     "errors": [],
@@ -89727,15 +89729,42 @@
         },
         "upper_adapter_nominal_bottom_board_z_mm": -11.985000000000003,
         "aom_root_height_board_mm": 0.115,
-        "seat_source_geometry_volume_mm3": 274690.92742277234,
-        "seat_actual_geometry_volume_mm3": 274690.9274227723,
-        "seat_common_volume_mm3": 274690.9274227723,
+        "seat_source_geometry_volume_mm3": 284712.64675886737,
+        "seat_actual_geometry_volume_mm3": 284712.64675886737,
+        "seat_common_volume_mm3": 284712.64675886737,
         "lattice_installation_unchanged": true,
-        "original_seat_pose_limits": {
+        "lattice_installation_scope": "Original component meshes, full relative poses, mounting height, bearing face and locating lip; plate machining has authorized relief.",
+        "machining_relief_verified": true,
+        "machining_relief": {
+          "enabled": true,
+          "revision": "side6_front4_20261014",
+          "coordinate_frame": "original seat local frame",
+          "side_capsule_xy_mm": [
+            -13.15,
+            -21.0,
+            -7.15,
+            21.0
+          ],
+          "side_capsule_radius_mm": 3.0,
+          "side_floor_z_mm": -1.231,
+          "front_rounded_rectangle_xy_mm": [
+            21.4,
+            -35.0,
+            62.5272,
+            27.051
+          ],
+          "front_corner_radius_mm": 3.0,
+          "front_depth_from_plate_top_mm": 4.0,
+          "front_floor_z_mm": 13.185000000000002,
+          "plate_top_z_mm": 17.185000000000002,
+          "generator_cutter_identity_verified": true,
+          "scope": "Pinned authorized cutter and actual seat DrillPart agree; this field does not certify continuous plate clearance or retained support strength."
+        },
+        "current_seat_pose_samples": {
           "nominal_adapter_gap_above_uncut_top_mm": 0.7149999999999963,
           "sufficient_net_angle_adapter_above_uncut_top_deg": 0.5647001320321579,
           "sufficient_bound_scope": "Only the upper adapter versus an uncut plane; not an overall usable mount range.",
-          "sampled_pose_counterexamples": [
+          "sampled_current_plate_poses": [
             {
               "ideal_rigid_pose_axis": "KM-local Y",
               "degrees": -4.0,
@@ -89744,23 +89773,7 @@
             {
               "ideal_rigid_pose_axis": "KM-local Y",
               "degrees": 4.0,
-              "upper_adapter_vertices_inside_actual_plate_board_mm": [
-                [
-                  142.6913,
-                  85.65300564984241,
-                  -15.634405261128192
-                ],
-                [
-                  86.6913,
-                  85.65300564984244,
-                  -15.63440526112819
-                ],
-                [
-                  136.91630038146974,
-                  97.94299444461106,
-                  -14.775005525888556
-                ]
-              ]
+              "upper_adapter_vertices_inside_actual_plate_board_mm": []
             },
             {
               "ideal_rigid_pose_axis": "KM-local Z",
@@ -89773,8 +89786,9 @@
               "upper_adapter_vertices_inside_actual_plate_board_mm": []
             }
           ],
+          "continuous_plate_clearance_certified": false,
           "full_catalogue_travel_certified": false,
-          "warning": "These actual interior points prove the original seat/plate can block some ideal poses. Empty samples are not proof of collision-free continuous motion."
+          "warning": "Any listed interior points prove contact with the CURRENT relieved plate. An empty sample does not prove collision-free continuous motion. The uncut-plane sufficient bound is a reference only and is not the relieved plate travel limit."
         },
         "control_envelopes": [
           {
@@ -90935,15 +90949,42 @@
         },
         "upper_adapter_nominal_bottom_board_z_mm": -11.985000000000007,
         "aom_root_height_board_mm": 0.115,
-        "seat_source_geometry_volume_mm3": 274690.9274227726,
-        "seat_actual_geometry_volume_mm3": 274690.92742277234,
-        "seat_common_volume_mm3": 274690.92742277234,
+        "seat_source_geometry_volume_mm3": 284712.6467588676,
+        "seat_actual_geometry_volume_mm3": 284712.6467588676,
+        "seat_common_volume_mm3": 284712.6467588676,
         "lattice_installation_unchanged": true,
-        "original_seat_pose_limits": {
+        "lattice_installation_scope": "Original component meshes, full relative poses, mounting height, bearing face and locating lip; plate machining has authorized relief.",
+        "machining_relief_verified": true,
+        "machining_relief": {
+          "enabled": true,
+          "revision": "side6_front4_20261014",
+          "coordinate_frame": "original seat local frame",
+          "side_capsule_xy_mm": [
+            -13.15,
+            -21.0,
+            -7.15,
+            21.0
+          ],
+          "side_capsule_radius_mm": 3.0,
+          "side_floor_z_mm": -1.231,
+          "front_rounded_rectangle_xy_mm": [
+            21.4,
+            -35.0,
+            62.5272,
+            27.051
+          ],
+          "front_corner_radius_mm": 3.0,
+          "front_depth_from_plate_top_mm": 4.0,
+          "front_floor_z_mm": 13.185000000000024,
+          "plate_top_z_mm": 17.185000000000024,
+          "generator_cutter_identity_verified": true,
+          "scope": "Pinned authorized cutter and actual seat DrillPart agree; this field does not certify continuous plate clearance or retained support strength."
+        },
+        "current_seat_pose_samples": {
           "nominal_adapter_gap_above_uncut_top_mm": 0.7149999999999928,
           "sufficient_net_angle_adapter_above_uncut_top_deg": 0.5647001320321579,
           "sufficient_bound_scope": "Only the upper adapter versus an uncut plane; not an overall usable mount range.",
-          "sampled_pose_counterexamples": [
+          "sampled_current_plate_poses": [
             {
               "ideal_rigid_pose_axis": "KM-local Y",
               "degrees": -4.0,
@@ -90952,23 +90993,7 @@
             {
               "ideal_rigid_pose_axis": "KM-local Y",
               "degrees": 4.0,
-              "upper_adapter_vertices_inside_actual_plate_board_mm": [
-                [
-                  164.9666,
-                  198.09529435015756,
-                  -15.634405261128196
-                ],
-                [
-                  220.9666,
-                  198.09529435015756,
-                  -15.634405261128196
-                ],
-                [
-                  170.74159961853027,
-                  185.8053055553889,
-                  -14.775005525888558
-                ]
-              ]
+              "upper_adapter_vertices_inside_actual_plate_board_mm": []
             },
             {
               "ideal_rigid_pose_axis": "KM-local Z",
@@ -90981,8 +91006,9 @@
               "upper_adapter_vertices_inside_actual_plate_board_mm": []
             }
           ],
+          "continuous_plate_clearance_certified": false,
           "full_catalogue_travel_certified": false,
-          "warning": "These actual interior points prove the original seat/plate can block some ideal poses. Empty samples are not proof of collision-free continuous motion."
+          "warning": "Any listed interior points prove contact with the CURRENT relieved plate. An empty sample does not prove collision-free continuous motion. The uncut-plane sufficient bound is a reference only and is not the relieved plate travel limit."
         },
         "control_envelopes": [
           {
@@ -92143,15 +92169,42 @@
         },
         "upper_adapter_nominal_bottom_board_z_mm": -11.985000000000003,
         "aom_root_height_board_mm": 0.115,
-        "seat_source_geometry_volume_mm3": 274690.92742277234,
-        "seat_actual_geometry_volume_mm3": 274690.92742277234,
-        "seat_common_volume_mm3": 274690.92742277234,
+        "seat_source_geometry_volume_mm3": 284712.6467588672,
+        "seat_actual_geometry_volume_mm3": 284712.6467588672,
+        "seat_common_volume_mm3": 284712.6467588672,
         "lattice_installation_unchanged": true,
-        "original_seat_pose_limits": {
+        "lattice_installation_scope": "Original component meshes, full relative poses, mounting height, bearing face and locating lip; plate machining has authorized relief.",
+        "machining_relief_verified": true,
+        "machining_relief": {
+          "enabled": true,
+          "revision": "side6_front4_20261014",
+          "coordinate_frame": "original seat local frame",
+          "side_capsule_xy_mm": [
+            -13.15,
+            -21.0,
+            -7.15,
+            21.0
+          ],
+          "side_capsule_radius_mm": 3.0,
+          "side_floor_z_mm": -1.231,
+          "front_rounded_rectangle_xy_mm": [
+            21.4,
+            -35.0,
+            62.5272,
+            27.051
+          ],
+          "front_corner_radius_mm": 3.0,
+          "front_depth_from_plate_top_mm": 4.0,
+          "front_floor_z_mm": 13.185000000000002,
+          "plate_top_z_mm": 17.185000000000002,
+          "generator_cutter_identity_verified": true,
+          "scope": "Pinned authorized cutter and actual seat DrillPart agree; this field does not certify continuous plate clearance or retained support strength."
+        },
+        "current_seat_pose_samples": {
           "nominal_adapter_gap_above_uncut_top_mm": 0.7149999999999963,
           "sufficient_net_angle_adapter_above_uncut_top_deg": 0.5647001320321579,
           "sufficient_bound_scope": "Only the upper adapter versus an uncut plane; not an overall usable mount range.",
-          "sampled_pose_counterexamples": [
+          "sampled_current_plate_poses": [
             {
               "ideal_rigid_pose_axis": "KM-local Y",
               "degrees": -4.0,
@@ -92160,23 +92213,7 @@
             {
               "ideal_rigid_pose_axis": "KM-local Y",
               "degrees": 4.0,
-              "upper_adapter_vertices_inside_actual_plate_board_mm": [
-                [
-                  95.06110564984243,
-                  269.94100000000003,
-                  -15.634405261128192
-                ],
-                [
-                  95.06110564984243,
-                  325.94100000000003,
-                  -15.634405261128192
-                ],
-                [
-                  107.35109444461108,
-                  275.7159996185303,
-                  -14.775005525888554
-                ]
-              ]
+              "upper_adapter_vertices_inside_actual_plate_board_mm": []
             },
             {
               "ideal_rigid_pose_axis": "KM-local Z",
@@ -92189,8 +92226,9 @@
               "upper_adapter_vertices_inside_actual_plate_board_mm": []
             }
           ],
+          "continuous_plate_clearance_certified": false,
           "full_catalogue_travel_certified": false,
-          "warning": "These actual interior points prove the original seat/plate can block some ideal poses. Empty samples are not proof of collision-free continuous motion."
+          "warning": "Any listed interior points prove contact with the CURRENT relieved plate. An empty sample does not prove collision-free continuous motion. The uncut-plane sufficient bound is a reference only and is not the relieved plate travel limit."
         },
         "control_envelopes": [
           {
@@ -93351,15 +93389,42 @@
         },
         "upper_adapter_nominal_bottom_board_z_mm": -11.985000000000003,
         "aom_root_height_board_mm": 0.115,
-        "seat_source_geometry_volume_mm3": 274690.9274227724,
-        "seat_actual_geometry_volume_mm3": 274690.9274227724,
-        "seat_common_volume_mm3": 274690.9274227724,
+        "seat_source_geometry_volume_mm3": 284712.64675886725,
+        "seat_actual_geometry_volume_mm3": 284712.64675886725,
+        "seat_common_volume_mm3": 284712.64675886725,
         "lattice_installation_unchanged": true,
-        "original_seat_pose_limits": {
+        "lattice_installation_scope": "Original component meshes, full relative poses, mounting height, bearing face and locating lip; plate machining has authorized relief.",
+        "machining_relief_verified": true,
+        "machining_relief": {
+          "enabled": true,
+          "revision": "side6_front4_20261014",
+          "coordinate_frame": "original seat local frame",
+          "side_capsule_xy_mm": [
+            -13.15,
+            -21.0,
+            -7.15,
+            21.0
+          ],
+          "side_capsule_radius_mm": 3.0,
+          "side_floor_z_mm": -1.231,
+          "front_rounded_rectangle_xy_mm": [
+            21.4,
+            -35.0,
+            62.5272,
+            27.051
+          ],
+          "front_corner_radius_mm": 3.0,
+          "front_depth_from_plate_top_mm": 4.0,
+          "front_floor_z_mm": 13.185000000000002,
+          "plate_top_z_mm": 17.185000000000002,
+          "generator_cutter_identity_verified": true,
+          "scope": "Pinned authorized cutter and actual seat DrillPart agree; this field does not certify continuous plate clearance or retained support strength."
+        },
+        "current_seat_pose_samples": {
           "nominal_adapter_gap_above_uncut_top_mm": 0.7149999999999963,
           "sufficient_net_angle_adapter_above_uncut_top_deg": 0.5647001320321579,
           "sufficient_bound_scope": "Only the upper adapter versus an uncut plane; not an overall usable mount range.",
-          "sampled_pose_counterexamples": [
+          "sampled_current_plate_poses": [
             {
               "ideal_rigid_pose_axis": "KM-local Y",
               "degrees": -4.0,
@@ -93368,23 +93433,7 @@
             {
               "ideal_rigid_pose_axis": "KM-local Y",
               "degrees": 4.0,
-              "upper_adapter_vertices_inside_actual_plate_board_mm": [
-                [
-                  400.82619435015755,
-                  87.46589999999998,
-                  -15.634405261128192
-                ],
-                [
-                  400.82619435015755,
-                  31.465899999999976,
-                  -15.634405261128192
-                ],
-                [
-                  388.5362055553889,
-                  81.6909003814697,
-                  -14.775005525888554
-                ]
-              ]
+              "upper_adapter_vertices_inside_actual_plate_board_mm": []
             },
             {
               "ideal_rigid_pose_axis": "KM-local Z",
@@ -93397,8 +93446,9 @@
               "upper_adapter_vertices_inside_actual_plate_board_mm": []
             }
           ],
+          "continuous_plate_clearance_certified": false,
           "full_catalogue_travel_certified": false,
-          "warning": "These actual interior points prove the original seat/plate can block some ideal poses. Empty samples are not proof of collision-free continuous motion."
+          "warning": "Any listed interior points prove contact with the CURRENT relieved plate. An empty sample does not prove collision-free continuous motion. The uncut-plane sufficient bound is a reference only and is not the relieved plate travel limit."
         },
         "control_envelopes": [
           {
@@ -94559,15 +94609,42 @@
         },
         "upper_adapter_nominal_bottom_board_z_mm": -11.985000000000003,
         "aom_root_height_board_mm": 0.115,
-        "seat_source_geometry_volume_mm3": 274690.9274227724,
-        "seat_actual_geometry_volume_mm3": 274690.92742277234,
-        "seat_common_volume_mm3": 274690.92742277234,
+        "seat_source_geometry_volume_mm3": 284712.64675886725,
+        "seat_actual_geometry_volume_mm3": 284712.64675886725,
+        "seat_common_volume_mm3": 284712.64675886725,
         "lattice_installation_unchanged": true,
-        "original_seat_pose_limits": {
+        "lattice_installation_scope": "Original component meshes, full relative poses, mounting height, bearing face and locating lip; plate machining has authorized relief.",
+        "machining_relief_verified": true,
+        "machining_relief": {
+          "enabled": true,
+          "revision": "side6_front4_20261014",
+          "coordinate_frame": "original seat local frame",
+          "side_capsule_xy_mm": [
+            -13.15,
+            -21.0,
+            -7.15,
+            21.0
+          ],
+          "side_capsule_radius_mm": 3.0,
+          "side_floor_z_mm": -1.231,
+          "front_rounded_rectangle_xy_mm": [
+            21.4,
+            -35.0,
+            62.5272,
+            27.051
+          ],
+          "front_corner_radius_mm": 3.0,
+          "front_depth_from_plate_top_mm": 4.0,
+          "front_floor_z_mm": 13.185000000000002,
+          "plate_top_z_mm": 17.185000000000002,
+          "generator_cutter_identity_verified": true,
+          "scope": "Pinned authorized cutter and actual seat DrillPart agree; this field does not certify continuous plate clearance or retained support strength."
+        },
+        "current_seat_pose_samples": {
           "nominal_adapter_gap_above_uncut_top_mm": 0.7149999999999963,
           "sufficient_net_angle_adapter_above_uncut_top_deg": 0.5647001320321579,
           "sufficient_bound_scope": "Only the upper adapter versus an uncut plane; not an overall usable mount range.",
-          "sampled_pose_counterexamples": [
+          "sampled_current_plate_poses": [
             {
               "ideal_rigid_pose_axis": "KM-local Y",
               "degrees": -4.0,
@@ -94576,23 +94653,7 @@
             {
               "ideal_rigid_pose_axis": "KM-local Y",
               "degrees": 4.0,
-              "upper_adapter_vertices_inside_actual_plate_board_mm": [
-                [
-                  276.5224056498424,
-                  99.5744,
-                  -15.634405261128192
-                ],
-                [
-                  276.5224056498424,
-                  155.5744,
-                  -15.634405261128192
-                ],
-                [
-                  288.8123944446111,
-                  105.34939961853027,
-                  -14.775005525888554
-                ]
-              ]
+              "upper_adapter_vertices_inside_actual_plate_board_mm": []
             },
             {
               "ideal_rigid_pose_axis": "KM-local Z",
@@ -94605,8 +94666,9 @@
               "upper_adapter_vertices_inside_actual_plate_board_mm": []
             }
           ],
+          "continuous_plate_clearance_certified": false,
           "full_catalogue_travel_certified": false,
-          "warning": "These actual interior points prove the original seat/plate can block some ideal poses. Empty samples are not proof of collision-free continuous motion."
+          "warning": "Any listed interior points prove contact with the CURRENT relieved plate. An empty sample does not prove collision-free continuous motion. The uncut-plane sufficient bound is a reference only and is not the relieved plate travel limit."
         },
         "control_envelopes": [
           {
@@ -95767,15 +95829,42 @@
         },
         "upper_adapter_nominal_bottom_board_z_mm": -11.985000000000003,
         "aom_root_height_board_mm": 0.115,
-        "seat_source_geometry_volume_mm3": 274690.92742277234,
-        "seat_actual_geometry_volume_mm3": 274690.9274227723,
-        "seat_common_volume_mm3": 274690.9274227723,
+        "seat_source_geometry_volume_mm3": 284712.64675886725,
+        "seat_actual_geometry_volume_mm3": 284712.64675886725,
+        "seat_common_volume_mm3": 284712.64675886725,
         "lattice_installation_unchanged": true,
-        "original_seat_pose_limits": {
+        "lattice_installation_scope": "Original component meshes, full relative poses, mounting height, bearing face and locating lip; plate machining has authorized relief.",
+        "machining_relief_verified": true,
+        "machining_relief": {
+          "enabled": true,
+          "revision": "side6_front4_20261014",
+          "coordinate_frame": "original seat local frame",
+          "side_capsule_xy_mm": [
+            -13.15,
+            -21.0,
+            -7.15,
+            21.0
+          ],
+          "side_capsule_radius_mm": 3.0,
+          "side_floor_z_mm": -1.231,
+          "front_rounded_rectangle_xy_mm": [
+            21.4,
+            -35.0,
+            62.5272,
+            27.051
+          ],
+          "front_corner_radius_mm": 3.0,
+          "front_depth_from_plate_top_mm": 4.0,
+          "front_floor_z_mm": 13.185000000000002,
+          "plate_top_z_mm": 17.185000000000002,
+          "generator_cutter_identity_verified": true,
+          "scope": "Pinned authorized cutter and actual seat DrillPart agree; this field does not certify continuous plate clearance or retained support strength."
+        },
+        "current_seat_pose_samples": {
           "nominal_adapter_gap_above_uncut_top_mm": 0.7149999999999963,
           "sufficient_net_angle_adapter_above_uncut_top_deg": 0.5647001320321579,
           "sufficient_bound_scope": "Only the upper adapter versus an uncut plane; not an overall usable mount range.",
-          "sampled_pose_counterexamples": [
+          "sampled_current_plate_poses": [
             {
               "ideal_rigid_pose_axis": "KM-local Y",
               "degrees": -4.0,
@@ -95784,23 +95873,7 @@
             {
               "ideal_rigid_pose_axis": "KM-local Y",
               "degrees": 4.0,
-              "upper_adapter_vertices_inside_actual_plate_board_mm": [
-                [
-                  363.75229435015757,
-                  251.36460000000002,
-                  -15.634405261128192
-                ],
-                [
-                  363.75229435015757,
-                  195.36460000000002,
-                  -15.634405261128192
-                ],
-                [
-                  351.4623055553889,
-                  245.58960038146975,
-                  -14.775005525888554
-                ]
-              ]
+              "upper_adapter_vertices_inside_actual_plate_board_mm": []
             },
             {
               "ideal_rigid_pose_axis": "KM-local Z",
@@ -95813,8 +95886,9 @@
               "upper_adapter_vertices_inside_actual_plate_board_mm": []
             }
           ],
+          "continuous_plate_clearance_certified": false,
           "full_catalogue_travel_certified": false,
-          "warning": "These actual interior points prove the original seat/plate can block some ideal poses. Empty samples are not proof of collision-free continuous motion."
+          "warning": "Any listed interior points prove contact with the CURRENT relieved plate. An empty sample does not prove collision-free continuous motion. The uncut-plane sufficient bound is a reference only and is not the relieved plate travel limit."
         },
         "control_envelopes": [
           {
@@ -96975,15 +97049,42 @@
         },
         "upper_adapter_nominal_bottom_board_z_mm": -11.985000000000003,
         "aom_root_height_board_mm": 0.115,
-        "seat_source_geometry_volume_mm3": 274690.9274227724,
-        "seat_actual_geometry_volume_mm3": 274690.9274227724,
-        "seat_common_volume_mm3": 274690.9274227724,
+        "seat_source_geometry_volume_mm3": 284712.6467588673,
+        "seat_actual_geometry_volume_mm3": 284712.6467588673,
+        "seat_common_volume_mm3": 284712.6467588673,
         "lattice_installation_unchanged": true,
-        "original_seat_pose_limits": {
+        "lattice_installation_scope": "Original component meshes, full relative poses, mounting height, bearing face and locating lip; plate machining has authorized relief.",
+        "machining_relief_verified": true,
+        "machining_relief": {
+          "enabled": true,
+          "revision": "side6_front4_20261014",
+          "coordinate_frame": "original seat local frame",
+          "side_capsule_xy_mm": [
+            -13.15,
+            -21.0,
+            -7.15,
+            21.0
+          ],
+          "side_capsule_radius_mm": 3.0,
+          "side_floor_z_mm": -1.231,
+          "front_rounded_rectangle_xy_mm": [
+            21.4,
+            -35.0,
+            62.5272,
+            27.051
+          ],
+          "front_corner_radius_mm": 3.0,
+          "front_depth_from_plate_top_mm": 4.0,
+          "front_floor_z_mm": 13.185000000000002,
+          "plate_top_z_mm": 17.185000000000002,
+          "generator_cutter_identity_verified": true,
+          "scope": "Pinned authorized cutter and actual seat DrillPart agree; this field does not certify continuous plate clearance or retained support strength."
+        },
+        "current_seat_pose_samples": {
           "nominal_adapter_gap_above_uncut_top_mm": 0.7149999999999963,
           "sufficient_net_angle_adapter_above_uncut_top_deg": 0.5647001320321579,
           "sufficient_bound_scope": "Only the upper adapter versus an uncut plane; not an overall usable mount range.",
-          "sampled_pose_counterexamples": [
+          "sampled_current_plate_poses": [
             {
               "ideal_rigid_pose_axis": "KM-local Y",
               "degrees": -4.0,
@@ -96992,23 +97093,7 @@
             {
               "ideal_rigid_pose_axis": "KM-local Y",
               "degrees": 4.0,
-              "upper_adapter_vertices_inside_actual_plate_board_mm": [
-                [
-                  329.00380564984243,
-                  270.6905,
-                  -15.634405261128192
-                ],
-                [
-                  329.00380564984243,
-                  326.6905,
-                  -15.634405261128192
-                ],
-                [
-                  341.2937944446111,
-                  276.46549961853026,
-                  -14.775005525888554
-                ]
-              ]
+              "upper_adapter_vertices_inside_actual_plate_board_mm": []
             },
             {
               "ideal_rigid_pose_axis": "KM-local Z",
@@ -97021,8 +97106,9 @@
               "upper_adapter_vertices_inside_actual_plate_board_mm": []
             }
           ],
+          "continuous_plate_clearance_certified": false,
           "full_catalogue_travel_certified": false,
-          "warning": "These actual interior points prove the original seat/plate can block some ideal poses. Empty samples are not proof of collision-free continuous motion."
+          "warning": "Any listed interior points prove contact with the CURRENT relieved plate. An empty sample does not prove collision-free continuous motion. The uncut-plane sufficient bound is a reference only and is not the relieved plate travel limit."
         },
         "control_envelopes": [
           {
@@ -97162,13 +97248,15 @@
       "simultaneous_two_axis_plus_minus_4_certified": false,
       "same_assembly_relative_motion_certified": false,
       "same_assembly_pairs_excluded": true,
-      "original_seat_motion_certified": false,
+      "continuous_plate_clearance_certified": false,
       "manufacturing_tolerances_or_joint_play_certified": false,
       "spring_deformation_or_unmodeled_flexible_parts_certified": false,
       "all_setting_table_fit_certified": false
     },
-    "existing_seat_limitation": {
-      "warning": "The unchanged lattice upper adapter has only 0.715 mm nominal clearance above uncut plate top. Pitch can meet the original plate before catalogue travel. No deeper pocket or mounting-height change is permitted; this external clearance PASS is not a full mechanical +/-4-degree PASS."
+    "machining_relief_scope": {
+      "required": true,
+      "revision": "side6_front4_20261014",
+      "warning": "The original mounting height, components and bearing/lip datums are retained. The authorized 6-mm side clearance and 4-mm front recess change plate machining only. This audit verifies their pinned cutter, but external-clearance PASS and empty current-plate pose samples do not certify continuous plate clearance or full mechanical +/-4-degree travel."
     },
     "preserved_summary_counts": {
       "bbox_overlap_candidates": 17,
@@ -97205,15 +97293,16 @@
       "pre_aom_waveplate_audit_issues": 0,
       "input_revision_mount_support_issues": 0,
       "aom_adjustment_audit_issues": 0,
-      "c1_fr_support_preservation_issues": 0
+      "c1_fr_support_preservation_issues": 0,
+      "aom_machining_relief_audit_issues": 0
     },
     "source_provenance": {
       "audit_path": "C:\\Users\\Haotian Xu\\Documents\\Codex\\2026-10-11\\https-github-com-hybrid-lab-pyopticl-2\\work\\repo\\tools\\aom_adjustment_audit.py",
-      "audit_sha256": "985d200e0d543b9c83d01d6e7e9938b794c854af3a5f94725437f09b1226d553",
+      "audit_sha256": "e19754cdf2a0d36c2ce78525a9877811c8cfafcbef66c23fd808f9baa77dc506",
       "board_path": "C:\\Users\\Haotian Xu\\Documents\\Codex\\2026-10-11\\https-github-com-hybrid-lab-pyopticl-2\\work\\repo\\Rubidium_system\\Splitting_Board_V2.py",
-      "board_sha256": "14da14bfec2689af531fa966477f97aeef4a11c584094a56099ddad462e17251",
+      "board_sha256": "5e212d7beabf9b51b6277fa7e741368397c8c60f872a8ec418e99f811d08756c",
       "optomech_path": "C:\\Users\\Haotian Xu\\Documents\\Codex\\2026-10-11\\https-github-com-hybrid-lab-pyopticl-2\\work\\repo\\optomech.py",
-      "optomech_sha256": "a8ec20ed45337db4911fba271b96964c95d016b6a0f2f4bce2c1e22c4eceded4",
+      "optomech_sha256": "199e512c9c577de3902070445d4ad06705375d09ae7ee313e09bc18f1a99a00a",
       "joint_helper_path": "C:\\Users\\Haotian Xu\\Documents\\Codex\\2026-10-11\\https-github-com-hybrid-lab-pyopticl-2\\work\\repo\\tools\\km100pm_kinematic_geometry.py",
       "joint_helper_sha256": "64815b6539d28b81ae94e832c9abcba54def6ad6ea52bd2eff0b62c698f2e3d8"
     },
@@ -97224,7 +97313,8 @@
       "scipy_path": "D:\\FreeCAD 1.1\\bin\\Lib\\site-packages\\scipy\\__init__.py"
     },
     "lattice_installation_source_reference": {
-      "commit": "8e48c57",
+      "mounting_pose_reference_commit": "8e48c57",
+      "machining_relief_revision": "side6_front4_20261014",
       "geometry_function_source_sha256": {
         "_bounding_box": "7ae9906970262ecfefdf31b85a6d79259451991fa6356b2aca1cf7c7efff4157",
         "prism_mount_km100pm_bridged": "7fc8989bfbc5adad12b9c3dcc3031497f0a7e089f53670a158f09794de5cb9eb",
@@ -97234,9 +97324,10 @@
         "seat_placement": "daf86b5ba77ad31aa6add1936fbadd13f9d580f5bc3307559ffd11bfbcbed92e",
         "_remove_lower_adapter": "7ff26e26166b9e0c08cbb4059e4b65d993873e9cc8887547c7c5ffec04653776",
         "_km_clearance": "e2e046ce5a528ce89bb646efdb64a93eb50dd225f33a302404bc787a550b6dab",
-        "_geometry": "3734b8d5eb22ab2a5513a584c02ce005c0baf5fd0385a01948e88f5d3c36938f",
+        "_aom_installation_relief": "5af8da79d9f92e9acaa8b0b124f173f2503ff50ec496145bf5c8e2ffd63596b8",
+        "_geometry": "b305c46da8ded5b70cc42d80966199cab838d4522f09028dd59e1cb2aa806ecf",
         "_make_IntegralAOMBaseplate": "ece5cc5f7351cb6f3235b2986d7b31c8451e8836216969c152770f7f9055e73b",
-        "integrate_aom": "08ee0c9cea82a64123b56a67d0bc3d18b470e18cd8733ab7122fb80a559982a4"
+        "integrate_aom": "7dc54677a5c675f397248cf8185ea7bdd1992cd4b377c1773f6ac8086f811876"
       },
       "seat_constants": {
         "SEAT_X_MIN": -9.179,
@@ -97258,7 +97349,19 @@
           -0.03,
           -0.115
         ]
-      }
+      },
+      "machining_relief_constants": {
+        "AOM_SIDE_CLEARANCE_MM": 6.0,
+        "AOM_FRONT_RELIEF_DEPTH_MM": 4.0,
+        "AOM_FRONT_RELIEF_XY_MM": [
+          21.4,
+          -35.0,
+          62.5272,
+          27.051
+        ],
+        "AOM_FRONT_RELIEF_RADIUS_MM": 3.0
+      },
+      "scope": "Original mounting poses and bearing/lip datums plus the explicitly authorized side/front relief; the complete cutter is not claimed unchanged from 8e48c57."
     },
     "external_hardware": {
       "bounding_candidates_tested": 12,
@@ -110088,7 +110191,8 @@
     "external_clearance_margin_mm": 1.0,
     "preserve_lattice_installation": true,
     "full_catalogue_travel_certified": false,
-    "scope": "External hardware reserve around an ideal sphere/cone contact pivot; unchanged lattice seat restricts pitch/combined travel; RF-on optical coupling not certified."
+    "scope": "Preserved lattice mounting poses with approved side6/front4 relief; external ideal-pivot net4deg reserve, no combined-axis or RF-on coupling certification.",
+    "machining_relief_required": true
   },
   "input_qwp_revision": {
     "scope": "Input fiber -> actual A M1 -> new QWP -> retained entrance HWP -> actual AOM bore.",
@@ -110891,31 +110995,37 @@
     "file": "StepFile/Splitting_Board_V2_baseplate_24x14in.step",
     "valid": true,
     "solids": 1,
-    "volume_ratio": 1.0000000000000533,
+    "volume_ratio": 1.0,
+    "two_way_difference_mm3": [
+      0.0,
+      0.0
+    ],
+    "sha256": "eb1af3c39edecad8c1703221d8de9dd236c79d3a9616c84daa6af8e5500bb02f",
     "actual_dimensions_mm": [
-      603.25,
-      349.25000000000057,
-      25.40000000000001
+      603.2499999999999,
+      349.24999999999994,
+      25.4
     ]
   },
   "source_provenance": {
-    "optomech.py": "a8ec20ed45337db4911fba271b96964c95d016b6a0f2f4bce2c1e22c4eceded4",
+    "optomech.py": "199e512c9c577de3902070445d4ad06705375d09ae7ee313e09bc18f1a99a00a",
     "PyOpticL/layout.py (external runtime)": "189b7b649c99cdbc97c1815ad9ca53b1a52030bc9166c4fbf857d7a1ee7f7771",
-    "Rubidium_system/Splitting_Board_V2.py": "14da14bfec2689af531fa966477f97aeef4a11c584094a56099ddad462e17251",
+    "Rubidium_system/Splitting_Board_V2.py": "5e212d7beabf9b51b6277fa7e741368397c8c60f872a8ec418e99f811d08756c",
     "tools/ta_projection_audit.py": "1d63d887b233686858ebeab87d3e7a2951ada346e51175c7ae9274639aa7b5be",
     "tools/export_ta_board.py": "46fb2624e363111a4b4c34958ec5b30049142151f22789e4d1c4c13cc15674c0",
-    "tools/render_ta_documents.py": "2e0dee1e42a354c527a554a8b9a7eb4629f5cdf856e8154c3eefe2e69fd87faf",
+    "tools/render_ta_documents.py": "3962ab5d798aed5cc0ac4d5f70c0e07ed884bba37fcac5c667a52f0a56dba79f",
     "tools/test_ta_projection.py": "096400836e08f850d419b7d20809d1804f146dafc77b6561a5b76ecd0b7cdd11",
     "tools/km05t_audit.py": "6be3400bb40f1a312185a58061b7cedb689dffae53d7ac121b1a8ed1ea6a1985",
     "tools/refine_mesh_candidates.py": "77616ecf39d0c22533a668b6a1b62a5014e6ad264b73d97d18ff987657cdfac2",
     "tools/bonded_cube_audit.py": "75760ac8699ef9bd2f41ef291c67a1bdd595f737f755cc2b67b2b9f75030b11d",
     "tools/zero_order_reference_audit.py": "8cfe03ec2aafac54addf48a954f132f2fd422852de9e4fb40a8ccb7b34dde0b0",
     "tools/pre_aom_waveplate_audit.py": "9855ce103945c0cb76508618dedf4434fa110b835f61feb45c7ad2ba71a97603",
-    "tools/aom_adjustment_audit.py": "985d200e0d543b9c83d01d6e7e9938b794c854af3a5f94725437f09b1226d553",
+    "tools/aom_adjustment_audit.py": "e19754cdf2a0d36c2ce78525a9877811c8cfafcbef66c23fd808f9baa77dc506",
     "tools/km100pm_kinematic_geometry.py": "64815b6539d28b81ae94e832c9abcba54def6ad6ea52bd2eff0b62c698f2e3d8",
     "tools/table_mount_audit.py": "cac3f103ac2e2dcdb73b3004dc89f5a8cdecd324da3a97bbf46061af7619a1b6",
     "tools/splitting_table_grid_audit.py": "2807da3ecba2ca2ccbec40c6ef6fa012c9e96971a72e1d73f9654786bf832c1d",
-    "tools/splitting_table_envelope_audit.py": "1e7abefe51171776bb4995d491c4dc39dfbb1e4ecbc007cb85941bab6ed7f051"
+    "tools/splitting_table_envelope_audit.py": "1e7abefe51171776bb4995d491c4dc39dfbb1e4ecbc007cb85941bab6ed7f051",
+    "tools/aom_machining_relief_audit.py": "8dcffe69c9cd5289cec05a6369ccd0648a486d04f17afbbbe7dba6a2b5eb8530"
   },
   "freecad_version": [
     "1",
@@ -112150,41 +112260,830 @@
     }
   ],
   "native_round_trip": {
-    "passed": true,
-    "file": "Splitting_Board_V2_Input_QWP.FCStd (local output)",
-    "object_count": 268,
-    "object_names_preserved": true,
-    "placements_max_difference": 0.0,
-    "plate_volume_difference_mm3": 0.0,
-    "plate_valid": true,
-    "plate_solids": 1,
-    "all_object_states_valid": true,
-    "view_provider_claim_children_errors": [
-      {
-        "object": "Splitting_plate_24_x_14_in",
-        "provider": "ViewProvider",
-        "module": "PyOpticL.layout",
-        "error": "AttributeError: 'ViewProvider' object has no attribute 'Object'"
-      }
+    "file": "C:\\Users\\Haotian Xu\\Documents\\Codex\\2026-10-11\\https-github-com-hybrid-lab-pyopticl-2\\outputs\\AOM_Machining_Release_20261014\\Splitting_Board_V2_AOM_Clearance.FCStd",
+    "sha256": "6a23891f7e1c59161a0a5f68be18b5673f5cd2a9599f9ba8c53f0c195fde2cca",
+    "valid": true,
+    "solid_count": 1,
+    "plate_volume_difference_mm3": [
+      0.0,
+      0.0
     ],
-    "view_provider_count": 261
+    "geometry_and_placements_unchanged": true,
+    "physical_objects_verified": 260,
+    "hole_inventory_unchanged": true,
+    "enabled_seats_persisted": 7,
+    "plate_proxy_regeneration_identical": true
   },
   "source_repository_commit": "7b4cfa5c142b5dc116fbcbb2598c5abdec9bb208",
   "document_generation": {
-    "completed_utc": "2026-10-13T20:29:31.718910+00:00",
-    "renderer_sha256": "2e0dee1e42a354c527a554a8b9a7eb4629f5cdf856e8154c3eefe2e69fd87faf",
-    "clearance_renderer_sha256": "9465554b47d527a128c19151a1f7d297e58b19e1e1fee1206eb47cd70d38813e",
+    "revision": "side6_front4_20261014",
+    "scope": "Updated AOM machining, STEP, native round-trip, plate views, tapping drawing and BOM machining notes. Optical routes and all non-machining geometry/placements retained from the previous release and independently compared.",
     "artifacts_sha256": {
-      "Splitting_Board_V2.xlsx": "55ae6bf3a7963e80445c2b9908743b05cd20ccb1cb6f40ef3c0e7c09698b1ac8",
-      "Splitting_Board_V2_baseplate_TAP_or_NOT.pdf": "840a2a260a87bb1ea76d969ea3dd78c02031f7557f4c00e3ebaf2ccbbbfd93e2",
-      "Splitting_Board_V2_baseplate_TAP_or_NOT.png": "bfbd5afc993265d7cdb3bad49528db0e35d39fe45dca8b5d3cd61cdb7d255ca6",
-      "Splitting_Board_V2_table_clearance.png": "0b8a5f5371e1ca37e33fdb1add8dde5102cdce64d1bdb3a70807788f8e48a290",
-      "Splitting_Board_V2_top.png": "8f16f13ff1442379522db6067b7dbf9faad8dff0703cad90e47ec6254e276281",
-      "Splitting_Board_V2_3D.png": "a52f8fdabea828f6eb6640e410b0972368044f43968770074433e5c175e8e741",
-      "Splitting_Board_V2_holes.json": "6f52afd7f4c317f5e35de33ee2d9cfb1f4b447cb3e3d7b0f823e6f8d8adef4aa",
-      "Splitting_Board_V2_plate_edges.json": "56d4a7cb5dd2cd0e75842ddfff1ebb67501cc2aefc986f321e2906cfcfc88dfd",
-      "Splitting_Board_V2_layout_model.png": "f1784e51ad9835f1d61636a47dbe01f8a4d5c4459268a66fba204d7ccef78464"
+      "StepFile/Splitting_Board_V2_baseplate_24x14in.step": "eb1af3c39edecad8c1703221d8de9dd236c79d3a9616c84daa6af8e5500bb02f",
+      "Splitting_Board_V2_top.png": "eb144486db2aef7097a15af4c34e8bc47b186dadbc0e304f676ca4c7622780dc",
+      "Splitting_Board_V2_baseplate_3D.png": "0a5fc04f431a00ffac1f48ce17ecc3a76829aaf381cc90eee4361af2a8b30eaf",
+      "Splitting_Board_V2_baseplate_TAP_or_NOT.pdf": "61817f044f67d3e38a3bf4a08a0a0e2631bb0fd39aa749b04ee37d4bc8b42f4e",
+      "Splitting_Board_V2_baseplate_TAP_or_NOT.png": "97f749624848faad34c919b1e170c6a3318b0e3d3f74cc7b8d29d768dff5c927",
+      "Splitting_Board_V2_holes.json": "222d6299c6dee4bda944984ddd4d67319f7a84c04873373682d392dcb285ebfd",
+      "Splitting_Board_V2_plate_edges.json": "82a94d6269c2884f1a2ff2a1f2b660a0cced2c44d000106b05540ab34ad1e73f",
+      "Splitting_Board_V2.xlsx": "3b8e38080f4ddd35cb9e3ba6d7591a3a909d73a91f1e3bd43632554f3842c6b5",
+      "Splitting_Board_V2_3D.png": "4f2147460fe3a170e30d3d37bf9f9d182af32d10a7a43336be8ec20141a96c90"
     },
-    "scope": "Final documents and views derived from the current exported geometry and hole census; native CAD audit evidence unchanged."
+    "plate_hole_counts": {
+      "PLAIN": 4,
+      "TAP": 101
+    },
+    "configuration_step": "StepFile/Splitting_Board_V2_baseplate_24x14in.step",
+    "variant_scope": "Seven AOM seats on the one Splitting plate."
+  },
+  "aom_machining_relief_audit": {
+    "schema": "aom_machining_relief_audit/1",
+    "passed": true,
+    "document": "Splitting_Board_V2_Input_QWP",
+    "seat_count": 7,
+    "seats": [
+      {
+        "seat": "A_AOMO_3100_125_integral_seat",
+        "aom": "A_AOMO_3100_125",
+        "km": "Mount_KM100PM",
+        "upper_adapter": "AOM_Adapter",
+        "source_mesh_correspondence": {
+          "km": {
+            "vertices": 58568,
+            "facets": 117278,
+            "maximum_vertex_difference_mm": 3.7427604376828406e-06,
+            "triangle_multiset_matches": true
+          },
+          "adapter": {
+            "vertices": 384,
+            "facets": 788,
+            "maximum_vertex_difference_mm": 3.1776437161565096e-14,
+            "triangle_multiset_matches": true
+          },
+          "aom": {
+            "vertices": 423,
+            "facets": 862,
+            "maximum_vertex_difference_mm": 2.0097183471152322e-14,
+            "triangle_multiset_matches": true
+          }
+        },
+        "actual_cutter_identity": {
+          "first_minus_second_mm3": 0.0,
+          "second_minus_first_mm3": 0.0
+        },
+        "pivot_seat_mm": [
+          6.486650136920247,
+          18.618998512322378,
+          5.5000000957371995
+        ],
+        "plate_top_seat_z_mm": 17.185000000000002,
+        "front_floor_seat_z_mm": 13.185000000000002,
+        "front_floor_stock_mm": 21.4,
+        "adapter_sweep_bounds_seat_mm": {
+          "x": [
+            24.400000000000006,
+            59.527133192622344
+          ],
+          "y": [
+            -32.00000000000003,
+            24.050958633422823
+          ],
+          "z": [
+            14.25059473887181,
+            23.9
+          ]
+        },
+        "minimum_floor_gap_mm": 1.0655947388718072,
+        "minimum_sidewall_gap_mm": 3.0,
+        "protected_geometry": {
+          "support_removed_mm3": 0.0,
+          "lip_removed_mm3": 0.0,
+          "removed_within_this_relief_mm3": 9442.216032110036,
+          "baseline_tap": {
+            "diameter_mm": 3.4544,
+            "full_cylindrical_wall_intervals_seat_z_mm": [
+              [
+                -8.214999999999993,
+                -1.2310000000000016
+              ]
+            ],
+            "radial_stock_mm": 3.0,
+            "ring_probe_end_inset_mm": 0.02,
+            "missing_ring_stock_mm3": 0.0,
+            "bore_obstruction_mm3": 0.0,
+            "bearing_to_plate_bottom_stock_mm": 6.983999999999996
+          },
+          "current_tap": {
+            "diameter_mm": 3.4544,
+            "full_cylindrical_wall_intervals_seat_z_mm": [
+              [
+                -8.214999999999993,
+                -1.2310000000000016
+              ]
+            ],
+            "radial_stock_mm": 3.0,
+            "ring_probe_end_inset_mm": 0.02,
+            "missing_ring_stock_mm3": 0.0,
+            "bore_obstruction_mm3": 0.0,
+            "bearing_to_plate_bottom_stock_mm": 6.983999999999996
+          }
+        }
+      },
+      {
+        "seat": "B1_AOMO_3100_125_integral_seat",
+        "aom": "B1_AOMO_3100_125",
+        "km": "Mount_KM100PM001",
+        "upper_adapter": "AOM_Adapter001",
+        "source_mesh_correspondence": {
+          "km": {
+            "vertices": 58568,
+            "facets": 117278,
+            "maximum_vertex_difference_mm": 3.7427604154354305e-06,
+            "triangle_multiset_matches": true
+          },
+          "adapter": {
+            "vertices": 384,
+            "facets": 788,
+            "maximum_vertex_difference_mm": 4.0194366942304644e-14,
+            "triangle_multiset_matches": true
+          },
+          "aom": {
+            "vertices": 423,
+            "facets": 862,
+            "maximum_vertex_difference_mm": 4.023360010629817e-14,
+            "triangle_multiset_matches": true
+          }
+        },
+        "actual_cutter_identity": {
+          "first_minus_second_mm3": 0.0,
+          "second_minus_first_mm3": 0.0
+        },
+        "pivot_seat_mm": [
+          6.486650136920247,
+          18.618998512322406,
+          5.500000095737214
+        ],
+        "plate_top_seat_z_mm": 17.185000000000024,
+        "front_floor_seat_z_mm": 13.185000000000024,
+        "front_floor_stock_mm": 21.4,
+        "adapter_sweep_bounds_seat_mm": {
+          "x": [
+            24.400000000000006,
+            59.52713319262236
+          ],
+          "y": [
+            -32.00000000000003,
+            24.05095863342285
+          ],
+          "z": [
+            14.250594738871829,
+            23.900000000000023
+          ]
+        },
+        "minimum_floor_gap_mm": 1.0655947388718054,
+        "minimum_sidewall_gap_mm": 3.0,
+        "protected_geometry": {
+          "support_removed_mm3": 0.0,
+          "lip_removed_mm3": 0.0,
+          "removed_within_this_relief_mm3": 9319.190887406567,
+          "baseline_tap": {
+            "diameter_mm": 3.4544,
+            "full_cylindrical_wall_intervals_seat_z_mm": [
+              [
+                -8.214999999999971,
+                -1.2310000000000016
+              ]
+            ],
+            "radial_stock_mm": 3.0,
+            "ring_probe_end_inset_mm": 0.02,
+            "missing_ring_stock_mm3": 0.0,
+            "bore_obstruction_mm3": 0.0,
+            "bearing_to_plate_bottom_stock_mm": 6.983999999999975
+          },
+          "current_tap": {
+            "diameter_mm": 3.4544,
+            "full_cylindrical_wall_intervals_seat_z_mm": [
+              [
+                -8.214999999999971,
+                -1.2310000000000016
+              ]
+            ],
+            "radial_stock_mm": 3.0,
+            "ring_probe_end_inset_mm": 0.02,
+            "missing_ring_stock_mm3": 0.0,
+            "bore_obstruction_mm3": 0.0,
+            "bearing_to_plate_bottom_stock_mm": 6.983999999999975
+          }
+        }
+      },
+      {
+        "seat": "B2_AOMO_3100_125_integral_seat",
+        "aom": "B2_AOMO_3100_125",
+        "km": "Mount_KM100PM002",
+        "upper_adapter": "AOM_Adapter002",
+        "source_mesh_correspondence": {
+          "km": {
+            "vertices": 58568,
+            "facets": 117278,
+            "maximum_vertex_difference_mm": 3.7427604376828406e-06,
+            "triangle_multiset_matches": true
+          },
+          "adapter": {
+            "vertices": 384,
+            "facets": 788,
+            "maximum_vertex_difference_mm": 5.859285502108464e-14,
+            "triangle_multiset_matches": true
+          },
+          "aom": {
+            "vertices": 423,
+            "facets": 862,
+            "maximum_vertex_difference_mm": 1.4210861491463966e-14,
+            "triangle_multiset_matches": true
+          }
+        },
+        "actual_cutter_identity": {
+          "first_minus_second_mm3": 0.0,
+          "second_minus_first_mm3": 0.0
+        },
+        "pivot_seat_mm": [
+          6.486650136920275,
+          18.618998512322435,
+          5.5000000957371995
+        ],
+        "plate_top_seat_z_mm": 17.185000000000002,
+        "front_floor_seat_z_mm": 13.185000000000002,
+        "front_floor_stock_mm": 21.4,
+        "adapter_sweep_bounds_seat_mm": {
+          "x": [
+            24.400000000000034,
+            59.52713319262237
+          ],
+          "y": [
+            -32.0,
+            24.05095863342285
+          ],
+          "z": [
+            14.25059473887181,
+            23.9
+          ]
+        },
+        "minimum_floor_gap_mm": 1.0655947388718072,
+        "minimum_sidewall_gap_mm": 3.0,
+        "protected_geometry": {
+          "support_removed_mm3": 0.0,
+          "lip_removed_mm3": 0.0,
+          "removed_within_this_relief_mm3": 9388.75085817387,
+          "baseline_tap": {
+            "diameter_mm": 3.4544,
+            "full_cylindrical_wall_intervals_seat_z_mm": [
+              [
+                -8.214999999999993,
+                -1.2310000000000016
+              ]
+            ],
+            "radial_stock_mm": 3.0,
+            "ring_probe_end_inset_mm": 0.02,
+            "missing_ring_stock_mm3": 0.0,
+            "bore_obstruction_mm3": 0.0,
+            "bearing_to_plate_bottom_stock_mm": 6.983999999999996
+          },
+          "current_tap": {
+            "diameter_mm": 3.4544,
+            "full_cylindrical_wall_intervals_seat_z_mm": [
+              [
+                -8.214999999999993,
+                -1.2310000000000016
+              ]
+            ],
+            "radial_stock_mm": 3.0,
+            "ring_probe_end_inset_mm": 0.02,
+            "missing_ring_stock_mm3": 0.0,
+            "bore_obstruction_mm3": 0.0,
+            "bearing_to_plate_bottom_stock_mm": 6.983999999999996
+          }
+        }
+      },
+      {
+        "seat": "C1_AOMO_3100_125_integral_seat",
+        "aom": "C1_AOMO_3100_125",
+        "km": "Mount_KM100PM003",
+        "upper_adapter": "AOM_Adapter003",
+        "source_mesh_correspondence": {
+          "km": {
+            "vertices": 58568,
+            "facets": 117278,
+            "maximum_vertex_difference_mm": 3.7427604442006368e-06,
+            "triangle_multiset_matches": true
+          },
+          "adapter": {
+            "vertices": 384,
+            "facets": 788,
+            "maximum_vertex_difference_mm": 7.109459833519356e-15,
+            "triangle_multiset_matches": true
+          },
+          "aom": {
+            "vertices": 423,
+            "facets": 862,
+            "maximum_vertex_difference_mm": 7.465446641611944e-16,
+            "triangle_multiset_matches": true
+          }
+        },
+        "actual_cutter_identity": {
+          "first_minus_second_mm3": 0.0,
+          "second_minus_first_mm3": 0.0
+        },
+        "pivot_seat_mm": [
+          6.486650136920218,
+          18.618998512322413,
+          5.5000000957371995
+        ],
+        "plate_top_seat_z_mm": 17.185000000000002,
+        "front_floor_seat_z_mm": 13.185000000000002,
+        "front_floor_stock_mm": 21.4,
+        "adapter_sweep_bounds_seat_mm": {
+          "x": [
+            24.399999999999977,
+            59.5271331926223
+          ],
+          "y": [
+            -32.00000000000001,
+            24.050958633422844
+          ],
+          "z": [
+            14.25059473887181,
+            23.9
+          ]
+        },
+        "minimum_floor_gap_mm": 1.0655947388718072,
+        "minimum_sidewall_gap_mm": 3.0,
+        "protected_geometry": {
+          "support_removed_mm3": 0.0,
+          "lip_removed_mm3": 0.0,
+          "removed_within_this_relief_mm3": 9516.6442766416,
+          "baseline_tap": {
+            "diameter_mm": 3.4544,
+            "full_cylindrical_wall_intervals_seat_z_mm": [
+              [
+                -8.214999999999993,
+                -1.2310000000000016
+              ]
+            ],
+            "radial_stock_mm": 3.0,
+            "ring_probe_end_inset_mm": 0.02,
+            "missing_ring_stock_mm3": 0.0,
+            "bore_obstruction_mm3": 0.0,
+            "bearing_to_plate_bottom_stock_mm": 6.983999999999996
+          },
+          "current_tap": {
+            "diameter_mm": 3.4544,
+            "full_cylindrical_wall_intervals_seat_z_mm": [
+              [
+                -8.214999999999993,
+                -1.2310000000000016
+              ]
+            ],
+            "radial_stock_mm": 3.0,
+            "ring_probe_end_inset_mm": 0.02,
+            "missing_ring_stock_mm3": 0.0,
+            "bore_obstruction_mm3": 0.0,
+            "bearing_to_plate_bottom_stock_mm": 6.983999999999996
+          }
+        }
+      },
+      {
+        "seat": "C2_AOMO_3100_125_integral_seat",
+        "aom": "C2_AOMO_3100_125",
+        "km": "Mount_KM100PM004",
+        "upper_adapter": "AOM_Adapter004",
+        "source_mesh_correspondence": {
+          "km": {
+            "vertices": 58568,
+            "facets": 117278,
+            "maximum_vertex_difference_mm": 3.7427604507184325e-06,
+            "triangle_multiset_matches": true
+          },
+          "adapter": {
+            "vertices": 384,
+            "facets": 788,
+            "maximum_vertex_difference_mm": 5.859285502108464e-14,
+            "triangle_multiset_matches": true
+          },
+          "aom": {
+            "vertices": 423,
+            "facets": 862,
+            "maximum_vertex_difference_mm": 1.4212589332811784e-14,
+            "triangle_multiset_matches": true
+          }
+        },
+        "actual_cutter_identity": {
+          "first_minus_second_mm3": 0.0,
+          "second_minus_first_mm3": 0.0
+        },
+        "pivot_seat_mm": [
+          6.486650136920218,
+          18.618998512322392,
+          5.5000000957371995
+        ],
+        "plate_top_seat_z_mm": 17.185000000000002,
+        "front_floor_seat_z_mm": 13.185000000000002,
+        "front_floor_stock_mm": 21.4,
+        "adapter_sweep_bounds_seat_mm": {
+          "x": [
+            24.399999999999977,
+            59.5271331926223
+          ],
+          "y": [
+            -32.0,
+            24.050958633422837
+          ],
+          "z": [
+            14.25059473887181,
+            23.9
+          ]
+        },
+        "minimum_floor_gap_mm": 1.0655947388718072,
+        "minimum_sidewall_gap_mm": 3.0,
+        "protected_geometry": {
+          "support_removed_mm3": 0.0,
+          "lip_removed_mm3": 0.0,
+          "removed_within_this_relief_mm3": 9388.750858175255,
+          "baseline_tap": {
+            "diameter_mm": 3.4544,
+            "full_cylindrical_wall_intervals_seat_z_mm": [
+              [
+                -8.214999999999993,
+                -1.2310000000000016
+              ]
+            ],
+            "radial_stock_mm": 3.0,
+            "ring_probe_end_inset_mm": 0.02,
+            "missing_ring_stock_mm3": 0.0,
+            "bore_obstruction_mm3": 0.0,
+            "bearing_to_plate_bottom_stock_mm": 6.983999999999996
+          },
+          "current_tap": {
+            "diameter_mm": 3.4544,
+            "full_cylindrical_wall_intervals_seat_z_mm": [
+              [
+                -8.214999999999993,
+                -1.2310000000000016
+              ]
+            ],
+            "radial_stock_mm": 3.0,
+            "ring_probe_end_inset_mm": 0.02,
+            "missing_ring_stock_mm3": 0.0,
+            "bore_obstruction_mm3": 0.0,
+            "bearing_to_plate_bottom_stock_mm": 6.983999999999996
+          }
+        }
+      },
+      {
+        "seat": "C3_AOMO_3100_125_integral_seat",
+        "aom": "C3_AOMO_3100_125",
+        "km": "Mount_KM100PM005",
+        "upper_adapter": "AOM_Adapter005",
+        "source_mesh_correspondence": {
+          "km": {
+            "vertices": 58568,
+            "facets": 117278,
+            "maximum_vertex_difference_mm": 3.7427604376828406e-06,
+            "triangle_multiset_matches": true
+          },
+          "adapter": {
+            "vertices": 384,
+            "facets": 788,
+            "maximum_vertex_difference_mm": 2.394184418132991e-16,
+            "triangle_multiset_matches": true
+          },
+          "aom": {
+            "vertices": 423,
+            "facets": 862,
+            "maximum_vertex_difference_mm": 7.465446641611944e-16,
+            "triangle_multiset_matches": true
+          }
+        },
+        "actual_cutter_identity": {
+          "first_minus_second_mm3": 0.0,
+          "second_minus_first_mm3": 0.0
+        },
+        "pivot_seat_mm": [
+          6.486650136920218,
+          18.618998512322406,
+          5.5000000957371995
+        ],
+        "plate_top_seat_z_mm": 17.185000000000002,
+        "front_floor_seat_z_mm": 13.185000000000002,
+        "front_floor_stock_mm": 21.4,
+        "adapter_sweep_bounds_seat_mm": {
+          "x": [
+            24.399999999999977,
+            59.5271331926223
+          ],
+          "y": [
+            -32.0,
+            24.05095863342285
+          ],
+          "z": [
+            14.25059473887181,
+            23.9
+          ]
+        },
+        "minimum_floor_gap_mm": 1.0655947388718072,
+        "minimum_sidewall_gap_mm": 3.0,
+        "protected_geometry": {
+          "support_removed_mm3": 0.0,
+          "lip_removed_mm3": 0.0,
+          "removed_within_this_relief_mm3": 9516.644276642932,
+          "baseline_tap": {
+            "diameter_mm": 3.4544,
+            "full_cylindrical_wall_intervals_seat_z_mm": [
+              [
+                -8.214999999999993,
+                -1.2310000000000016
+              ]
+            ],
+            "radial_stock_mm": 3.0,
+            "ring_probe_end_inset_mm": 0.02,
+            "missing_ring_stock_mm3": 0.0,
+            "bore_obstruction_mm3": 0.0,
+            "bearing_to_plate_bottom_stock_mm": 6.983999999999996
+          },
+          "current_tap": {
+            "diameter_mm": 3.4544,
+            "full_cylindrical_wall_intervals_seat_z_mm": [
+              [
+                -8.214999999999993,
+                -1.2310000000000016
+              ]
+            ],
+            "radial_stock_mm": 3.0,
+            "ring_probe_end_inset_mm": 0.02,
+            "missing_ring_stock_mm3": 0.0,
+            "bore_obstruction_mm3": 0.0,
+            "bearing_to_plate_bottom_stock_mm": 6.983999999999996
+          }
+        }
+      },
+      {
+        "seat": "C4_AOMO_3100_125_integral_seat",
+        "aom": "C4_AOMO_3100_125",
+        "km": "Mount_KM100PM006",
+        "upper_adapter": "AOM_Adapter006",
+        "source_mesh_correspondence": {
+          "km": {
+            "vertices": 58568,
+            "facets": 117278,
+            "maximum_vertex_difference_mm": 3.7427604376828406e-06,
+            "triangle_multiset_matches": true
+          },
+          "adapter": {
+            "vertices": 384,
+            "facets": 788,
+            "maximum_vertex_difference_mm": 2.394184418132991e-16,
+            "triangle_multiset_matches": true
+          },
+          "aom": {
+            "vertices": 423,
+            "facets": 862,
+            "maximum_vertex_difference_mm": 7.465446641611944e-16,
+            "triangle_multiset_matches": true
+          }
+        },
+        "actual_cutter_identity": {
+          "first_minus_second_mm3": 0.0,
+          "second_minus_first_mm3": 0.0
+        },
+        "pivot_seat_mm": [
+          6.486650136920218,
+          18.618998512322435,
+          5.5000000957371995
+        ],
+        "plate_top_seat_z_mm": 17.185000000000002,
+        "front_floor_seat_z_mm": 13.185000000000002,
+        "front_floor_stock_mm": 21.4,
+        "adapter_sweep_bounds_seat_mm": {
+          "x": [
+            24.399999999999977,
+            59.5271331926223
+          ],
+          "y": [
+            -32.0,
+            24.05095863342285
+          ],
+          "z": [
+            14.25059473887181,
+            23.9
+          ]
+        },
+        "minimum_floor_gap_mm": 1.0655947388718072,
+        "minimum_sidewall_gap_mm": 3.0,
+        "protected_geometry": {
+          "support_removed_mm3": 0.0,
+          "lip_removed_mm3": 0.0,
+          "removed_within_this_relief_mm3": 9388.750858170231,
+          "baseline_tap": {
+            "diameter_mm": 3.4544,
+            "full_cylindrical_wall_intervals_seat_z_mm": [
+              [
+                -8.214999999999993,
+                -1.2310000000000016
+              ]
+            ],
+            "radial_stock_mm": 3.0,
+            "ring_probe_end_inset_mm": 0.02,
+            "missing_ring_stock_mm3": 0.0,
+            "bore_obstruction_mm3": 0.0,
+            "bearing_to_plate_bottom_stock_mm": 6.983999999999996
+          },
+          "current_tap": {
+            "diameter_mm": 3.4544,
+            "full_cylindrical_wall_intervals_seat_z_mm": [
+              [
+                -8.214999999999993,
+                -1.2310000000000016
+              ]
+            ],
+            "radial_stock_mm": 3.0,
+            "ring_probe_end_inset_mm": 0.02,
+            "missing_ring_stock_mm3": 0.0,
+            "bore_obstruction_mm3": 0.0,
+            "bearing_to_plate_bottom_stock_mm": 6.983999999999996
+          }
+        }
+      }
+    ],
+    "errors": [],
+    "parameters": {
+      "side_clearance_mm": 6.0,
+      "front_relief_depth_mm": 4.0,
+      "front_corner_radius_mm": 3.0
+    },
+    "scope": {
+      "subtract_only_native_geometry": true,
+      "component_mounting_poses_preserved": true,
+      "all_other_hole_inventory_checked_here": false,
+      "adjacent_component_bearing_surfaces_checked_here": false,
+      "combined_axes_certified": false,
+      "internal_mount_motion_certified": false,
+      "manufacturing_tolerances_certified": false,
+      "strength_certified": false
+    },
+    "source_provenance": {
+      "audit_path": "C:\\Users\\Haotian Xu\\Documents\\Codex\\2026-10-11\\https-github-com-hybrid-lab-pyopticl-2\\work\\repo\\tools\\aom_machining_relief_audit.py",
+      "audit_sha256": "8dcffe69c9cd5289cec05a6369ccd0648a486d04f17afbbbe7dba6a2b5eb8530",
+      "optomech_path": "C:\\Users\\Haotian Xu\\Documents\\Codex\\2026-10-11\\https-github-com-hybrid-lab-pyopticl-2\\work\\repo\\optomech.py",
+      "optomech_sha256": "199e512c9c577de3902070445d4ad06705375d09ae7ee313e09bc18f1a99a00a",
+      "generator_hashes": {
+        "_bounding_box": "7ae9906970262ecfefdf31b85a6d79259451991fa6356b2aca1cf7c7efff4157",
+        "_km_clearance": "e2e046ce5a528ce89bb646efdb64a93eb50dd225f33a302404bc787a550b6dab",
+        "_aom_installation_relief": "5af8da79d9f92e9acaa8b0b124f173f2503ff50ec496145bf5c8e2ffd63596b8",
+        "_geometry": "b305c46da8ded5b70cc42d80966199cab838d4522f09028dd59e1cb2aa806ecf"
+      },
+      "stl_hashes": {
+        "KM100PM.stl": "96c641fdd94c6908d56a2fc949bca242eecb8b6c1ae41a4441cab61481e3450d",
+        "aom_adapter.stl": "bbdd79ad8c17b7970d37d62ec9f57e825847c8e588ffdd1218e2f52e9527e876",
+        "aomo_3100-125.stl": "1a729521ef4a9a5d4221584ffd78dc6a44f9f4e148bf7399feaa36d6854b26a7"
+      },
+      "mesh_correspondence_helper_sha256": "e19754cdf2a0d36c2ce78525a9877811c8cfafcbef66c23fd808f9baa77dc506",
+      "ideal_pivot_helper_sha256": "64815b6539d28b81ae94e832c9abcba54def6ad6ea52bd2eff0b62c698f2e3d8"
+    },
+    "plate_identity": {
+      "first_minus_second_mm3": 0.0,
+      "second_minus_first_mm3": 0.0
+    },
+    "native_subtract_only": {
+      "added_mm3": 0.0,
+      "removed_mm3": 65960.9480473238,
+      "baseline_volume_mm3": 4601343.776684687,
+      "current_volume_mm3": 4535382.828637392,
+      "current_valid": true,
+      "current_solids": 1,
+      "volume_tolerance_mm3": 1e-05
+    },
+    "single_axis_adapter_clearance": {
+      "pitch_down_interval_deg": [
+        0.0,
+        4.0
+      ],
+      "minimum_floor_gap_mm": 1.0655947388718054,
+      "minimum_sidewall_gap_mm": 3.0,
+      "method": "Exact extrema of matched original triangle vertices about the ideal source pivot; the R3 front pocket contains the full sweep AABB plus a 3-mm disk.",
+      "combined_axes_certified": false,
+      "internal_mount_motion_certified": false,
+      "manufacturing_tolerances_certified": false
+    }
+  },
+  "machining_release": {
+    "revision": "side6_front4_20261014",
+    "scope": "All integral AOM installation regions only; installed optics, assembly poses, holes, bearing faces and locating lips preserved.",
+    "source_file": "C:\\Users\\Haotian Xu\\Documents\\Codex\\2026-10-11\\https-github-com-hybrid-lab-pyopticl-2\\work\\repo\\Rubidium_system\\Splitting_Board_V2.py",
+    "source_sha256": "5e212d7beabf9b51b6277fa7e741368397c8c60f872a8ec418e99f811d08756c",
+    "optomech_sha256": "199e512c9c577de3902070445d4ad06705375d09ae7ee313e09bc18f1a99a00a",
+    "baseline_native": "C:/Users/Haotian Xu/Documents/Codex/2026-10-11/https-github-com-hybrid-lab-pyopticl-2/outputs/SplittingBoardV2/Splitting_Board_V2_Input_QWP.FCStd",
+    "baseline_plate_volume_mm3": 4601343.776684687,
+    "unrelated_geometry_and_placements_unchanged": true,
+    "physical_objects_verified": 260,
+    "physical_inventory_sha256": "e80e132ae21001c540299884c3639208a8262117cc0ce58fb7cfea5222832de5",
+    "hole_inventory_unchanged": true,
+    "hole_counts": {
+      "PLAIN": 4,
+      "TAP": 101
+    },
+    "legacy_audits": "Prior optical/service/layout audits retained for identical installed physical geometry and paths. New machining audit is separate; legacy plate/cutter metrics are superseded by aom_machining_relief_audit and this release.",
+    "adjacent_stock_protection": {
+      "passed": true,
+      "hole_guards": [
+        {
+          "xy_mm": [
+            118.69,
+            144.76
+          ],
+          "kind": "TAP",
+          "guard_radius_mm": 4.725,
+          "stock_removed_mm3": 0.0
+        },
+        {
+          "xy_mm": [
+            154.17,
+            293.94
+          ],
+          "kind": "TAP",
+          "guard_radius_mm": 4.725,
+          "stock_removed_mm3": 0.0
+        },
+        {
+          "xy_mm": [
+            188.97,
+            138.99
+          ],
+          "kind": "TAP",
+          "guard_radius_mm": 4.725,
+          "stock_removed_mm3": 0.0
+        },
+        {
+          "xy_mm": [
+            304.64,
+            227.36
+          ],
+          "kind": "TAP",
+          "guard_radius_mm": 4.725,
+          "stock_removed_mm3": 0.0
+        },
+        {
+          "xy_mm": [
+            335.63,
+            123.57
+          ],
+          "kind": "TAP",
+          "guard_radius_mm": 4.725,
+          "stock_removed_mm3": 0.0
+        },
+        {
+          "xy_mm": [
+            341.72,
+            63.47
+          ],
+          "kind": "TAP",
+          "guard_radius_mm": 4.725,
+          "stock_removed_mm3": 0.0
+        },
+        {
+          "xy_mm": [
+            388.11,
+            294.69
+          ],
+          "kind": "TAP",
+          "guard_radius_mm": 4.725,
+          "stock_removed_mm3": 0.0
+        }
+      ],
+      "hardware_envelope_guards": [
+        {
+          "name": "Mount025",
+          "class": "mirror_mount_M05",
+          "bbox_underlap_mm": 0.05,
+          "stock_removed_mm3": 0.0
+        },
+        {
+          "name": "Lower_Thumbscrew013",
+          "class": "thumbscrew_hkts_5_64",
+          "bbox_underlap_mm": 0.05,
+          "stock_removed_mm3": 0.0
+        },
+        {
+          "name": "Lower_Thumbscrew024",
+          "class": "thumbscrew_hkts_5_64",
+          "bbox_underlap_mm": 0.05,
+          "stock_removed_mm3": 0.0
+        },
+        {
+          "name": "Lower_Thumbscrew026",
+          "class": "thumbscrew_hkts_5_64",
+          "bbox_underlap_mm": 0.05,
+          "stock_removed_mm3": 0.0
+        }
+      ],
+      "scope": "Newly removed stock versus every nearby non-AOM physical-object bounding box, including 0.05 mm below its nominal bottom. AOM/KM/upper-adapter assembly boxes are excluded because their empty bounding-box volume is not bearing stock; their real fixed support/lip/tap stock is protected by aom_machining_relief_audit against the full removed union. Nonintersecting boxes are excluded by exact cutter AABBs. Every hole axis retains an additional 3 mm guard radius where near a new cut."
+    }
   }
 }

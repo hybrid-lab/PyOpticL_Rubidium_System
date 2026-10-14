@@ -2,6 +2,12 @@
 split sliding Rb cell enclosure (plain block, two end screws, closed stem pocket).
 Cell enclosure V9.16 (2026-10-13); the plate is still V9.7.
 
+2026-10-14 AOM machining update: both integral seats add a 6 mm horizontal
+channel outside the locating lip and a 4 mm shallow front recess with R3
+corners. Original bearing faces, mounting holes, AOM heights and optical
+placements are retained. The plate remains 24 x 15 in; separate-axis motion
+is checked independently from combined settings and assembly tolerances.
+
 V9.16 against V9.7 (only the enclosure changes, in optomech.SLIDING_CELL; no
 hole, pocket or part on this plate moves):
 
@@ -629,7 +635,7 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
     dp1_aom = put('DP1 AOMO 3100-125', optomech.AOMO_3100_125, dp1_aom_x, DP1_Y, 0,
                   forward_direction=-1, backward_direction=1, diffraction_angle=aom_axis_deg,
                   surface_adapter_args={'adapter_height': 5})
-    dp1_seat = optomech.integrate_aom(baseplate, dp1_aom)
+    dp1_seat = optomech.integrate_aom(baseplate, dp1_aom, machining_relief=True)
     info['extra_cuts'].append(dp1_seat)
     # Folded f = 300 cat-eye on the +1-order axis d1 (2*theta_B toward +y, the
     # side away from the RF connector): +x-ish to F1 at the right edge, up the
@@ -667,7 +673,7 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
     dp2_aom = put('DP2 AOMO 3100-125', optomech.AOMO_3100_125, dp2_aom_x, DP2_Y, 0,
                   forward_direction=-1, backward_direction=1, diffraction_angle=aom_axis_deg,
                   surface_adapter_args={'adapter_height': 5})
-    dp2_seat = optomech.integrate_aom(baseplate, dp2_aom)
+    dp2_seat = optomech.integrate_aom(baseplate, dp2_aom, machining_relief=True)
     info['extra_cuts'].append(dp2_seat)
     # Folded f = 300 cat-eye: +x-ish to F3, DOWN the vertical leg (iris, then F4
     # near the bottom edge), then back along the return leg (sloping 1.08 deg

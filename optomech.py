@@ -8905,6 +8905,13 @@ KM_RELIEF_Y_CENTRES = (-15.887548, 15.910609)
 # V9.2: seat z of the flat screw-bearing face (former relief-slot floor).
 BEARING_FACE_Z = -KM_RELIEF_DEPTH
 
+# 2026-10-14 opt-in machining clearance, approved for the lattice and Splitting
+# boards. The KM100PM bearing face, locating lip and assembly height stay fixed.
+AOM_SIDE_CLEARANCE_MM = 6.0
+AOM_FRONT_RELIEF_DEPTH_MM = 4.0
+AOM_FRONT_RELIEF_XY_MM = (21.4, -35.0, 62.5272, 27.051)
+AOM_FRONT_RELIEF_RADIUS_MM = 3.0
+
 
 def _descendants(root):
     result, pending, seen = [], [root], set()
@@ -9021,6 +9028,32 @@ def knob_pocket_wall_x(km, placement):
     return knobs.BoundBox.XMin
 
 
+def _aom_installation_relief(obj, top):
+    """Additional cutters in the seat frame; never lower the bearing face.
+
+    The rear capsule opens a 6 mm channel outside the retained 2 x 30 mm lip.
+    The front shallow recess bounds the upper adapter's pitch 0..4 degree XY
+    sweep plus a 3 mm circular offset. At 4 degrees its lowest point retains
+    1.06559 mm above the recess floor. Simultaneous two-axis travel is not
+    certified by these dimensions.
+    """
+    if not getattr(obj, "MachiningRelief", False):
+        return Part.Shape()
+    width = AOM_SIDE_CLEARANCE_MM
+    centre = LIP_X - width / 2
+    side = Part.makeBox(width, 36.0, top + 1 - BEARING_FACE_Z,
+                        App.Vector(LIP_X - width, -18.0, BEARING_FACE_Z))
+    for y in (-18.0, 18.0):
+        side = side.fuse(Part.makeCylinder(width / 2, top + 1 - BEARING_FACE_Z,
+                         App.Vector(centre, y, BEARING_FACE_Z)))
+    x0, y0, x1, y1 = AOM_FRONT_RELIEF_XY_MM
+    front = Part.makeBox(x1 - x0, y1 - y0, AOM_FRONT_RELIEF_DEPTH_MM + 1,
+                        App.Vector(x0, y0, top - AOM_FRONT_RELIEF_DEPTH_MM))
+    vertical = [e for e in front.Edges if abs(e.tangentAt(e.FirstParameter).z) > .999]
+    front = front.makeFillet(AOM_FRONT_RELIEF_RADIUS_MM, vertical)
+    return side.fuse(front).removeSplitter()
+
+
 def _geometry(obj):
     """Return the complete assembly cutter and an empty compatibility shape."""
     plate, placement = obj.Baseplate, seat_placement(obj)
@@ -9074,6 +9107,9 @@ def _geometry(obj):
     central = Part.makeCylinder(TAP_DIAMETER / 2, top - floor + 2,
                                 App.Vector(0, 0, top + 1), App.Vector(0, 0, -1))
     machining = cavity.fuse(central)
+    relief = _aom_installation_relief(obj, top)
+    if not relief.isNull():
+        machining = machining.fuse(relief)
     machining = machining.removeSplitter()
     machining.Placement = placement
     return machining, Part.Shape()
@@ -9232,9 +9268,28 @@ def _update_notes(seat):
         "side_clearance_floor_at_bearing_plane": False,
         "central_thread_engagement_at_25_4_plate_mm": 6.984 - KM_RELIEF_DEPTH,
     })
+    if getattr(seat, "MachiningRelief", False):
+        dimensions = json.loads(seat.DimensionsJSON)
+        dimensions.update({"revision": "V9.2 + 2026-10-14 clearance",
+            "machining_relief_enabled": True,
+            "side_clearance_mm": AOM_SIDE_CLEARANCE_MM,
+            "front_relief_depth_below_plate_top_mm": AOM_FRONT_RELIEF_DEPTH_MM,
+            "front_relief_xy_seat_mm": list(AOM_FRONT_RELIEF_XY_MM),
+            "front_relief_corner_radius_mm": AOM_FRONT_RELIEF_RADIUS_MM,
+            "side_clearance_floor_at_bearing_plane": True,
+            "single_axis_pitch_down_test_deg": 4.0,
+            "nominal_adapter_minimum_front_floor_gap_mm": 1.0655947389,
+            "central_thread_stock_at_25_4_plate_mm": 6.984})
+        seat.DimensionsJSON = json.dumps(dimensions)
+        seat.MachiningNotes += (
+            " 2026-10-14: 6 mm horizontal channel outside the locating lip, "
+            "cut to the existing bearing plane; front recess 4 mm below the "
+            "plate top, R3 corners. Bearing face, lip, mounting hole and AOM "
+            "height unchanged. Nominal single-axis pitch down 4 deg clears "
+            "the front floor by 1.06559 mm; no combined-axis certification.")
 
 
-def integrate_aom(bp, aom, align_aperture=True):
+def integrate_aom(bp, aom, align_aperture=True, machining_relief=False):
     """Create persistent integral machining and return its specification object.
 
     ``align_aperture=True`` shifts the entire original linked AOM assembly by
@@ -9243,6 +9298,9 @@ def integrate_aom(bp, aom, align_aperture=True):
     Use ``optical_center(aom)`` for cat-eye distance checks after this correction.
     After all placement, call the usual redraw/recompute and plate.Drill=True;
     no one-off final solid operation is required, including after reopening.
+    ``machining_relief=True`` enables the approved 6 mm side channel and 4 mm
+    front recess on this seat. Older boards retain their original machining
+    unless they opt in explicitly.
     """
     plate = aom.Document.getObject(bp.active_baseplate)
     if aom.Baseplate != plate:
@@ -9251,6 +9309,9 @@ def integrate_aom(bp, aom, align_aperture=True):
                 if type(getattr(o, "Proxy", None)).__name__ == "IntegralAOMSeat"
                 and o.AOMRoot == aom]
     if existing:
+        if "MachiningRelief" not in existing[0].PropertiesList:
+            existing[0].addProperty("App::PropertyBool", "MachiningRelief", "V9 mechanics")
+        existing[0].MachiningRelief = bool(machining_relief)
         _remove_lower_adapter(existing[0], getattr(existing[0], "Owner", None))
         _own_aom_machining(existing[0])
         _update_notes(existing[0])
@@ -9277,6 +9338,7 @@ def integrate_aom(bp, aom, align_aperture=True):
     seat.addProperty("App::PropertyBool", "Drill", "V9 mechanics").Drill = True
     seat.addProperty("Part::PropertyPartShape", "DrillPart", "V9 mechanics")
     seat.addProperty("Part::PropertyPartShape", "SupportPart", "V9 mechanics")
+    seat.addProperty("App::PropertyBool", "MachiningRelief", "V9 mechanics").MachiningRelief = bool(machining_relief)
     _update_notes(seat)
     IntegralAOMSeat(seat)
     _remove_lower_adapter(seat, lower)

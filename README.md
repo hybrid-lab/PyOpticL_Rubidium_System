@@ -143,8 +143,9 @@ V9.15 adds an audit of all six M05 bearing footprints against the final
 machined plate. The sliding cell enclosure is the V9.16 one (2026-10-13: two
 identical half bodies and two end covers, see the lattice board below),
 including its end covers that still need beam apertures before optical
-operation. The lattice board remains at V9.7 (with the same V9.16 enclosure)
-and the double-pass board at V9.3; earlier TA designs remain in the change log.
+operation. The lattice optical layout remains at V9.7 (with the same V9.16
+enclosure); its AOM machining is revised on 2026-10-14 as described below.
+The double-pass board remains at V9.3; earlier TA designs remain in the change log.
 Since 2026-10-09 the branch also carries a fourth, independent board, the
 **Splitting Board V2** (24 × 14 in): one fiber in, HWP → PBS splits 1 → 2 → 4
 with a single-pass AOM after every stage (1 + 2 + 4 AOMs), four fibers out on
@@ -165,6 +166,13 @@ confirmed 25.4 mm platform-edge hole offset, the fixed installation translation
 is (+53.975, +22.225) mm. A fresh audit of the new actual geometry confirms
 that the top hardware/RF overhang stays within the accepted 5.451278 mm limit.
 
+The **2026-10-14 AOM machining revision** applies to all seven Splitting AOM
+seats and the two AOM seats in each of the five lattice configurations. It adds
+a 6 mm side channel and a 4 mm-deep front relief with R3 corners. The fixed
+bearing faces, locating lips, mounting holes and installation heights remain
+unchanged, as do the optical layouts and board outlines. TA and the standalone
+double-pass AOM board are outside this machining revision.
+
 | Board | Script | Size | Production folder |
 |---|---|---|---|
 | Lattice board | `Rubidium_system/Lattice_Baseplate_V9.py` | 24 × 15 in | `Production/LatticeBoardV9/` |
@@ -176,7 +184,7 @@ Each script is self-contained: constants at the top, then every optic placed in
 beam order inside `example_baseplate()`. Run one in FreeCAD (Macro > Macros…, or
 paste into the Python console) and the board is built. The lattice script also
 takes `cat_eye='75-50'` / `'75-75'` to build the two f = 75 test configurations
-on the same plate, and `cell_slide=0 .. 10.5` to put the cell enclosure anywhere
+with their configuration-specific machining, and `cell_slide=0 .. 10.5` to put the cell enclosure anywhere
 along its travel (see the lattice board below). The TA script also accepts
 `cell_slide=0 .. 10.5` for the same enclosure.
 
@@ -245,13 +253,17 @@ below the banner are:
   sliding seat, including the unfinished end covers.
 - `IntegralAOMSeat` / `integrate_aom` / `_make_IntegralAOMBaseplate` — the AOM
   seat machined directly into the baseplate (no lower surface adapter), with a
-  flat screw-bearing face at z = −1.231 mm.
+  flat screw-bearing face at seat-local z = −1.231 mm. The explicit
+  `machining_relief=True` option adds the 2026-10-14 side/front clearance cuts
+  without lowering that bearing face or moving the AOM assembly; it is enabled
+  only by the lattice and Splitting scripts.
 - `PersistentDrillVolume`, `keep_machining_hidden`, `deepen_isolator_pocket`,
   `add_fiber_tail_alternative`, `descendants` — supporting machining helpers.
 
 The component variants are new classes. The adapter's additional
 `mount_only` mode is selected only by the revised Splitting board, so the
-other boards retain their existing geometry and default drilling patterns.
+other boards retain that adapter's default drilling pattern. The separate
+AOM machining-relief option defaults to off for other board scripts.
 
 **Added — four board scripts** in `Rubidium_system/`, listed in the table above
 (`Splitting_Board_V2.py` since 2026-10-09; its KM05T heads use the inherited
@@ -339,6 +351,18 @@ beams cross. Every mirror on the board is a Newport M05 with HKTS adjusters.
 (both telescope lenses on the input lane), its injection fold and a blocking
 iris.
 
+All five saved lattice configurations retain their existing optics, V9.16 cell
+enclosure and two AOM installations. The single and dual f = 300 configurations,
+including dual with the cell slid 10.5 mm, share the main 24 × 15 in machined
+plate. The dual f75-50 and f75-75 configurations each have a separate STEP and
+tapping sheet: their installed optional irises add two shallow pockets, and
+the selected retro-mirror tap differs slightly from its bare-hole placeholder.
+These are existing configuration differences, retained in this revision. All
+five share the board outline, hole counts and AOM installation geometry; only
+their two integral-seat machining regions gain the 6 mm side channels and
+4 mm-deep front reliefs. Mounting axes, fixed support faces and assembly heights
+are unchanged relative to each configuration's original native plate.
+
 The V9.3 **f = 75 mm cat-eye (LA1612-B) is kept as an option**: straight after
 each AOM, on the 0-order (input) axis as in V9.3, the plate carries the bare
 holes for a POLARIS-L05G lens holder (DP1 73 mm / DP2 68 mm from the AOM), an
@@ -351,7 +375,9 @@ centred on it with its slide. With the 50 mm mirror every f = 300 part can
 stay on the plate; the 75 mm mirror body stands where fold F1 (DP1) / F3 (DP2)
 is, so that fold comes off for a 75/75 test. Those two mirror positions have
 no thumbscrew pocket: the lower M05 adjuster is driven with a plain 5/64 hex
-key there. Both test configurations were built on the same plate and audited
+key there. Both test configurations were built and audited with their own
+machined plate shapes, which retain the optional iris pockets and installed
+retro-mirror tap positions
 (`example_baseplate(mode='dual', cat_eye='75-50')` / `'75-75'`; reports in
 `Production/LatticeBoardV9/`).
 
@@ -587,8 +613,12 @@ and AOM move 13 mm higher; its iris, downstream HWP and PBS move only 4.5 mm
 higher. Three B-feed mirrors move locally while every B/C AOM and all four
 complete output assemblies remain fixed. A's iris post turns 180° to clear
 the AOM adjustment controls. All four platform holes remain fixed.
-The AOM adapter, KM100PM, integral seat and mounting
-depth are the same as on the lattice board. **No deeper AOM pocket is added.**
+The upper AOM adapter, KM100PM, fixed integral-seat bearing face and mounting
+height remain the same as on the lattice board. The 2026-10-14 revision adds
+local clearance machining around each of the seven seats: a 6 mm side channel
+outside the retained locating lip and a front recess 4 mm below the plate top,
+with R3 corners. It does not lower the fixed support or relocate any mounting
+hole or optical component.
 
 All 23 steering mirrors use Newport M05 mounts at exactly 45° incidence,
 giving 90° folds and horizontal or vertical beam legs. This includes the
@@ -620,11 +650,17 @@ global closest distance. This is not a guarantee of simultaneous ±4° on
 both adjustment axes, internal relative clearance, full-angle platform fit,
 real cable deformation or RF-on optical transmission.
 
-The unchanged upper adapter starts only 0.715 mm above the uncut plate top.
-A native single-axis 4° probe enters the plate by about 2.93 mm, so the original
-lattice installation itself limits some tilt settings. The user's request
-is to preserve that installation; the audit records this limitation rather
-than deepening the plate. Actual RF connector/bend geometry is unmodelled:
+Before the 2026-10-14 machining revision, the upper adapter started only
+0.715 mm above the uncut plate top, and a native single-axis 4° probe entered
+that original plate by about 2.93 mm. The new front relief removes the
+obstructing material while preserving the adapter's zero-angle position and
+fixed support. For **single-axis downward pitch from 0° to +4°**, the upper
+adapter has a minimum nominal CAD gap of **approximately 1.0656 mm above the
+relief floor**.
+This adapter-to-plate result is separate from the external-hardware 4° rotation
+cone with 1 mm added margin described above. It does not certify combined
+two-axis travel, manufacturing tolerances or the manufacturer's complete
+adjustment range. Actual RF connector/bend geometry is unmodelled:
 the static 40 × 20 mm reservations remain checked, while their swept routing
 cannot be certified from these envelopes alone.
 The current conservative swept-service check records four planning candidates:
@@ -766,7 +802,7 @@ It preserves the legacy audit evidence and replaces only the obsolete
 three-cylindrical/six-total-station count assumptions. The results are in the current
 [TA validation report](Production/TABoardV9/TA_Board_V9_validation.json).
 
-The lattice board additionally carries the twelve bare holes of the optional
+The f = 300 lattice plate additionally carries the twelve bare holes of the optional
 f = 75 cat-eye described above (six per AOM arm). The lens and mirror taps of
 that set lie on the input beam axis by design — empty holes 12.7 mm below the
 beam, usable only with that beam absent or the f = 300 chain's first fold
@@ -792,6 +828,26 @@ one valid solid with the same volume, and its complete hole inventory is below. 
 The 11.625 × 10.15 in V9.14 model is retained only as a rejected reference
 because of its unsupported common-fold mirror. The solid is inset
 3.175 mm from the nominal outline on every side, as in every PyOpticL plate.
+
+The lattice and Splitting STEP filenames are stable across the 2026-10-14
+AOM machining revision:
+[lattice plate](Production/LatticeBoardV9/StepFile/Lattice_V9_7_baseplate_24x15in.step)
+and [Splitting plate](Production/SplittingBoardV2/StepFile/Splitting_Board_V2_baseplate_24x14in.step).
+Their current solids include the 6 mm side channels and 4 mm-deep front
+reliefs with R3 corners, with unchanged hole axes and fixed AOM bearing faces.
+The main lattice STEP serves single f300, dual f300 and dual f300 with the cell
+slid 10.5 mm. Use the separate
+[f75-50 plate](Production/LatticeBoardV9/StepFile/Lattice_V9_7_baseplate_24x15in_f75-50.step)
+or [f75-75 plate](Production/LatticeBoardV9/StepFile/Lattice_V9_7_baseplate_24x15in_f75-75.step)
+for those optional configurations. Their pre-existing shallow iris pockets and
+selected retro-mirror tap positions are preserved; they are not interchangeable
+exports of the main plate. Each lattice plate has two revised seats; Splitting
+has seven. The upper AOM adapter remains a separate, unchanged part.
+Matching main-plate copies are kept in `Production/Baseplate/`.
+The unobstructed [lattice plate 3D view](Production/LatticeBoardV9/Lattice_V9_7_baseplate_3D.png)
+and [Splitting plate 3D view](Production/SplittingBoardV2/Splitting_Board_V2_baseplate_3D.png)
+show the new machining without the installed hardware covering it.
+
 Threads are specified, not modelled — a STEP file shows every bore's diameter,
 position and depth but cannot say whether it is threaded, so each plate and
 each adapter has a **`*_TAP_or_NOT` sheet** next to its STEP that marks exactly
@@ -803,10 +859,12 @@ STEP files):
 
 | Part | Sheet | Tapped | Not tapped |
 |---|---|---|---|
-| Lattice baseplate (V9.7) | `Production/LatticeBoardV9/Lattice_V9_7_baseplate_TAP_or_NOT.pdf` | 100 × #8-32 | 4 × 1/4-20 table-bolt clearance |
+| Lattice f300 baseplate (single, dual and cell slid 10.5 mm) | [Lattice tapping sheet](Production/LatticeBoardV9/Lattice_V9_7_baseplate_TAP_or_NOT.pdf) | 100 × #8-32 | 4 × 1/4-20 table-bolt clearance |
+| Lattice dual f75-50 baseplate | [f75-50 tapping sheet](Production/LatticeBoardV9/Lattice_V9_dual_f75-50_baseplate_TAP_or_NOT.pdf) | 100 × #8-32 | 4 × 1/4-20 table-bolt clearance |
+| Lattice dual f75-75 baseplate | [f75-75 tapping sheet](Production/LatticeBoardV9/Lattice_V9_dual_f75-75_baseplate_TAP_or_NOT.pdf) | 100 × #8-32 | 4 × 1/4-20 table-bolt clearance |
 | TA baseplate (V9.15) | `Production/TABoardV9/TA_Board_V9_baseplate_TAP_or_NOT.pdf` | 31 × #8-32 | 4 × 1/4-20 table-bolt clearance |
 | Double-pass AOM baseplate | `Production/AOMDoublePassV9/AOM_DoublePass_V9_baseplate_TAP_or_NOT.pdf` | 22 × #8-32 | 3 × 1/4-20 clearance |
-| Splitting baseplate (V2, input-QWP revision) | `Production/SplittingBoardV2/Splitting_Board_V2_baseplate_TAP_or_NOT.pdf` | 101 × #8-32 | 4 × 1/4-20 table-bolt clearance |
+| Splitting baseplate (V2, 2026-10-14 machining) | [Splitting tapping sheet](Production/SplittingBoardV2/Splitting_Board_V2_baseplate_TAP_or_NOT.pdf) | 101 × #8-32 | 4 × 1/4-20 table-bolt clearance |
 | TA adapter (`stl/TA_adapter.stl`) | `Production/Adapters/TA_adapter_TAP_or_NOT.pdf` | 4 × M2.5 × 0.45 (board screws) | 4 × 8-32 clearance (to the plate taps) |
 | AOM adapter (`stl/aom_adapter.stl`) | `Production/Adapters/AOM_adapter_TAP_or_NOT.pdf` | 2 × M4 × 0.7 | 4 × clearance, in a row |
 | Rb cell enclosure, half body (2 off, identical) | `Production/CellEnclosure/Rb_Cell_Enclosure_V9_16_3D_TAP.png` | 4 × #8-32 (2 in each end face) | 2 through slots |
@@ -838,10 +896,13 @@ mounting-only revision. Its earlier output-steering revision had added eight
 mirror taps to the preceding KM05T export.
 
 Every hole in the part is marked on its sheet; the rounded corners inside the
-milled pockets are R3.175 end-mill fillets, not holes. `Production/Adapters/`
-also holds the historical `V9_7_tapping_sheets_all.pdf`, the five sheets in one
-file (the V9.7 lattice sheet and the four V9.3 sheets). Its TA page describes
-the legacy plate; use the current TA sheet linked above. The hole
+existing milled pockets are R3.175 end-mill fillets, while the new AOM front
+reliefs have R3 corners. Neither is a drilled hole. The five-page
+[`V9_7_tapping_sheets_all.pdf`](Production/Adapters/V9_7_tapping_sheets_all.pdf)
+is also copied to `Production/Baseplate/`. Its first page is the updated f300 lattice
+sheet; its other four pages retain the historical TA V9.3 plate, double-pass
+AOM plate, TA adapter and upper AOM adapter sheets in that order. The TA page
+describes the legacy plate; use the current TA sheet linked above. The hole
 coordinates of every sheet are listed on it (plates: STEP-file coordinates;
 adapters: from the part's lower-left corner).
 
@@ -931,6 +992,28 @@ have ten recorded edge-overhang entries, every screw of theirs landing at
 least 6.1 mm inside the edge. The upper fiber-side table bolt lies under the
 DP1 beam (AOM → f = 75 lens position) 12.7 mm above the recessed bolt head:
 install the bolts before aligning.
+
+The 2026-10-14 lattice and Splitting reports separately record
+`aom_machining_relief_audit`: the added 6 mm side channels and 4 mm-deep
+front reliefs preserve the fixed bearing faces, mounting-hole positions and
+AOM installation heights. The upper-adapter check covers single-axis downward
+pitch from 0° to +4°, with a minimum nominal CAD floor gap of approximately
+1.0656 mm.
+It is distinct from Splitting's external-hardware 4° rotation-cone audit with
+1 mm added margin. Neither result certifies simultaneous two-axis adjustment
+or the manufacturer's complete mechanism travel. The five lattice variants
+retain their existing optical configurations. The three f300 variants share
+the main plate; the two f75 variants retain their own machining details and
+have separate plate exports. Each relief audit uses that configuration's own
+original native plate as its subtraction baseline.
+
+`tools/aom_machining_relief_audit.py` checks the actual native solid against
+an explicit copy of the original plate: `apply(report, doc, {"plate": plate},
+baseline_shape=original_shape)`. Capture that shape before enabling the relief;
+the audit rejects a missing baseline. It verifies the approved subtract-only
+change, actual assembly geometry, fixed bearing/lip stock and central tap wall.
+Each release also compares the complete hole inventory and the unchanged
+installed geometry/placements, and round-trips both STEP and native models.
 
 The 2026-10-12 Splitting revision uses `tools/km05t_audit.py` in addition to
 the full engineering and XY-projection checks. During one synchronous call,
@@ -1097,6 +1180,28 @@ local development tooling. The TA projection, export and document-generation
 helpers and the Splitting KM05T audit are included in `tools/`.
 
 ## Change log
+
+**Lattice and Splitting (2026-10-14, AOM machining clearance)** — adds a
+6 mm side channel outside each retained locating lip and a front relief
+4 mm below the plate top with R3 corners. All seven Splitting seats and both
+seats in each of the five lattice configurations use this machining. The
+fixed bearing faces, hole positions, upper adapters, KM100PM mounts and
+installation heights are unchanged; no optical component or board outline
+moves. For single-axis downward pitch from 0° to +4°, the nominal CAD gap
+between the upper adapter and front-relief floor has a minimum of approximately
+1.0656 mm.
+This is separate from the external-hardware 4° cone with 1 mm added margin;
+combined-axis travel and the manufacturer's full adjustment range are not
+certified. The existing main f300 lattice and Splitting STEP and tapping-sheet
+filenames remain the release links above. Separate f75-50 and f75-75 lattice
+exports now preserve the original optional-configuration machining: two iris
+shallow pockets and the selected actual retro-mirror tap rather than its
+slightly offset bare-hole placeholder. The previous claim that all five
+configurations shared one machined solid was incorrect. Their views, validation
+evidence and machining notes follow the revised plates; only the f300 lattice
+page changes in the five-page
+tapping-sheet collection. TA and the standalone double-pass AOM board are
+unchanged by this revision.
 
 **Splitting V2 (2026-10-13, input QWP)** — adds one QWP on its own RSP05/lip
 between the input steering mirror and A's entrance HWP. The input column
@@ -1492,7 +1597,9 @@ row moves above its AOM row so the fold leg crosses nothing; the external-TA
 telescope has both lenses on the input lane; every mirror is a Newport M05; all
 three fiber heads keep the 76 mm rear tail-clamp pair. The LA1612-B set is kept
 as an option on bare holes after each AOM (lens → mirror 50 or 75 mm), and both
-f = 75 test configurations were built on the same plate and audited. The
+f = 75 test configurations were described at the time as sharing one plate and
+were audited. The 2026-10-14 native comparison above corrects that machining
+claim and provides their configuration-specific STEPs. The
 LA1618-B catalogue values (R 155.0, tc 2.2 mm) were read after the layout was
 drilled with R 154.5 / tc 2.0: the resulting 1.2 / 1.0 mm cat-eye defocus is
 documented in the script and accepted (the return stays antiparallel; the

@@ -2,9 +2,11 @@
 
 The continuous envelope contains every rigid rotation of net angle <=4 degrees
 about the measured ideal sphere/cone pivot, plus a 1 mm clearance ball. It does
-NOT certify two simultaneous +/-4-degree axes or clearance against the original
-lattice seat. The original installation is deliberately retained and its known
-pitch limitation is reported separately. Convex-hull overlaps are unresolved
+NOT certify two simultaneous +/-4-degree axes or continuous plate clearance.
+The lattice component poses and mounting height are retained, with the explicitly
+enabled side and front machining relief checked against its pinned generator.
+Current plate pose samples are evidence only, not a continuous-motion proof.
+Convex-hull overlaps are unresolved
 candidates, never asserted physical collisions; a PASS requires a separating
 plane for every relevant pair.
 
@@ -90,13 +92,30 @@ _LANES = ('A', 'B1', 'B2', 'C1', 'C2', 'C3', 'C4')
 _KEY = 'aom_adjustment_audit'
 _ISSUE = 'aom_adjustment_audit_issues'
 
-# Reference: committed lattice-compatible library at 8e48c57. function source hashes
-# are stable across Python AST versions and reject unreviewed installation edits.
-_INSTALLATION_SOURCE_SHA256 = {'_bounding_box': '7ae9906970262ecfefdf31b85a6d79259451991fa6356b2aca1cf7c7efff4157', 'prism_mount_km100pm_bridged': '7fc8989bfbc5adad12b9c3dcc3031497f0a7e089f53670a158f09794de5cb9eb', 'surface_adapter_aom': '43be47bb298f74115272120c0bcaf30ad57dcfa96edf4e0cf55173e5022c9666', 'AOMO_3100_125': '9dd772a6acd5f22296c7f933268407f17d5b44b1745af6a6313f7b094a17bbdc', 'aom_adapter': 'a99f00f7eda024f2b493919af028f7d7bbdef2fa88ce9431ef9be46794170e8b', 'seat_placement': 'daf86b5ba77ad31aa6add1936fbadd13f9d580f5bc3307559ffd11bfbcbed92e', '_remove_lower_adapter': '7ff26e26166b9e0c08cbb4059e4b65d993873e9cc8887547c7c5ffec04653776', '_km_clearance': 'e2e046ce5a528ce89bb646efdb64a93eb50dd225f33a302404bc787a550b6dab', '_geometry': '3734b8d5eb22ab2a5513a584c02ce005c0baf5fd0385a01948e88f5d3c36938f', '_make_IntegralAOMBaseplate': 'ece5cc5f7351cb6f3235b2986d7b31c8451e8836216969c152770f7f9055e73b', 'integrate_aom': '08ee0c9cea82a64123b56a67d0bc3d18b470e18cd8733ab7122fb80a559982a4'}
+# Mounting reference: 8e48c57. Only the separately authorized machining relief
+# changes; component meshes, complete relative poses and bearing/lip datums stay
+# pinned below. Source-segment hashes reject unreviewed generator edits.
+_INSTALLATION_SOURCE_SHA256 = {
+    '_bounding_box': '7ae9906970262ecfefdf31b85a6d79259451991fa6356b2aca1cf7c7efff4157',
+    'prism_mount_km100pm_bridged': '7fc8989bfbc5adad12b9c3dcc3031497f0a7e089f53670a158f09794de5cb9eb',
+    'surface_adapter_aom': '43be47bb298f74115272120c0bcaf30ad57dcfa96edf4e0cf55173e5022c9666',
+    'AOMO_3100_125': '9dd772a6acd5f22296c7f933268407f17d5b44b1745af6a6313f7b094a17bbdc',
+    'aom_adapter': 'a99f00f7eda024f2b493919af028f7d7bbdef2fa88ce9431ef9be46794170e8b',
+    'seat_placement': 'daf86b5ba77ad31aa6add1936fbadd13f9d580f5bc3307559ffd11bfbcbed92e',
+    '_remove_lower_adapter': '7ff26e26166b9e0c08cbb4059e4b65d993873e9cc8887547c7c5ffec04653776',
+    '_km_clearance': 'e2e046ce5a528ce89bb646efdb64a93eb50dd225f33a302404bc787a550b6dab',
+    '_aom_installation_relief': '5af8da79d9f92e9acaa8b0b124f173f2503ff50ec496145bf5c8e2ffd63596b8',
+    '_geometry': 'b305c46da8ded5b70cc42d80966199cab838d4522f09028dd59e1cb2aa806ecf',
+    '_make_IntegralAOMBaseplate': 'ece5cc5f7351cb6f3235b2986d7b31c8451e8836216969c152770f7f9055e73b',
+    'integrate_aom': '7dc54677a5c675f397248cf8185ea7bdd1992cd4b377c1773f6ac8086f811876',
+}
 _SEAT_CONSTANTS = {'SEAT_X_MIN': -9.179, 'SEAT_X_MAX': 5.2, 'PILL_MAX_OFFSET': (-30.8, -38, 0),
                    'KNOB_FLOOR_OFFSET': -.4, 'LIP_X': -7.15, 'LIP_Y': -15., 'LIP_WIDTH': 2.,
                    'LIP_LENGTH': 30., 'LIP_HEIGHT': 2., 'BEARING_FACE_Z': -1.231,
                    'AOM_APERTURE_LOCAL': (0., -.03, -.115)}
+_RELIEF_CONSTANTS = {'AOM_SIDE_CLEARANCE_MM': 6., 'AOM_FRONT_RELIEF_DEPTH_MM': 4.,
+                     'AOM_FRONT_RELIEF_XY_MM': (21.4, -35., 62.5272, 27.051),
+                     'AOM_FRONT_RELIEF_RADIUS_MM': 3.}
 
 
 def _kind(obj):
@@ -152,10 +171,11 @@ def _contract(doc, info, source_module):
     design = info.get('aom_adjustment_design', {})
     if (info.get('mode') != 'splitting' or design.get('required') is not True or
             design.get('preserve_lattice_installation') is not True or
+            design.get('machining_relief_required') is not True or
             design.get('full_catalogue_travel_certified') is not False or
             float(design.get('external_net_rotation_cone_deg', -1)) != 4. or
             float(design.get('external_clearance_margin_mm', -1)) != 1.):
-        raise ValueError('Explicit unchanged-seat / external net-4-degree / 1-mm scope declaration required')
+        raise ValueError('Explicit preserved mounting pose / enabled machining relief / external net-4-degree / 1-mm scope declaration required')
     plate = info.get('plate')
     if plate is None or plate.Document != doc or not plate.Drill or not plate.Shape.isValid():
         raise ValueError('Current valid machined native plate required')
@@ -163,7 +183,7 @@ def _contract(doc, info, source_module):
                   float(plate.OpticsDz.Value)], [609.6, 355.6, 25.4, 12.7]):
         raise ValueError('Original plate dimensions or optical height changed')
     if _kind(plate) != 'IntegralAOMBaseplate':
-        raise ValueError('The unchanged lattice IntegralAOMBaseplate implementation is required')
+        raise ValueError('The lattice IntegralAOMBaseplate implementation is required')
     entries = info.get('pre_aom_waveplates', [])
     if len(entries) != 7 or {e.get('lane') for e in entries} != set(_LANES):
         raise ValueError('Exactly seven actual AOM / entrance-HWP registrations required')
@@ -189,6 +209,26 @@ def _contract(doc, info, source_module):
     return plate, entries
 
 
+def _relief_declaration(seat, top):
+    """Require the native opt-in; describe the separately pinned seat generator."""
+    if getattr(seat, 'MachiningRelief', None) is not True:
+        raise ValueError('Every registered AOM seat must explicitly enable MachiningRelief')
+    if not math.isfinite(top) or abs(top-17.185) > 2.e-5:
+        raise ValueError('Relief datum differs from the preserved AOM installation height')
+    return {
+        'enabled': True, 'revision': 'side6_front4_20261014',
+        'coordinate_frame': 'original seat local frame',
+        'side_capsule_xy_mm': [-13.15, -21., -7.15, 21.],
+        'side_capsule_radius_mm': 3., 'side_floor_z_mm': -1.231,
+        'front_rounded_rectangle_xy_mm': [21.4, -35., 62.5272, 27.051],
+        'front_corner_radius_mm': 3., 'front_depth_from_plate_top_mm': 4.,
+        'front_floor_z_mm': float(top-4.), 'plate_top_z_mm': float(top),
+        'generator_cutter_identity_verified': False,
+        'scope': 'Pinned authorized cutter and actual seat DrillPart agree; this field '
+                 'does not certify continuous plate clearance or retained support strength.',
+    }
+
+
 def _installed_assembly(doc, plate, entry, optomech, joint, source_stl):
     import FreeCAD as App
     aom = doc.getObject(entry['aom'])
@@ -206,6 +246,9 @@ def _installed_assembly(doc, plate, entry, optomech, joint, source_stl):
     for key, expected in _SEAT_CONSTANTS.items():
         if not _near(getattr(optomech, key), expected):
             raise ValueError('Original lattice seat constant changed: '+key)
+    for key, expected in _RELIEF_CONSTANTS.items():
+        if not _near(getattr(optomech, key), expected):
+            raise ValueError('Authorized machining relief constant changed: '+key)
     relative_km = aom.Placement.inverse().multiply(km.Placement)
     relative_adapter = aom.Placement.inverse().multiply(adapter.Placement)
     if (not _near(tuple(relative_km.Base), (-30.3, -16.4, -24.5)) or
@@ -233,6 +276,8 @@ def _installed_assembly(doc, plate, entry, optomech, joint, source_stl):
     if len(seats) != 1 or seats[0].Baseplate != plate or not seats[0].Drill:
         raise ValueError('Exactly one enabled original IntegralAOMSeat per AOM required')
     seat = seats[0]
+    seat_on_plate = plate.Placement.inverse().multiply(optomech.seat_placement(seat))
+    relief = _relief_declaration(seat, -float(plate.OpticsDz.Value)-seat_on_plate.Base.z)
     relative_seat = seat.SeatRelativePlacement
     if not _near(tuple(relative_seat.Base), (-44.4, -3.65, -30.)):
         raise ValueError('Original integral-seat relative offset changed')
@@ -247,7 +292,8 @@ def _installed_assembly(doc, plate, entry, optomech, joint, source_stl):
     common = actual.common(expected).Volume
     if (abs(actual.Volume-expected.Volume) > 1.e-5 or
             abs(common-expected.Volume) > 1.e-5):
-        raise ValueError('Seat cutter differs from the unchanged lattice geometry generator')
+        raise ValueError('Seat cutter differs from the pinned lattice generator with authorized machining relief')
+    relief['generator_cutter_identity_verified'] = True
     point = km.Placement.multVec(App.Vector(*evidence['common_pivot']['center_km_local_mm']))
     pivot = np.array(tuple(plate.Placement.inverse().multVec(point)))
     points, faces = joint._topology(km_local, km_faces)
@@ -264,8 +310,11 @@ def _installed_assembly(doc, plate, entry, optomech, joint, source_stl):
              'aom_root_height_board_mm': float(on_board.Base.z),
              'seat_source_geometry_volume_mm3': float(expected.Volume),
              'seat_actual_geometry_volume_mm3': float(actual.Volume),
-             'seat_common_volume_mm3': float(common), 'lattice_installation_unchanged': True}
-    audit['original_seat_pose_limits'] = _seat_pose_counterexamples(plate, km, adapter, pivot)
+             'seat_common_volume_mm3': float(common), 'lattice_installation_unchanged': True,
+             'lattice_installation_scope': 'Original component meshes, full relative poses, '
+                 'mounting height, bearing face and locating lip; plate machining has authorized relief.',
+             'machining_relief_verified': True, 'machining_relief': relief}
+    audit['current_seat_pose_samples'] = _seat_pose_counterexamples(plate, km, adapter, pivot)
     return aom, km, adapter, pivot, shells, audit
 
 
@@ -476,29 +525,34 @@ def _seat_pose_counterexamples(plate, km, adapter, pivot_board):
     return {'nominal_adapter_gap_above_uncut_top_mm': nominal_gap,
             'sufficient_net_angle_adapter_above_uncut_top_deg': lo,
             'sufficient_bound_scope': 'Only the upper adapter versus an uncut plane; not an overall usable mount range.',
-            'sampled_pose_counterexamples': samples,
+            'sampled_current_plate_poses': samples,
+            'continuous_plate_clearance_certified': False,
             'full_catalogue_travel_certified': False,
-            'warning': 'These actual interior points prove the original seat/plate can block some ideal poses. '
-                       'Empty samples are not proof of collision-free continuous motion.'}
+            'warning': 'Any listed interior points prove contact with the CURRENT relieved plate. '
+                       'An empty sample does not prove collision-free continuous motion. The uncut-plane '
+                       'sufficient bound is a reference only and is not the relieved plate travel limit.'}
 
 
 def apply(report, doc, info, source_module=None):
     """Add this audit and its own issue count; preserve all other evidence."""
     result = {'schema': 'aom_adjustment_audit/1', 'document': doc.Name, 'passed': False,
               'ideal_contact_geometry_passed': False, 'external_hardware_clearance_passed': False,
-              'lattice_installation_unchanged': False, 'scope_contract_passed': False,
+              'lattice_installation_unchanged': False, 'machining_relief_verified': False,
+              'scope_contract_passed': False,
               'full_catalogue_travel_certified': False, 'errors': [], 'assemblies': [],
               'scope': {'external_net_rotation_cone_deg': 4., 'extra_clearance_mm': 1.,
                         'actuator_translation_and_arbitrary_screw_roll_included': True,
                         'continuous_not_sampled': True, 'simultaneous_two_axis_plus_minus_4_certified': False,
-                        'same_assembly_relative_motion_certified': False, 'same_assembly_pairs_excluded': True, 'original_seat_motion_certified': False,
+                        'same_assembly_relative_motion_certified': False, 'same_assembly_pairs_excluded': True,
+                        'continuous_plate_clearance_certified': False,
                         'manufacturing_tolerances_or_joint_play_certified': False,
                         'spring_deformation_or_unmodeled_flexible_parts_certified': False,
                         'all_setting_table_fit_certified': False},
-              'existing_seat_limitation': {'warning': 'The unchanged lattice upper adapter has only 0.715 mm '
-                  'nominal clearance above uncut plate top. Pitch can meet the original plate before catalogue travel. '
-                  'No deeper pocket or mounting-height change is permitted; this external clearance PASS is not a '
-                  'full mechanical +/-4-degree PASS.'},
+              'machining_relief_scope': {'required': True, 'revision': 'side6_front4_20261014',
+                  'warning': 'The original mounting height, components and bearing/lip datums are retained. '
+                  'The authorized 6-mm side clearance and 4-mm front recess change plate machining only. '
+                  'This audit verifies their pinned cutter, but external-clearance PASS and empty current-plate '
+                  'pose samples do not certify continuous plate clearance or full mechanical +/-4-degree travel.'},
               'preserved_summary_counts': deepcopy(report.get('summary_counts', {})),
               'source_provenance': {'audit_path': str(Path(__file__).resolve()), 'audit_sha256': _hash(__file__)}}
     report[_KEY] = result
@@ -516,9 +570,15 @@ def apply(report, doc, info, source_module=None):
                   for node in nodes if isinstance(node, (ast.FunctionDef, ast.ClassDef))
                   and node.name in _INSTALLATION_SOURCE_SHA256}
         if hashes != _INSTALLATION_SOURCE_SHA256:
-            raise ValueError('Original lattice installation implementation differs from committed reference')
-        result['lattice_installation_source_reference'] = {'commit': '8e48c57', 'geometry_function_source_sha256': hashes,
-                                                        'seat_constants': deepcopy(_SEAT_CONSTANTS)}
+            raise ValueError('Lattice installation or authorized machining-relief implementation differs from pinned source')
+        result['lattice_installation_source_reference'] = {
+            'mounting_pose_reference_commit': '8e48c57',
+            'machining_relief_revision': 'side6_front4_20261014',
+            'geometry_function_source_sha256': hashes, 'seat_constants': deepcopy(_SEAT_CONSTANTS),
+            'machining_relief_constants': deepcopy(_RELIEF_CONSTANTS),
+            'scope': 'Original mounting poses and bearing/lip datums plus the explicitly authorized '
+                     'side/front relief; the complete cutter is not claimed unchanged from 8e48c57.',
+        }
         result['scope_contract_passed'] = True
         repo = Path(__file__).resolve().parents[1]
         result['source_provenance'].update({'board_path': str(Path(getattr(source_module, '__file__', source_module)).resolve()),
@@ -602,6 +662,8 @@ def apply(report, doc, info, source_module=None):
                     margin=1.+g['uncertainty_mm'], root=root)
         result['ideal_contact_geometry_passed'] = len(result['assemblies']) == 7
         result['lattice_installation_unchanged'] = all(e['lattice_installation_unchanged'] for e in result['assemblies'])
+        result['machining_relief_verified'] = (len(result['assemblies']) == 7 and
+            all(e.get('machining_relief_verified') is True for e in result['assemblies']))
         result['external_hardware'] = _pairs(bodies, moving)
         result['foreign_nominal_beams'] = _foreign_beams(bodies, moving, info)
         if len(knob_names) != 28:
@@ -618,7 +680,8 @@ def apply(report, doc, info, source_module=None):
         result['errors'].append(str(exc))
         result['failure_traceback'] = traceback.format_exc()
     result['passed'] = (result['scope_contract_passed'] and result['ideal_contact_geometry_passed'] and
-                        result['lattice_installation_unchanged'] and result['external_hardware_clearance_passed'] and not result['errors'])
+                        result['lattice_installation_unchanged'] and result['machining_relief_verified'] and
+                        result['external_hardware_clearance_passed'] and not result['errors'])
     result['counts'] = {'verified_aom_assemblies': len(result['assemblies']), 'errors': len(result['errors'])}
     report.setdefault('summary_counts', {})[_ISSUE] = len(result['errors']) or int(not result['passed'])
     return report

@@ -41,10 +41,11 @@ Geometry:
   A's later optics and three B-feed mirrors move locally; all B/C AOMs and all four
   complete output assemblies retain their positions. All four table holes and output
   tail pairs stay fixed; the input tail pair retains X and follows the input 10 mm down.
-  The AOM upper adapters, integral seats and
-  mounting depths remain identical to the lattice installation. The catalogue
-  +/-4-degree mount travel is not guaranteed by this board: the unchanged seat
-  limits some pitch/combined settings. See the explicit motion-audit scope.
+  The AOM upper adapters, bearing faces, locating lips and mounting heights
+  remain identical to the lattice installation. The 2026-10-14 machining adds
+  a 6 mm side channel and a 4 mm-deep front recess (R3) at all seven seats.
+  Nominal separate-axis pitch down 4 degrees clears the front floor by
+  1.06559 mm; simultaneous two-axis extremes and tolerances are not certified.
 * AOMO 3100-125 on KM100PM with the lattice V9 integral seat. Orientation D: KM100PM downstream,
   RF connector on the left of the beam; U: KM100PM upstream, RF on the right. The M2 -> AOM leg is at
   least 26 mm (D) / 79 mm (U).
@@ -176,7 +177,8 @@ LANES['C3']['a2'] += 18.
 # Reserve the external hardware against a 4-degree any-axis rotation cone
 # about the ideal sphere/cone contact centre, with 1 mm extra separation.
 # This is NOT a full +/-4-degree board-clearance qualification: the unchanged
-# lattice seat can restrict pitch before the mount's catalogue limit.
+# lattice seat height is retained; separate-axis plate clearance is audited
+# with the approved side channel and shallow front recess.
 LANES['A']['a2'] += 9.5
 LANES['B1']['a2'] += 9.5
 LANES['B2']['d1'] += 8.5
@@ -370,9 +372,11 @@ def build(x=0, y=0, angle=0, drill=True):
         'required': True, 'external_net_rotation_cone_deg': 4.,
         'external_clearance_margin_mm': 1.,
         'preserve_lattice_installation': True,
+        'machining_relief_required': True,
         'full_catalogue_travel_certified': False,
         'scope': 'External hardware reserve around an ideal sphere/cone contact pivot; '
-                 'unchanged lattice seat restricts pitch/combined travel; RF-on optical coupling not certified.',
+                 'bearing face and height retained; 6 mm side channel and 4 mm front recess; '
+                 'separate-axis plate clearance audited independently; combined settings and RF-on coupling not certified.',
     }
     info['mount_holes_mm'] = [((mx + .5)*INCH, (my + .5)*INCH) for mx, my in mount_holes]
     info['table_mount_pattern'] = {'pitch_mm': INCH, 'original_right_lower_edge_offset_mm': INCH,
@@ -503,7 +507,7 @@ def build(x=0, y=0, angle=0, drill=True):
         aom = put(name + ' AOMO 3100-125', optomech.AOMO_3100_125, g['aom'][0], g['aom'][1], g['aom_angle'],
                   forward_direction=-1, backward_direction=1, diffraction_angle=KAPPA,
                   surface_adapter_args={'adapter_height': 5})
-        seat = optomech.integrate_aom(baseplate, aom)
+        seat = optomech.integrate_aom(baseplate, aom, machining_relief=True)
         info['extra_cuts'].append(seat)
         aoms[name] = aom
         if name == 'A':

@@ -12,7 +12,7 @@
       ],
       "bbox": [
         3.175,
-        -9.525000000000013,
+        -9.524999999999999,
         -38.099999999999994,
         606.4249999999998,
         365.125,
@@ -6012,7 +6012,7 @@
     }
   ],
   "output_optical_scope": {},
-  "layout_status": "V9.7 (2026-10-08): split sliding Rb cell enclosure, plain block with two end screws and a closed stem pocket (11.3 mm pocket, two 8-32 taps, travel 10.5 mm toward -x) on the V9.4.2 plate: f = 300 folded cat-eyes on the +1-order axis, optional f = 75 hole set on the 0-order axis, table bolts on the 1 in grid (both pairs 10 in apart and centred; fiber-side pair 6.25 in from the right edge, TA-side pair 1.5 in from the left edge), all mirrors M05, DP2 output row above its AOM row, 24 x 15 in plate. Enclosure slide 0.0 mm.",
+  "layout_status": "V9.7 (2026-10-08): split sliding Rb cell enclosure, plain block with two end screws and a closed stem pocket (11.3 mm pocket, two 8-32 taps, travel 10.5 mm toward -x) on the V9.4.2 plate: f = 300 folded cat-eyes on the +1-order axis, optional f = 75 hole set on the 0-order axis, table bolts on the 1 in grid (both pairs 10 in apart and centred; fiber-side pair 6.25 in from the right edge, TA-side pair 1.5 in from the left edge), all mirrors M05, DP2 output row above its AOM row, 24 x 15 in plate. Enclosure slide 0.0 mm. AOM machining side6/front4 revision 2026-10-14; installed optical geometry preserved.",
   "plate_size_mm": [
     609.5999999999999,
     381.0,
@@ -25221,5 +25221,379 @@
     },
     "passed": true,
     "status": "pass"
+  },
+  "plate_valid": true,
+  "plate_volume_mm3": 5120581.899440069,
+  "machining_release": {
+    "revision": "side6_front4_20261014",
+    "scope": "All integral AOM installation regions only; installed optics, assembly poses, holes, bearing faces and locating lips preserved.",
+    "source_file": "C:\\Users\\Haotian Xu\\Documents\\Codex\\2026-10-11\\https-github-com-hybrid-lab-pyopticl-2\\work\\repo\\Rubidium_system\\Lattice_Baseplate_V9.py",
+    "source_sha256": "f917438fc47f2bca3cf9e25bf4784de6858ee4f1fae863ffacbbc2d4d5b0cfb3",
+    "optomech_sha256": "199e512c9c577de3902070445d4ad06705375d09ae7ee313e09bc18f1a99a00a",
+    "baseline_native": "C:/Users/Haotian Xu/Documents/Codex/2026-09-21/ni-h/outputs/RubidiumLatticeV9/Models/Lattice_V9_f300_single.FCStd",
+    "baseline_plate_volume_mm3": 5139615.187993294,
+    "unrelated_geometry_and_placements_unchanged": true,
+    "physical_objects_verified": 205,
+    "physical_inventory_sha256": "115f609d4d8a4f1aba12221ddb791bc5b3b1d13e1b35512ded291f3c6b42e4d2",
+    "hole_inventory_unchanged": true,
+    "hole_counts": {
+      "PLAIN": 4,
+      "TAP": 100
+    },
+    "legacy_audits": "Prior optical/service/layout audits retained for identical installed physical geometry and paths. New machining audit is separate; legacy plate/cutter metrics are superseded by aom_machining_relief_audit and this release.",
+    "adjacent_stock_protection": {
+      "passed": true,
+      "hole_guards": [
+        {
+          "xy_mm": [
+            345.6,
+            78.38
+          ],
+          "kind": "TAP",
+          "guard_radius_mm": 4.725,
+          "stock_removed_mm3": 0.0
+        },
+        {
+          "xy_mm": [
+            367.6,
+            299.38
+          ],
+          "kind": "TAP",
+          "guard_radius_mm": 4.725,
+          "stock_removed_mm3": 0.0
+        }
+      ],
+      "hardware_envelope_guards": [],
+      "scope": "Newly removed stock versus every nearby non-AOM physical-object bounding box, including 0.05 mm below its nominal bottom. AOM/KM/upper-adapter assembly boxes are excluded because their empty bounding-box volume is not bearing stock; their real fixed support/lip/tap stock is protected by aom_machining_relief_audit against the full removed union. Nonintersecting boxes are excluded by exact cutter AABBs. Every hole axis retains an additional 3 mm guard radius where near a new cut."
+    }
+  },
+  "aom_machining_relief_audit": {
+    "schema": "aom_machining_relief_audit/1",
+    "passed": true,
+    "document": "Lattice_V9_f300_single",
+    "seat_count": 2,
+    "seats": [
+      {
+        "seat": "DP1_AOMO_3100_125_integral_seat",
+        "aom": "DP1_AOMO_3100_125",
+        "km": "Mount_KM100PM",
+        "upper_adapter": "AOM_Adapter",
+        "source_mesh_correspondence": {
+          "km": {
+            "vertices": 58568,
+            "facets": 117278,
+            "maximum_vertex_difference_mm": 3.7427604376828406e-06,
+            "triangle_multiset_matches": true
+          },
+          "adapter": {
+            "vertices": 384,
+            "facets": 788,
+            "maximum_vertex_difference_mm": 2.394184418132991e-16,
+            "triangle_multiset_matches": true
+          },
+          "aom": {
+            "vertices": 423,
+            "facets": 862,
+            "maximum_vertex_difference_mm": 7.465446641611944e-16,
+            "triangle_multiset_matches": true
+          }
+        },
+        "actual_cutter_identity": {
+          "first_minus_second_mm3": 0.0,
+          "second_minus_first_mm3": 0.0
+        },
+        "pivot_seat_mm": [
+          6.486650136920218,
+          18.618998512322435,
+          5.5000000957371995
+        ],
+        "plate_top_seat_z_mm": 17.185000000000002,
+        "front_floor_seat_z_mm": 13.185000000000002,
+        "front_floor_stock_mm": 21.4,
+        "adapter_sweep_bounds_seat_mm": {
+          "x": [
+            24.399999999999977,
+            59.5271331926223
+          ],
+          "y": [
+            -32.0,
+            24.05095863342285
+          ],
+          "z": [
+            14.25059473887181,
+            23.9
+          ]
+        },
+        "minimum_floor_gap_mm": 1.0655947388718072,
+        "minimum_sidewall_gap_mm": 3.0,
+        "protected_geometry": {
+          "support_removed_mm3": 0.0,
+          "lip_removed_mm3": 0.0,
+          "removed_within_this_relief_mm3": 9516.644276641448,
+          "baseline_tap": {
+            "diameter_mm": 3.4544,
+            "full_cylindrical_wall_intervals_seat_z_mm": [
+              [
+                -8.214999999999993,
+                -1.2310000000000016
+              ]
+            ],
+            "radial_stock_mm": 3.0,
+            "ring_probe_end_inset_mm": 0.02,
+            "missing_ring_stock_mm3": 0.0,
+            "bore_obstruction_mm3": 0.0,
+            "bearing_to_plate_bottom_stock_mm": 6.983999999999996
+          },
+          "current_tap": {
+            "diameter_mm": 3.4544,
+            "full_cylindrical_wall_intervals_seat_z_mm": [
+              [
+                -8.214999999999993,
+                -1.2310000000000016
+              ]
+            ],
+            "radial_stock_mm": 3.0,
+            "ring_probe_end_inset_mm": 0.02,
+            "missing_ring_stock_mm3": 0.0,
+            "bore_obstruction_mm3": 0.0,
+            "bearing_to_plate_bottom_stock_mm": 6.983999999999996
+          }
+        }
+      },
+      {
+        "seat": "DP2_AOMO_3100_125_integral_seat",
+        "aom": "DP2_AOMO_3100_125",
+        "km": "Mount_KM100PM001",
+        "upper_adapter": "AOM_Adapter001",
+        "source_mesh_correspondence": {
+          "km": {
+            "vertices": 58568,
+            "facets": 117278,
+            "maximum_vertex_difference_mm": 3.7427604376828406e-06,
+            "triangle_multiset_matches": true
+          },
+          "adapter": {
+            "vertices": 384,
+            "facets": 788,
+            "maximum_vertex_difference_mm": 2.394184418132991e-16,
+            "triangle_multiset_matches": true
+          },
+          "aom": {
+            "vertices": 423,
+            "facets": 862,
+            "maximum_vertex_difference_mm": 7.465446641611944e-16,
+            "triangle_multiset_matches": true
+          }
+        },
+        "actual_cutter_identity": {
+          "first_minus_second_mm3": 0.0,
+          "second_minus_first_mm3": 0.0
+        },
+        "pivot_seat_mm": [
+          6.486650136920218,
+          18.618998512322406,
+          5.5000000957371995
+        ],
+        "plate_top_seat_z_mm": 17.185000000000002,
+        "front_floor_seat_z_mm": 13.185000000000002,
+        "front_floor_stock_mm": 21.4,
+        "adapter_sweep_bounds_seat_mm": {
+          "x": [
+            24.399999999999977,
+            59.5271331926223
+          ],
+          "y": [
+            -32.00000000000001,
+            24.05095863342285
+          ],
+          "z": [
+            14.25059473887181,
+            23.9
+          ]
+        },
+        "minimum_floor_gap_mm": 1.0655947388718072,
+        "minimum_sidewall_gap_mm": 3.0,
+        "protected_geometry": {
+          "support_removed_mm3": 0.0,
+          "lip_removed_mm3": 0.0,
+          "removed_within_this_relief_mm3": 9516.644276642337,
+          "baseline_tap": {
+            "diameter_mm": 3.4544,
+            "full_cylindrical_wall_intervals_seat_z_mm": [
+              [
+                -8.214999999999993,
+                -1.2310000000000016
+              ]
+            ],
+            "radial_stock_mm": 3.0,
+            "ring_probe_end_inset_mm": 0.02,
+            "missing_ring_stock_mm3": 0.0,
+            "bore_obstruction_mm3": 0.0,
+            "bearing_to_plate_bottom_stock_mm": 6.983999999999996
+          },
+          "current_tap": {
+            "diameter_mm": 3.4544,
+            "full_cylindrical_wall_intervals_seat_z_mm": [
+              [
+                -8.214999999999993,
+                -1.2310000000000016
+              ]
+            ],
+            "radial_stock_mm": 3.0,
+            "ring_probe_end_inset_mm": 0.02,
+            "missing_ring_stock_mm3": 0.0,
+            "bore_obstruction_mm3": 0.0,
+            "bearing_to_plate_bottom_stock_mm": 6.983999999999996
+          }
+        }
+      }
+    ],
+    "errors": [],
+    "parameters": {
+      "side_clearance_mm": 6.0,
+      "front_relief_depth_mm": 4.0,
+      "front_corner_radius_mm": 3.0
+    },
+    "scope": {
+      "subtract_only_native_geometry": true,
+      "component_mounting_poses_preserved": true,
+      "all_other_hole_inventory_checked_here": false,
+      "adjacent_component_bearing_surfaces_checked_here": false,
+      "combined_axes_certified": false,
+      "internal_mount_motion_certified": false,
+      "manufacturing_tolerances_certified": false,
+      "strength_certified": false
+    },
+    "source_provenance": {
+      "audit_path": "C:\\Users\\Haotian Xu\\Documents\\Codex\\2026-10-11\\https-github-com-hybrid-lab-pyopticl-2\\work\\repo\\tools\\aom_machining_relief_audit.py",
+      "audit_sha256": "8dcffe69c9cd5289cec05a6369ccd0648a486d04f17afbbbe7dba6a2b5eb8530",
+      "optomech_path": "C:\\Users\\Haotian Xu\\Documents\\Codex\\2026-10-11\\https-github-com-hybrid-lab-pyopticl-2\\work\\repo\\optomech.py",
+      "optomech_sha256": "199e512c9c577de3902070445d4ad06705375d09ae7ee313e09bc18f1a99a00a",
+      "generator_hashes": {
+        "_bounding_box": "7ae9906970262ecfefdf31b85a6d79259451991fa6356b2aca1cf7c7efff4157",
+        "_km_clearance": "e2e046ce5a528ce89bb646efdb64a93eb50dd225f33a302404bc787a550b6dab",
+        "_aom_installation_relief": "5af8da79d9f92e9acaa8b0b124f173f2503ff50ec496145bf5c8e2ffd63596b8",
+        "_geometry": "b305c46da8ded5b70cc42d80966199cab838d4522f09028dd59e1cb2aa806ecf"
+      },
+      "stl_hashes": {
+        "KM100PM.stl": "96c641fdd94c6908d56a2fc949bca242eecb8b6c1ae41a4441cab61481e3450d",
+        "aom_adapter.stl": "bbdd79ad8c17b7970d37d62ec9f57e825847c8e588ffdd1218e2f52e9527e876",
+        "aomo_3100-125.stl": "1a729521ef4a9a5d4221584ffd78dc6a44f9f4e148bf7399feaa36d6854b26a7"
+      },
+      "mesh_correspondence_helper_sha256": "e19754cdf2a0d36c2ce78525a9877811c8cfafcbef66c23fd808f9baa77dc506",
+      "ideal_pivot_helper_sha256": "64815b6539d28b81ae94e832c9abcba54def6ad6ea52bd2eff0b62c698f2e3d8"
+    },
+    "plate_identity": {
+      "first_minus_second_mm3": 0.0,
+      "second_minus_first_mm3": 0.0
+    },
+    "native_subtract_only": {
+      "added_mm3": 0.0,
+      "removed_mm3": 19033.28855328395,
+      "baseline_volume_mm3": 5139615.187993294,
+      "current_volume_mm3": 5120581.899440069,
+      "current_valid": true,
+      "current_solids": 1,
+      "volume_tolerance_mm3": 1e-05
+    },
+    "single_axis_adapter_clearance": {
+      "pitch_down_interval_deg": [
+        0.0,
+        4.0
+      ],
+      "minimum_floor_gap_mm": 1.0655947388718072,
+      "minimum_sidewall_gap_mm": 3.0,
+      "method": "Exact extrema of matched original triangle vertices about the ideal source pivot; the R3 front pocket contains the full sweep AABB plus a 3-mm disk.",
+      "combined_axes_certified": false,
+      "internal_mount_motion_certified": false,
+      "manufacturing_tolerances_certified": false
+    }
+  },
+  "summary_counts": {
+    "aom_machining_relief_audit_issues": 0
+  },
+  "step_round_trip": {
+    "file": "StepFile/Lattice_V9_7_baseplate_24x15in.step",
+    "valid": true,
+    "solids": 1,
+    "volume_ratio": 1.0,
+    "two_way_difference_mm3": [
+      0.0,
+      0.0
+    ],
+    "sha256": "c6793abe470ce1a37cc2ea5f744c92db9d85043d208e0cb375949fd1ab2ef8fe",
+    "actual_dimensions_mm": [
+      603.2499999999999,
+      374.65,
+      25.4
+    ]
+  },
+  "native_round_trip": {
+    "file": "C:\\Users\\Haotian Xu\\Documents\\Codex\\2026-10-11\\https-github-com-hybrid-lab-pyopticl-2\\outputs\\AOM_Machining_Release_20261014\\Lattice_V9_single_AOM_Clearance.FCStd",
+    "sha256": "5f82fe5d71332d5af8b9b801d0f7aefd94d94a36ebd3ec5e3c2ecad2429416c2",
+    "valid": true,
+    "solid_count": 1,
+    "plate_volume_difference_mm3": [
+      0.0,
+      0.0
+    ],
+    "geometry_and_placements_unchanged": true,
+    "physical_objects_verified": 205,
+    "wire_serialization_equivalence": [
+      {
+        "name": "DP1_double_pass",
+        "edge_count": 7,
+        "maximum_endpoint_difference_mm": 0.0,
+        "length_difference_mm": 0.0,
+        "reason": "FreeCAD wire BREP serialization flags differ; every actual line segment is identical."
+      },
+      {
+        "name": "DP2_double_pass",
+        "edge_count": 7,
+        "maximum_endpoint_difference_mm": 0.0,
+        "length_difference_mm": 0.0,
+        "reason": "FreeCAD wire BREP serialization flags differ; every actual line segment is identical."
+      }
+    ],
+    "hole_inventory_unchanged": true,
+    "enabled_seats_persisted": 2,
+    "plate_proxy_regeneration_identical": true
+  },
+  "source_provenance": {
+    "optomech.py": "199e512c9c577de3902070445d4ad06705375d09ae7ee313e09bc18f1a99a00a",
+    "Rubidium_system/Lattice_Baseplate_V9.py": "f917438fc47f2bca3cf9e25bf4784de6858ee4f1fae863ffacbbc2d4d5b0cfb3",
+    "tools/aom_machining_relief_audit.py": "8dcffe69c9cd5289cec05a6369ccd0648a486d04f17afbbbe7dba6a2b5eb8530",
+    "tools/render_ta_documents.py": "3962ab5d798aed5cc0ac4d5f70c0e07ed884bba37fcac5c667a52f0a56dba79f"
+  },
+  "freecad_version": [
+    "1",
+    "1",
+    "3",
+    "20260725 (Git shallow)",
+    "Unknown",
+    "2026/07/25 04:52:02",
+    "grafted,grafted",
+    "145529fe741292ff0b3977a01195bf0247425794"
+  ],
+  "document_generation": {
+    "revision": "side6_front4_20261014",
+    "scope": "Updated AOM machining, STEP, native round-trip, plate views, tapping drawing and BOM machining notes. Optical routes and all non-machining geometry/placements retained from the previous release and independently compared.",
+    "artifacts_sha256": {
+      "StepFile/Lattice_V9_7_baseplate_24x15in.step": "c6793abe470ce1a37cc2ea5f744c92db9d85043d208e0cb375949fd1ab2ef8fe",
+      "Lattice_V9_single_top.png": "27ed0f445694d03a039158674a2c25db02cbbaa207fcf032bb7483fa8a68663e",
+      "Lattice_V9_7_baseplate_3D.png": "a98df197e35aac97fe0e355e4435f466f71b42fa276ea743da404d73ac180b3a",
+      "Lattice_V9_7_baseplate_TAP_or_NOT.pdf": "572535a1d9a5d931bad0ab85656ee5bbb1d971531907cb9badbb275a01c2ee59",
+      "Lattice_V9_7_baseplate_TAP_or_NOT.png": "aa20c98516e393a5fbb0379a332e7ab588fa0fac679f19f183c5d01b69628d57",
+      "Lattice_V9_7_holes.json": "5e55a8862e36df1e555ba5eb5246e3975bb65b11116885322681e490aa1ee957",
+      "Lattice_V9_7_plate_edges.json": "2f177c656ba7a91ae97a96dc4dae72d51b6cc32f00b438e29e4814f4cc985eef",
+      "Lattice_Board_V9.xlsx": "5425b12a7a96d68878a6363058180cb495c55b67ea814ab20bc82f632a6ae8b0",
+      "Lattice_V9_single_3D.png": "db98a82f9e67f9c4746b9b38ab0858c126f937a0977008a50850655c5a086d23"
+    },
+    "plate_hole_counts": {
+      "PLAIN": 4,
+      "TAP": 100
+    },
+    "configuration_step": "StepFile/Lattice_V9_7_baseplate_24x15in.step",
+    "variant_scope": "f75 configurations preserve their original optional iris recesses and nominal/actual retro-tap axis difference; f300 single, dual and cell-slide configurations share the main STEP."
   }
 }
