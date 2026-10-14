@@ -867,7 +867,7 @@ STEP files):
 | Splitting baseplate (V2, 2026-10-14 machining) | [Splitting tapping sheet](Production/SplittingBoardV2/Splitting_Board_V2_baseplate_TAP_or_NOT.pdf) | 101 × #8-32 | 4 × 1/4-20 table-bolt clearance |
 | TA adapter (`stl/TA_adapter.stl`) | `Production/Adapters/TA_adapter_TAP_or_NOT.pdf` | 4 × M2.5 × 0.45 (board screws) | 4 × 8-32 clearance (to the plate taps) |
 | AOM adapter (`stl/aom_adapter.stl`) | `Production/Adapters/AOM_adapter_TAP_or_NOT.pdf` | 2 × M4 × 0.7 | 4 × clearance, in a row |
-| Rb cell enclosure, half body (2 off, identical) | `Production/CellEnclosure/Rb_Cell_Enclosure_V9_16_3D_TAP.png` | 4 × #8-32 (2 in each end face) | 2 through slots |
+| Rb cell enclosure, half body (2 off, identical) | [Single-part tapping view](Production/CellEnclosure/Rb_Cell_Enclosure_HalfBody_V9_16_3D_TAP_single_view.png) | 4 × #8-32 (2 in each end face) | 2 through slots |
 | Rb cell enclosure, end cover (2 off, identical) | `Production/CellEnclosure/Rb_Cell_Enclosure_V9_16_3D_TAP.png` | none | 4 counterbored holes |
 
 The standalone TA adapter matching the **current TA V9.15 and lattice V9.7
