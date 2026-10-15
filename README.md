@@ -360,7 +360,10 @@ the selected retro-mirror tap differs slightly from its bare-hole placeholder.
 These are existing configuration differences, retained in this revision. All
 five share the board outline, hole counts and AOM installation geometry; only
 their two integral-seat machining regions gain the 6 mm side channels and
-4 mm-deep front reliefs. Mounting axes, fixed support faces and assembly heights
+4 mm-deep front reliefs. The 6 mm is measured from the locating lip's outer
+face toward the cavity wall, not from the lip centreline. The side wall now
+continues to the original knob pocket's end with an R3 corner, removing the
+projecting transition left by the former short capsule. Mounting axes, fixed support faces and assembly heights
 are unchanged relative to each configuration's original native plate.
 
 The V9.3 **f = 75 mm cat-eye (LA1612-B) is kept as an option**: straight after
@@ -833,8 +836,11 @@ The lattice and Splitting STEP filenames are stable across the 2026-10-14
 AOM machining revision:
 [lattice plate](Production/LatticeBoardV9/StepFile/Lattice_V9_7_baseplate_24x15in.step)
 and [Splitting plate](Production/SplittingBoardV2/StepFile/Splitting_Board_V2_baseplate_24x14in.step).
-Their current solids include the 6 mm side channels and 4 mm-deep front
-reliefs with R3 corners, with unchanged hole axes and fixed AOM bearing faces.
+Their current solids include a flush side-wall transition, 6 mm from the
+locating lip's wall-facing outer face to the straight cavity wall, and
+4 mm-deep front reliefs with R3 corners. The lip is 2 mm wide, so its centreline
+is 7 mm from that wall. The old capsule-end projection is removed; the side
+cut follows the existing knob-pocket end edge. Hole axes and fixed AOM bearing faces are unchanged.
 The main lattice STEP serves single f300, dual f300 and dual f300 with the cell
 slid 10.5 mm. Use the separate
 [f75-50 plate](Production/LatticeBoardV9/StepFile/Lattice_V9_7_baseplate_24x15in_f75-50.step)

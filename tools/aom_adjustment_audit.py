@@ -104,7 +104,8 @@ _INSTALLATION_SOURCE_SHA256 = {
     'seat_placement': 'daf86b5ba77ad31aa6add1936fbadd13f9d580f5bc3307559ffd11bfbcbed92e',
     '_remove_lower_adapter': '7ff26e26166b9e0c08cbb4059e4b65d993873e9cc8887547c7c5ffec04653776',
     '_km_clearance': 'e2e046ce5a528ce89bb646efdb64a93eb50dd225f33a302404bc787a550b6dab',
-    '_aom_installation_relief': '5af8da79d9f92e9acaa8b0b124f173f2503ff50ec496145bf5c8e2ffd63596b8',
+    '_aom_side_relief_bounds': 'afbc8c7a56e930bb88b23560d5b6b1c17e75b74e4ad9bb19138f75ebeffbcbdb',
+    '_aom_installation_relief': '3e338bc7982019a37a92b428e4a627cdbbe23f4b393c9764bfeb14792a12088c',
     '_geometry': 'b305c46da8ded5b70cc42d80966199cab838d4522f09028dd59e1cb2aa806ecf',
     '_make_IntegralAOMBaseplate': 'ece5cc5f7351cb6f3235b2986d7b31c8451e8836216969c152770f7f9055e73b',
     'integrate_aom': '7dc54677a5c675f397248cf8185ea7bdd1992cd4b377c1773f6ac8086f811876',
@@ -113,7 +114,8 @@ _SEAT_CONSTANTS = {'SEAT_X_MIN': -9.179, 'SEAT_X_MAX': 5.2, 'PILL_MAX_OFFSET': (
                    'KNOB_FLOOR_OFFSET': -.4, 'LIP_X': -7.15, 'LIP_Y': -15., 'LIP_WIDTH': 2.,
                    'LIP_LENGTH': 30., 'LIP_HEIGHT': 2., 'BEARING_FACE_Z': -1.231,
                    'AOM_APERTURE_LOCAL': (0., -.03, -.115)}
-_RELIEF_CONSTANTS = {'AOM_SIDE_CLEARANCE_MM': 6., 'AOM_FRONT_RELIEF_DEPTH_MM': 4.,
+_RELIEF_CONSTANTS = {'AOM_SIDE_CLEARANCE_MM': 6., 'AOM_SIDE_RELIEF_RADIUS_MM': 3.,
+                     'AOM_FRONT_RELIEF_DEPTH_MM': 4.,
                      'AOM_FRONT_RELIEF_XY_MM': (21.4, -35., 62.5272, 27.051),
                      'AOM_FRONT_RELIEF_RADIUS_MM': 3.}
 
@@ -215,11 +217,19 @@ def _relief_declaration(seat, top):
         raise ValueError('Every registered AOM seat must explicitly enable MachiningRelief')
     if not math.isfinite(top) or abs(top-17.185) > 2.e-5:
         raise ValueError('Relief datum differs from the preserved AOM installation height')
+    from PyOpticL import optomech
+    side = tuple(float(v) for v in optomech._aom_side_relief_bounds(seat))
+    if (len(side) != 4 or not all(math.isfinite(v) for v in side) or
+            max(abs(v-e) for v, e in zip(side, (-13.15, -29.46571578979492, 5.2, 28.97811577320099))) > 2.e-5):
+        raise ValueError('Side relief bounds differ from the retained KM knob-pocket datum')
     return {
         'enabled': True, 'revision': 'side6_front4_20261014',
         'coordinate_frame': 'original seat local frame',
-        'side_capsule_xy_mm': [-13.15, -21., -7.15, 21.],
-        'side_capsule_radius_mm': 3., 'side_floor_z_mm': -1.231,
+        'side_geometry': 'full knob-length rounded rectangle minus the unchanged locating lip',
+        'side_rounded_rectangle_xy_mm': list(side), 'side_corner_radius_mm': 3.,
+        'side_clearance_reference': 'locating lip outer face, not its centreline',
+        'side_lip_outer_face_x_mm': -7.15, 'side_wall_x_mm': side[0],
+        'side_clearance_mm': -7.15-side[0], 'side_floor_z_mm': -1.231,
         'front_rounded_rectangle_xy_mm': [21.4, -35., 62.5272, 27.051],
         'front_corner_radius_mm': 3., 'front_depth_from_plate_top_mm': 4.,
         'front_floor_z_mm': float(top-4.), 'plate_top_z_mm': float(top),

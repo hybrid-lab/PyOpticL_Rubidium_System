@@ -30,7 +30,8 @@ SOURCE_HASHES = {
 GENERATOR_HASHES = {
     '_bounding_box': '7ae9906970262ecfefdf31b85a6d79259451991fa6356b2aca1cf7c7efff4157',
     '_km_clearance': 'e2e046ce5a528ce89bb646efdb64a93eb50dd225f33a302404bc787a550b6dab',
-    '_aom_installation_relief': '5af8da79d9f92e9acaa8b0b124f173f2503ff50ec496145bf5c8e2ffd63596b8',
+    '_aom_side_relief_bounds': 'afbc8c7a56e930bb88b23560d5b6b1c17e75b74e4ad9bb19138f75ebeffbcbdb',
+    '_aom_installation_relief': '3e338bc7982019a37a92b428e4a627cdbbe23f4b393c9764bfeb14792a12088c',
     '_geometry': 'b305c46da8ded5b70cc42d80966199cab838d4522f09028dd59e1cb2aa806ecf',
 }
 CONSTANTS = {
@@ -39,7 +40,8 @@ CONSTANTS = {
     'LIP_X': -7.15, 'LIP_Y': -15., 'LIP_WIDTH': 2., 'LIP_LENGTH': 30.,
     'LIP_HEIGHT': 2., 'BEARING_FACE_Z': -1.231, 'TAP_DIAMETER': TAP_DIAMETER_MM,
     'AOM_APERTURE_LOCAL': (0., -.03, -.115),
-    'AOM_SIDE_CLEARANCE_MM': 6., 'AOM_FRONT_RELIEF_DEPTH_MM': 4.,
+    'AOM_SIDE_CLEARANCE_MM': 6., 'AOM_SIDE_RELIEF_RADIUS_MM': 3.,
+    'AOM_FRONT_RELIEF_DEPTH_MM': 4.,
     'AOM_FRONT_RELIEF_XY_MM': (21.4, -35., 62.5272, 27.051),
     'AOM_FRONT_RELIEF_RADIUS_MM': 3.,
 }
@@ -161,11 +163,125 @@ def _tap_wall(plate_shape, placement, floor, bearing):
             'bearing_to_plate_bottom_stock_mm': bearing-floor}
 
 
+def _covers(intervals, lower, upper):
+    """Require continuous native-face coverage, allowing only modelling tolerance."""
+    cursor = lower
+    for lo, hi in sorted(intervals):
+        if hi < cursor-GEOMETRY_TOLERANCE_MM:
+            continue
+        if lo > cursor+GEOMETRY_TOLERANCE_MM:
+            return False
+        cursor = max(cursor, hi)
+        if cursor >= upper-GEOMETRY_TOLERANCE_MM:
+            return True
+    return False
+
+
+def _side_channel_proof(plate_shape, placement, km, top):
+    """Check the actual solid against an independently built rounded rectangle.
+
+    No machining-generator/helper call is used. The matched actual KM mesh
+    supplies the old knob-pocket Y bounds; its established 3-mm allowance is
+    applied directly to the vertices. Boxes and four cylinders build the R3
+    target, independently of the generator's filleted-box implementation.
+    """
+    import FreeCAD as App
+    import Part
+    inverse = placement.inverse()
+    points = np.asarray([tuple(inverse.multVec(v)) for v in km.Mesh.Topology[0]])
+    _require(points.ndim == 2 and points.shape[1] == 3 and len(points) and
+             np.all(np.isfinite(points)), 'Actual KM vertices are missing')
+    x0, x1, radius, bearing = -13.15, 5.2, 3., -1.231
+    y0, y1 = float(points[:, 1].min()-3.), float(points[:, 1].max()+3.)
+    _require(_near((y0, y1), (-29.46571578979492, 28.97811577320099)),
+             'Actual knob-pocket Y bounds differ from the retained mesh installation')
+    width, length, height = x1-x0, y1-y0, top+1.-bearing
+    _require(width > 2*radius and length > 2*radius and height > 0.,
+             'Invalid side-channel proof dimensions')
+    parts = [Part.makeBox(width-2*radius, length, height,
+                         App.Vector(x0+radius, y0, bearing)),
+             Part.makeBox(width, length-2*radius, height,
+                         App.Vector(x0, y0+radius, bearing))]
+    parts += [Part.makeCylinder(radius, height, App.Vector(x, y, bearing))
+              for x in (x0+radius, x1-radius) for y in (y0+radius, y1-radius)]
+    target = parts[0]
+    for part in parts[1:]:
+        target = target.fuse(part)
+    target = target.removeSplitter()
+    expected_volume = (width*length-(4.-math.pi)*radius**2)*height
+    _require(target.isValid() and len(target.Solids) == 1 and
+             abs(_volume(target)-expected_volume) <= VOLUME_TOLERANCE_MM3,
+             'Independent rounded-rectangle construction failed')
+    lip = Part.makeBox(2., 30., 3.231, App.Vector(-7.15, -15., bearing))
+    target = target.cut(lip).removeSplitter()
+    _require(target.isValid() and len(target.Solids) == 1,
+             'Independent lip-preserving side probe is invalid')
+    residual = _volume(plate_shape.common(_placed(target, placement)))
+    _require(residual <= VOLUME_TOLERANCE_MM3,
+             'Side channel retains stock inside the full R3 no-step target')
+    # A second, simple prism proves the complete 6-mm gap alongside the lip
+    # and its continuation through the positive-Y straight transition.
+    straight = Part.makeBox(6., y1-radius+15., height,
+                            App.Vector(x0, -15., bearing))
+    straight_residual = _volume(plate_shape.common(_placed(straight, placement)))
+    _require(straight_residual <= VOLUME_TOLERANCE_MM3,
+             'Six-mm clearance from the lip outer face is obstructed')
+    local_plate = _placed(plate_shape, inverse)
+    mid_z = (bearing+top)/2.
+    wall_intervals, top_intervals, corners = [], [], []
+    for face in local_plate.Faces:
+        surface, bounds = face.Surface, face.BoundBox
+        if not (bounds.ZMin <= mid_z-GEOMETRY_TOLERANCE_MM and
+                bounds.ZMax >= mid_z+GEOMETRY_TOLERANCE_MM):
+            continue
+        if isinstance(surface, Part.Plane):
+            u0, u1, v0, v1 = face.ParameterRange
+            normal = face.normalAt((u0+u1)/2., (v0+v1)/2.)
+            centre = face.CenterOfMass
+            if abs(abs(normal.x)-1.) < 1.e-7 and abs(centre.x-x0) <= GEOMETRY_TOLERANCE_MM:
+                wall_intervals.append([bounds.YMin, bounds.YMax])
+            if abs(abs(normal.y)-1.) < 1.e-7 and abs(centre.y-y1) <= GEOMETRY_TOLERANCE_MM:
+                top_intervals.append([bounds.XMin, bounds.XMax])
+        elif isinstance(surface, Part.Cylinder):
+            centre, axis = surface.Center, surface.Axis
+            if (abs(surface.Radius-radius) <= GEOMETRY_TOLERANCE_MM and
+                    abs(abs(axis.z)-1.) < 1.e-7 and
+                    _near((centre.x, centre.y), (x0+radius, y1-radius))):
+                u0, u1, unused_v0, unused_v1 = face.ParameterRange
+                span = abs(u1-u0)
+                if span >= math.pi/2.-1.e-5:
+                    corners.append({'centre_xy_mm': [centre.x, centre.y],
+                                    'radius_mm': surface.Radius, 'angular_span_rad': span})
+    # Negative Y already opens into the larger old main cavity: a 6-mm
+    # minimum void is required there, not a fictitious wall at exactly 6 mm.
+    _require(_covers(wall_intervals, 0., y1-radius),
+             'Actual positive-Y side wall is not continuously at seat x=-13.15')
+    _require(_covers(top_intervals, x0+radius, x1-radius),
+             'Actual top transition is not flush with the old knob-pocket Y edge')
+    _require(bool(corners), 'Actual upper outside R3 cylindrical corner is missing')
+    return {'passed': True, 'coordinate_frame': 'retained seat local frame',
+            'reference': 'locating lip outer face toward the cavity wall, not its centreline',
+            'lip_outer_face_x_mm': -7.15, 'side_wall_x_mm': x0,
+            'minimum_clearance_mm': -7.15-x0,
+            'rounded_rectangle_xy_mm': [x0, y0, x1, y1], 'radius_mm': radius,
+            'floor_z_mm': bearing, 'lip_length_y_mm': [-15., 15.],
+            'straight_no_step_y_mm': [-15., y1-radius],
+            'rounded_target_residual_mm3': residual,
+            'straight_gap_residual_mm3': straight_residual,
+            'actual_wall_y_intervals_mm': wall_intervals,
+            'actual_top_edge_x_intervals_mm': top_intervals,
+            'actual_upper_outside_corner': corners,
+            'method': 'Independent exact boxes/cylinders target minus unchanged lip; '
+                      'native final-plate intersection and plane/cylinder surface evidence.'}
+
+
 def apply(report, doc, info=None, baseline_shape=None):
     """Return this audit; failures stay explicit and do not modify other checks."""
-    result = {'schema': 'aom_machining_relief_audit/1', 'passed': False,
+    result = {'schema': 'aom_machining_relief_audit/2', 'passed': False,
               'document': doc.Name, 'seat_count': 0, 'seats': [], 'errors': [],
-              'parameters': {'side_clearance_mm': 6., 'front_relief_depth_mm': 4.,
+              'parameters': {'side_clearance_mm': 6., 'side_corner_radius_mm': 3.,
+                             'side_clearance_datum': 'locating lip outer face',
+                             'front_relief_depth_mm': 4.,
                              'front_corner_radius_mm': 3.},
               'scope': {'subtract_only_native_geometry': True,
                         'component_mounting_poses_preserved': False,
@@ -267,6 +383,7 @@ def apply(report, doc, info=None, baseline_shape=None):
                               App.Vector(-9.179, cb.YMin, floor)), placement)
             lip = _placed(Part.makeBox(2., 30., 3.231, App.Vector(-7.15, -15., -1.231)), placement)
             protected.append((seat, placement, floor, support, lip))
+            side_proof = _side_channel_proof(plate.Shape, placement, km, top)
             inverse = placement.inverse()
             actual_points = np.asarray([tuple(inverse.multVec(v)) for v in adapter.Mesh.Topology[0]])
             pivot = np.asarray(tuple(inverse.multVec(km.Placement.multVec(App.Vector(*PIVOT_KM_LOCAL_MM)))))
@@ -284,6 +401,7 @@ def apply(report, doc, info=None, baseline_shape=None):
             _require(gap >= 1., 'Continuous adapter-to-front-floor clearance is less than 1 mm')
             result['seats'].append({'seat': seat.Name, 'aom': aom.Name, 'km': km.Name,
                 'upper_adapter': adapter.Name, 'source_mesh_correspondence': matches,
+                'side_channel': side_proof,
                 'actual_cutter_identity': identity_check, 'pivot_seat_mm': pivot.tolist(),
                 'plate_top_seat_z_mm': top, 'front_floor_seat_z_mm': top-4.,
                 'front_floor_stock_mm': top-4.-floor, 'adapter_sweep_bounds_seat_mm': sweep,

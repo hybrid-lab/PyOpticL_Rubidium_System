@@ -203,7 +203,7 @@ def build_bom(report, holes, title, step_name, source_name, sheet_name):
             clearance = relief.get('single_axis_adapter_clearance', {})
             floor_gap = clearance.get('minimum_floor_gap_mm')
             side_gap = clearance.get('minimum_sidewall_gap_mm')
-            if (relief.get('schema') != 'aom_machining_relief_audit/1'
+            if (relief.get('schema') not in ('aom_machining_relief_audit/1', 'aom_machining_relief_audit/2')
                     or relief.get('passed') is not True
                     or relief.get('seat_count') != classes['IntegralAOMSeat']
                     or parameters.get('side_clearance_mm') != 6
@@ -213,7 +213,15 @@ def build_bom(report, holes, title, step_name, source_name, sheet_name):
                     or not finite(floor_gap) or floor_gap <= 0
                     or not finite(side_gap) or side_gap <= 0):
                 raise ValueError('AOM machining notes require matching passed native relief evidence')
-            notes.append(f"The {classes['IntegralAOMSeat']} integral AOM seats have 6 mm side clearance and a 4 mm-deep front relief with R3 corners. The bearing faces and installation height remain unchanged.")
+            if relief.get('schema') == 'aom_machining_relief_audit/2':
+                seats = relief.get('seats', [])
+                if (parameters.get('side_clearance_datum') != 'locating lip outer face'
+                        or len(seats) != classes['IntegralAOMSeat']
+                        or not all(s.get('side_channel', {}).get('passed') is True for s in seats)):
+                    raise ValueError('AOM BOM notes require actual flush-wall evidence for every seat')
+                notes.append(f"The {classes['IntegralAOMSeat']} integral AOM seats have 6 mm side clearance measured from the locating lip outer face, a flush side-wall transition and a 4 mm-deep front relief with R3 corners. The bearing faces and installation height remain unchanged.")
+            else:
+                notes.append(f"The {classes['IntegralAOMSeat']} integral AOM seats have 6 mm side clearance and a 4 mm-deep front relief with R3 corners. The bearing faces and installation height remain unchanged.")
             notes.append(f"The machining audit checks single-axis pitch-down from 0 to 4 degrees: minimum floor gap {floor_gap:.5f} mm and minimum sidewall gap {side_gap:g} mm. Combined-axis travel is not certified.")
     if classes["TA_butterfly_on_adapter"]:
         notes.append("The TA butterfly package mounts to the TA adapter. Its small adapter threads are not baseplate taps.")
@@ -397,12 +405,22 @@ def render_tapping(report, holes, edges, plate, args):
     relief = report.get('aom_machining_relief_audit') or {}
     if relief.get('passed') is True:
         parameters = relief.get('parameters', {})
-        if (relief.get('schema') != 'aom_machining_relief_audit/1'
+        if (relief.get('schema') not in ('aom_machining_relief_audit/1', 'aom_machining_relief_audit/2')
                 or parameters.get('side_clearance_mm') != 6
                 or parameters.get('front_relief_depth_mm') != 4
                 or parameters.get('front_corner_radius_mm') != 3):
             raise ValueError('Tapping-sheet AOM note requires matching machining relief evidence')
-        text_mm(14, 382, 'AOM MACHINING: 6 mm side clearance; front relief 4 mm deep, R3 corners. Bearing faces and installation height unchanged.',
+        if relief.get('schema') == 'aom_machining_relief_audit/2':
+            seats = relief.get('seats', [])
+            if (parameters.get('side_clearance_datum') != 'locating lip outer face'
+                    or parameters.get('side_corner_radius_mm') != 3
+                    or len(seats) != relief.get('seat_count') or not seats
+                    or not all(s.get('side_channel', {}).get('passed') is True for s in seats)):
+                raise ValueError('Flush AOM wall note requires actual lip-face clearance evidence for every seat')
+            note = 'AOM: 6 mm from locating-lip outer face; flush side wall; R3 corners; front relief 4 mm deep. Bearing faces and height unchanged.'
+        else:
+            note = 'AOM MACHINING: 6 mm side clearance; front relief 4 mm deep, R3 corners. Bearing faces and installation height unchanged.'
+        text_mm(14, 382, note,
                 fontsize=8, va='center')
     text_mm(580, 378, f"PLATE  {width:.2f} x {height:.2f} x {thickness:.2f} mm    UNITS mm    COORDINATES = STEP FILE",
             fontsize=8, ha="right", va="center", family="DejaVu Sans Mono")

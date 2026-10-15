@@ -8908,6 +8908,7 @@ BEARING_FACE_Z = -KM_RELIEF_DEPTH
 # 2026-10-14 opt-in machining clearance, approved for the lattice and Splitting
 # boards. The KM100PM bearing face, locating lip and assembly height stay fixed.
 AOM_SIDE_CLEARANCE_MM = 6.0
+AOM_SIDE_RELIEF_RADIUS_MM = 3.0
 AOM_FRONT_RELIEF_DEPTH_MM = 4.0
 AOM_FRONT_RELIEF_XY_MM = (21.4, -35.0, 62.5272, 27.051)
 AOM_FRONT_RELIEF_RADIUS_MM = 3.0
@@ -9028,10 +9029,34 @@ def knob_pocket_wall_x(km, placement):
     return knobs.BoundBox.XMin
 
 
+def _aom_side_relief_bounds(obj):
+    """Extend the lip-side wall through the original knob pocket's full length.
+
+    LIP_X is the lip's outer face, not its centre. The right end of this
+    rectangle overlaps the already open knob pocket so its R3 end corner
+    joins the existing end wall without a projecting transition step.
+    """
+    placement = seat_placement(obj)
+    mounts = [o for o in _descendants(obj.AOMRoot)
+              if isinstance(getattr(o, "Proxy", None), prism_mount_km100pm_bridged)]
+    if len(mounts) != 1:
+        raise ValueError("Expected one retained KM100PM for AOM side relief")
+    km = mounts[0]
+    knobs = _bounding_box(km, 3, 0.125 * layout.inch,
+                         min_offset=(17, 0, KNOB_FLOOR_OFFSET))
+    knobs.Placement = placement.inverse().multiply(km.Placement)
+    bounds = knobs.BoundBox
+    return (LIP_X - AOM_SIDE_CLEARANCE_MM, bounds.YMin,
+            SEAT_X_MAX, bounds.YMax)
+
+
 def _aom_installation_relief(obj, top):
     """Additional cutters in the seat frame; never lower the bearing face.
 
-    The rear capsule opens a 6 mm channel outside the retained 2 x 30 mm lip.
+    The rear wall is 6 mm from the retained 2 x 30 mm lip's outer face. A
+    rounded rectangle extends through the knob pocket's end, replacing the
+    old short capsule and its projecting transition. The lip is excluded
+    explicitly; the cutter starts at the unchanged bearing face.
     The front shallow recess bounds the upper adapter's pitch 0..4 degree XY
     sweep plus a 3 mm circular offset. At 4 degrees its lowest point retains
     1.06559 mm above the recess floor. Simultaneous two-axis travel is not
@@ -9039,13 +9064,14 @@ def _aom_installation_relief(obj, top):
     """
     if not getattr(obj, "MachiningRelief", False):
         return Part.Shape()
-    width = AOM_SIDE_CLEARANCE_MM
-    centre = LIP_X - width / 2
-    side = Part.makeBox(width, 36.0, top + 1 - BEARING_FACE_Z,
-                        App.Vector(LIP_X - width, -18.0, BEARING_FACE_Z))
-    for y in (-18.0, 18.0):
-        side = side.fuse(Part.makeCylinder(width / 2, top + 1 - BEARING_FACE_Z,
-                         App.Vector(centre, y, BEARING_FACE_Z)))
+    x0, y0, x1, y1 = _aom_side_relief_bounds(obj)
+    side = Part.makeBox(x1 - x0, y1 - y0, top + 1 - BEARING_FACE_Z,
+                        App.Vector(x0, y0, BEARING_FACE_Z))
+    vertical = [e for e in side.Edges if abs(e.tangentAt(e.FirstParameter).z) > .999]
+    side = side.makeFillet(AOM_SIDE_RELIEF_RADIUS_MM, vertical)
+    lip = Part.makeBox(LIP_WIDTH, LIP_LENGTH, LIP_HEIGHT - BEARING_FACE_Z,
+                      App.Vector(LIP_X, LIP_Y, BEARING_FACE_Z))
+    side = side.cut(lip)
     x0, y0, x1, y1 = AOM_FRONT_RELIEF_XY_MM
     front = Part.makeBox(x1 - x0, y1 - y0, AOM_FRONT_RELIEF_DEPTH_MM + 1,
                         App.Vector(x0, y0, top - AOM_FRONT_RELIEF_DEPTH_MM))
@@ -9270,9 +9296,15 @@ def _update_notes(seat):
     })
     if getattr(seat, "MachiningRelief", False):
         dimensions = json.loads(seat.DimensionsJSON)
-        dimensions.update({"revision": "V9.2 + 2026-10-14 clearance",
+        dimensions.update({"revision": "V9.2 + 2026-10-14 flush side wall",
             "machining_relief_enabled": True,
             "side_clearance_mm": AOM_SIDE_CLEARANCE_MM,
+            "side_clearance_reference": "locating lip outer face, not centreline",
+            "side_lip_outer_face_seat_x_mm": LIP_X,
+            "side_wall_seat_x_mm": LIP_X - AOM_SIDE_CLEARANCE_MM,
+            "side_relief_xy_seat_mm": list(_aom_side_relief_bounds(seat)),
+            "side_relief_corner_radius_mm": AOM_SIDE_RELIEF_RADIUS_MM,
+            "side_transition_step_removed": True,
             "front_relief_depth_below_plate_top_mm": AOM_FRONT_RELIEF_DEPTH_MM,
             "front_relief_xy_seat_mm": list(AOM_FRONT_RELIEF_XY_MM),
             "front_relief_corner_radius_mm": AOM_FRONT_RELIEF_RADIUS_MM,
@@ -9282,8 +9314,9 @@ def _update_notes(seat):
             "central_thread_stock_at_25_4_plate_mm": 6.984})
         seat.DimensionsJSON = json.dumps(dimensions)
         seat.MachiningNotes += (
-            " 2026-10-14: 6 mm horizontal channel outside the locating lip, "
-            "cut to the existing bearing plane; front recess 4 mm below the "
+            " 2026-10-14: side wall is 6 mm from the locating lip's outer face "
+            "(not its centreline), with the projecting end transition removed "
+            "and R3 end corners; cut to the existing bearing plane. Front recess 4 mm below the "
             "plate top, R3 corners. Bearing face, lip, mounting hole and AOM "
             "height unchanged. Nominal single-axis pitch down 4 deg clears "
             "the front floor by 1.06559 mm; no combined-axis certification.")
