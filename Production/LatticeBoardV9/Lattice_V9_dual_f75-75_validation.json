@@ -24,7 +24,7 @@
         0.0
       ],
       "valid": true,
-      "class": "IntegralAOMBaseplate"
+      "class": "LatticeWallReliefBaseplate"
     },
     {
       "name": "Mount_Hole__17__1_",
@@ -23673,7 +23673,7 @@
     "status": "pass"
   },
   "plate_valid": true,
-  "plate_volume_mm3": 5119025.768791989,
+  "plate_volume_mm3": 5118448.872794348,
   "machining_release": {
     "revision": "side6_flushwall_front4_20261014",
     "scope": "Flush AOM side-wall transition, with six millimetres measured from the locating-lip outer face; original front recess, optics, bearing faces, locating lips and every hole retained.",
@@ -29547,16 +29547,12 @@
     "file": "StepFile/Lattice_V9_7_baseplate_24x15in_f75-75.step",
     "valid": true,
     "solids": 1,
-    "volume_ratio": 1.0,
-    "two_way_difference_mm3": [
-      0.0,
-      0.0
-    ],
-    "sha256": "00f2811a4b4c71a0a79b0f693d513819604fdb98639a73fda02776689f97d6ca",
+    "volume_ratio": 1.0000000000000306,
+    "sha256": "a7dd976d51c7d463ad4324c32845f9b94b4b635f0c08a548f196902c9894c3c0",
     "actual_dimensions_mm": [
-      603.2499999999999,
-      374.65,
-      25.4
+      603.2500000000002,
+      374.65000000000026,
+      25.40000000000001
     ]
   },
   "native_round_trip": {
@@ -29577,9 +29573,9 @@
   },
   "source_provenance": {
     "optomech.py": "8da4992ff737b62bae781813fa9b08fb59ffbc8f42db585dd91dd56132c74014",
-    "Rubidium_system/Lattice_Baseplate_V9.py": "f917438fc47f2bca3cf9e25bf4784de6858ee4f1fae863ffacbbc2d4d5b0cfb3",
+    "Rubidium_system/Lattice_Baseplate_V9.py": "cd29d566e0659e7a311b8b7dbe698be7ec589dec1550fda7defa97a7e56efd0a",
     "tools/aom_machining_relief_audit.py": "ceac48fecd8f7f61f16b9969caeeed74d375e2504fb6357f5347ef55954b145b",
-    "tools/render_ta_documents.py": "5ac07423355ccbb36a021c8c2fceba10557614d336ed5e1bdb5f1b3653dfa08f"
+    "tools/render_ta_documents.py": "a813afbb98013d1e53d0ba9f9596eb4d0cc8d2298e77c594039476f1101b652d"
   },
   "freecad_version": [
     "1",
@@ -29954,5 +29950,27 @@
       "internal_mount_motion_certified": false,
       "manufacturing_tolerances_certified": false
     }
+  },
+  "prior_revision_source_provenance": {
+    "optomech.py": "8da4992ff737b62bae781813fa9b08fb59ffbc8f42db585dd91dd56132c74014",
+    "Rubidium_system/Lattice_Baseplate_V9.py": "f917438fc47f2bca3cf9e25bf4784de6858ee4f1fae863ffacbbc2d4d5b0cfb3",
+    "tools/aom_machining_relief_audit.py": "ceac48fecd8f7f61f16b9969caeeed74d375e2504fb6357f5347ef55954b145b",
+    "tools/render_ta_documents.py": "5ac07423355ccbb36a021c8c2fceba10557614d336ed5e1bdb5f1b3653dfa08f"
+  },
+  "wall_relief_revision": {
+    "date": "2026-10-20",
+    "validation_file": "Lattice_V9_dual_f75-75_wall_relief_validation.json",
+    "baseline_step_sha256": "00f2811a4b4c71a0a79b0f693d513819604fdb98639a73fda02776689f97d6ca",
+    "current_step_sha256": "a7dd976d51c7d463ad4324c32845f9b94b4b635f0c08a548f196902c9894c3c0",
+    "reopened_plate_difference_mm3": [
+      0.0,
+      0.0
+    ],
+    "component_geometry_and_placements_unchanged": true,
+    "holes_unchanged": true,
+    "material_added_mm3": 0,
+    "material_removed_mm3": 576.8959976341968,
+    "evidence_scope": "Existing component/optical audits are inherited from the unchanged assembly. Historical plate-volume and geometry measurements inside those audits describe the prior revision; the linked native wall-relief audit supersedes them for current plate stock, local bearing, hole integrity and interference changes.",
+    "approved_export_sha256": "e98884f2e5dd7e9fa396d7781e1ea6fdc5eab33b8eda12a3b89b008820931bf1"
   }
 }

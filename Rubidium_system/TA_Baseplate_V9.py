@@ -1,5 +1,10 @@
 """TA baseplate V9.15 - 11.625 x 10.625 in, with one fiber output.
 
+2026-10-20 machining-only revision: open the four inspected thin webs and
+locally widen two lower-thumbscrew reliefs. Optical placements and component
+geometry remain V9.15. The cuts stop at the adjacent original pocket floors;
+they are not through-cuts. Native support and hole checks are required.
+
 Beam order, read top to bottom in example_baseplate():
 
     TA -> two steering folds -> HWP -> isolator -> QWP
@@ -25,6 +30,7 @@ axis. See Production/TABoardV9/ for the renders and the audit report.
 Run in FreeCAD (Macro > Macros..., or paste into the Python console):
     example_baseplate()
 """
+import json
 import math
 
 import FreeCAD as App
@@ -101,24 +107,119 @@ STATION_NOTE = ('Bare 8-32 conditioning hole (retained station %d); selected POL
                 'The holder optical datum is 8 mm forward from its mounting tap along the beam.')
 
 
-def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0.):
+# Board-local machining, tied to the delivered V9.15 STEP rather than a later
+# unapproved layout experiment. Depths are measured down from the plate top.
+# A capsule is a constant-radius round-ended slot between its two centres.
+WALL_RELIEF_BASELINE_SHA256 = 'b038c4dbdc5f426143e660fdb2bc9721ba11a621c7c8bbec7858b0fe5fc1db74'
+WALL_RELIEF_CUTS = (
+    {'id': 'W01', 'kind': 'box', 'xy': [129.20003509521, 263.22648828125,
+                                      233.20003509521, 267.7],
+     'depth_mm': 11.60000114440918, 'purpose': 'Open the TA-adapter upper web to the finished upper edge.'},
+    {'id': 'W03', 'kind': 'box', 'xy': [229.026, 113.5, 235.777, 119.1],
+     'depth_mm': 9.27,
+     'purpose': 'Join cell and upstream-HWP pockets at the shallower HWP floor.'},
+    {'id': 'W04', 'kind': 'box', 'xy': [125.326, 154.40048446655, 132.37403509521, 166.5],
+     'depth_mm': 11.60000114440918,
+     'purpose': 'Join isolator and TA-adapter pockets at the shallower TA floor.'},
+    {'id': 'C03_C04', 'kind': 'capsule',
+     'centres_xy': [[255.23776680074, 115.19578991377], [253.90721008622, 113.86523319925]],
+     'radius_mm': 3.0, 'depth_mm': 6.390338176727293,
+     'purpose': 'Locally widen output-fold-3 lower-knob relief across the two inspected tips.'},
+    {'id': 'W02', 'kind': 'box', 'xy': [288.48, 11.7, 293.1, 20.3],
+     'depth_mm': 6.390338176727293,
+     'purpose': 'Open output-fold-4 lower-knob relief to the finished right edge.'},
+    {'id': 'C07_C12', 'kind': 'box', 'xy': [272.85, 2.175, 284.85, 9.175],
+     'depth_mm': 6.390338176727293,
+     'purpose': 'Widen the same lower-knob relief mouth through the finished bottom edge.'},
+)
+
+
+def wall_relief_shapes(top_z=-12.7, specs=WALL_RELIEF_CUTS):
+    """Return labelled, board-local cutters; never alter any component cutter."""
+    result = []
+    for spec in specs:
+        floor = float(top_z)-spec['depth_mm']
+        height = spec['depth_mm']+1.0  # extend into air above the top face
+        if spec['kind'] in ('box', 'rounded_box'):
+            x0, y0, x1, y1 = spec['xy']
+            shape = Part.makeBox(x1-x0, y1-y0, height, App.Vector(x0, y0, floor))
+            if spec['kind'] == 'rounded_box':
+                vertical = [edge for edge in shape.Edges
+                            if abs(edge.tangentAt(edge.FirstParameter).z) > .999]
+                shape = shape.makeFillet(spec['radius_mm'], vertical)
+        elif spec['kind'] == 'capsule':
+            a, b = spec['centres_xy']
+            radius = spec['radius_mm']
+            length = math.dist(a, b)
+            direction = math.degrees(math.atan2(b[1]-a[1], b[0]-a[0]))
+            bridge = Part.makeBox(length, 2*radius, height, App.Vector(0, -radius, floor))
+            bridge.rotate(App.Vector(0, 0, 0), App.Vector(0, 0, 1), direction)
+            bridge.translate(App.Vector(a[0], a[1], 0))
+            ends = [Part.makeCylinder(radius, height, App.Vector(p[0], p[1], floor)) for p in (a, b)]
+            shape = bridge.multiFuse(ends).removeSplitter()
+        else:
+            raise ValueError('Unknown TA relief shape: '+str(spec['kind']))
+        if not shape.isValid() or len(shape.Solids) != 1:
+            raise ValueError('Invalid TA relief cutter: '+spec['id'])
+        result.append((spec['id'], shape))
+    return result
+
+
+class TAWallReliefBaseplate(layout.baseplate):
+    """Original V9.15 drilling followed by this board's registered reliefs."""
+
+    def execute(self, obj):
+        previous = App.ActiveDocument
+        if previous != obj.Document:
+            App.setActiveDocument(obj.Document.Name)
+        try:
+            layout.baseplate.execute(self, obj)
+            if obj.Drill and getattr(obj, 'WallReliefEnabled', False):
+                specs = json.loads(obj.WallReliefParametersJSON)
+                shape = obj.Shape.copy()
+                shape.Placement = obj.Placement.inverse().multiply(shape.Placement)
+                for _, cutter in wall_relief_shapes(-obj.OpticsDz.Value, specs):
+                    shape = shape.cut(cutter)
+                shape = shape.removeSplitter()
+                if not shape.isValid() or len(shape.Solids) != 1:
+                    raise ValueError('TA wall relief must leave one valid plate solid')
+                shape.Placement = obj.Placement.multiply(shape.Placement)
+                obj.Shape = shape
+        finally:
+            if previous is not None and previous != obj.Document:
+                App.setActiveDocument(previous.Name)
+
+    def dumps(self):
+        return {'active_baseplate': self.active_baseplate}
+
+    def loads(self, state):
+        self.active_baseplate = state['active_baseplate']
+
+
+def example_baseplate(x=0, y=0, angle=0, drill=True, cell_slide=0., wall_relief=True):
     """Build the TA board."""
     if App.ActiveDocument is None:
         App.newDocument('TA_Board_V9')
     doc = App.ActiveDocument
 
-    baseplate = layout.baseplate(base_dx, base_dy, base_dz, x=x, y=y, angle=angle, gap=gap,
+    baseplate = TAWallReliefBaseplate(base_dx, base_dy, base_dz, x=x, y=y, angle=angle, gap=gap,
                                  drill=False, mount_holes=mount_holes,
                                  name='TA plate V9.15 supported-mirror single-output')
     plate = doc.getObject(baseplate.active_baseplate)
+    plate.addProperty('App::PropertyBool', 'WallReliefEnabled', 'TA machining').WallReliefEnabled = bool(wall_relief)
+    plate.addProperty('App::PropertyString', 'WallReliefParametersJSON', 'TA machining').WallReliefParametersJSON = json.dumps(WALL_RELIEF_CUTS, sort_keys=True)
     info = {'mode': 'ta', 'plate': plate, 'roots': {}, 'paths': [], 'arms': [],
             'reservations': [], 'extra_cuts': [], 'geometry_assertions': [], 'alternate': False,
             'service_regions': [], 'output_optical_routes': [], 'bonded_output_pbs': [],
             'requirements': {'mirror_roles': [], 'spherical_groups': []},
             'isolator': None, 'cell': None, 'upstream_order_required': True,
-            'layout_status': 'V9.15 single-output with mirror-support audit; see saved audit report.',
+            'layout_status': 'V9.15 optical layout; 2026-10-20 wall-relief machining; native validation required.',
             'optical_reference_model': {'kind': 'single_output_no_aom', 'output_lane': OUTPUT_LANE},
             'mount_holes_mm': [[(hx+.5)*layout.inch, (hy+.5)*layout.inch] for hx, hy in mount_holes]}
+    info['wall_relief_design'] = {'schema': 'ta_wall_relief/1', 'enabled': bool(wall_relief),
+                                'baseline_revision': 'V9.15', 'baseline_step_sha256': WALL_RELIEF_BASELINE_SHA256,
+                                'cuts': list(WALL_RELIEF_CUTS), 'component_positions_changed': False,
+                                'through_cut': False, 'validation_status': 'requires_native_checks'}
     info['table_mount_pattern'] = {'pitch_mm': layout.inch, 'prior_right_lower_edge_offset_mm': layout.inch,
                                   'edge_datum': 'finished machined plate edges',
                                   'offsets_in': TABLE_MOUNT_OFFSETS_IN}

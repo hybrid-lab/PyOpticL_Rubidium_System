@@ -1,6 +1,6 @@
 {
   "plate": "TA_plate_V9_15_supported_mirror_single_output",
-  "corner_fillet_faces": 49,
+  "corner_fillet_faces": 45,
   "features": [
     {
       "x": 12.7,

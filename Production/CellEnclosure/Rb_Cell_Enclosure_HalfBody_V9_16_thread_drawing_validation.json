@@ -1,0 +1,192 @@
+{
+  "schema": "cell_halfbody_thread_drawing/1",
+  "passed": true,
+  "scope": "Text-only annotation update of an existing verified native engineering view; no geometry regeneration or alteration.",
+  "step": {
+    "path": "Production/CellEnclosure/Rb_Cell_Enclosure_HalfBody_V9_16.step",
+    "sha256": "8436c88c6188a60b2cf1e37683d6647cae19f3200ab0693e92192f42de188591"
+  },
+  "native_image": {
+    "path": "tools/drawing_sources/cell_halfbody_v9_16_native_single_view.png",
+    "sha256": "2b0f66cc4b667fdedc2fe2bb3b9258d14775cfcb3b0fa83d07d05177814500b1"
+  },
+  "output": {
+    "path": "Production/CellEnclosure/Rb_Cell_Enclosure_HalfBody_V9_16_3D_TAP_single_view.png",
+    "sha256": "479f3f465864e07fd0e0df0b8f3b3bed34464868ec1d090b913457b68550d8b4"
+  },
+  "renderer": {
+    "path": "tools/render_cell_threads.py",
+    "sha256": "58795c907a79aeec316b22c2b618fe358ad0cb165c43a78063a909a2857024dc"
+  },
+  "source_evidence": {
+    "path": "optomech.py",
+    "sha256": "8da4992ff737b62bae781813fa9b08fb59ffbc8f42db585dd91dd56132c74014",
+    "parameter_definition_line": 8454,
+    "construction_function_ast_sha256": {
+      "_sliding_cell_slot": "30710f8987f3af58196e44c6ae6c97a712f51c63b128984822caaeaaff7bb0cb",
+      "_sliding_cell_block": "b7e88b2e3f83f3b79dee8edfc317a03db75d547015c778576674f4f046eca36f",
+      "_sliding_cell_common_cuts": "63abe7ba2969e1a8835bfba3741de8458a0cafe73920ed6c45a86728eba47924",
+      "_sliding_cell_half": "6b53f50e55ee6638a7bb821fc4ff4e2ada0169930887376460fa6ec44531127d",
+      "sliding_cell_half_shape": "5123d43134ddecd60529a2b585da9a46cf608f745e2d6acbbb0ad6c61322c26d"
+    },
+    "thread_evidence": "SLIDING_CELL.cover_screw explicitly specifies 8-32; _sliding_cell_common_cuts creates the four end taps. No thread designation is inferred solely from bore diameter.",
+    "slot_evidence": "SLIDING_CELL.seat_screw explicitly specifies 8-32; slot_width_mm is documented as 8-32 close clearance. _sliding_cell_slot cuts through each half.",
+    "tap_thread": "8-32 UNC",
+    "tap_count": 4,
+    "tap_mouth_centres_local_mm": [
+      [
+        -44.0,
+        17.0,
+        -17.0
+      ],
+      [
+        -44.0,
+        -14.5,
+        -17.0
+      ],
+      [
+        44.0,
+        17.0,
+        -17.0
+      ],
+      [
+        44.0,
+        -14.5,
+        -17.0
+      ]
+    ],
+    "tap_axes_inward_local": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        -1,
+        0,
+        0
+      ]
+    ],
+    "slot_count": 2,
+    "slot_type": "8-32 clearance / NO TAP",
+    "slot_centreline_ends_local_mm": [
+      [
+        [
+          -39.9,
+          0.5,
+          0
+        ],
+        [
+          -39.9,
+          11.0,
+          0
+        ]
+      ],
+      [
+        [
+          39.9,
+          0.5,
+          0
+        ],
+        [
+          39.9,
+          11.0,
+          0
+        ]
+      ]
+    ],
+    "slot_width_mm": 4.368799999999999,
+    "tap_length_in_drawing": false
+  },
+  "callouts": [
+    {
+      "name": "clearance_slot_near",
+      "text": [
+        "NO TAP",
+        "8-32 CLEARANCE"
+      ],
+      "annotation_region_xyxy_px": [
+        530,
+        350,
+        964,
+        543
+      ]
+    },
+    {
+      "name": "clearance_slot_far",
+      "text": [
+        "NO TAP",
+        "8-32 CLEARANCE"
+      ],
+      "annotation_region_xyxy_px": [
+        1490,
+        330,
+        1930,
+        521
+      ]
+    },
+    {
+      "name": "hidden_end_tap_left",
+      "text": [
+        "8-32 UNC",
+        "TAP"
+      ],
+      "annotation_region_xyxy_px": [
+        1048,
+        490,
+        1385,
+        644
+      ]
+    },
+    {
+      "name": "hidden_end_tap_right",
+      "text": [
+        "8-32 UNC",
+        "TAP"
+      ],
+      "annotation_region_xyxy_px": [
+        2226,
+        1043,
+        2575,
+        1204
+      ]
+    },
+    {
+      "name": "visible_end_tap_left",
+      "text": [
+        "8-32 UNC",
+        "TAP"
+      ],
+      "annotation_region_xyxy_px": [
+        397,
+        1341,
+        745,
+        1494
+      ]
+    },
+    {
+      "name": "visible_end_tap_right",
+      "text": [
+        "8-32 UNC",
+        "TAP"
+      ],
+      "annotation_region_xyxy_px": [
+        768,
+        1439,
+        1114,
+        1595
+      ]
+    }
+  ],
+  "pixel_checks": {
+    "size_px": [
+      2880,
+      2160
+    ],
+    "changed_pixels_outside_annotation_regions": 0,
+    "native_geometry_hole_circles_leaders_and_hidden_dashes_preserved": true,
+    "annotation_regions_were_white_background_and_old_label_only": true
+  },
+  "manufacturing_geometry_changed": false,
+  "tap_length_in_drawing": false
+}

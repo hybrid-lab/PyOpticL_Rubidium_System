@@ -9,7 +9,7 @@
   ],
   "plate_valid": true,
   "plate_solid_count": 1,
-  "plate_volume_mm3": 1612479.8899680397,
+  "plate_volume_mm3": 1611598.1508753719,
   "objects": [
     {
       "name": "TA_plate_V9_15_supported_mirror_single_output",
@@ -32,7 +32,7 @@
         0.0
       ],
       "valid": true,
-      "class": "baseplate"
+      "class": "TAWallReliefBaseplate"
     },
     {
       "name": "Mount_Hole__10__2_",
@@ -33608,20 +33608,21 @@
     "file": "StepFile/TA_Board_V9_baseplate_11p625x10p625in.step",
     "valid": true,
     "solids": 1,
-    "volume_ratio": 1.0000000000000708,
+    "volume_ratio": 1.0000000000000722,
+    "sha256": "bf23ae4a8222b75953b944edbab7a70601940eb3d519dbc90aa0ae8a1d1802df",
     "actual_dimensions_mm": [
       288.9250000000005,
-      263.52500000000043,
+      263.525,
       25.400000000000002
     ]
   },
   "source_provenance": {
     "optomech.py": "5e5c840fd3771b3608afd15ca6a14ed1b983d8ae29384e0858da6d0568c78c85",
     "PyOpticL/layout.py (external runtime)": "189b7b649c99cdbc97c1815ad9ca53b1a52030bc9166c4fbf857d7a1ee7f7771",
-    "Rubidium_system/TA_Baseplate_V9.py": "04fed29f65de5e1edb89c924c5d6d6092f9e04458882432c9aca56e18ddfed79",
+    "Rubidium_system/TA_Baseplate_V9.py": "dd05cd8c399f8779d21333271c0c74bdc282488be07b8e9df0fceb734ef9f890",
     "tools/ta_projection_audit.py": "1d63d887b233686858ebeab87d3e7a2951ada346e51175c7ae9274639aa7b5be",
     "tools/export_ta_board.py": "46fb2624e363111a4b4c34958ec5b30049142151f22789e4d1c4c13cc15674c0",
-    "tools/render_ta_documents.py": "bc74dac124677ec7b10badf2f79d9b4fd6a0d75b4495c2bc5c6e4a42f5912e0b",
+    "tools/render_ta_documents.py": "a813afbb98013d1e53d0ba9f9596eb4d0cc8d2298e77c594039476f1101b652d",
     "tools/test_ta_projection.py": "096400836e08f850d419b7d20809d1804f146dafc77b6561a5b76ecd0b7cdd11",
     "tools/table_envelope_audit.py": "4bc1ea595970d86f8f43c527191bd6ed9f61275a10c4a909f8938cfe2f95e52c",
     "tools/refine_mesh_candidates.py": "77616ecf39d0c22533a668b6a1b62a5014e6ad264b73d97d18ff987657cdfac2",
@@ -33735,5 +33736,38 @@
       "TA_Board_V9_mount_support_regression.json": "8dbd1ba4eb8d065d48c5f2115ae2a064bc8eccc10154a7acaa17ae7cbaaa6265"
     },
     "scope": "Final documents and views derived from the current exported geometry and hole census; native CAD audit evidence unchanged."
+  },
+  "prior_revision_source_provenance": {
+    "optomech.py": "5e5c840fd3771b3608afd15ca6a14ed1b983d8ae29384e0858da6d0568c78c85",
+    "PyOpticL/layout.py (external runtime)": "189b7b649c99cdbc97c1815ad9ca53b1a52030bc9166c4fbf857d7a1ee7f7771",
+    "Rubidium_system/TA_Baseplate_V9.py": "04fed29f65de5e1edb89c924c5d6d6092f9e04458882432c9aca56e18ddfed79",
+    "tools/ta_projection_audit.py": "1d63d887b233686858ebeab87d3e7a2951ada346e51175c7ae9274639aa7b5be",
+    "tools/export_ta_board.py": "46fb2624e363111a4b4c34958ec5b30049142151f22789e4d1c4c13cc15674c0",
+    "tools/render_ta_documents.py": "bc74dac124677ec7b10badf2f79d9b4fd6a0d75b4495c2bc5c6e4a42f5912e0b",
+    "tools/test_ta_projection.py": "096400836e08f850d419b7d20809d1804f146dafc77b6561a5b76ecd0b7cdd11",
+    "tools/table_envelope_audit.py": "4bc1ea595970d86f8f43c527191bd6ed9f61275a10c4a909f8938cfe2f95e52c",
+    "tools/refine_mesh_candidates.py": "77616ecf39d0c22533a668b6a1b62a5014e6ad264b73d97d18ff987657cdfac2",
+    "tools/bonded_cube_audit.py": "75760ac8699ef9bd2f41ef291c67a1bdd595f737f755cc2b67b2b9f75030b11d",
+    "tools/single_output_audit.py": "2b5e7fe8bcd1f6817721c9c996889f935eb8051c56394529cacbf634e04791ef",
+    "tools/conditioning_station_audit.py": "d9c7de3ecaaf8caaf0cdb13ec7445e19e5509b65c87a005da47f07bcd3335c5d",
+    "tools/ta_upstream_order_audit.py": "6d9b1d65df14910b836dd3dbacdd47848b4c1cb355fec9102516bc0f8f042a0f",
+    "tools/ta_mount_support_audit.py": "bf5897f6195501a422f7704e8e06a9f6a3e46d11be4072c52930a217477786a6",
+    "tools/table_mount_audit.py": "09f7ba20fe3ba44fb46c1cf812b59034c8d44522acb520c2de2aeca0dd0cd7cd"
+  },
+  "wall_relief_revision": {
+    "date": "2026-10-20",
+    "validation_file": "TA_Board_V9_wall_relief_validation.json",
+    "baseline_step_sha256": "b038c4dbdc5f426143e660fdb2bc9721ba11a621c7c8bbec7858b0fe5fc1db74",
+    "current_step_sha256": "bf23ae4a8222b75953b944edbab7a70601940eb3d519dbc90aa0ae8a1d1802df",
+    "reopened_plate_difference_mm3": [
+      0.0,
+      0.0
+    ],
+    "component_geometry_and_placements_unchanged": true,
+    "holes_unchanged": true,
+    "material_added_mm3": 0,
+    "material_removed_mm3": 881.7390928261925,
+    "evidence_scope": "Existing component/optical audits are inherited from the unchanged assembly. Historical plate-volume and geometry measurements inside those audits describe the prior revision; the linked native wall-relief audit supersedes them for current plate stock, local bearing, hole integrity and interference changes.",
+    "approved_export_sha256": "6a7b50627f9a3d59f997ca61e22e4ba1ff63ff37af62a657e0ae2327b6d7a0ff"
   }
 }

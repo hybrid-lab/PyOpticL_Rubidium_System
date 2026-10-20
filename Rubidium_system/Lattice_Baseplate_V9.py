@@ -2,6 +2,12 @@
 split sliding Rb cell enclosure (plain block, two end screws, closed stem pocket).
 Cell enclosure V9.16 (2026-10-13); the plate is still V9.7.
 
+2026-10-20 local machining revision, dual-TA / cat_eye='75-75' only:
+join W01--W03 neighbouring pockets at their shallower common floor; extend
+the DP2 QWP pocket through W04 and DP1 QWP pocket through C04/C05 at the
+plate edges. Both QWP slots extend 5.1 mm outward along their long axes.
+No optic, mounting bore, bearing floor or other lattice variant is changed.
+
 2026-10-14 AOM machining update: both integral seats add a 6 mm horizontal
 channel outside the locating lip and a 4 mm shallow front recess with R3
 corners. Original bearing faces, mounting holes, AOM heights and optical
@@ -224,6 +230,7 @@ Run in FreeCAD (Macro > Macros..., or paste into the Python console):
     example_baseplate(mode='dual', cell_slide=10.5)   enclosure slid to the end of its travel
 """
 import math
+import json
 
 import FreeCAD as App
 import Part
@@ -410,6 +417,170 @@ def _rot90(d, ccw=True):
 
 def _dist(p, q):
     return math.hypot(q[0]-p[0], q[1]-p[1])
+
+
+WALL_RELIEF_REVISION = '2026-10-20 dual f75-75 selected pocket walls'
+WALL_RELIEF_BASELINE_STEP_SHA256 = '00f2811a4b4c71a0a79b0f693d513819604fdb98639a73fda02776689f97d6ca'
+WALL_RELIEF_BRIDGES = (
+    ('W01', (243.0, 265.5, 247.174, 283.5), -14.051000213623048),
+    ('W02', (217.476, 250.5, 224.171, 263.7), -17.33),
+    ('W03', (428.223, 108.5, 435.071, 156.5), -21.97),
+)
+WALL_RELIEF_QWP_EXTENSION = 5.1
+
+
+def _wall_relief_qwp_adapters(plate):
+    adapters = []
+    for label in ('DP1 cat eye QWP', 'DP2 cat eye QWP'):
+        roots = [o for o in plate.Document.Objects
+                 if o.Label == label and getattr(o, 'Baseplate', None) == plate]
+        if len(roots) != 1:
+            raise ValueError('Expected one original lattice ' + label)
+        matches = [o for o in optomech.descendants(roots[0])
+                   if type(getattr(o, 'Proxy', None)).__name__ == 'surface_adapter_rotation_stage_lip']
+        if len(matches) != 1:
+            raise ValueError('Expected one original lip adapter for ' + label)
+        adapters.append(matches[0])
+    return adapters
+
+
+def wall_relief_cutters(plate, qwp_adapters=None):
+    """Return five selected cutters in the plate frame without editing CAD.
+
+    W01/W02 stop at the shallower PBS/shutter floor, not the deeper RSP05
+    floor. Rectangles reach the R3.174 tangent points to remove tapered wall
+    ends. QWP cuts retain width 23, actual R3.174 and local floor -8 mm;
+    only the outward end moves. This query also accepts the unchanged native
+    assembly for independent baseline subtraction and support validation.
+    """
+    for actual, expected in ((plate.dx.Value, base_dx), (plate.dy.Value, base_dy),
+                             (plate.dz.Value, base_dz), (plate.OpticsDz.Value, 12.7),
+                             (plate.Gap.Value, gap), (plate.yOffset.Value, PLATE_Y_OFFSET)):
+        if abs(actual - expected) > 1.e-7:
+            raise ValueError('Selected wall relief requires the original lattice stock')
+    top = -plate.OpticsDz.Value + 1.
+    cuts = {name: Part.makeBox(x1-x0, y1-y0, top-floor, App.Vector(x0, y0, floor))
+            for name, (x0, y0, x1, y1), floor in WALL_RELIEF_BRIDGES}
+    adapters = list(qwp_adapters or _wall_relief_qwp_adapters(plate))
+    if len(adapters) != 2 or adapters[0] == adapters[1]:
+        raise ValueError('Two distinct original cat-eye QWP adapters are required')
+    inverse = plate.Placement.inverse()
+    expected_centres = ((234.10316068863327, 341.13970039551907),
+                        (299.1031606886333, 15.13232106628295))
+    expected_axis = App.Vector(-math.cos(DIFF_ANGLE_RAD), -math.sin(DIFF_ANGLE_RAD), 0.)
+    for index, adapter in enumerate(adapters):
+        if adapter.Baseplate != plate or type(adapter.Proxy).__name__ != 'surface_adapter_rotation_stage_lip':
+            raise ValueError('Wall relief requires this plate\'s original QWP lip adapters')
+        placement = inverse.multiply(adapter.Placement)
+        if ((placement.Base-App.Vector(*expected_centres[index], -13.97)).Length > 2.e-5
+                or (placement.Rotation.multVec(App.Vector(1, 0, 0))-expected_axis).Length > 1.e-8
+                or (placement.Rotation.multVec(App.Vector(0, 0, 1))-App.Vector(0, 0, 1)).Length > 1.e-8):
+            raise ValueError('QWP pose differs from the inspected lattice arrangement')
+        mesh = adapter.Mesh.copy()
+        mesh.Placement = App.Placement()
+        bounds = mesh.BoundBox
+        for actual, expected in ((bounds.XMin, -10.5), (bounds.XMax, 10.5),
+                                 (bounds.YMin, -23.), (bounds.YMax, 23.), (bounds.ZMin, -8.)):
+            if abs(actual-expected) > 2.e-5:
+                raise ValueError('QWP adapter footprint/floor differs from the original STL')
+        y0, y1 = (-24.-WALL_RELIEF_QWP_EXTENSION, 24.) if index == 0 else (-24., 24.+WALL_RELIEF_QWP_EXTENSION)
+        # _custom_box subtracts 0.001 from its fillet argument: 3.175 keeps
+        # the existing actual R3.174 pocket, rather than making R3.173.
+        cut = optomech._custom_box(dx=23., dy=y1-y0, dz=top-placement.Base.z+8.,
+                                  x=-11.5, y=y0, z=-8., dir=(1, 1, 1),
+                                  fillet=3.175, fillet_dir=(0, 0, 1))
+        cut.Placement = placement
+        cuts['C04_C05' if index == 0 else 'W04'] = cut
+    if any(not cut.isValid() or len(cut.Solids) != 1 for cut in cuts.values()):
+        raise ValueError('Invalid selected lattice wall-relief cutter')
+    return cuts
+
+
+class LatticeSelectedWallRelief:
+    """Persistent, invisible Lattice-only machining; not an installed part."""
+
+    def __init__(self, obj, plate, adapters):
+        obj.Proxy = self
+        obj.addProperty('App::PropertyLinkHidden', 'Baseplate').Baseplate = plate
+        obj.addProperty('App::PropertyLinkList', 'QWPAdapters', 'Machining').QWPAdapters = adapters
+        obj.addProperty('App::PropertyBool', 'Drill', 'Machining').Drill = True
+        obj.addProperty('Part::PropertyPartShape', 'DrillPart')
+        obj.addProperty('App::PropertyString', 'SpecificationJSON', 'Machining')
+        obj.SpecificationJSON = json.dumps({
+            'revision': WALL_RELIEF_REVISION, 'mode': 'dual', 'cat_eye': '75-75',
+            'baseline_step_sha256': WALL_RELIEF_BASELINE_STEP_SHA256,
+            'bridges': [{'region': name, 'xy_mm': list(xy), 'floor_z_mm': floor}
+                        for name, xy, floor in WALL_RELIEF_BRIDGES],
+            'qwp_outward_extension_mm': WALL_RELIEF_QWP_EXTENSION,
+            'qwp_width_mm': 23., 'qwp_actual_corner_radius_mm': 3.174,
+            'qwp_floor_z_mm': -21.97, 'through_plate': False,
+            'unchanged': ['optical placements', 'mounting bores', 'bearing floors',
+                          'all other C regions', 'other lattice configurations'],
+        }, sort_keys=True)
+        self._hide(obj)
+
+    @staticmethod
+    def _hide(obj):
+        if getattr(App, 'GuiUp', False) and obj.ViewObject is not None:
+            obj.ViewObject.Visibility = False
+
+    def execute(self, obj):
+        if obj.Drill:
+            cuts = list(wall_relief_cutters(obj.Baseplate, obj.QWPAdapters).values())
+            cutter = cuts[0].multiFuse(cuts[1:]).removeSplitter()
+            if not cutter.isValid():
+                raise ValueError('Invalid combined lattice selected-wall cutter')
+            cutter.Placement = obj.Baseplate.Placement.multiply(cutter.Placement)
+            obj.DrillPart = cutter
+        else:
+            obj.DrillPart = Part.Shape()
+        obj.Shape = Part.Shape()
+        self._hide(obj)
+
+    def onDocumentRestored(self, obj):
+        self._hide(obj)
+
+    def onChanged(self, obj, prop):
+        if prop in ('Drill', 'QWPAdapters'):
+            plate = getattr(obj, 'Baseplate', None)
+            if plate is not None:
+                plate.touch()
+
+    def dumps(self):
+        return None
+
+    def loads(self, state):
+        return None
+
+
+class LatticeWallReliefBaseplate(optomech._make_IntegralAOMBaseplate()):
+    """Refresh local cutters before drilling, including after reopening."""
+
+    def execute(self, obj):
+        for feature in obj.Document.Objects:
+            if (type(getattr(feature, 'Proxy', None)).__name__ == 'LatticeSelectedWallRelief'
+                    and feature.Baseplate == obj):
+                feature.Proxy.execute(feature)
+                feature.purgeTouched()
+        super().execute(obj)
+
+
+def add_selected_wall_relief(plate):
+    """Register local machining after all original optics have been placed."""
+    existing = [o for o in plate.Document.Objects
+                if isinstance(getattr(o, 'Proxy', None), LatticeSelectedWallRelief)
+                and o.Baseplate == plate]
+    if existing:
+        if len(existing) != 1:
+            raise ValueError('Duplicate lattice selected-wall machining features')
+        if not isinstance(plate.Proxy, LatticeWallReliefBaseplate):
+            plate.Proxy = LatticeWallReliefBaseplate(plate.Name)
+        return existing[0]
+    adapters = _wall_relief_qwp_adapters(plate)
+    obj = plate.Document.addObject('Part::FeaturePython', 'Lattice_selected_wall_relief')
+    LatticeSelectedWallRelief(obj, plate, adapters)
+    plate.Proxy = LatticeWallReliefBaseplate(plate.Name)
+    return obj
 
 
 def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300', cell_slide=0.):
@@ -635,7 +806,10 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
     dp1_aom = put('DP1 AOMO 3100-125', optomech.AOMO_3100_125, dp1_aom_x, DP1_Y, 0,
                   forward_direction=-1, backward_direction=1, diffraction_angle=aom_axis_deg,
                   surface_adapter_args={'adapter_height': 5})
-    dp1_seat = optomech.integrate_aom(baseplate, dp1_aom, machining_relief=True)
+    # Side-relief notes read SeatRelativePlacement and the evaluated KM mesh.
+    # Construct the seat first; enable the unchanged relief before drilling.
+    dp1_seat = optomech.integrate_aom(baseplate, dp1_aom, machining_relief=False)
+    dp1_seat.MachiningRelief = True
     info['extra_cuts'].append(dp1_seat)
     # Folded f = 300 cat-eye on the +1-order axis d1 (2*theta_B toward +y, the
     # side away from the RF connector): +x-ish to F1 at the right edge, up the
@@ -673,7 +847,8 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
     dp2_aom = put('DP2 AOMO 3100-125', optomech.AOMO_3100_125, dp2_aom_x, DP2_Y, 0,
                   forward_direction=-1, backward_direction=1, diffraction_angle=aom_axis_deg,
                   surface_adapter_args={'adapter_height': 5})
-    dp2_seat = optomech.integrate_aom(baseplate, dp2_aom, machining_relief=True)
+    dp2_seat = optomech.integrate_aom(baseplate, dp2_aom, machining_relief=False)
+    dp2_seat.MachiningRelief = True
     info['extra_cuts'].append(dp2_seat)
     # Folded f = 300 cat-eye: +x-ish to F3, DOWN the vertical leg (iris, then F4
     # near the bottom edge), then back along the return leg (sloping 1.08 deg
@@ -1134,9 +1309,20 @@ def example_baseplate(x=0, y=0, angle=0, mode='single', drill=True, cat_eye='300
     # ---- cut the plate once every element and machining volume is in place ----
     doc.recompute()
     layout.redraw()
+    for seat in (dp1_seat, dp2_seat):
+        optomech._update_notes(seat)
     for obj in hidden:
         for child in optomech.descendants(obj):
             child.ViewObject.hide()
+    # Register after the original meshes/linked poses have been evaluated, and
+    # compute its cutter before enabling plate drilling. Other variants skip it.
+    if mode == 'dual' and cat_eye == '75-75':
+        relief = add_selected_wall_relief(plate)
+        info['extra_cuts'].append(relief)
+        info['selected_wall_relief'] = json.loads(relief.SpecificationJSON)
+        info['selected_wall_relief']['object'] = relief.Name
+        info['layout_status'] += ' Selected W01-W04 / C04-C05 pocket relief (2026-10-20); optics and holes unchanged.'
+        doc.recompute()
     plate.Drill = drill
     plate.touch()
     doc.recompute()

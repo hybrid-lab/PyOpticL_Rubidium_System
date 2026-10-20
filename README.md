@@ -173,6 +173,23 @@ bearing faces, locating lips, mounting holes and installation heights remain
 unchanged, as do the optical layouts and board outlines. TA and the standalone
 double-pass AOM board are outside this machining revision.
 
+The **2026-10-20 local wall revision** opens the inspected W01–W04 regions
+on the dual-TA / 75–75 lattice baseplate and extends its two edge QWP pockets
+outward by 5.1 mm (including C04/C05). On TA V9.15 it opens W01–W04 and
+enlarges the two selected knob recesses at C03/C04 and C07/C12. Cuts stop at
+the original adjacent pocket floors. The board outlines, optical layouts,
+adapters, mounting bores and original bearing material are retained. Other
+lattice configurations and Splitting geometry are unchanged. Native solid,
+hole, local support and saved-assembly checks are recorded in the respective
+`*_wall_relief_validation.json` files. Other previously identified corners
+remain unchanged; this is not a blanket manufacturing approval.
+
+The shopping-list tapping drawings now identify screw sizes explicitly:
+red-ringed baseplate holes are **8-32 UNC TAP**, and blue-ringed platform
+holes are **1/4-20 CLEARANCE — NO TAP**. The single-half cell enclosure drawing
+identifies four **8-32 UNC TAP** end holes and two **8-32 CLEARANCE** slots,
+including the hidden far-end holes. These callouts omit tapping depth.
+
 | Board | Script | Size | Production folder |
 |---|---|---|---|
 | Lattice board | `Rubidium_system/Lattice_Baseplate_V9.py` | 24 × 15 in | `Production/LatticeBoardV9/` |

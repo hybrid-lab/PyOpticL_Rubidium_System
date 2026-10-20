@@ -70,7 +70,9 @@ ELEMENTS = {
 }
 # Already counted as an assembly, or machining/nominal-axis geometry, not a part.
 NON_BOM_CLASSES = {
-    "baseplate", "IntegralAOMBaseplate", "IntegralAOMSeat", "BareTappedHole",
+    "baseplate", "IntegralAOMBaseplate", "TAWallReliefBaseplate",
+    "LatticeWallReliefBaseplate", "LatticeSelectedWallRelief",
+    "IntegralAOMSeat", "BareTappedHole",
     "CellPocketMachining", "SlidingCellSeat", "mirror_mount_KA05T", "mirror_mount_km05T",
     "RSP05CubeAdhesive",  # modelled bond layer, not a separately purchased part
     "beam_path", "beam_path_manual",
@@ -88,7 +90,8 @@ def finite(value):
 def validate_inputs(report, holes, edges):
     """Reject stale/mismatched geometry and holes that cannot be classified."""
     plates = [o for o in report["objects"]
-              if o.get("class") in {"baseplate", "IntegralAOMBaseplate"}]
+              if o.get("class") in {"baseplate", "IntegralAOMBaseplate",
+                                    "TAWallReliefBaseplate", "LatticeWallReliefBaseplate"}]
     if len(plates) != 1:
         raise ValueError(f"Expected one baseplate in validation report, got {len(plates)}")
     plate = plates[0]
@@ -398,7 +401,7 @@ def render_tapping(report, holes, edges, plate, args):
                                 fill=False, lw=1.1, ec=ink))
     fig.patches.append(Rectangle((frame/pw, 371/ph), (pw-2*frame)/pw, 41/ph,
                                 transform=fig.transFigure, fill=False, lw=.9, ec=ink))
-    text_mm(14, 400, args.title.upper() + " - WHICH HOLES ARE TAPPED",
+    text_mm(14, 400, args.title.upper() + " - SCREW AND THREAD TYPES",
             fontsize=14, weight="bold", va="center")
     text_mm(14, 388, f"Geometry: {args.step_name}\nThis sheet identifies threaded and clearance holes. Drill sizes, tolerances, material and finish: shop standard.",
             fontsize=8, va="center", linespacing=1.5)
@@ -459,7 +462,7 @@ def render_tapping(report, holes, edges, plate, args):
             # Labels outside a shared upper row keep leaders from crossing.
             row_midpoint = sum(other['x'] for other in row)/len(row)
             sx = -1 if x<row_midpoint else 1
-        annotation = ax.annotate(f"DO NOT TAP\nX {x:.2f}  Y {y:.2f}", xy=(x,y),
+        annotation = ax.annotate(f"{thread_name(hole)} CLEARANCE\nNO TAP", xy=(x,y),
                     xytext=(x+sx*.12*width, y+sy*.09*height), color=blue,
                     fontsize=8.5, weight="bold", ha="left" if sx>0 else "right",
                     va="bottom" if sy>0 else "top", zorder=10,
@@ -497,11 +500,11 @@ def render_tapping(report, holes, edges, plate, args):
     tap_text = ", ".join(f"{n} x {name} UNC" for name,n in sorted(tap_sizes.items()))
     plain_text = ", ".join(f"{n} x {name} clearance" for name,n in sorted(plain_sizes.items()))
     footer.add_patch(Circle((10,24),3.3,fill=False,ec=red,lw=1.3))
-    footer.text(20,24,"TAP - "+tap_text,fontsize=12,weight="bold",color=red,va="center")
+    footer.text(20,24,"ALL RED CIRCLES: "+tap_text+" TAP",fontsize=11,weight="bold",color=red,va="center")
     footer.add_patch(Circle((10,10),3.3,fill=False,ec=blue,lw=1.8))
     footer.plot([7.7,12.3],[7.7,12.3],color=blue,lw=1.5)
     footer.plot([7.7,12.3],[12.3,7.7],color=blue,lw=1.5)
-    footer.text(20,10,"DO NOT TAP - "+plain_text,fontsize=12,weight="bold",color=blue,va="center")
+    footer.text(20,10,"ALL BLUE CIRCLES: "+plain_text+" - NO TAP",fontsize=10,weight="bold",color=blue,va="center")
     footer.plot([355,355],[3,32],color=ink,lw=.8)
     footer.text(366,25,f"{len(holes['features'])} holes. Every hole is marked.",fontsize=9,va="center")
     footer.text(366,14,"Pocket corner radii are end-mill fillets, not holes.",fontsize=8.2,va="center")

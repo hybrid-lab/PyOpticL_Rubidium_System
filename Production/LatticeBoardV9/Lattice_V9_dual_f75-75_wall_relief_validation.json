@@ -1,0 +1,7442 @@
+{
+  "schema": "baseplate_wall_relief/1",
+  "board": "Lattice",
+  "valid": true,
+  "solid_count": 1,
+  "baseline_step_sha256": "00f2811a4b4c71a0a79b0f693d513819604fdb98639a73fda02776689f97d6ca",
+  "baseline_regeneration_difference_mm3": [
+    0.0,
+    0.0
+  ],
+  "material_added_mm3": 0.0,
+  "material_removed_mm3": 576.8959976341968,
+  "removal_outside_requested_cutters_mm3": 0.0,
+  "component_geometry_and_placements_unchanged": true,
+  "component_count": 214,
+  "prior_inventory_count": 214,
+  "holes_unchanged": true,
+  "hole_count": 104,
+  "registered_cuts": [
+    {
+      "id": "W01",
+      "bounds_mm": [
+        243.0,
+        265.5,
+        -14.051000213623048,
+        247.174,
+        283.5,
+        -11.7
+      ],
+      "removed_mm3": 5.914565808066982,
+      "remaining_material_in_cutter_mm3": 0.0
+    },
+    {
+      "id": "W02",
+      "bounds_mm": [
+        217.476,
+        250.5,
+        -17.33,
+        224.171,
+        263.7,
+        -11.7
+      ],
+      "removed_mm3": 41.22698430269973,
+      "remaining_material_in_cutter_mm3": 0.0
+    },
+    {
+      "id": "W03",
+      "bounds_mm": [
+        428.223,
+        108.5,
+        -21.97,
+        435.071,
+        156.5,
+        -11.7
+      ],
+      "removed_mm3": 302.64540753608276,
+      "remaining_material_in_cutter_mm3": 0.0
+    },
+    {
+      "id": "C04_C05",
+      "bounds_mm": [
+        222.11393937011937,
+        316.9858412915757,
+        -21.97,
+        245.99585205740146,
+        370.39264588515965,
+        -11.699999999999998
+      ],
+      "removed_mm3": 45.93697007182031,
+      "remaining_material_in_cutter_mm3": 0.0
+    },
+    {
+      "id": "W04",
+      "bounds_mm": [
+        287.2104693198651,
+        -14.120624423357633,
+        -21.97,
+        311.0923820071472,
+        39.28618017022637,
+        -11.699999999999998
+      ],
+      "removed_mm3": 181.17206991722435,
+      "remaining_material_in_cutter_mm3": 0.0
+    }
+  ],
+  "physical_inventory": [
+    {
+      "name": "Mount_Hole__17__1_",
+      "label": "Mount Hole (17, 1)",
+      "type": "Part::FeaturePython",
+      "class": "baseplate_mount",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        447.675,
+        0.0,
+        1.0,
+        0.0,
+        50.8,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "88a6b1df84405d1fb5a6761468e562649826a21e940287e12c695e45548f8024",
+      "drill_sha256": "f623ae0a70a0b7204ed8da27eda6f762b4867c9e98407d3949f66aae428a98d9"
+    },
+    {
+      "name": "Mount_Hole__17__11_",
+      "label": "Mount Hole (17, 11)",
+      "type": "Part::FeaturePython",
+      "class": "baseplate_mount",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        447.675,
+        0.0,
+        1.0,
+        0.0,
+        304.8,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "7c7a92659344687227e4ad23d6bad1d78666bed3684673c69cdad76789ab3138",
+      "drill_sha256": "c4904d24502e94e73c03c685964ff5649846a2a2f87232a646c53411cb2de7e6"
+    },
+    {
+      "name": "Mount_Hole__1__1_",
+      "label": "Mount Hole (1, 1)",
+      "type": "Part::FeaturePython",
+      "class": "baseplate_mount",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        41.275,
+        0.0,
+        1.0,
+        0.0,
+        50.8,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "347b3b421adc1cc9c0fcea3492d6e89a513a577a364844cd47297054bb14bee5",
+      "drill_sha256": "1455735336a6b1959043bd978242a361c3806d0254d39bc4ac5d7eb67f81f4ce"
+    },
+    {
+      "name": "Mount_Hole__1__11_",
+      "label": "Mount Hole (1, 11)",
+      "type": "Part::FeaturePython",
+      "class": "baseplate_mount",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        41.275,
+        0.0,
+        1.0,
+        0.0,
+        304.8,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "788ee2fab3db37b3677ba4926a6515d24863ef24e32fcc37a78b03efcde5f385",
+      "drill_sha256": "ca4c21149b6eada86da5ffe39593ae90d3d62f73ac8dbc0dd189dd9c5503dba9"
+    },
+    {
+      "name": "TA",
+      "label": "TA",
+      "type": "Mesh::FeaturePython",
+      "class": "TA_butterfly_on_adapter",
+      "placement": [
+        0.0,
+        -1.0,
+        0.0,
+        60.0,
+        1.0,
+        0.0,
+        0.0,
+        145.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "6bab7fbc84fc512952782a047e9a420da30d0b6e1cec8fcf1b7cad8b695b5eaf"
+    },
+    {
+      "name": "TA_adapter",
+      "label": "TA adapter",
+      "type": "Mesh::FeaturePython",
+      "class": "TA_adapter",
+      "placement": [
+        0.0,
+        -1.0,
+        0.0,
+        60.0,
+        1.0,
+        0.0,
+        0.0,
+        145.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "e7c96f5b6ca24af9473172126224222dbdd88be753d2c3474d7a8f7e10cef682",
+      "drill_sha256": "0635ec4a74a941bd8c88d3b462d508b91ef64f52158c010b5d178b038e889512"
+    },
+    {
+      "name": "TA_steering_fold_1",
+      "label": "TA steering fold 1",
+      "type": "Part::FeaturePython",
+      "class": "circular_mirror_union_optic",
+      "placement": [
+        0.70710678,
+        0.70710678,
+        0.0,
+        60.0,
+        -0.70710678,
+        0.70710678,
+        0.0,
+        338.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "24d99d2aae11f997f00b91d15771be7979a47050831a13388eebf7c9168ecff8"
+    },
+    {
+      "name": "Mount",
+      "label": "Mount",
+      "type": "Mesh::FeaturePython",
+      "class": "mirror_mount_M05",
+      "placement": [
+        0.70710678,
+        0.70710678,
+        0.0,
+        55.75735931,
+        -0.70710678,
+        0.70710678,
+        0.0,
+        342.24264069,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "bdea3c1cb030cc90134b17f3f4cf2d998aaed6a63d9e909e228aeb303532fc4b",
+      "drill_sha256": "0711c163db128f5d5df617405347ce5529bb56e31dae71bd0755aa89657a5cd2"
+    },
+    {
+      "name": "Upper_Thumbscrew",
+      "label": "Upper Thumbscrew",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        0.70710678,
+        0.70710678,
+        0.0,
+        53.2428876,
+        -0.70710678,
+        0.70710678,
+        0.0,
+        357.68868122,
+        0.0,
+        0.0,
+        1.0,
+        9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "68a1d96ef78841ff49a288515b87b545e8ca7c1b18a0962d414e14d2ea3b87db",
+      "drill_sha256": "2564f390780d37f9047b2890693f5faa7fd6eff0142523e21ec05ee028c0fd97"
+    },
+    {
+      "name": "Lower_Thumbscrew",
+      "label": "Lower Thumbscrew",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        0.70710678,
+        0.70710678,
+        0.0,
+        39.95210854,
+        -0.70710678,
+        0.70710678,
+        0.0,
+        345.11632265,
+        0.0,
+        0.0,
+        1.0,
+        -9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "052dcef8f0079abea1e8d25b98b32a29c6bc2425b93707b6bf02b147cf02c15e",
+      "drill_sha256": "ee6ea0895e69d03a4dc5e7b768b4f28f3493433b4b15b15b3c2d7d0582df8ed9"
+    },
+    {
+      "name": "TA_steering_fold_2",
+      "label": "TA steering fold 2",
+      "type": "Part::FeaturePython",
+      "class": "circular_mirror_union_optic",
+      "placement": [
+        -0.70710678,
+        0.70710678,
+        0.0,
+        130.0,
+        -0.70710678,
+        -0.70710678,
+        0.0,
+        338.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "61984cd1ae806c4d5d5066a58d8bc3ce5d3e7dba9e54432a428e97ad64e48b70"
+    },
+    {
+      "name": "Mount001",
+      "label": "Mount001",
+      "type": "Mesh::FeaturePython",
+      "class": "mirror_mount_M05",
+      "placement": [
+        -0.70710678,
+        0.70710678,
+        0.0,
+        134.24264069,
+        -0.70710678,
+        -0.70710678,
+        0.0,
+        342.24264069,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "09de7362b6a445fabeee440c65238dae205a1f55130d08860fbb2c2278f65743",
+      "drill_sha256": "d98d681c43d04e6cee60d64610322d362de83760304481b8013edde795161090"
+    },
+    {
+      "name": "Upper_Thumbscrew001",
+      "label": "Upper Thumbscrew001",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        -0.70710678,
+        0.70710678,
+        0.0,
+        149.68868122,
+        -0.70710678,
+        -0.70710678,
+        0.0,
+        344.7571124,
+        0.0,
+        0.0,
+        1.0,
+        9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "1667b9034e9b29e96f6b47c97498cf7142c6302f588b40e31bd8a60b1024fdc6",
+      "drill_sha256": "b37c1074a420f7ff806e1ebdd41e1d4a3490eeeeb9666838bf927e2d711a6efd"
+    },
+    {
+      "name": "Lower_Thumbscrew001",
+      "label": "Lower Thumbscrew001",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        -0.70710678,
+        0.70710678,
+        0.0,
+        137.11632265,
+        -0.70710678,
+        -0.70710678,
+        0.0,
+        358.04789146,
+        0.0,
+        0.0,
+        1.0,
+        -9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "c582a7a324a3b414a5efd5db93c9fe66a2b9b6a994282f18253f2c0bcf867071",
+      "drill_sha256": "adf9dc44f2c7c42c26737aee1e754ff31dec8536964292751e1eabb37983234f"
+    },
+    {
+      "name": "TA_output_HWP",
+      "label": "TA output HWP",
+      "type": "Part::FeaturePython",
+      "class": "waveplate",
+      "placement": [
+        0.0,
+        -1.0,
+        0.0,
+        130.0,
+        1.0,
+        0.0,
+        0.0,
+        315.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "3b1f21d1bd0029ba3238d4c29c351e343e6ca2e863abb4e15b41f661d20a3601"
+    },
+    {
+      "name": "Mount002",
+      "label": "Mount002",
+      "type": "Mesh::FeaturePython",
+      "class": "rotation_stage_rsp05",
+      "placement": [
+        0.0,
+        -1.0,
+        0.0,
+        130.0,
+        1.0,
+        0.0,
+        0.0,
+        314.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "3cb724f6d37991d0945b48a316b10ae6e477da9e77f57d88fd05331bc8ef5bcc"
+    },
+    {
+      "name": "Surface_Adapter",
+      "label": "Surface Adapter",
+      "type": "Mesh::FeaturePython",
+      "class": "surface_adapter_rotation_stage_lip",
+      "placement": [
+        0.0,
+        -1.0,
+        0.0,
+        130.0,
+        1.0,
+        0.0,
+        0.0,
+        315.897,
+        0.0,
+        0.0,
+        1.0,
+        -13.97,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "1a17ba3e717f6e6f340b97d85c36866f0761de4d8f826d7c9cf550aefaee0d2e",
+      "drill_sha256": "aadb9559957c22c0e6cac55371f6626dc9c6093b1537fa3bcce3ebef9b3d6bba"
+    },
+    {
+      "name": "Hana_long_isolator",
+      "label": "Hana long isolator",
+      "type": "Mesh::FeaturePython",
+      "class": "isolator_850_long_pocket",
+      "placement": [
+        0.0,
+        -1.0,
+        0.0,
+        130.0,
+        1.0,
+        0.0,
+        0.0,
+        245.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "c92c57bd22fdfd223d36db02c14c9076a04b84ca390ac80e282a48bea2675d41",
+      "drill_sha256": "5d4d9c924f06f0719d803913ab6d74502bcfeeb17e4a91db0a6ca757a91c3251"
+    },
+    {
+      "name": "Surface_Adapter001",
+      "label": "Surface Adapter001",
+      "type": "Mesh::FeaturePython",
+      "class": "surface_adapter_isolator_lip",
+      "placement": [
+        0.0,
+        -1.0,
+        0.0,
+        130.0,
+        1.0,
+        0.0,
+        0.0,
+        245.0,
+        0.0,
+        0.0,
+        1.0,
+        -22.1,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "5fb42cc5d91e718336c228ea374e534bb3f34fd1e033a6ab10c4ebb04b0dc380",
+      "drill_sha256": "e62e40b82bf92b7d70876cf7d3673b76244cf5765d09647851eba9a3fe1c92c0"
+    },
+    {
+      "name": "TA_output_QWP",
+      "label": "TA output QWP",
+      "type": "Part::FeaturePython",
+      "class": "waveplate",
+      "placement": [
+        0.0,
+        -1.0,
+        0.0,
+        130.0,
+        1.0,
+        0.0,
+        0.0,
+        181.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "c26f15d88681a07fa1136ad94685a5a8334e9ee631e2b06b1d2f81bb66be7027"
+    },
+    {
+      "name": "Mount003",
+      "label": "Mount003",
+      "type": "Mesh::FeaturePython",
+      "class": "rotation_stage_rsp05",
+      "placement": [
+        0.0,
+        -1.0,
+        0.0,
+        130.0,
+        1.0,
+        0.0,
+        0.0,
+        180.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "fafcefe0dd3f96380dedf1de674b6eb3a8ee9e468d4bce69085a5dadedf8de36"
+    },
+    {
+      "name": "Surface_Adapter002",
+      "label": "Surface Adapter002",
+      "type": "Mesh::FeaturePython",
+      "class": "surface_adapter_rotation_stage_lip",
+      "placement": [
+        0.0,
+        -1.0,
+        0.0,
+        130.0,
+        1.0,
+        0.0,
+        0.0,
+        181.897,
+        0.0,
+        0.0,
+        1.0,
+        -13.97,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "0859b59792a3bbb0ea0b9ce6fc71a6710ec71038533bd574cc3422deebe1d3c2",
+      "drill_sha256": "cf6c4be7d11b67879b892a4439c02500b2e5d0dc9e1e05144d306acbb1d0db3d"
+    },
+    {
+      "name": "Common_station_8_32_1",
+      "label": "Common station 8-32 1",
+      "type": "Part::FeaturePython",
+      "class": "BareTappedHole",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        130.0,
+        0.0,
+        1.0,
+        0.0,
+        160.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "drill_sha256": "f86bcc1d4adc79e0f735435bbb24851925e2c440a69e513706ec46eb45d49681"
+    },
+    {
+      "name": "Common_station_8_32_2",
+      "label": "Common station 8-32 2",
+      "type": "Part::FeaturePython",
+      "class": "BareTappedHole",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        130.0,
+        0.0,
+        1.0,
+        0.0,
+        115.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "drill_sha256": "a7aecc93cdc4e79eb55e66a69d273a402a5f4b9ecb1dc9cd1ac7b5cfe906c596"
+    },
+    {
+      "name": "Common_station_8_32_3",
+      "label": "Common station 8-32 3",
+      "type": "Part::FeaturePython",
+      "class": "BareTappedHole",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        130.0,
+        0.0,
+        1.0,
+        0.0,
+        70.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "drill_sha256": "9dda2149ed55c9d3c0c2b17531ac50b02d70137db3dd3ce125c8fedd99156f66"
+    },
+    {
+      "name": "Common_station_8_32_4",
+      "label": "Common station 8-32 4",
+      "type": "Part::FeaturePython",
+      "class": "BareTappedHole",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        152.0,
+        0.0,
+        1.0,
+        0.0,
+        42.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "drill_sha256": "2b7aade6683fd0e370897da85ff3ad425f80d71c08f01ae50a431928eefaf1a2"
+    },
+    {
+      "name": "Common_station_8_32_5",
+      "label": "Common station 8-32 5",
+      "type": "Part::FeaturePython",
+      "class": "BareTappedHole",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        196.0,
+        0.0,
+        1.0,
+        0.0,
+        58.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "drill_sha256": "ca07e85ec6b2da06f71b7fb818755154b008a9b337b5e8f412dd2e93c0fe3122"
+    },
+    {
+      "name": "Common_station_8_32_6",
+      "label": "Common station 8-32 6",
+      "type": "Part::FeaturePython",
+      "class": "BareTappedHole",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        196.0,
+        0.0,
+        1.0,
+        0.0,
+        98.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "drill_sha256": "2ed0c01765f363df9c0b9efd6f3076087df7683cab591ee19367e5d606b739d9"
+    },
+    {
+      "name": "Common_post_isolator_fold_1",
+      "label": "Common post-isolator fold 1",
+      "type": "Part::FeaturePython",
+      "class": "circular_mirror_union_optic",
+      "placement": [
+        0.70710678,
+        -0.70710678,
+        0.0,
+        130.0,
+        0.70710678,
+        0.70710678,
+        0.0,
+        42.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "888a6b991adc1b9ad41b2f6709ceec9542f3e74c9b60b24f79ab90f8c6e3b859"
+    },
+    {
+      "name": "Mount004",
+      "label": "Mount004",
+      "type": "Mesh::FeaturePython",
+      "class": "mirror_mount_M05",
+      "placement": [
+        0.70710678,
+        -0.70710678,
+        0.0,
+        125.75735931,
+        0.70710678,
+        0.70710678,
+        0.0,
+        37.75735931,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "c8dbbba05aa994a59bb71502bda1caf2d1b73620724461e52fa821959e1b143a",
+      "drill_sha256": "150b5e05f5c317853162db71df9f722b81d001d107357d93f28d66e072b55f09"
+    },
+    {
+      "name": "Upper_Thumbscrew002",
+      "label": "Upper Thumbscrew002",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        0.70710678,
+        -0.70710678,
+        0.0,
+        110.31131878,
+        0.70710678,
+        0.70710678,
+        0.0,
+        35.2428876,
+        0.0,
+        0.0,
+        1.0,
+        9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "17076418cd1565401c777c12f9981eca485e61a0e4688cd9cb777c4e8c9a3783",
+      "drill_sha256": "3de1ecef8dd6a66cd108bc27ea1d15326ff08ef47ff1dfebca5ca301ccfe6521"
+    },
+    {
+      "name": "Lower_Thumbscrew002",
+      "label": "Lower Thumbscrew002",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        0.70710678,
+        -0.70710678,
+        0.0,
+        122.88367735,
+        0.70710678,
+        0.70710678,
+        0.0,
+        21.95210854,
+        0.0,
+        0.0,
+        1.0,
+        -9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "4e680ef9208db775e5f9f90c87078e970ec0bccea4088cb2b0456a918272bb12",
+      "drill_sha256": "e2c1fd02972c3758c5e7e30e7c9eeb936abe8c557a149aa3e58f5944a183a2ac"
+    },
+    {
+      "name": "Common_post_isolator_fold_2",
+      "label": "Common post-isolator fold 2",
+      "type": "Part::FeaturePython",
+      "class": "circular_mirror_union_optic",
+      "placement": [
+        -0.70710678,
+        -0.70710678,
+        0.0,
+        196.0,
+        0.70710678,
+        -0.70710678,
+        0.0,
+        42.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "eec00ec7a84b05b3ca8f10a3b77dd1845420c7e06c850b445c1071be0c6525c8"
+    },
+    {
+      "name": "Mount005",
+      "label": "Mount005",
+      "type": "Mesh::FeaturePython",
+      "class": "mirror_mount_M05",
+      "placement": [
+        -0.70710678,
+        -0.70710678,
+        0.0,
+        200.24264069,
+        0.70710678,
+        -0.70710678,
+        0.0,
+        37.75735931,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "3d677f31188635bdaa95c3175e4435497e01db41cc0a6ef43d18a44b926ab3c1",
+      "drill_sha256": "652cb78ab735eef92dfc7df91eba2a96a9b69f61d8c222dfa1bf64561b8b23cf"
+    },
+    {
+      "name": "Upper_Thumbscrew003",
+      "label": "Upper Thumbscrew003",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        -0.70710678,
+        -0.70710678,
+        0.0,
+        202.7571124,
+        0.70710678,
+        -0.70710678,
+        0.0,
+        22.31131878,
+        0.0,
+        0.0,
+        1.0,
+        9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "aa8cf70a9ca1466622bf0b5d88e839efa4879a5cb674be627ea05ac5d4e01a46",
+      "drill_sha256": "808b829e6d155f1a671a59d6e997ee353ba4b4205d90ef529cd55ab357b44862"
+    },
+    {
+      "name": "Lower_Thumbscrew003",
+      "label": "Lower Thumbscrew003",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        -0.70710678,
+        -0.70710678,
+        0.0,
+        216.04789146,
+        0.70710678,
+        -0.70710678,
+        0.0,
+        34.88367735,
+        0.0,
+        0.0,
+        1.0,
+        -9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "d1b40fab430bb2445e67ed99e47de6fbf5c74f9f98a8259faa4508b8672d6263",
+      "drill_sha256": "a0306bdc7dfb4bdd8e6378e01c30be84739dff4f9eb0e3d745ec7dfe197f95fd"
+    },
+    {
+      "name": "Common_post_isolator_fold_3",
+      "label": "Common post-isolator fold 3",
+      "type": "Part::FeaturePython",
+      "class": "circular_mirror_union_optic",
+      "placement": [
+        0.70710678,
+        0.70710678,
+        0.0,
+        196.0,
+        -0.70710678,
+        0.70710678,
+        0.0,
+        274.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "5d30ba35add9eca3a49383a8b2ad4fcd826e2af8a103d2f1cbbad943888141fe"
+    },
+    {
+      "name": "Mount006",
+      "label": "Mount006",
+      "type": "Mesh::FeaturePython",
+      "class": "mirror_mount_M05",
+      "placement": [
+        0.70710678,
+        0.70710678,
+        0.0,
+        191.75735931,
+        -0.70710678,
+        0.70710678,
+        0.0,
+        278.74264069,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "27fc52868bfe58a8ff0112632457515a3e623d6fda4acb66d507542c710de518",
+      "drill_sha256": "4f5057075f89018e9dd575437d0cd137b0160af41237ab3294883ad4a7230011"
+    },
+    {
+      "name": "Upper_Thumbscrew004",
+      "label": "Upper Thumbscrew004",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        0.70710678,
+        0.70710678,
+        0.0,
+        189.2428876,
+        -0.70710678,
+        0.70710678,
+        0.0,
+        294.18868122,
+        0.0,
+        0.0,
+        1.0,
+        9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "c27219f3251c5b65d7b2f1acc8e4f6b09d2b50cc8ffd0b06e69e1bc104b130ce",
+      "drill_sha256": "631b45530ab2e902be415d1f760bef503fb07a0b992894dac7845be521f56e9a"
+    },
+    {
+      "name": "Lower_Thumbscrew004",
+      "label": "Lower Thumbscrew004",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        0.70710678,
+        0.70710678,
+        0.0,
+        175.95210854,
+        -0.70710678,
+        0.70710678,
+        0.0,
+        281.61632265,
+        0.0,
+        0.0,
+        1.0,
+        -9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "15bdafabf673efd13cfc1870e94fab1729424f991269f96ea51c9b9c1560d185",
+      "drill_sha256": "7b7d917066e8ce2221f308fccd483ae85271f69229682b66c3bf568398d7fd5d"
+    },
+    {
+      "name": "Rb_cell_seat___11_3_mm_pocket___2_slot_taps_8_32__V9_7_split_sliding_enclosure_",
+      "label": "Rb cell seat - 11.3 mm pocket + 2 slot taps 8-32 (V9.7 split sliding enclosure)",
+      "type": "Part::FeaturePython",
+      "class": "SlidingCellSeat",
+      "placement": [
+        0.0,
+        -1.0,
+        0.0,
+        196.0,
+        1.0,
+        0.0,
+        0.0,
+        163.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "drill_sha256": "f2e7beb73408ae6e330bf545ce3da4443b6e4b896c135045b8eeaa69da6ee2e8"
+    },
+    {
+      "name": "Rb_cell_enclosure__sliding_lower_half__slide_0_0_mm_",
+      "label": "Rb cell enclosure (sliding lower half, slide 0.0 mm)",
+      "type": "Part::FeaturePython",
+      "class": "SlidingCellEnclosure",
+      "placement": [
+        0.0,
+        -1.0,
+        0.0,
+        196.0,
+        1.0,
+        0.0,
+        0.0,
+        163.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "60bc63c344e02ff4464db177d3b369917a797d9e1b86200a1166b6631899f14c"
+    },
+    {
+      "name": "Rb_cell_enclosure_lid__upper_half_",
+      "label": "Rb cell enclosure lid (upper half)",
+      "type": "Part::FeaturePython",
+      "class": "SlidingCellLid",
+      "placement": [
+        0.0,
+        -1.0,
+        0.0,
+        196.0,
+        1.0,
+        0.0,
+        0.0,
+        163.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "beff6b3c0992bafa6c4bc3a97ef69792f526c64aee1fe99d3d768f8cb8280794"
+    },
+    {
+      "name": "Rb_cell_enclosure_cover__x",
+      "label": "Rb cell enclosure cover +x",
+      "type": "Part::FeaturePython",
+      "class": "SlidingCellCover",
+      "placement": [
+        0.0,
+        -1.0,
+        0.0,
+        196.0,
+        1.0,
+        0.0,
+        0.0,
+        207.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "4652079ce2fac0bc49f4aedf22056c1958f3d821f91c716cbf07a82121f0f2a0"
+    },
+    {
+      "name": "Rb_cell_enclosure_cover__x001",
+      "label": "Rb cell enclosure cover -x",
+      "type": "Part::FeaturePython",
+      "class": "SlidingCellCover",
+      "placement": [
+        0.0,
+        -1.0,
+        0.0,
+        196.0,
+        -1.0,
+        0.0,
+        0.0,
+        119.5,
+        0.0,
+        0.0,
+        -1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "1929d67605134b1ed3528dd95799f70463bdfe1890dc09d5b0731c37f1e74b93"
+    },
+    {
+      "name": "Rb_vapour_cell_GC25075_RB__envelope_",
+      "label": "Rb vapour cell GC25075-RB (envelope)",
+      "type": "Part::FeaturePython",
+      "class": "SlidingCellGlass",
+      "placement": [
+        0.0,
+        -1.0,
+        0.0,
+        196.0,
+        1.0,
+        0.0,
+        0.0,
+        163.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "db44a1698144873b3e8c24ac8a6be1c6d4e6b6324d2d8e9671df64441c2d309a"
+    },
+    {
+      "name": "SRS_SR475_shutter",
+      "label": "SRS SR475 shutter",
+      "type": "Mesh::FeaturePython",
+      "class": "shutter_sr475",
+      "placement": [
+        0.0,
+        -1.0,
+        0.0,
+        196.0,
+        1.0,
+        0.0,
+        0.0,
+        238.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "9c9aee9fdbdfa97313d9429deff3000c05e47c7c9e34ee83ae57bfe26a125759"
+    },
+    {
+      "name": "Adapter",
+      "label": "Adapter",
+      "type": "Mesh::FeaturePython",
+      "class": "shutter_adapter",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        189.65,
+        0.0,
+        -1.0,
+        0.0,
+        240.7,
+        0.0,
+        0.0,
+        1.0,
+        -4.83,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "af1fb1c983660a048faff7a4f2b720d1f80fcaedf1e54b98aecd934634b74961",
+      "drill_sha256": "55db829f115e083bf0328a7b02b6160ed0ef777eb750bb146b8b98292cbfb04d"
+    },
+    {
+      "name": "Main_power_division_HWP",
+      "label": "Main power division HWP",
+      "type": "Part::FeaturePython",
+      "class": "waveplate",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        231.6,
+        0.0,
+        1.0,
+        0.0,
+        274.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "d3dc562c6aa141806b21f105d509efb4dfa98f93751e05042d9a22aec2f0265f"
+    },
+    {
+      "name": "Mount007",
+      "label": "Mount007",
+      "type": "Mesh::FeaturePython",
+      "class": "rotation_stage_rsp05",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        231.1,
+        0.0,
+        1.0,
+        0.0,
+        274.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "25165bd27b594897536043beed649d7f9284f2ffca3dbfa01fd977026212e141"
+    },
+    {
+      "name": "Surface_Adapter003",
+      "label": "Surface Adapter003",
+      "type": "Mesh::FeaturePython",
+      "class": "surface_adapter_rotation_stage_lip",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        232.497,
+        0.0,
+        1.0,
+        0.0,
+        274.5,
+        0.0,
+        0.0,
+        1.0,
+        -13.97,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "3d74f25295fb73a29f499d9d52baf66444d5287ad802f922d43a55f38e56e75c",
+      "drill_sha256": "0f74f2d501df63f4bf193f64642bda2f13df1ca821ee8019ae449e7df2ba2ce6"
+    },
+    {
+      "name": "Main_power_PBS",
+      "label": "Main power PBS",
+      "type": "Part::FeaturePython",
+      "class": "cube_splitter",
+      "placement": [
+        0.0,
+        -1.0,
+        0.0,
+        263.0,
+        1.0,
+        0.0,
+        0.0,
+        274.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "71312ead112fb89fc03fc3a792f4a6629ecce62ab1c0581a16e136b1bfc0b8ac"
+    },
+    {
+      "name": "Mount008",
+      "label": "Mount008",
+      "type": "Mesh::FeaturePython",
+      "class": "cube_mount_halfinch",
+      "placement": [
+        0.0,
+        -1.0,
+        0.0,
+        263.0,
+        1.0,
+        0.0,
+        0.0,
+        274.5,
+        0.0,
+        0.0,
+        1.0,
+        -6.35,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "98ca702ce1b584d691117f87cb5b216ccb4f8cc7dfd633e3b184b7d71c179e66",
+      "drill_sha256": "c0b1e1aaf9a0ea97c594a4530887a9e93add552dad453c5806af44b719dee26e"
+    },
+    {
+      "name": "DP1_input_steering_fold",
+      "label": "DP1 input steering fold",
+      "type": "Part::FeaturePython",
+      "class": "circular_mirror_union_optic",
+      "placement": [
+        -0.70710678,
+        -0.70710678,
+        0.0,
+        293.0,
+        0.70710678,
+        -0.70710678,
+        0.0,
+        274.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "cb9cbad444ed7279cb2c2969a6005558d7d99331a9d919ec2a8289870c5aee43"
+    },
+    {
+      "name": "Mount009",
+      "label": "Mount009",
+      "type": "Mesh::FeaturePython",
+      "class": "mirror_mount_M05",
+      "placement": [
+        -0.70710678,
+        -0.70710678,
+        0.0,
+        297.24264069,
+        0.70710678,
+        -0.70710678,
+        0.0,
+        270.25735931,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "0d62df728b9635bba5d63503230e9f841fe95847bc5199cc559f5a3a9f918fa3",
+      "drill_sha256": "ae4b114fd9abde6820a7fb86919249eaac73575aa910bc61a833766fad555746"
+    },
+    {
+      "name": "Upper_Thumbscrew005",
+      "label": "Upper Thumbscrew005",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        -0.70710678,
+        -0.70710678,
+        0.0,
+        299.7571124,
+        0.70710678,
+        -0.70710678,
+        0.0,
+        254.81131878,
+        0.0,
+        0.0,
+        1.0,
+        9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "6acde6390d7cb0a51c7874e3218f95371ba4db0a0646f36ab28cb45536ec0233",
+      "drill_sha256": "ee2f1de89b7758dd1ca0a146e7a178d9ae97b97c452bcc98cc5c3180196053bf"
+    },
+    {
+      "name": "Lower_Thumbscrew005",
+      "label": "Lower Thumbscrew005",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        -0.70710678,
+        -0.70710678,
+        0.0,
+        313.04789146,
+        0.70710678,
+        -0.70710678,
+        0.0,
+        267.38367735,
+        0.0,
+        0.0,
+        1.0,
+        -9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "e68116055c11d438a00483fe722519471e49f35e32be6264f2b60959380cb2ab",
+      "drill_sha256": "809af4fbed3aa6592a13a21de3e6c4c8b9a1e1492f7523308af0c2e72890303b"
+    },
+    {
+      "name": "DP1_input_steering_mirror",
+      "label": "DP1 input steering mirror",
+      "type": "Part::FeaturePython",
+      "class": "circular_mirror_union_optic",
+      "placement": [
+        0.70710678,
+        0.70710678,
+        0.0,
+        293.0,
+        -0.70710678,
+        0.70710678,
+        0.0,
+        303.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "fdd6ceca41e74aedcb205acc8129db89bfb49453522497cab33d28a0afabcb58"
+    },
+    {
+      "name": "Mount010",
+      "label": "Mount010",
+      "type": "Mesh::FeaturePython",
+      "class": "mirror_mount_M05",
+      "placement": [
+        0.70710678,
+        0.70710678,
+        0.0,
+        288.75735931,
+        -0.70710678,
+        0.70710678,
+        0.0,
+        307.24264069,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "c3a6bab9dfb1259c9f8beb707ad161a7f553005d2ec734d3117cf3c8fe2da0cb",
+      "drill_sha256": "13ac002dd9e2186ba06954ab4c0226fe1c8a80cb66266c3e578fc68e7f62905d"
+    },
+    {
+      "name": "Upper_Thumbscrew006",
+      "label": "Upper Thumbscrew006",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        0.70710678,
+        0.70710678,
+        0.0,
+        286.2428876,
+        -0.70710678,
+        0.70710678,
+        0.0,
+        322.68868122,
+        0.0,
+        0.0,
+        1.0,
+        9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "d85fc8404df788d62a0ffc7b2402cd354363066c3cfe8ef35bc229d37c8740cb",
+      "drill_sha256": "94505c67f7a0bf899d9b1850764abbd2afd7b941e1223a0026870626365ad56f"
+    },
+    {
+      "name": "Lower_Thumbscrew006",
+      "label": "Lower Thumbscrew006",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        0.70710678,
+        0.70710678,
+        0.0,
+        272.95210854,
+        -0.70710678,
+        0.70710678,
+        0.0,
+        310.11632265,
+        0.0,
+        0.0,
+        1.0,
+        -9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "28444994b282006e9c92fc8e02705e712962e9699b18aa81afb355e2629e5a52",
+      "drill_sha256": "773c2bfdf3b7751210aec59fe70ef04cfe41d2c7f801adfad311a4401e6bb853"
+    },
+    {
+      "name": "DP1_input_HWP",
+      "label": "DP1 input HWP",
+      "type": "Part::FeaturePython",
+      "class": "waveplate",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        313.0,
+        0.0,
+        1.0,
+        0.0,
+        303.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "7dbc0c6124a1b9b6c349fcd7bd2f775a3189aa9561b81f9f2ebb3105bd577116"
+    },
+    {
+      "name": "Mount011",
+      "label": "Mount011",
+      "type": "Mesh::FeaturePython",
+      "class": "rotation_stage_rsp05",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        312.5,
+        0.0,
+        1.0,
+        0.0,
+        303.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "66130edc839f6543a802c4eeb338b3114b8c54dad4d9017eb0c7885a10ef5310"
+    },
+    {
+      "name": "Surface_Adapter004",
+      "label": "Surface Adapter004",
+      "type": "Mesh::FeaturePython",
+      "class": "surface_adapter_rotation_stage_lip",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        313.897,
+        0.0,
+        1.0,
+        0.0,
+        303.0,
+        0.0,
+        0.0,
+        1.0,
+        -13.97,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "c38ad2199748dba6dc1cc8f952635463384f2b55606e20cc560d765d64fa481e",
+      "drill_sha256": "2e4c748d05b7a2957c31a426a1694ae1cfff295c211b6e170673739abf53e714"
+    },
+    {
+      "name": "DP1_separation_PBS",
+      "label": "DP1 separation PBS",
+      "type": "Part::FeaturePython",
+      "class": "cube_splitter",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        333.0,
+        0.0,
+        1.0,
+        0.0,
+        303.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "d8b754ce05d4e544f31de0edd111250ecc0cbb8648cbf034dc79d9507cad85ca"
+    },
+    {
+      "name": "Mount012",
+      "label": "Mount012",
+      "type": "Mesh::FeaturePython",
+      "class": "cube_mount_halfinch",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        333.0,
+        0.0,
+        1.0,
+        0.0,
+        303.0,
+        0.0,
+        0.0,
+        1.0,
+        -6.35,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "4f04c13d6109a5373434fcb3b8b0fa8848fdfa6713417493909d8855a279d974",
+      "drill_sha256": "bb25c0420c4e9faf6509de97ace91787c657f6615a356670430780e79dbed583"
+    },
+    {
+      "name": "DP1_AOMO_3100_125",
+      "label": "DP1 AOMO 3100-125",
+      "type": "Mesh::FeaturePython",
+      "class": "AOMO_3100_125",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        412.0,
+        0.0,
+        1.0,
+        0.0,
+        303.03,
+        0.0,
+        0.0,
+        1.0,
+        0.115,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "81089554c6a3ac4926c2edfcc19fb839de81b3b8298d870ad9c6cdd6b646b0a7",
+      "drill_sha256": "9d1a33bb718aa139d02acf44ae4527bc35464ec98ccf63eb9d71bca3e2e74628"
+    },
+    {
+      "name": "Mount_KM100PM",
+      "label": "Mount KM100PM",
+      "type": "Mesh::FeaturePython",
+      "class": "prism_mount_km100pm_bridged",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        381.7,
+        0.0,
+        1.0,
+        0.0,
+        286.63,
+        0.0,
+        0.0,
+        1.0,
+        -24.385,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "b2c4cc71627c17265dc1701a547ed7650e25e2cc72bb6ef4baa5e62f6434bbb9",
+      "drill_sha256": "0728d15db073d87f8c53fddc0380eeca2e32eb0973c86369c790f15eb41b706a"
+    },
+    {
+      "name": "AOM_Adapter",
+      "label": "AOM Adapter",
+      "type": "Mesh::FeaturePython",
+      "class": "aom_adapter",
+      "placement": [
+        0.0,
+        1.0,
+        0.0,
+        395.0,
+        -1.0,
+        0.0,
+        0.0,
+        295.38,
+        0.0,
+        0.0,
+        1.0,
+        -16.985,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "cec46bd30d9abd4efeac92a6c2f974bb9a2252004ac4b0cf5884cc621be887f6",
+      "drill_sha256": "bee59015d5de15d6a2519ea8538bb12ae86ac8f8fba027b706c67f7f754d461d"
+    },
+    {
+      "name": "DP1_AOMO_3100_125_integral_seat",
+      "label": "DP1 AOMO 3100-125 - baseplate machining / integral seat",
+      "type": "Part::FeaturePython",
+      "class": "IntegralAOMSeat",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "drill_sha256": "a2608b6c33fdca625d5c6e1d729f1f72fd857fef8718fcfb31d1b950eed6e735"
+    },
+    {
+      "name": "DP1_cat_eye_fold_1",
+      "label": "DP1 cat-eye fold 1 - NOT INSTALLED (f75-75 test)",
+      "type": "Part::FeaturePython",
+      "class": "circular_mirror_union_optic",
+      "placement": [
+        -0.72036383,
+        -0.69359639,
+        0.0,
+        591.0,
+        0.69359639,
+        -0.72036383,
+        0.0,
+        306.388619,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "93fab624f853e660ebd8d5225f977661080fef2bd9889e95f3edb13dfe0f7053"
+    },
+    {
+      "name": "Mount013",
+      "label": "Mount013",
+      "type": "Mesh::FeaturePython",
+      "class": "mirror_mount_M05",
+      "placement": [
+        -0.72036383,
+        -0.69359639,
+        0.0,
+        595.32218299,
+        0.69359639,
+        -0.72036383,
+        0.0,
+        302.22704067,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "ffbdfa3b5ff39c0e12c6aca99a62a49916ebc579bedcd72f45c6bde20aa6ac9d",
+      "drill_sha256": "6e51c9e5315b64f5074eeba12cab52a30a8ec6dcede0820298ca34648a4e33ca"
+    },
+    {
+      "name": "Upper_Thumbscrew007",
+      "label": "Upper Thumbscrew007",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        -0.72036383,
+        -0.69359639,
+        0.0,
+        598.12855829,
+        0.69359639,
+        -0.72036383,
+        0.0,
+        286.83135966,
+        0.0,
+        0.0,
+        1.0,
+        9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "dd0ae534a53ed4764bcfc0273a6e0ae5f65a1beb350890317e30e6e9bf8cde4e",
+      "drill_sha256": "eac5b0bdd02a589bdee6c7aa24c7b401be934edc516a5f3f0e0e4f5a911ce87d"
+    },
+    {
+      "name": "Lower_Thumbscrew007",
+      "label": "Lower Thumbscrew007",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        -0.72036383,
+        -0.69359639,
+        0.0,
+        611.17899386,
+        0.69359639,
+        -0.72036383,
+        0.0,
+        299.65302646,
+        0.0,
+        0.0,
+        1.0,
+        -9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "ed4632b2d97d45b3e82a268947404e78f4d90194f3ec6902e170fd99d5b8d8d0",
+      "drill_sha256": "94681c92e6611ea56e4afe08bfb994f9f16e4c34e6bad0dd3824463b8e34d88c"
+    },
+    {
+      "name": "DP1_order_selection_iris",
+      "label": "DP1 order selection iris",
+      "type": "Mesh::FeaturePython",
+      "class": "pinhole_ida12",
+      "placement": [
+        0.01892744,
+        0.99982086,
+        0.0,
+        590.47003165,
+        -0.99982086,
+        0.01892744,
+        0.0,
+        334.38360308,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "21e1275a32e33d30f07998262e1ba75e1aa25d36141db2a86fd16fc8215f1c99",
+      "drill_sha256": "2982d0265ff13b643e0f7c7ad5d72f633179321380ccac7cc118f765d9d761df"
+    },
+    {
+      "name": "Slide_Mount",
+      "label": "Slide Mount",
+      "type": "Part::FeaturePython",
+      "class": "slide_mount",
+      "placement": [
+        0.01892744,
+        0.99982086,
+        0.0,
+        577.67935209,
+        -0.99982086,
+        0.01892744,
+        0.0,
+        332.18511441,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "7ee757c5723fbb9b1f41689bab086111dd2d6ff6c78aea41a24c53e4049132f7",
+      "drill_sha256": "449ac9b0d360aaa81bade73460494c7f11e74cb7eac0569f05206f552ac8339a"
+    },
+    {
+      "name": "DP1_cat_eye_fold_2",
+      "label": "DP1 cat-eye fold 2",
+      "type": "Part::FeaturePython",
+      "class": "circular_mirror_union_optic",
+      "placement": [
+        -0.69359639,
+        0.72036383,
+        0.0,
+        590.21451119,
+        -0.72036383,
+        -0.69359639,
+        0.0,
+        347.88118469,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "f926e103ea7ee23eb8f83f52f4c301f488a80b84cf8c488045a6d68acfde64cf"
+    },
+    {
+      "name": "Mount014",
+      "label": "Mount014",
+      "type": "Mesh::FeaturePython",
+      "class": "mirror_mount_M05",
+      "placement": [
+        -0.69359639,
+        0.72036383,
+        0.0,
+        594.37608952,
+        -0.72036383,
+        -0.69359639,
+        0.0,
+        352.20336768,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "80b63456a254700ef2bd859dc883f8fdb3c13124a76bbae4ef9c4368df1b3994",
+      "drill_sha256": "0282d3ab2935cad3d81b337cb2ecbf6ef67228ca3734d00dfd87f6f25f1a7573"
+    },
+    {
+      "name": "Upper_Thumbscrew008",
+      "label": "Upper Thumbscrew008",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        -0.69359639,
+        0.72036383,
+        0.0,
+        609.77177053,
+        -0.72036383,
+        -0.69359639,
+        0.0,
+        355.00974297,
+        0.0,
+        0.0,
+        1.0,
+        9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "21a6b031da3f3722ed9a18b558452dbbfdafaad2a4fcc22f0cffa2de64ac538e",
+      "drill_sha256": "acdf37bcb9e07c46dbc5024622c5d15eacde6720058dc4a08124197642708f1e"
+    },
+    {
+      "name": "Lower_Thumbscrew008",
+      "label": "Lower Thumbscrew008",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        -0.69359639,
+        0.72036383,
+        0.0,
+        596.95010374,
+        -0.72036383,
+        -0.69359639,
+        0.0,
+        368.06017854,
+        0.0,
+        0.0,
+        1.0,
+        -9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "027c1338cd34662038e95986ff515c0c1993287901dff9da5172163d11c24ee6",
+      "drill_sha256": "d798d790252c8bddc24e3b50277f2be53b01c74abd42244b25cbb56486ebecfd"
+    },
+    {
+      "name": "DP1_L300_LA1618_B",
+      "label": "DP1 L300 LA1618-B",
+      "type": "Part::FeaturePython",
+      "class": "circular_lens",
+      "placement": [
+        0.99982086,
+        -0.01892744,
+        0.0,
+        507.3420766,
+        0.01892744,
+        0.99982086,
+        0.0,
+        346.31234052,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "b12c560295cf4b2bf2b17a8a2e6b823b3f6a72e1d60d4456395cdc3b534bed5b"
+    },
+    {
+      "name": "Mount015",
+      "label": "Mount015",
+      "type": "Mesh::FeaturePython",
+      "class": "lens_holder_l05g_no_pin_slots",
+      "placement": [
+        0.99982086,
+        -0.01892744,
+        0.0,
+        506.34225574,
+        0.01892744,
+        0.99982086,
+        0.0,
+        346.29341308,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "b4a1ae8067e8823da34fe8c08e0d38f99f05ec43b6e5ad3a75dce9dfd42fb0c4",
+      "drill_sha256": "99f47a7aa3479fc4d12e1e521343c8d7966de3d2d1b178fc14dac96bc456821a"
+    },
+    {
+      "name": "DP1_cat_eye_QWP",
+      "label": "DP1 cat eye QWP",
+      "type": "Part::FeaturePython",
+      "class": "waveplate",
+      "placement": [
+        -0.99982086,
+        0.01892744,
+        0.0,
+        235.0,
+        -0.01892744,
+        -0.99982086,
+        0.0,
+        341.15667831,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "b65a4f481c4c12100e1464813b76bfa3549781e3e0c9bee10fbf1c72888732de"
+    },
+    {
+      "name": "Mount016",
+      "label": "Mount016",
+      "type": "Mesh::FeaturePython",
+      "class": "rotation_stage_rsp05",
+      "placement": [
+        -0.99982086,
+        0.01892744,
+        0.0,
+        235.49991043,
+        -0.01892744,
+        -0.99982086,
+        0.0,
+        341.16614203,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "f9dfd0508dca9ed4bff73cf8ff2881a8ac2975f8871b008178d8beec5ffd6b08"
+    },
+    {
+      "name": "Surface_Adapter005",
+      "label": "Surface Adapter006",
+      "type": "Mesh::FeaturePython",
+      "class": "surface_adapter_rotation_stage_lip",
+      "placement": [
+        -0.99982086,
+        0.01892744,
+        0.0,
+        234.10316069,
+        -0.01892744,
+        -0.99982086,
+        0.0,
+        341.1397004,
+        0.0,
+        0.0,
+        1.0,
+        -13.97,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "0d2ac07121b319fc5a5c65449414e4864e548a513793e4e1b054fc46cc89dcab",
+      "drill_sha256": "73f159e3b7bcfec9d940b32952acb530f26f032e80a9e0e0ee661b2ef485e47a"
+    },
+    {
+      "name": "DP1_retro_mirror",
+      "label": "DP1 retro mirror",
+      "type": "Part::FeaturePython",
+      "class": "circular_mirror_union_optic",
+      "placement": [
+        0.99982086,
+        -0.01892744,
+        0.0,
+        205.30057106,
+        0.01892744,
+        0.99982086,
+        0.0,
+        340.5944434,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "e4e704f06df4d843bd89eb955fe8a25cb1bcd7f28e1c17235ac9c8fd0502c216"
+    },
+    {
+      "name": "Mount017",
+      "label": "Mount017",
+      "type": "Mesh::FeaturePython",
+      "class": "mirror_mount_M05",
+      "placement": [
+        0.99982086,
+        -0.01892744,
+        0.0,
+        199.3016459,
+        0.01892744,
+        0.99982086,
+        0.0,
+        340.48087875,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "4b2333421052289b6a9aa4a7c295fd2b5140b65b302ea512eae4d32e7881f98a",
+      "drill_sha256": "9a2df4a64f228dd7a5b47bff0fce8a6d6675d6b64ffff0bbd023ba273de222d4"
+    },
+    {
+      "name": "Upper_Thumbscrew009",
+      "label": "Upper Thumbscrew009",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        0.99982086,
+        -0.01892744,
+        0.0,
+        186.43084845,
+        0.01892744,
+        0.99982086,
+        0.0,
+        349.38286219,
+        0.0,
+        0.0,
+        1.0,
+        9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "a096dee6bcb8536606ef9ef9ebca5ff27726e9e7023e03fd864c7a06f96553dc",
+      "drill_sha256": "a1b9337d889590c6505c7da6a65ed8828c9d5a7bc061c26372e73a6a15b98293"
+    },
+    {
+      "name": "Lower_Thumbscrew009",
+      "label": "Lower Thumbscrew009",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        0.99982086,
+        -0.01892744,
+        0.0,
+        186.2690845,
+        0.01892744,
+        0.99982086,
+        0.0,
+        331.08852317,
+        0.0,
+        0.0,
+        1.0,
+        -9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "7b9a14a41f8415b4ef8d6ed6f012cbea1dbb7d7632d84e2d5662ac9d585c847c",
+      "drill_sha256": "e26bdc0226948296af67b4f75da44d78dff68c3fd23722dca6c8e4869666e327"
+    },
+    {
+      "name": "DP2_input_steering_mirror",
+      "label": "DP2 input steering mirror",
+      "type": "Part::FeaturePython",
+      "class": "circular_mirror_union_optic",
+      "placement": [
+        0.70710678,
+        -0.70710678,
+        0.0,
+        263.0,
+        0.70710678,
+        0.70710678,
+        0.0,
+        82.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "c9b8d6df04428a9dde41cf89b1bbf2a7bee2ebd00b9f6fa5e32cc5bbd39fd404"
+    },
+    {
+      "name": "Mount018",
+      "label": "Mount018",
+      "type": "Mesh::FeaturePython",
+      "class": "mirror_mount_M05",
+      "placement": [
+        0.70710678,
+        -0.70710678,
+        0.0,
+        258.75735931,
+        0.70710678,
+        0.70710678,
+        0.0,
+        77.75735931,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "0b520c584e85ebc0e732beae8aa021c71a777a7d454f498127f62c49486dfe09",
+      "drill_sha256": "dda596edd4b48f14cbca4147b411fca5bab4fac4726811981f854e796cf68cb9"
+    },
+    {
+      "name": "Upper_Thumbscrew010",
+      "label": "Upper Thumbscrew010",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        0.70710678,
+        -0.70710678,
+        0.0,
+        243.31131878,
+        0.70710678,
+        0.70710678,
+        0.0,
+        75.2428876,
+        0.0,
+        0.0,
+        1.0,
+        9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "f85380a268bf3bc6407a191d7c928a3c11a42ae9ad741a233210682dc5433a1f",
+      "drill_sha256": "c9d1c411916e85d4767b15d6a1adabcdb23b0aeb30225e42fe7c504eabe8e04c"
+    },
+    {
+      "name": "Lower_Thumbscrew010",
+      "label": "Lower Thumbscrew010",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        0.70710678,
+        -0.70710678,
+        0.0,
+        255.88367735,
+        0.70710678,
+        0.70710678,
+        0.0,
+        61.95210854,
+        0.0,
+        0.0,
+        1.0,
+        -9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "7683de62e76d1959e536858b4e4a0ee437591890ab2bdd89746d251a577538b7",
+      "drill_sha256": "913774072733f2725586d83d4b787e12fca5f1e1512034b8c077285ad0ab23c9"
+    },
+    {
+      "name": "DP2_input_HWP",
+      "label": "DP2 input HWP",
+      "type": "Part::FeaturePython",
+      "class": "waveplate",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        288.0,
+        0.0,
+        1.0,
+        0.0,
+        82.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "ebfe4feac16a7650bf661e50011966e37c8e8d2bb891ec7ba18949b9f5ad89ef"
+    },
+    {
+      "name": "Mount019",
+      "label": "Mount019",
+      "type": "Mesh::FeaturePython",
+      "class": "rotation_stage_rsp05",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        287.5,
+        0.0,
+        1.0,
+        0.0,
+        82.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "8eab7ad83093ec7a7b3edbc404e83f8bbad56f3f51860151dd58e48fbb485b66"
+    },
+    {
+      "name": "Surface_Adapter006",
+      "label": "Surface Adapter007",
+      "type": "Mesh::FeaturePython",
+      "class": "surface_adapter_rotation_stage_lip",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        288.897,
+        0.0,
+        1.0,
+        0.0,
+        82.0,
+        0.0,
+        0.0,
+        1.0,
+        -13.97,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "76b8207ec2d8e320ce7ced6cea61d7617ebc28742ad9ec2e6577d904a976de0d",
+      "drill_sha256": "1780c34e378964aeba476203ab47ec8997f24575ebab396feeb8e54289ee57b1"
+    },
+    {
+      "name": "DP2_separation_PBS",
+      "label": "DP2 separation PBS",
+      "type": "Part::FeaturePython",
+      "class": "cube_splitter",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        311.0,
+        0.0,
+        1.0,
+        0.0,
+        82.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "14c088eb9115dae2a39d6eb813ce738fa82b9e92ac327df3b57141df66298c4a"
+    },
+    {
+      "name": "Mount020",
+      "label": "Mount020",
+      "type": "Mesh::FeaturePython",
+      "class": "cube_mount_halfinch",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        311.0,
+        0.0,
+        1.0,
+        0.0,
+        82.0,
+        0.0,
+        0.0,
+        1.0,
+        -6.35,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "2c9691ea09257d0f49eaf3265bfea08def022868df1899e64372ee6f7fd82418",
+      "drill_sha256": "4bc8780b7455ff49fcc8f8e56bf57e1dfe4e0f9df546a07c33a1bb812706abe8"
+    },
+    {
+      "name": "DP2_AOMO_3100_125",
+      "label": "DP2 AOMO 3100-125",
+      "type": "Mesh::FeaturePython",
+      "class": "AOMO_3100_125",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        390.0,
+        0.0,
+        1.0,
+        0.0,
+        82.03,
+        0.0,
+        0.0,
+        1.0,
+        0.115,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "d71f44e777e381693c47118009cbf83f910cca0514b1a701bf924a3bbd0a3b8e",
+      "drill_sha256": "545f66df072c7ff0d21ee7fb9bed8f4b9f603ebec01c78c3d2c1ec1c0ede6099"
+    },
+    {
+      "name": "Mount_KM100PM001",
+      "label": "Mount KM100PM001",
+      "type": "Mesh::FeaturePython",
+      "class": "prism_mount_km100pm_bridged",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        359.7,
+        0.0,
+        1.0,
+        0.0,
+        65.63,
+        0.0,
+        0.0,
+        1.0,
+        -24.385,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "bbf2985e730a593b27ca5c62839ab19258b205d6225d813935a317f032c421bf",
+      "drill_sha256": "544af01e9d93f838f7a01338b0a2f462caf73e1fdf999c4e92efc8d0fd21e7cc"
+    },
+    {
+      "name": "AOM_Adapter001",
+      "label": "AOM Adapter001",
+      "type": "Mesh::FeaturePython",
+      "class": "aom_adapter",
+      "placement": [
+        0.0,
+        1.0,
+        0.0,
+        373.0,
+        -1.0,
+        0.0,
+        0.0,
+        74.38,
+        0.0,
+        0.0,
+        1.0,
+        -16.985,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "3f89fef3c6f65c17b11fc0bd6277db2cbfec016eb2abddc943f671022c8cb760",
+      "drill_sha256": "89ab5821cdaf14f519e4141445e90cccb3047269389741cc6b65e523f745980d"
+    },
+    {
+      "name": "DP2_AOMO_3100_125_integral_seat",
+      "label": "DP2 AOMO 3100-125 - baseplate machining / integral seat",
+      "type": "Part::FeaturePython",
+      "class": "IntegralAOMSeat",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "drill_sha256": "1d5445536e6dd99e3a58db19202b6ee5bf81d3ee2d219ecabf78e46174dcde6b"
+    },
+    {
+      "name": "DP2_cat_eye_fold_1",
+      "label": "DP2 cat-eye fold 1 - NOT INSTALLED (f75-75 test)",
+      "type": "Part::FeaturePython",
+      "class": "circular_mirror_union_optic",
+      "placement": [
+        -0.69359639,
+        0.72036383,
+        0.0,
+        555.0,
+        -0.72036383,
+        -0.69359639,
+        0.0,
+        85.12358735,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "a11e03e86b6234e2e9877da52456ab459e6ee0b2f0c8649d7be4620f52591d23"
+    },
+    {
+      "name": "Mount021",
+      "label": "Mount021",
+      "type": "Mesh::FeaturePython",
+      "class": "mirror_mount_M05",
+      "placement": [
+        -0.69359639,
+        0.72036383,
+        0.0,
+        559.16157833,
+        -0.72036383,
+        -0.69359639,
+        0.0,
+        89.44577034,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "8adc5793a70dc88f66d332b4bcc2c76f27e38f56f23a8f2599e5966570b9b67d",
+      "drill_sha256": "931d75f2b98ec5278a0a51b624b3592a06a30d966a40bebf443aad3beebd77f9"
+    },
+    {
+      "name": "Upper_Thumbscrew011",
+      "label": "Upper Thumbscrew011",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        -0.69359639,
+        0.72036383,
+        0.0,
+        574.55725934,
+        -0.72036383,
+        -0.69359639,
+        0.0,
+        92.25214563,
+        0.0,
+        0.0,
+        1.0,
+        9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "d519063313f6727ba3f977f7fbeb4cf090078eed2c7f1d7b9ce185c01dd79997",
+      "drill_sha256": "595e285138b7b67c3349aaf4c1c79172950e6dd7f101885e1e08d1a542460966"
+    },
+    {
+      "name": "Lower_Thumbscrew011",
+      "label": "Lower Thumbscrew011",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        -0.69359639,
+        0.72036383,
+        0.0,
+        561.73559254,
+        -0.72036383,
+        -0.69359639,
+        0.0,
+        105.3025812,
+        0.0,
+        0.0,
+        1.0,
+        -9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "799e2e3015d8d96d238376884132bd31832fca35ced7862c34b4a037552de738",
+      "drill_sha256": "5732c38a95b3839df4aa29e1701555003efd88ad1453808b66d4ed0a18579d5f"
+    },
+    {
+      "name": "DP2_order_selection_iris",
+      "label": "DP2 order selection iris",
+      "type": "Mesh::FeaturePython",
+      "class": "pinhole_ida12",
+      "placement": [
+        0.01892744,
+        0.99982086,
+        0.0,
+        555.58619112,
+        -0.99982086,
+        0.01892744,
+        0.0,
+        54.1586988,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "86f8b7450c19b0ac803bcb798d1d962c0acd349c30bf7f5c98aa0f19cf918f5c",
+      "drill_sha256": "aefa9e3782123195f9272eca5b6b0b8f5c566709731a68d8e892e0dc6c70f767"
+    },
+    {
+      "name": "Slide_Mount001",
+      "label": "Slide Mount001",
+      "type": "Part::FeaturePython",
+      "class": "slide_mount",
+      "placement": [
+        0.01892744,
+        0.99982086,
+        0.0,
+        542.79551156,
+        -0.99982086,
+        0.01892744,
+        0.0,
+        51.96021013,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "f70e95ea042a377efaac20a9eeed54ac3988016813dc8424451637a29f41879d",
+      "drill_sha256": "c87575f6494e0b5545573224f437397be45e0f0e687f2498eeeb84504ce464de"
+    },
+    {
+      "name": "DP2_cat_eye_fold_2",
+      "label": "DP2 cat-eye fold 2",
+      "type": "Part::FeaturePython",
+      "class": "circular_mirror_union_optic",
+      "placement": [
+        -0.72036383,
+        -0.69359639,
+        0.0,
+        556.23284372,
+        0.69359639,
+        -0.72036383,
+        0.0,
+        20.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "35fe24fc2f88c39d5fe929e388b4371240aeab0ce6a14986e7ce19c0ec0900de"
+    },
+    {
+      "name": "Mount022",
+      "label": "Mount022",
+      "type": "Mesh::FeaturePython",
+      "class": "mirror_mount_M05",
+      "placement": [
+        -0.72036383,
+        -0.69359639,
+        0.0,
+        560.55502671,
+        0.69359639,
+        -0.72036383,
+        0.0,
+        15.83842167,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "2d5ff61c9939e6b541d0c0f6e952306fc2938b7096118d7b51fe1d42afeb44f8",
+      "drill_sha256": "a3d95b4daf5e38b0f8b7c8cc89b7e1ba8f52c084cd0e2a236c7d3c7b79a45355"
+    },
+    {
+      "name": "Upper_Thumbscrew012",
+      "label": "Upper Thumbscrew012",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        -0.72036383,
+        -0.69359639,
+        0.0,
+        563.361402,
+        0.69359639,
+        -0.72036383,
+        0.0,
+        0.44274066,
+        0.0,
+        0.0,
+        1.0,
+        9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "9ed46df4bfaf84c07a1dcd87599b178d795297cd061b7f2993171ba24c57bf9a",
+      "drill_sha256": "109ac4079bbc8644a85f668cec6e5bdce485bf58c4a0cd26a57386bdba9d7f8c"
+    },
+    {
+      "name": "Lower_Thumbscrew012",
+      "label": "Lower Thumbscrew012",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        -0.72036383,
+        -0.69359639,
+        0.0,
+        576.41183757,
+        0.69359639,
+        -0.72036383,
+        0.0,
+        13.26440746,
+        0.0,
+        0.0,
+        1.0,
+        -9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "c8c374e581dd303cea64d54f980ba45f8908afa7b10aabe9e8a02c8f6048e0cf",
+      "drill_sha256": "f78d08bd491525eb747623c66ec216eb2909c6e58d0e053a61a6d5e86da317b1"
+    },
+    {
+      "name": "DP2_L300_LA1618_B",
+      "label": "DP2 L300 LA1618-B",
+      "type": "Part::FeaturePython",
+      "class": "circular_lens",
+      "placement": [
+        0.99982086,
+        -0.01892744,
+        0.0,
+        482.99143079,
+        0.01892744,
+        0.99982086,
+        0.0,
+        18.61347909,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "fdeec8e8a7be678d3bc88c536dc62d728e47617c3316208b49978a86d5ce0772"
+    },
+    {
+      "name": "Mount023",
+      "label": "Mount023",
+      "type": "Mesh::FeaturePython",
+      "class": "lens_holder_l05g_no_pin_slots",
+      "placement": [
+        0.99982086,
+        -0.01892744,
+        0.0,
+        481.99160993,
+        0.01892744,
+        0.99982086,
+        0.0,
+        18.59455165,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "ec09f16edd64d12abf2409aaa9f394b7871f23752e98237f99965161a3cc4061",
+      "drill_sha256": "48a4701d0d7ddae1997a4e9e063d43c077dd726814709ae19a42e9dad82e35cb"
+    },
+    {
+      "name": "DP2_cat_eye_QWP",
+      "label": "DP2 cat eye QWP",
+      "type": "Part::FeaturePython",
+      "class": "waveplate",
+      "placement": [
+        -0.99982086,
+        0.01892744,
+        0.0,
+        300.0,
+        -0.01892744,
+        -0.99982086,
+        0.0,
+        15.14929898,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "bd20d2ccb895067a433a5b8644bbbe9739932484c4679e8a29f27940f7758415"
+    },
+    {
+      "name": "Mount024",
+      "label": "Mount024",
+      "type": "Mesh::FeaturePython",
+      "class": "rotation_stage_rsp05",
+      "placement": [
+        -0.99982086,
+        0.01892744,
+        0.0,
+        300.49991043,
+        -0.01892744,
+        -0.99982086,
+        0.0,
+        15.1587627,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "6c0683b6bb3ca0723f75d5cc55d1f17de66a3e1524161b984aaec27087c6f2b4"
+    },
+    {
+      "name": "Surface_Adapter007",
+      "label": "Surface Adapter009",
+      "type": "Mesh::FeaturePython",
+      "class": "surface_adapter_rotation_stage_lip",
+      "placement": [
+        -0.99982086,
+        0.01892744,
+        0.0,
+        299.10316069,
+        -0.01892744,
+        -0.99982086,
+        0.0,
+        15.13232107,
+        0.0,
+        0.0,
+        1.0,
+        -13.97,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "20b6117cc969b328dea4168dca0579656935dbab390d87ec256136730a9314bd",
+      "drill_sha256": "88cc682fe1a047aeabe8b2030575ab0e4edeee316c620d06137b55ad252342c2"
+    },
+    {
+      "name": "DP2_retro_mirror",
+      "label": "DP2 retro mirror",
+      "type": "Part::FeaturePython",
+      "class": "circular_mirror_union_optic",
+      "placement": [
+        0.99982086,
+        -0.01892744,
+        0.0,
+        180.94992524,
+        0.01892744,
+        0.99982086,
+        0.0,
+        12.89558197,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "e5ea34ecf4137692693b046c37bda469dddb1f2ce3a9533330180eea4633654f"
+    },
+    {
+      "name": "Mount025",
+      "label": "Mount025",
+      "type": "Mesh::FeaturePython",
+      "class": "mirror_mount_M05",
+      "placement": [
+        0.99982086,
+        -0.01892744,
+        0.0,
+        174.95100008,
+        0.01892744,
+        0.99982086,
+        0.0,
+        12.78201732,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "6943c9dea594530b0e8d0736c3ff7f0073d7396307e33cf6bc9decd8e5b146a8",
+      "drill_sha256": "de1b7d05b553656e22d3a4b6451df50a0ccb6eda3355915f62fb130ac99bebcd"
+    },
+    {
+      "name": "Upper_Thumbscrew013",
+      "label": "Upper Thumbscrew013",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        0.99982086,
+        -0.01892744,
+        0.0,
+        162.08020264,
+        0.01892744,
+        0.99982086,
+        0.0,
+        21.68400076,
+        0.0,
+        0.0,
+        1.0,
+        9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "e6d63da0c688ca341ab1ebc13be859fe065f20ad1a2cfd67f47bece5accbe18b",
+      "drill_sha256": "11788d182ffc55df5de71c0b43216e41fab18832aa54602fcfb9a2dc6bd6588f"
+    },
+    {
+      "name": "Lower_Thumbscrew013",
+      "label": "Lower Thumbscrew013",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        0.99982086,
+        -0.01892744,
+        0.0,
+        161.91843868,
+        0.01892744,
+        0.99982086,
+        0.0,
+        3.38966174,
+        0.0,
+        0.0,
+        1.0,
+        -9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "ff7c627b708a52edcde55319c51b7b0437459fb8717957a557a9b8a566b80a7c",
+      "drill_sha256": "2545035929937e6427a11cc35f941ef0ec19e8db581329d9d8789d8dd983423d"
+    },
+    {
+      "name": "DP1_f75_cat_eye_QWP",
+      "label": "DP1 f75 cat eye QWP",
+      "type": "Part::FeaturePython",
+      "class": "waveplate",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        503.0,
+        0.0,
+        1.0,
+        0.0,
+        303.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "7fa03ad1aa1f52d3c73aba5a6e9d141ea1434a900a5983fae517bf349e84387b"
+    },
+    {
+      "name": "Mount026",
+      "label": "Mount026",
+      "type": "Mesh::FeaturePython",
+      "class": "rotation_stage_rsp05",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        502.5,
+        0.0,
+        1.0,
+        0.0,
+        303.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "347fd1468928080c0e5120d5047b1d796b5ff5f04ae5fa4853285e9853896812"
+    },
+    {
+      "name": "Surface_Adapter008",
+      "label": "Surface Adapter010",
+      "type": "Mesh::FeaturePython",
+      "class": "surface_adapter_rotation_stage_lip",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        503.897,
+        0.0,
+        1.0,
+        0.0,
+        303.0,
+        0.0,
+        0.0,
+        1.0,
+        -13.97,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "f980940f868d3aa3da0005a270f0c06406c38df9b44773730c57be6ffc200b04",
+      "drill_sha256": "75179af03808438880132804548be03faafda6074f36415691afa7b6cb2a49c0"
+    },
+    {
+      "name": "DP1_f75_LA1612_B",
+      "label": "DP1 f75 LA1612-B",
+      "type": "Part::FeaturePython",
+      "class": "circular_lens",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        485.0,
+        0.0,
+        1.0,
+        0.0,
+        303.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "efd31451d3710af89f714a985060c73c5ce3cd8de005da96d7a3a8503d9ae448"
+    },
+    {
+      "name": "Mount027",
+      "label": "Mount027",
+      "type": "Mesh::FeaturePython",
+      "class": "lens_holder_l05g_no_pin_slots",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        483.75,
+        0.0,
+        1.0,
+        0.0,
+        303.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "222e1d8bab1fe3bc16dcddb8f49ff2ee00ebcb2e8cb763b14836939efb1d84a1",
+      "drill_sha256": "7fef1314fd2987e583ddb2f0696a9756da510f5ed47ae8b6a9d31cd2717c5c29"
+    },
+    {
+      "name": "DP1_f75_order_iris",
+      "label": "DP1 f75 order iris",
+      "type": "Mesh::FeaturePython",
+      "class": "pinhole_ida12",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        525.0,
+        0.0,
+        1.0,
+        0.0,
+        303.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "87f7dee905eccd551aab751e97b7d07ed0c00b910344d8ef42d3744889f792ac",
+      "drill_sha256": "558799f8e11864c9f8cb3028ada8c3e8e604f48cf3ee633486517a291868dca8"
+    },
+    {
+      "name": "Slide_Mount002",
+      "label": "Slide Mount002",
+      "type": "Part::FeaturePython",
+      "class": "slide_mount",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        526.956,
+        0.0,
+        1.0,
+        0.0,
+        290.17,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "13e14b295c3c7663ad2b980afee272b364e945433ad1e17efc7e5fcdc42d7518",
+      "drill_sha256": "67c4a1d25bb535eb337a66b8ea1961e28818b2dced44e82332daae440c4bcf00"
+    },
+    {
+      "name": "DP1_f75_retro_mirror__lens__mirror_75_",
+      "label": "DP1 f75 retro mirror (lens->mirror 75)",
+      "type": "Part::FeaturePython",
+      "class": "circular_mirror_union_optic",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        560.0,
+        0.0,
+        -1.0,
+        0.0,
+        303.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "f91d50f1ef67276e2298f239028e8caa2700948a07e7730a84a0a930edd1582f"
+    },
+    {
+      "name": "Mount028",
+      "label": "Mount028",
+      "type": "Mesh::FeaturePython",
+      "class": "mirror_mount_M05",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        566.0,
+        0.0,
+        -1.0,
+        0.0,
+        303.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "2c74b24b3b8f74ecc14cf19f9e97b51d6376952047c632f6ce4560299c381cba",
+      "drill_sha256": "1011fb6a6b35cbf65edb6df56fd790e8c630351ebf398a626559f81e7ea027a4"
+    },
+    {
+      "name": "DP1_f75_retro_mirror_8_32__lens__mirror_50_",
+      "label": "DP1 f75 retro mirror 8-32 (lens->mirror 50)",
+      "type": "Part::FeaturePython",
+      "class": "BareTappedHole",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        547.96,
+        0.0,
+        1.0,
+        0.0,
+        303.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "drill_sha256": "6b19daf7c0f23bcc389bcd205a59abee9dd23ca34b1a94c916997532a37ebce1"
+    },
+    {
+      "name": "DP2_f75_cat_eye_QWP",
+      "label": "DP2 f75 cat eye QWP",
+      "type": "Part::FeaturePython",
+      "class": "waveplate",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        481.0,
+        0.0,
+        1.0,
+        0.0,
+        82.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "066e93ec59867002de6f3601b575c35fad45ee39984f48f27d41be72ba48533b"
+    },
+    {
+      "name": "Mount029",
+      "label": "Mount029",
+      "type": "Mesh::FeaturePython",
+      "class": "rotation_stage_rsp05",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        480.5,
+        0.0,
+        1.0,
+        0.0,
+        82.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "13e25c249294e5fba91186d24c9bd588e300b469fbca4e6f931021b6a32e072b"
+    },
+    {
+      "name": "Surface_Adapter009",
+      "label": "Surface Adapter011",
+      "type": "Mesh::FeaturePython",
+      "class": "surface_adapter_rotation_stage_lip",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        481.897,
+        0.0,
+        1.0,
+        0.0,
+        82.0,
+        0.0,
+        0.0,
+        1.0,
+        -13.97,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "7f21e87e984571476c4b3e08c0ac2e8b9f453a9ca4f01b95662688c6ab39ac03",
+      "drill_sha256": "19f8f3110d8fe17498de06cf39df191b44fd5b95375000ab29c72586338986c6"
+    },
+    {
+      "name": "DP2_f75_LA1612_B",
+      "label": "DP2 f75 LA1612-B",
+      "type": "Part::FeaturePython",
+      "class": "circular_lens",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        458.0,
+        0.0,
+        1.0,
+        0.0,
+        82.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "a6a934bc59267d247737d04a0fe717323d9a65063f930db70b376f598ebd08c2"
+    },
+    {
+      "name": "Mount030",
+      "label": "Mount030",
+      "type": "Mesh::FeaturePython",
+      "class": "lens_holder_l05g_no_pin_slots",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        456.75,
+        0.0,
+        1.0,
+        0.0,
+        82.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "c5a9d70fba201d57fd1301e7866d2931b5f4d7236a9a71ab310dd13d494ca7ea",
+      "drill_sha256": "5c7641ca7fca8a5a6898349070b4f150b407944e618c00b5d5ad7d3b58d2bc66"
+    },
+    {
+      "name": "DP2_f75_order_iris",
+      "label": "DP2 f75 order iris",
+      "type": "Mesh::FeaturePython",
+      "class": "pinhole_ida12",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        497.0,
+        0.0,
+        1.0,
+        0.0,
+        82.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "21f780b0db7a138a332905a067b35a66b75c9324397015b7cc6a88ac39abd28b",
+      "drill_sha256": "9f0603156f04b444dc06e92460ba21d04d6c1a9987178bb8aee9d51499fb76a7"
+    },
+    {
+      "name": "Slide_Mount003",
+      "label": "Slide Mount003",
+      "type": "Part::FeaturePython",
+      "class": "slide_mount",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        498.956,
+        0.0,
+        1.0,
+        0.0,
+        69.17,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "05105b25ecff9d347c2286fbfaf99b24af8b376216f44f36fa1bf04ab4f6a623",
+      "drill_sha256": "0f89bef223ffa2698bdac44e954e7318a06752f9658904cdeca8466815986b39"
+    },
+    {
+      "name": "DP2_f75_retro_mirror__lens__mirror_75_",
+      "label": "DP2 f75 retro mirror (lens->mirror 75)",
+      "type": "Part::FeaturePython",
+      "class": "circular_mirror_union_optic",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        533.0,
+        0.0,
+        -1.0,
+        0.0,
+        82.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "83d74b18e2fb483ef33069a1321195b5aaa4f9c4b13a3f30682dbe7f803dd49a"
+    },
+    {
+      "name": "Mount031",
+      "label": "Mount031",
+      "type": "Mesh::FeaturePython",
+      "class": "mirror_mount_M05",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        539.0,
+        0.0,
+        -1.0,
+        0.0,
+        82.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "c995f3cb3caebdfe535e103a02d26f3e88ac4a53cd6438ec1c231fa21eb192a5",
+      "drill_sha256": "16ff05be8bd4974f2376d2046b43c81561d3aed579b8e6ad0a88add371ebc02d"
+    },
+    {
+      "name": "DP2_f75_retro_mirror_8_32__lens__mirror_50_",
+      "label": "DP2 f75 retro mirror 8-32 (lens->mirror 50)",
+      "type": "Part::FeaturePython",
+      "class": "BareTappedHole",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        520.96,
+        0.0,
+        1.0,
+        0.0,
+        82.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "drill_sha256": "962209444935fa48c1b7a649c5c7e1a9272f81e99c1fa01b1ae00a7bc39d35fa"
+    },
+    {
+      "name": "DP1_output_steering_mirror",
+      "label": "DP1 output steering mirror",
+      "type": "Part::FeaturePython",
+      "class": "circular_mirror_union_optic",
+      "placement": [
+        0.70710678,
+        -0.70710678,
+        0.0,
+        333.0,
+        0.70710678,
+        0.70710678,
+        0.0,
+        214.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "c0c5031e569d61986f7a231d2927a17b763917f56f82bd4ecace8b5835c52e2b"
+    },
+    {
+      "name": "Mount032",
+      "label": "Mount032",
+      "type": "Mesh::FeaturePython",
+      "class": "mirror_mount_M05",
+      "placement": [
+        0.70710678,
+        -0.70710678,
+        0.0,
+        328.75735931,
+        0.70710678,
+        0.70710678,
+        0.0,
+        210.25735931,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "baeb1695c4eceb32f39ca66a8d6320373eb82f16b044148e6ce185c0ecdd5c76",
+      "drill_sha256": "e61ac3056ffd3d3779e77034bb348f187ee372aebdea5a0d708e8a8d72f6ddbf"
+    },
+    {
+      "name": "Upper_Thumbscrew014",
+      "label": "Upper Thumbscrew014",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        0.70710678,
+        -0.70710678,
+        0.0,
+        313.31131878,
+        0.70710678,
+        0.70710678,
+        0.0,
+        207.7428876,
+        0.0,
+        0.0,
+        1.0,
+        9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "52821c1c2a3c36fb036b21ef55e2261a9317b134d8b96af7508fdbeaf3b0526c",
+      "drill_sha256": "e09a2f01c3ff4795266871715afff11212d4c2454b0632708465f05fce744b3f"
+    },
+    {
+      "name": "Lower_Thumbscrew014",
+      "label": "Lower Thumbscrew014",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        0.70710678,
+        -0.70710678,
+        0.0,
+        325.88367735,
+        0.70710678,
+        0.70710678,
+        0.0,
+        194.45210854,
+        0.0,
+        0.0,
+        1.0,
+        -9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "0031029222515fc848c5af2afa3ba116c6b511fab5ea19bbda701abbafc9742d",
+      "drill_sha256": "20a8ad0c4a9003014ca27c5035412bdd1f15f3dcabb25b16ed04a5b9352c8911"
+    },
+    {
+      "name": "DP1_output_first_LA1289_B",
+      "label": "DP1 output first LA1289-B",
+      "type": "Part::FeaturePython",
+      "class": "circular_lens",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        371.1,
+        0.0,
+        -1.0,
+        0.0,
+        214.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "1029209353635c41550c2d8f8aec8b2afd53923ea753aac4c06c222e25d3f9ac"
+    },
+    {
+      "name": "Mount033",
+      "label": "Mount033",
+      "type": "Mesh::FeaturePython",
+      "class": "lens_holder_l05g_no_pin_slots",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        372.7,
+        0.0,
+        -1.0,
+        0.0,
+        214.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "c8f3c2798c1d81e677b2939e6864d93a7f05e76b7ed34747dc61c39b58a91902",
+      "drill_sha256": "39692e65ddce65bd8e9e9f5c52364e99e5b5b170bc719513076634f676f8b1e7"
+    },
+    {
+      "name": "DP1_output_second_LA1540_B",
+      "label": "DP1 output second LA1540-B",
+      "type": "Part::FeaturePython",
+      "class": "circular_lens",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        416.419348,
+        0.0,
+        1.0,
+        0.0,
+        214.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "88761a27f8d6bb8f78ee17adfdabf2951a55ca62273cea40cf2576010b280293"
+    },
+    {
+      "name": "Mount034",
+      "label": "Mount034",
+      "type": "Mesh::FeaturePython",
+      "class": "lens_holder_l05g_no_pin_slots",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        413.869348,
+        0.0,
+        1.0,
+        0.0,
+        214.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "3377c5ca2d07981490120eadf4cff7d49a10f3e281f1e012b0a2686e384e9588",
+      "drill_sha256": "f8c71eaf4367d12a3825c8601a7cd7980125596c6050a33155b1c82d32ca70d7"
+    },
+    {
+      "name": "DP1_output_HWP",
+      "label": "DP1 output HWP",
+      "type": "Part::FeaturePython",
+      "class": "waveplate",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        357.6,
+        0.0,
+        1.0,
+        0.0,
+        214.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "ec0028a44fc3fbe9d19d4bbfa51ed2db014e56cbca95993d39dfa9cd00806208"
+    },
+    {
+      "name": "Mount035",
+      "label": "Mount035",
+      "type": "Mesh::FeaturePython",
+      "class": "rotation_stage_rsp05",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        357.1,
+        0.0,
+        1.0,
+        0.0,
+        214.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "f3fad6bd4ad029bb19eded466f6bebdab8c8f29d7a2cfb28e93f4d80f7400ff2"
+    },
+    {
+      "name": "Surface_Adapter010",
+      "label": "Surface Adapter012",
+      "type": "Mesh::FeaturePython",
+      "class": "surface_adapter_rotation_stage_lip",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        358.497,
+        0.0,
+        1.0,
+        0.0,
+        214.5,
+        0.0,
+        0.0,
+        1.0,
+        -13.97,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "39775453c379217d6da21c875e1803a0f3d3331e3a76ad6cf8dec722f188ce66",
+      "drill_sha256": "e94781348ece6998cc7e07cea9b372e3bb8a550086c202b179490f7be5b13d2e"
+    },
+    {
+      "name": "DP1_empty_rotating_PBS_RSP05",
+      "label": "DP1 empty rotating PBS RSP05",
+      "type": "Mesh::FeaturePython",
+      "class": "rotation_stage_rsp05",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        443.4,
+        0.0,
+        1.0,
+        0.0,
+        214.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "30d2e5b67da791a7bace3a895b02771ab92391d9b9ddd0ff6d4ff7f465b9aaa3"
+    },
+    {
+      "name": "Surface_Adapter011",
+      "label": "Surface Adapter013",
+      "type": "Mesh::FeaturePython",
+      "class": "surface_adapter_rotation_stage_lip",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        444.797,
+        0.0,
+        1.0,
+        0.0,
+        214.5,
+        0.0,
+        0.0,
+        1.0,
+        -13.97,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "f482d71554e6e053deb7512da253ed1804d5c986a0d6e5526aa26eda7b6a3e59",
+      "drill_sha256": "950e40165d0abda522e9a28d2591150a5cfc83688b0fb5f6b7812af167ab54b1"
+    },
+    {
+      "name": "DP1_output_filtering_iris",
+      "label": "DP1 output filtering iris",
+      "type": "Mesh::FeaturePython",
+      "class": "pinhole_ida12",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        468.0,
+        0.0,
+        -1.0,
+        0.0,
+        214.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "92dc6ccd829d2de3697f7541240755e63fd8eef21125d7b05b39e62b4e7d6044",
+      "drill_sha256": "636ed61f9bb60e17de5d772a441848f8bf2354853a68642d476d4ab9da220a1a"
+    },
+    {
+      "name": "Slide_Mount004",
+      "label": "Slide Mount004",
+      "type": "Part::FeaturePython",
+      "class": "slide_mount",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        466.044,
+        0.0,
+        -1.0,
+        0.0,
+        227.33,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "698eab40ffd7d67765973c0059e41dcc23dbca481e3b60f3120a1c59911e4a5b",
+      "drill_sha256": "9d969a5229e96dff98341c2e0fa650840059de5dc9d3ce1c16c6f4139970d338"
+    },
+    {
+      "name": "DP1_output_KA05T",
+      "label": "DP1 output KA05T",
+      "type": "Part::FeaturePython",
+      "class": "fiberport_mount_KA05T_holes",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        516.798,
+        0.0,
+        -1.0,
+        0.0,
+        214.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "drill_sha256": "d7b21f996b7c163df51b8811bfeecc1fda09ce3eed323a35f6726253880a4d54"
+    },
+    {
+      "name": "Mount036",
+      "label": "Mount036",
+      "type": "Mesh::FeaturePython",
+      "class": "mirror_mount_KA05T",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        516.798,
+        0.0,
+        -1.0,
+        0.0,
+        214.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "8292743dc6a2891c36689a6efe7c4789df4ff728f4edb8b92160bbc83913cb4a",
+      "drill_sha256": "0cef50e179438bec6741c32510a60316e85fe321ece6063ba8bf5475cd4e5130"
+    },
+    {
+      "name": "Upper_Thumbscrew015",
+      "label": "Upper Thumbscrew015",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        527.466,
+        0.0,
+        -1.0,
+        0.0,
+        204.594,
+        0.0,
+        0.0,
+        1.0,
+        9.906,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "c8a30ae980bd2e7120eb845df7888bb6476f1a11b9db70ab35ababd1819b0633",
+      "drill_sha256": "05735834bc3b9c9a38bb95730087668dece86c732e447be33ffb1cff789de0e1"
+    },
+    {
+      "name": "Lower_Thumbscrew015",
+      "label": "Lower Thumbscrew015",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        527.466,
+        0.0,
+        -1.0,
+        0.0,
+        224.406,
+        0.0,
+        0.0,
+        1.0,
+        -9.906,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "16c142cae30854a3559bf79f4f027dadaeb1d5545b3cfb34e66ebbaccc34d313",
+      "drill_sha256": "46a6e80e2f87c15aa9a531046cbed2ebb95a7f048a223f7bb9e9b741abec6a76"
+    },
+    {
+      "name": "Fiber_Adapter",
+      "label": "Fiber Adapter",
+      "type": "Mesh::FeaturePython",
+      "class": "fiber_adapter_sm05fca2",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        515.274,
+        0.0,
+        -1.0,
+        0.0,
+        214.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "f67f78b225dca43387e84dd78b06ecc619dc787795bb3fab2551d2ec4bf4379e"
+    },
+    {
+      "name": "Lens_Tube",
+      "label": "Lens Tube",
+      "type": "Mesh::FeaturePython",
+      "class": "lens_tube_sm05l05",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        511.462,
+        0.0,
+        -1.0,
+        0.0,
+        214.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "46cf4c83d0003f861f8be782e2f7548f787883874feaae65fb4921bf0de359c1"
+    },
+    {
+      "name": "Lens_Adapter",
+      "label": "Lens Adapter",
+      "type": "Mesh::FeaturePython",
+      "class": "lens_adapter_s05tm09",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        510.274,
+        0.0,
+        -1.0,
+        0.0,
+        214.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "12dc563cac21192fe0a90a1874c180c8040fc74692136bdb3a20fa4661138469"
+    },
+    {
+      "name": "Lens",
+      "label": "Lens",
+      "type": "Mesh::FeaturePython",
+      "class": "mounted_lens_c220tmda",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        507.107,
+        0.0,
+        -1.0,
+        0.0,
+        214.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "e76e98c4012079a027ccb44156dad3d7abc5a82bf9af736806889473254ff08b"
+    },
+    {
+      "name": "DP2_output_steering_mirror",
+      "label": "DP2 output steering mirror",
+      "type": "Part::FeaturePython",
+      "class": "circular_mirror_union_optic",
+      "placement": [
+        0.70710678,
+        0.70710678,
+        0.0,
+        311.0,
+        -0.70710678,
+        0.70710678,
+        0.0,
+        132.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "2845c8bb9af1ebdb7a41924096bf88a10fdc5e80d6792d28e13286d9011ffc61"
+    },
+    {
+      "name": "Mount037",
+      "label": "Mount037",
+      "type": "Mesh::FeaturePython",
+      "class": "mirror_mount_M05",
+      "placement": [
+        0.70710678,
+        0.70710678,
+        0.0,
+        306.75735931,
+        -0.70710678,
+        0.70710678,
+        0.0,
+        136.74264069,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "e1615f0615f6383fac1098154a3431c300cfad0d01f2a756ca0212e1cb091e5f",
+      "drill_sha256": "2628f66011cbe01e1fae46c4e178fa00a5da93b61c5b887b433df59ffd9693e8"
+    },
+    {
+      "name": "Upper_Thumbscrew016",
+      "label": "Upper Thumbscrew016",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        0.70710678,
+        0.70710678,
+        0.0,
+        304.2428876,
+        -0.70710678,
+        0.70710678,
+        0.0,
+        152.18868122,
+        0.0,
+        0.0,
+        1.0,
+        9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "ddb4b5b3c44ac0951620f9060bd304aa5fbc8b2b8d07ce1ec14b022d0717276d",
+      "drill_sha256": "6c8c7487c5688b43dfaa91ee42fb5a4c43c4f447119f239a3f1b500b7090baa0"
+    },
+    {
+      "name": "Lower_Thumbscrew016",
+      "label": "Lower Thumbscrew016",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        0.70710678,
+        0.70710678,
+        0.0,
+        290.95210854,
+        -0.70710678,
+        0.70710678,
+        0.0,
+        139.61632265,
+        0.0,
+        0.0,
+        1.0,
+        -9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "0de4bb22b31add562a1e3704aa44d7fba1c1f6f984eb279c65242c31e89c48e9",
+      "drill_sha256": "7ba02c8bb008230b8983e47ff7e27ea3b5a5a39d70d6e4664b9b607d512d5177"
+    },
+    {
+      "name": "DP2_output_first_LA1289_B",
+      "label": "DP2 output first LA1289-B",
+      "type": "Part::FeaturePython",
+      "class": "circular_lens",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        327.0,
+        0.0,
+        -1.0,
+        0.0,
+        132.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "8e3510233c1ab9281a111af4c601b839b323210153d594c07806ac36f1f22241"
+    },
+    {
+      "name": "Mount038",
+      "label": "Mount038",
+      "type": "Mesh::FeaturePython",
+      "class": "lens_holder_l05g_no_pin_slots",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        328.6,
+        0.0,
+        -1.0,
+        0.0,
+        132.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "2602dff3cfbb34c822c284180c1694e47ce540919705146bf092eac08dabf7ce",
+      "drill_sha256": "0f61aea8b1301e0be93d01e714205c4ba7aac6e857681bae32561e34fdcbc819"
+    },
+    {
+      "name": "DP2_output_second_LA1540_B",
+      "label": "DP2 output second LA1540-B",
+      "type": "Part::FeaturePython",
+      "class": "circular_lens",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        372.319348,
+        0.0,
+        1.0,
+        0.0,
+        132.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "1bce2fa6cad7483ffdaf65b310b71350509cafc87a40c3b44673bb95c109ca5a"
+    },
+    {
+      "name": "Mount039",
+      "label": "Mount039",
+      "type": "Mesh::FeaturePython",
+      "class": "lens_holder_l05g_no_pin_slots",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        369.769348,
+        0.0,
+        1.0,
+        0.0,
+        132.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "e255770768f8d56863650d93d75eb1af5ac5dd5a5ce931865691fef5cbcc953f",
+      "drill_sha256": "0881dc9a1e6be4ecbfccbd98e90e18751c834dc0000722857ce6bcffbae84486"
+    },
+    {
+      "name": "DP2_output_HWP",
+      "label": "DP2 output HWP",
+      "type": "Part::FeaturePython",
+      "class": "waveplate",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        419.0,
+        0.0,
+        1.0,
+        0.0,
+        132.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "df6b8c10d4fb5cc4df958fb5123fc93a50c99102a050ea716ec9a3f6bad588a3"
+    },
+    {
+      "name": "Mount040",
+      "label": "Mount040",
+      "type": "Mesh::FeaturePython",
+      "class": "rotation_stage_rsp05",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        418.5,
+        0.0,
+        1.0,
+        0.0,
+        132.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "f39af7ca10dc6923292c5610c96df578db314e92efca89ff4cbacff14edba5ef"
+    },
+    {
+      "name": "Surface_Adapter012",
+      "label": "Surface Adapter014",
+      "type": "Mesh::FeaturePython",
+      "class": "surface_adapter_rotation_stage_lip",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        419.897,
+        0.0,
+        1.0,
+        0.0,
+        132.5,
+        0.0,
+        0.0,
+        1.0,
+        -13.97,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "0cabe7289dec97179087ce1e48fc1c49babee7b275aa7fe5586c559db6b49a34",
+      "drill_sha256": "fcf7eb1fe2e9517ce0589fbdeaf799193c8f0922ab0b7bf71e777c9d5a7cf8db"
+    },
+    {
+      "name": "DP2_empty_rotating_PBS_RSP05",
+      "label": "DP2 empty rotating PBS RSP05",
+      "type": "Mesh::FeaturePython",
+      "class": "rotation_stage_rsp05",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        442.0,
+        0.0,
+        1.0,
+        0.0,
+        132.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "eda44e01638e24aabf9fe2f660cb81325580e49355da5b6cd67b3503b84562c2"
+    },
+    {
+      "name": "Surface_Adapter013",
+      "label": "Surface Adapter015",
+      "type": "Mesh::FeaturePython",
+      "class": "surface_adapter_rotation_stage_lip",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        443.397,
+        0.0,
+        1.0,
+        0.0,
+        132.5,
+        0.0,
+        0.0,
+        1.0,
+        -13.97,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "16948c29533e8eb1df42e2cebbdb33d27f32ea2bca8921563e50bdf279c3fe7c",
+      "drill_sha256": "5f05bed932e4ad9bd42d88e38f907eccfce38292cb0c11631bbcf43c7bdd07ee"
+    },
+    {
+      "name": "DP2_output_filtering_iris",
+      "label": "DP2 output filtering iris",
+      "type": "Mesh::FeaturePython",
+      "class": "pinhole_ida12",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        461.5,
+        0.0,
+        1.0,
+        0.0,
+        132.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "ce958317d182deacfa37912123a5c83a8c8b5ed174b2d8b6fc3b2457a8eb49a2",
+      "drill_sha256": "637de415ce7df0eb065830f9595fda8de9ac07c9e50a1cc88b38364beddeeb90"
+    },
+    {
+      "name": "Slide_Mount005",
+      "label": "Slide Mount005",
+      "type": "Part::FeaturePython",
+      "class": "slide_mount",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        463.456,
+        0.0,
+        1.0,
+        0.0,
+        119.67,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "835d1907c0649c08fc60db8447db4d86530d2b102c8e89ea20a371bf59ea5e1e",
+      "drill_sha256": "76507534aea9154eaeca78eb96947a0ee1c43a0fd86ae62a96d0079e46d3bdf1"
+    },
+    {
+      "name": "DP2_output_KA05T",
+      "label": "DP2 output KA05T",
+      "type": "Part::FeaturePython",
+      "class": "fiberport_mount_KA05T_holes",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        516.798,
+        0.0,
+        -1.0,
+        0.0,
+        132.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "drill_sha256": "1837f5437e50aa37626385faf7b39aca69ab36cea65789ca473cbf955e236556"
+    },
+    {
+      "name": "Mount041",
+      "label": "Mount041",
+      "type": "Mesh::FeaturePython",
+      "class": "mirror_mount_KA05T",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        516.798,
+        0.0,
+        -1.0,
+        0.0,
+        132.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "2cde1a1638298d2cf963906fa9d360bc56097b8e49f4954a6e0cbcccfe4c83a9",
+      "drill_sha256": "f7ec366454a7519eac9a1590e25a84a6e695276bf76598479a468e20ec390faf"
+    },
+    {
+      "name": "Upper_Thumbscrew017",
+      "label": "Upper Thumbscrew017",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        527.466,
+        0.0,
+        -1.0,
+        0.0,
+        122.594,
+        0.0,
+        0.0,
+        1.0,
+        9.906,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "600d3be54c0140c8b1b3b84ff9913d3bc4cf02b168045a40e2809f9a92dc04fb",
+      "drill_sha256": "e876b4230884f3bf28631da2f51f81fe061d2b5ac03c4fe6512e7a1aeb4c8cc4"
+    },
+    {
+      "name": "Lower_Thumbscrew017",
+      "label": "Lower Thumbscrew017",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        527.466,
+        0.0,
+        -1.0,
+        0.0,
+        142.406,
+        0.0,
+        0.0,
+        1.0,
+        -9.906,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "13f5d6591a724446b49a86f309759a9d4d879b1c96ae925597a3d5f0117897d5",
+      "drill_sha256": "f9403f62bf0429040f19c87af9b54b13ba202ede7319f92525cb0ca5203bf02e"
+    },
+    {
+      "name": "Fiber_Adapter001",
+      "label": "Fiber Adapter001",
+      "type": "Mesh::FeaturePython",
+      "class": "fiber_adapter_sm05fca2",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        515.274,
+        0.0,
+        -1.0,
+        0.0,
+        132.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "0cfba25afff739d39943782a89a2bf1777ebb7984ad8f32da79afa77ab75601b"
+    },
+    {
+      "name": "Lens_Tube001",
+      "label": "Lens Tube001",
+      "type": "Mesh::FeaturePython",
+      "class": "lens_tube_sm05l05",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        511.462,
+        0.0,
+        -1.0,
+        0.0,
+        132.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "682f592840a6383d116e544130ecd235d41246b15f21b2ea4261e1e38c5d9472"
+    },
+    {
+      "name": "Lens_Adapter001",
+      "label": "Lens Adapter001",
+      "type": "Mesh::FeaturePython",
+      "class": "lens_adapter_s05tm09",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        510.274,
+        0.0,
+        -1.0,
+        0.0,
+        132.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "1380b3d2901ce0b74194c7f7db95f7471cae73b5370ec529e02a321bdcd70dca"
+    },
+    {
+      "name": "Lens001",
+      "label": "Lens001",
+      "type": "Mesh::FeaturePython",
+      "class": "mounted_lens_c220tmda",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        507.107,
+        0.0,
+        -1.0,
+        0.0,
+        132.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "c32856957fa3c9de2533f5ffd9a2fbde1efa8afbe52042330cec7cd049850760"
+    },
+    {
+      "name": "External_TA_input_KA05T",
+      "label": "External TA input KA05T",
+      "type": "Part::FeaturePython",
+      "class": "fiberport_mount_KA05T_holes",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        516.798,
+        0.0,
+        -1.0,
+        0.0,
+        173.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "drill_sha256": "afd9664b282ae29c5037e76abefab98c159bdbb823cda906b9d811e5b235d47f"
+    },
+    {
+      "name": "Mount042",
+      "label": "Mount042",
+      "type": "Mesh::FeaturePython",
+      "class": "mirror_mount_KA05T",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        516.798,
+        0.0,
+        -1.0,
+        0.0,
+        173.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "2c19c7f734756e7e5429a7c16e67c9feb92a67847adc058e36b4a56450fc54bf",
+      "drill_sha256": "4f84c7f61cc2473aba87f6f191e3a5c38e30832cd32d6241a3a203186c6614b4"
+    },
+    {
+      "name": "Upper_Thumbscrew018",
+      "label": "Upper Thumbscrew018",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        527.466,
+        0.0,
+        -1.0,
+        0.0,
+        163.594,
+        0.0,
+        0.0,
+        1.0,
+        9.906,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "e40ae4d6f0d69d1bc63cb260c81b9b6f3a3f3dd49df4d8832684733ed18b7e80",
+      "drill_sha256": "205c6129c678848c48121fd89af32cad240936152a4b0220d7e63bb49674f24e"
+    },
+    {
+      "name": "Lower_Thumbscrew018",
+      "label": "Lower Thumbscrew018",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        527.466,
+        0.0,
+        -1.0,
+        0.0,
+        183.406,
+        0.0,
+        0.0,
+        1.0,
+        -9.906,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "5648ebe7677e538acccdb2648a5d12fc4bd6d1816d1164da2ef522a159f043d4",
+      "drill_sha256": "4674872cbeae20e8af8462deff57857be5187528641a43dd36225a79692e15a8"
+    },
+    {
+      "name": "Fiber_Adapter002",
+      "label": "Fiber Adapter002",
+      "type": "Mesh::FeaturePython",
+      "class": "fiber_adapter_sm05fca2",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        515.274,
+        0.0,
+        -1.0,
+        0.0,
+        173.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "c8d053f3f4a9a643c281de4f9f39c318ef787d8e796646413ab53bee1dddb46e"
+    },
+    {
+      "name": "Lens_Tube002",
+      "label": "Lens Tube002",
+      "type": "Mesh::FeaturePython",
+      "class": "lens_tube_sm05l05",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        511.462,
+        0.0,
+        -1.0,
+        0.0,
+        173.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "01b287ef62dc398c8d8c3e2db78bda4e67299b04627109a2a66e12aa41bab5c0"
+    },
+    {
+      "name": "Lens_Adapter002",
+      "label": "Lens Adapter002",
+      "type": "Mesh::FeaturePython",
+      "class": "lens_adapter_s05tm09",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        510.274,
+        0.0,
+        -1.0,
+        0.0,
+        173.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "9168cb073e9a5478c403c29bd2e3a7e56aa82011ba8bbc007a9020d393c94bf2"
+    },
+    {
+      "name": "Lens002",
+      "label": "Lens002",
+      "type": "Mesh::FeaturePython",
+      "class": "mounted_lens_c220tmda",
+      "placement": [
+        -1.0,
+        0.0,
+        0.0,
+        507.107,
+        0.0,
+        -1.0,
+        0.0,
+        173.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "d715812eecd1f403b288e138cea8cda55e39b5c4540013c266e01cac2f825891"
+    },
+    {
+      "name": "External_spherical_first_lens_8_32",
+      "label": "External spherical first lens 8-32",
+      "type": "Part::FeaturePython",
+      "class": "BareTappedHole",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        424.115966,
+        0.0,
+        1.0,
+        0.0,
+        173.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "drill_sha256": "e699442a9f6a10f36fee0aa8d537c0da1913dd20d12dda42bfcb84547f378744"
+    },
+    {
+      "name": "External_spherical_second_8_32",
+      "label": "External spherical second 8-32",
+      "type": "Part::FeaturePython",
+      "class": "BareTappedHole",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        349.0,
+        0.0,
+        1.0,
+        0.0,
+        173.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "drill_sha256": "e751041d4e7aa821e94f8eaa688365216b16219690141ccf42ee660d2b0906f5"
+    },
+    {
+      "name": "External_spherical_spare_8_32",
+      "label": "External spherical spare 8-32",
+      "type": "Part::FeaturePython",
+      "class": "BareTappedHole",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        388.0,
+        0.0,
+        1.0,
+        0.0,
+        173.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "drill_sha256": "36b24fc3292153fae721f0baca841c84e09bc266b3c2ddc5a54a38865a6e04e4"
+    },
+    {
+      "name": "Optional_external_TA_injection_mirror",
+      "label": "Optional external TA injection mirror",
+      "type": "Part::FeaturePython",
+      "class": "circular_mirror_union_optic",
+      "placement": [
+        0.70710678,
+        0.70710678,
+        0.0,
+        263.0,
+        -0.70710678,
+        0.70710678,
+        0.0,
+        173.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "099abce75fc86ae80f8d57eeb27d64dc6a9d7dcf8790a212952b4ea8335441a8"
+    },
+    {
+      "name": "Mount043",
+      "label": "Mount043",
+      "type": "Mesh::FeaturePython",
+      "class": "mirror_mount_M05",
+      "placement": [
+        0.70710678,
+        0.70710678,
+        0.0,
+        258.75735931,
+        -0.70710678,
+        0.70710678,
+        0.0,
+        177.74264069,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "82c6e79b893a7a651d213be809615ffc4143611a45d18eb5bc5363bfa597399c",
+      "drill_sha256": "cef2f4a492965b4163c91a76793677aafe0b682b0498766a8f2061d3bb84a90d"
+    },
+    {
+      "name": "Upper_Thumbscrew019",
+      "label": "Upper Thumbscrew019",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        0.70710678,
+        0.70710678,
+        0.0,
+        256.2428876,
+        -0.70710678,
+        0.70710678,
+        0.0,
+        193.18868122,
+        0.0,
+        0.0,
+        1.0,
+        9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "ad530183a2dec09489324ec8a3cfac9801bd83a2b2e957bc7d46a4ddefaef641",
+      "drill_sha256": "eae0feca6b44f47fdb984248043b95cd13c1be70c649f7af5e8a319ab5773b35"
+    },
+    {
+      "name": "Lower_Thumbscrew019",
+      "label": "Lower Thumbscrew019",
+      "type": "Mesh::FeaturePython",
+      "class": "thumbscrew_hkts_5_64",
+      "placement": [
+        0.70710678,
+        0.70710678,
+        0.0,
+        242.95210854,
+        -0.70710678,
+        0.70710678,
+        0.0,
+        180.61632265,
+        0.0,
+        0.0,
+        1.0,
+        -9.144,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "633329551e10fdf1603fb43227496c89f5c5b74f641b3095e8336912b3054d4f",
+      "drill_sha256": "56661ba61d52ca8c22c316fec9167b7603d6d61d45dcddfc1f302bce71fdf72b"
+    },
+    {
+      "name": "Optional_PBS_leakage_blocking_iris",
+      "label": "Optional PBS leakage blocking iris",
+      "type": "Mesh::FeaturePython",
+      "class": "pinhole_ida12",
+      "placement": [
+        0.0,
+        -1.0,
+        0.0,
+        273.0,
+        1.0,
+        0.0,
+        0.0,
+        225.5,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mesh_sha256": "77a6c2f630d7cc3cc45d5db4a4b8bc7b53b9476ff5440b86b5e1d95eaa00ac05",
+      "drill_sha256": "4971cdd4bcf4cacae45a746e09b2ae8061a4536dce640fa605a8aebcac78c4a4"
+    },
+    {
+      "name": "Slide_Mount006",
+      "label": "Slide Mount006",
+      "type": "Part::FeaturePython",
+      "class": "slide_mount",
+      "placement": [
+        0.0,
+        -1.0,
+        0.0,
+        285.83,
+        1.0,
+        0.0,
+        0.0,
+        227.456,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "ee91c7f0f48c73d49fbe63b5378d8f5316c0ecb06d0455d9232be92f2e316f8f",
+      "drill_sha256": "33f25b2e745041edec3aab9ca88a778083fb883a25d909b5fedf7d37f2efbf9f"
+    },
+    {
+      "name": "TA_supply",
+      "label": "TA supply (nominal axis)",
+      "type": "Part::Feature",
+      "class": "NoneType",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "e6470f365809820cd155e22de18a48f545664aabacfa502e2af07f65f93f0502"
+    },
+    {
+      "name": "Common_cylindrical_conditioning_provision",
+      "label": "Common cylindrical conditioning provision (nominal axis)",
+      "type": "Part::Feature",
+      "class": "NoneType",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "f0617539bcb7e731a288217916703914cb82e5a6c06474b4a537f432a61ceed1"
+    },
+    {
+      "name": "Common_spherical_telescope",
+      "label": "Common spherical telescope (nominal axis)",
+      "type": "Part::Feature",
+      "class": "NoneType",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "cfeccfe13ee93c69c38f8be88109cd679c3e857465705c7c2726c804931151a2"
+    },
+    {
+      "name": "DP1_feed",
+      "label": "DP1 feed (nominal axis)",
+      "type": "Part::Feature",
+      "class": "NoneType",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "8656629e027713a35588122d2ce93a99442791eea851a9df40ef00d33199f95f"
+    },
+    {
+      "name": "DP1_double_pass",
+      "label": "DP1 double pass (nominal axis)",
+      "type": "Part::Feature",
+      "class": "NoneType",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "040bb1358f255dd4f78b934c756fb2d952a260b39bbe6622a0af63dc69c895a3"
+    },
+    {
+      "name": "DP2_double_pass",
+      "label": "DP2 double pass (nominal axis)",
+      "type": "Part::Feature",
+      "class": "NoneType",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "51473bda9c93f96f0760bbad850740653e7bd37cb91e7f3fd2ccbf5139fd3395"
+    },
+    {
+      "name": "DP1_output",
+      "label": "DP1 output (nominal axis)",
+      "type": "Part::Feature",
+      "class": "NoneType",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "103f1524a064b6ab6ea35049aa306903cc588ba8f8ae9318df63aa519ff6fd20"
+    },
+    {
+      "name": "DP2_output",
+      "label": "DP2 output (nominal axis)",
+      "type": "Part::Feature",
+      "class": "NoneType",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "5766c02e86af93f87678308a578c23aaa418d0e12b1e983ebfdc391df3865b38"
+    },
+    {
+      "name": "External_TA_telescope",
+      "label": "External TA telescope (nominal axis)",
+      "type": "Part::Feature",
+      "class": "NoneType",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "1c8d6901b77e1166f6651255b7be4d25f113b720e922ecb0d0ec99b2660dd422"
+    },
+    {
+      "name": "PBSResidualBlocked",
+      "label": "PBS residual - stops at offset iris metal",
+      "type": "Part::Feature",
+      "class": "NoneType",
+      "placement": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "shape_sha256": "aa0f999412d31ca1fa99111c38ff841893c37b3b05f6ea270cfd7717f85ebd95"
+    }
+  ],
+  "hole_inventory": [
+    {
+      "x": 41.27,
+      "y": 50.8,
+      "diameters": [
+        14.29,
+        6.6
+      ],
+      "spec": "1/4-20 washer counterbore (14.288) + 1/4-20 clearance (6.604)",
+      "kind": "PLAIN",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 41.27,
+      "y": 304.8,
+      "diameters": [
+        14.29,
+        6.6
+      ],
+      "spec": "1/4-20 washer counterbore (14.288) + 1/4-20 clearance (6.604)",
+      "kind": "PLAIN",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 447.67,
+      "y": 50.8,
+      "diameters": [
+        14.29,
+        6.6
+      ],
+      "spec": "1/4-20 washer counterbore (14.288) + 1/4-20 clearance (6.604)",
+      "kind": "PLAIN",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 447.67,
+      "y": 304.8,
+      "diameters": [
+        14.29,
+        6.6
+      ],
+      "spec": "1/4-20 washer counterbore (14.288) + 1/4-20 clearance (6.604)",
+      "kind": "PLAIN",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 22.5,
+      "y": 79.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 13.8,
+      "z_top": -24.3
+    },
+    {
+      "x": 22.5,
+      "y": 154.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 13.8,
+      "z_top": -24.3
+    },
+    {
+      "x": 50.84,
+      "y": 347.16,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 97.5,
+      "y": 79.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 13.8,
+      "z_top": -24.3
+    },
+    {
+      "x": 97.5,
+      "y": 154.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 13.8,
+      "z_top": -24.3
+    },
+    {
+      "x": 107.5,
+      "y": 245.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 8.0,
+      "z_top": -30.1
+    },
+    {
+      "x": 117.5,
+      "y": 181.9,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 117.5,
+      "y": 315.9,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 120.84,
+      "y": 32.84,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 130.0,
+      "y": 70.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 130.0,
+      "y": 115.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 130.0,
+      "y": 160.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 139.16,
+      "y": 347.16,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 142.5,
+      "y": 181.9,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 142.5,
+      "y": 315.9,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 152.0,
+      "y": 42.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 152.5,
+      "y": 245.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 8.0,
+      "z_top": -30.1
+    },
+    {
+      "x": 166.79,
+      "y": 223.7,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 20.77,
+      "z_top": -17.33
+    },
+    {
+      "x": 166.79,
+      "y": 257.7,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 20.77,
+      "z_top": -17.33
+    },
+    {
+      "x": 167.99,
+      "y": 12.65,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 185.0,
+      "y": 123.6,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 14.1,
+      "z_top": -24.0
+    },
+    {
+      "x": 185.0,
+      "y": 203.4,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 14.1,
+      "z_top": -24.0
+    },
+    {
+      "x": 186.84,
+      "y": 283.66,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 192.34,
+      "y": 340.35,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 196.0,
+      "y": 58.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 196.0,
+      "y": 98.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 205.16,
+      "y": 32.84,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 212.51,
+      "y": 223.7,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 20.77,
+      "z_top": -17.33
+    },
+    {
+      "x": 212.51,
+      "y": 257.7,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 20.77,
+      "z_top": -17.33
+    },
+    {
+      "x": 232.5,
+      "y": 262.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 232.5,
+      "y": 287.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 233.87,
+      "y": 353.64,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 234.34,
+      "y": 328.64,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 251.7,
+      "y": 274.5,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 24.049,
+      "z_top": -14.051
+    },
+    {
+      "x": 253.84,
+      "y": 72.84,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 253.84,
+      "y": 182.66,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 274.3,
+      "y": 274.5,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 24.049,
+      "z_top": -14.051
+    },
+    {
+      "x": 283.84,
+      "y": 312.16,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 288.9,
+      "y": 69.5,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 288.9,
+      "y": 94.5,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 298.87,
+      "y": 27.63,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 299.34,
+      "y": 2.63,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 300.33,
+      "y": 227.46,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 301.84,
+      "y": 141.66,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 302.16,
+      "y": 265.34,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 311.0,
+      "y": 70.7,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 24.049,
+      "z_top": -14.051
+    },
+    {
+      "x": 311.0,
+      "y": 93.3,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 24.049,
+      "z_top": -14.051
+    },
+    {
+      "x": 313.9,
+      "y": 290.5,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 313.9,
+      "y": 315.5,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 323.84,
+      "y": 205.34,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 333.0,
+      "y": 291.7,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 24.049,
+      "z_top": -14.051
+    },
+    {
+      "x": 333.0,
+      "y": 314.3,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 24.049,
+      "z_top": -14.051
+    },
+    {
+      "x": 336.6,
+      "y": 132.5,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 345.6,
+      "y": 78.38,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 6.984,
+      "z_top": -31.116
+    },
+    {
+      "x": 349.0,
+      "y": 173.5,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 358.5,
+      "y": 202.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 358.5,
+      "y": 227.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 361.77,
+      "y": 132.5,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 367.6,
+      "y": 299.38,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 6.984,
+      "z_top": -31.116
+    },
+    {
+      "x": 380.7,
+      "y": 214.5,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 388.0,
+      "y": 173.5,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 405.87,
+      "y": 214.5,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 419.9,
+      "y": 120.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 419.9,
+      "y": 145.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 424.12,
+      "y": 173.5,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 443.4,
+      "y": 120.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 443.4,
+      "y": 145.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 444.8,
+      "y": 202.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 444.8,
+      "y": 227.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 448.75,
+      "y": 82.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 463.46,
+      "y": 105.17,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 466.04,
+      "y": 241.83,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 473.99,
+      "y": 18.44,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 475.75,
+      "y": 303.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 481.9,
+      "y": 69.5,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 481.9,
+      "y": 94.5,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 498.34,
+      "y": 346.14,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 498.96,
+      "y": 54.67,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 503.9,
+      "y": 290.5,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 503.9,
+      "y": 315.5,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": false,
+      "depth_mm": 16.13,
+      "z_top": -21.97
+    },
+    {
+      "x": 520.96,
+      "y": 82.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 524.99,
+      "y": 132.5,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.398,
+      "z_top": -12.702
+    },
+    {
+      "x": 524.99,
+      "y": 173.5,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.398,
+      "z_top": -12.702
+    },
+    {
+      "x": 524.99,
+      "y": 214.5,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.398,
+      "z_top": -12.702
+    },
+    {
+      "x": 526.96,
+      "y": 275.67,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 528.3,
+      "y": 51.69,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 545.96,
+      "y": 82.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 547.96,
+      "y": 303.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 563.18,
+      "y": 331.91,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 563.99,
+      "y": 94.46,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 565.57,
+      "y": 11.01,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 572.96,
+      "y": 303.0,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 592.8,
+      "y": 123.34,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 592.8,
+      "y": 141.66,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 592.8,
+      "y": 164.34,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 592.8,
+      "y": 182.66,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 592.8,
+      "y": 205.34,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 592.8,
+      "y": 223.66,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 599.2,
+      "y": 357.22,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    },
+    {
+      "x": 600.34,
+      "y": 297.4,
+      "diameters": [
+        3.45
+      ],
+      "spec": "8-32 tap drill (3.454)",
+      "kind": "TAP",
+      "through": true,
+      "depth_mm": 25.4,
+      "z_top": -12.7
+    }
+  ],
+  "stock_protection": {
+    "passed": true,
+    "holes": [
+      {
+        "xy_mm": [
+          232.5,
+          262.0
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          232.5,
+          287.0
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          233.87,
+          353.64
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          234.34,
+          328.64
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          251.7,
+          274.5
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          253.84,
+          72.84
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          253.84,
+          182.66
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          274.3,
+          274.5
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          283.84,
+          312.16
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          288.9,
+          69.5
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          288.9,
+          94.5
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          298.87,
+          27.63
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          299.34,
+          2.63
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          300.33,
+          227.46
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          301.84,
+          141.66
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          302.16,
+          265.34
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          311.0,
+          70.7
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          311.0,
+          93.3
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          313.9,
+          290.5
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          313.9,
+          315.5
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          323.84,
+          205.34
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          333.0,
+          291.7
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          333.0,
+          314.3
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          336.6,
+          132.5
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          345.6,
+          78.38
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          349.0,
+          173.5
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          358.5,
+          202.0
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          358.5,
+          227.0
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          361.77,
+          132.5
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          367.6,
+          299.38
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          380.7,
+          214.5
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          388.0,
+          173.5
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          405.87,
+          214.5
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          419.9,
+          120.0
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          419.9,
+          145.0
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      },
+      {
+        "xy_mm": [
+          424.12,
+          173.5
+        ],
+        "kind": "TAP",
+        "nominal_diameter_mm": 4.1656,
+        "protected_extra_radius_mm": 1.1,
+        "removed_from_annulus_mm3": 0.0
+      }
+    ],
+    "fixed_bodies": [
+      {
+        "object": "Mount005",
+        "class": "mirror_mount_M05",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Adapter",
+        "class": "shutter_adapter",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Mount007",
+        "class": "rotation_stage_rsp05",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Surface_Adapter003",
+        "class": "surface_adapter_rotation_stage_lip",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Mount008",
+        "class": "cube_mount_halfinch",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Mount009",
+        "class": "mirror_mount_M05",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Mount010",
+        "class": "mirror_mount_M05",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Mount011",
+        "class": "rotation_stage_rsp05",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Surface_Adapter004",
+        "class": "surface_adapter_rotation_stage_lip",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Mount012",
+        "class": "cube_mount_halfinch",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Mount_KM100PM",
+        "class": "prism_mount_km100pm_bridged",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Mount016",
+        "class": "rotation_stage_rsp05",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Surface_Adapter005",
+        "class": "surface_adapter_rotation_stage_lip",
+        "envelope_removed_mm3": 3.5786155016981307,
+        "method": "Actual horizontal mesh face probes 0.06 mm beneath contact surfaces",
+        "facet_count": 676,
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Mount018",
+        "class": "mirror_mount_M05",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Mount019",
+        "class": "rotation_stage_rsp05",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Surface_Adapter006",
+        "class": "surface_adapter_rotation_stage_lip",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Mount020",
+        "class": "cube_mount_halfinch",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Mount_KM100PM001",
+        "class": "prism_mount_km100pm_bridged",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Mount024",
+        "class": "rotation_stage_rsp05",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Surface_Adapter007",
+        "class": "surface_adapter_rotation_stage_lip",
+        "envelope_removed_mm3": 3.5786155029934448,
+        "method": "Actual horizontal mesh face probes 0.06 mm beneath contact surfaces",
+        "facet_count": 676,
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Mount032",
+        "class": "mirror_mount_M05",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Mount033",
+        "class": "lens_holder_l05g_no_pin_slots",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Mount034",
+        "class": "lens_holder_l05g_no_pin_slots",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Mount035",
+        "class": "rotation_stage_rsp05",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Surface_Adapter010",
+        "class": "surface_adapter_rotation_stage_lip",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Surface_Adapter011",
+        "class": "surface_adapter_rotation_stage_lip",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Mount037",
+        "class": "mirror_mount_M05",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Mount038",
+        "class": "lens_holder_l05g_no_pin_slots",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Mount039",
+        "class": "lens_holder_l05g_no_pin_slots",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Mount040",
+        "class": "rotation_stage_rsp05",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Surface_Adapter012",
+        "class": "surface_adapter_rotation_stage_lip",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Surface_Adapter013",
+        "class": "surface_adapter_rotation_stage_lip",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Mount043",
+        "class": "mirror_mount_M05",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Optional_PBS_leakage_blocking_iris",
+        "class": "pinhole_ida12",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      },
+      {
+        "object": "Slide_Mount006",
+        "class": "slide_mount",
+        "envelope_removed_mm3": 0.0,
+        "method": "Entire physical bounding box plus 0.06 mm below it remains supported",
+        "support_removed_mm3": 0.0
+      }
+    ],
+    "scope": "No additional stock removed from nominal-thread 1.1 mm guards or actual fixed-body bearing regions. Overhanging HKTS adjustment knobs are not bearing surfaces. No structural strength certification."
+  },
+  "interference_change_proof": {
+    "new_collision_possible": false,
+    "reason": "Every optical component, mount, adapter, beam path and existing machining object has identical geometry and placement. The final baseplate is a subset of the delivered baseline solid; no new physical intersection can be introduced by these cuts. Bearing stock checked separately.",
+    "existing_optical_limitations": "Previously documented unmachined cell end covers still require optical apertures; this revision does not alter them."
+  },
+  "step_round_trip": {
+    "difference_mm3": [
+      0.0,
+      0.0
+    ],
+    "sha256": "a7dd976d51c7d463ad4324c32845f9b94b4b635f0c08a548f196902c9894c3c0",
+    "file": "StepFile/Lattice_V9_7_baseplate_24x15in_f75-75.step",
+    "approved_export_sha256": "e98884f2e5dd7e9fa396d7781e1ea6fdc5eab33b8eda12a3b89b008820931bf1",
+    "publication_normalization": "Trailing whitespace and line endings only; token sequence unchanged."
+  },
+  "assembly_file": "Validated local full assembly; source reconstructs this assembly.",
+  "source_provenance": {
+    "optomech.py": "8da4992ff737b62bae781813fa9b08fb59ffbc8f42db585dd91dd56132c74014",
+    "Rubidium_system\\Lattice_Baseplate_V9.py": "cd29d566e0659e7a311b8b7dbe698be7ec589dec1550fda7defa97a7e56efd0a",
+    "C:\\Users\\Haotian Xu\\Documents\\Codex\\branch_build\\_verify_lib\\PyOpticL\\layout.py": "189b7b649c99cdbc97c1815ad9ca53b1a52030bc9166c4fbf857d7a1ee7f7771"
+  }
+}
